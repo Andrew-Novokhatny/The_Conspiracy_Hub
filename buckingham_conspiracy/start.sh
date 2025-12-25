@@ -3,7 +3,7 @@
 # Buckingham Conspiracy Hub - Docker Startup Script
 
 # Default values
-PORT=8501
+PORT=8502
 IMAGE_NAME="buckingham-conspiracy-hub"
 CONTAINER_NAME="buckingham-conspiracy-hub"
 
@@ -60,6 +60,7 @@ docker run -d \
     -p $PORT:8501 \
     -v "$(pwd)/setlists:/app/setlists" \
     -v "$(pwd)/songlist:/app/songlist" \
+    -v "$(pwd)/song_data:/app/song_data" \
     --restart unless-stopped \
     $IMAGE_NAME
 

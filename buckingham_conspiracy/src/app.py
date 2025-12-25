@@ -10,6 +10,82 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 SONGLIST_DIR = BASE_DIR / "songlist" / "Buckingham Conspiracy 3.0  SONG LIST"
 SETLISTS_DIR = BASE_DIR / "setlists"
+SONG_DATA_DIR = BASE_DIR / "song_data"
+LYRICS_DIR = SONG_DATA_DIR / "lyrics"
+TABS_DIR = SONG_DATA_DIR / "tabs"
+
+def load_song_list() -> Dict[str, Dict]:
+    """Load the complete song list from markdown file"""
+    song_file = SONGLIST_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
+    songs = {}
+    
+    try:
+        with open(song_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+        for line in content.split('\n'):
+            line = line.strip()
+            if line and not line.startswith('#') and '(' in line:
+                has_horn = '🎺' in line
+                has_vocals = '🥁' in line
+                
+                clean_line = re.sub(r'\^.*?\^', '', line)
+                match = re.search(r'^(.+?)\s*\((\d+)\)', clean_line)
+                if match:
+                    name_with_artist = match.group(1).strip()
+                    bpm = int(match.group(2))
+                    
+                    song_name = name_with_artist
+                    artist = ''
+                    if ' - ' in name_with_artist:
+                        song_name, artist = [part.strip() for part in name_with_artist.split(' - ', 1)]
+                    
+                    base_duration = 210  # 3.5 minutes in seconds
+                    duration_seconds = int(base_duration * (120 / max(bpm, 60)))
+                    
+                    songs[song_name] = {
+                        'bpm': bpm,
+                        'duration': duration_seconds,
+                        'has_horn': has_horn,
+                        'has_vocals': has_vocals,
+                        'energy_level': 'standard',
+                        'is_jam_vehicle': False,
+                        'artist': artist,
+                        'raw_line': line
+                    }
+    except Exception as e:
+        st.error(f"Error loading song list: {e}")
+    
+    return songs
+
+def save_song_list(songs_data: Dict[str, Dict]):
+    """Save the updated song list back to the markdown file"""
+    song_file = SONGLIST_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
+    
+    try:
+        content = "# ****Buckingham Conspiracy 3.0 : SONG LIST ****  \n  \n#   \n"
+        
+        for song_name in sorted(songs_data.keys()):
+            song_info = songs_data[song_name]
+            markers = ""
+            if song_info.get('has_horn'):
+                markers += "^🎺 ^"
+            if song_info.get('has_vocals'):
+                markers += "^🥁^"
+            
+            display_name = song_name if not song_info.get('artist') else f"{song_name} - {song_info['artist']}"
+            line = f"{display_name}{markers} ({song_info['bpm']})"
+            content += line + "  \n"
+        
+        content += "  \n  \n#   \n  \n"
+        
+        with open(song_file, 'w', encoding='utf-8') as f:
+            f.write(content)
+        
+        return True
+    except Exception as e:
+        st.error(f"Error saving song list: {e}")
+        return False
 
 # Page configuration
 st.set_page_config(
@@ -22,7 +98,6 @@ st.set_page_config(
 # Custom CSS for band styling
 st.markdown("""
 <style>
-    /* Enhanced CSS for band hub */
     .main-header {
         background: linear-gradient(90deg, #033f57, #045a7a, #033f57);
         color: white;
@@ -64,7 +139,6 @@ st.markdown("""
         color: #045a7a;
     }
     
-    /* Tab styling */
     .stTabs [data-baseweb="tab-list"] {
         background: linear-gradient(90deg, #1e1e1e, #2d2d2d);
         border-radius: 10px;
@@ -91,6 +165,102 @@ st.markdown("""
         padding: 1rem;
         margin: 0.5rem 0;
         border: 1px solid #033f57;
+    }
+    
+    .lyrics-container {
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        min-height: 500px;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    
+    .lyrics-container-mobile {
+        background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+        border-radius: 10px;
+        padding: 1.5rem 1rem;
+        margin: 0.5rem 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        min-height: 400px;
+        max-height: 65vh;
+        overflow-y: auto;
+    }
+    
+    .lyrics-text {
+        color: #e0e0e0;
+        font-size: 18px;
+        line-height: 2;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        white-space: pre-wrap;
+        text-align: left;
+        letter-spacing: 0.3px;
+    }
+    
+    .lyrics-text-mobile {
+        color: #e0e0e0;
+        font-size: 20px;
+        line-height: 2.2;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        white-space: pre-wrap;
+        text-align: left;
+        letter-spacing: 0.5px;
+        font-weight: 400;
+    }
+    
+    .lyrics-text-tablet {
+        color: #e0e0e0;
+        font-size: 22px;
+        line-height: 2.4;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        white-space: pre-wrap;
+        text-align: left;
+        letter-spacing: 0.5px;
+        font-weight: 400;
+    }
+    
+    .lyrics-text-desktop {
+        color: #e0e0e0;
+        font-size: 20px;
+        line-height: 2.2;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        white-space: pre-wrap;
+        text-align: left;
+        letter-spacing: 0.4px;
+    }
+    
+    .lyrics-title {
+        color: #045a7a;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    
+    .lyrics-container::-webkit-scrollbar,
+    .lyrics-container-mobile::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .lyrics-container::-webkit-scrollbar-track,
+    .lyrics-container-mobile::-webkit-scrollbar-track {
+        background: #1a1a1a;
+        border-radius: 10px;
+    }
+    
+    .lyrics-container::-webkit-scrollbar-thumb,
+    .lyrics-container-mobile::-webkit-scrollbar-thumb {
+        background: #045a7a;
+        border-radius: 10px;
+    }
+    
+    .lyrics-container::-webkit-scrollbar-thumb:hover,
+    .lyrics-container-mobile::-webkit-scrollbar-thumb:hover {
+        background: #056a8f;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -122,89 +292,73 @@ if 'editing_setlist' not in st.session_state:
 if 'edited_setlist_data' not in st.session_state:
     st.session_state.edited_setlist_data = None
 
-# Utility functions
-def load_song_list() -> Dict[str, Dict]:
-    """Load the complete song list from markdown file"""
-    song_file = SONGLIST_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
-    songs = {}
-    
-    try:
-        with open(song_file, 'r', encoding='utf-8') as f:
-            content = f.read()
-            
-        # Parse song entries using regex
-        # Pattern matches: Song Name (BPM) or Song Name****^ ^****(BPM)
-        song_pattern = r'^(.+?)(?:\*\*\*\*\^ \^\*\*\*\*)?\((\d+)\)'
-        
-        for line in content.split('\n'):
-            line = line.strip()
-            if line and not line.startswith('#') and '(' in line:
-                match = re.search(song_pattern, line)
-                if match:
-                    name = match.group(1).strip()
-                    bpm = int(match.group(2))
-                    
-                    # Clean up song name
-                    name = re.sub(r'\*\*\*\*\^ \^\*\*\*\*', '', name)
-                    name = re.sub(r'\^.*?\^', '', name)  # Remove ^text^ annotations
-                    name = name.strip()
-                    
-                    # Extract special markers
-                    has_horn = '🎺' in line
-                    has_vocals = '🥁' in line
-                    
-                    # Estimate duration based on BPM (rough calculation)
-                    # Average song ~3.5 minutes, adjust based on BPM
-                    base_duration = 210  # 3.5 minutes in seconds
-                    duration_seconds = int(base_duration * (120 / max(bpm, 60)))  # Normalize to 120 BPM
-                    
-                    songs[name] = {
-                        'bpm': bpm,
-                        'duration': duration_seconds,
-                        'has_horn': has_horn,
-                        'has_vocals': has_vocals,
-                        'energy_level': 'standard',  # Default energy level
-                        'is_jam_vehicle': False,     # Default jam vehicle status
-                        'raw_line': line
-                    }
-    except Exception as e:
-        st.error(f"Error loading song list: {e}")
-    
-    return songs
+if 'selected_lyrics_song' not in st.session_state:
+    st.session_state.selected_lyrics_song = None
 
-def save_song_list(songs_data: Dict[str, Dict]):
-    """Save the updated song list back to the markdown file"""
-    song_file = SONGLIST_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
-    
+if 'device_type' not in st.session_state:
+    st.session_state.device_type = 'Desktop'
+
+# Utility functions
+
+# Utility functions
+
+# Utility functions
+def load_available_lyrics() -> List[str]:
+    """Load list of available lyrics files"""
     try:
-        # Create the new content
-        content = "# ****Buckingham Conspiracy 3.0 : SONG LIST ****  \n  \n#   \n"
-        
-        # Sort songs alphabetically
-        for song_name in sorted(songs_data.keys()):
-            song_info = songs_data[song_name]
-            
-            # Build the line with markers
-            markers = ""
-            if song_info.get('has_horn'):
-                markers += "^🎺 ^"
-            if song_info.get('has_vocals'):
-                markers += "^🥁^"
-            
-            # Format the line
-            line = f"{song_name}{markers} ({song_info['bpm']})"
-            content += line + "  \n"
-        
-        content += "  \n  \n#   \n  \n"
-        
-        # Write back to file
-        with open(song_file, 'w', encoding='utf-8') as f:
-            f.write(content)
-            
-        return True
+        lyrics_files = []
+        if LYRICS_DIR.exists():
+            for file in LYRICS_DIR.glob("*.txt"):
+                lyrics_files.append(file.stem)  # Get filename without extension
+        return sorted(lyrics_files)
     except Exception as e:
-        st.error(f"Error saving song list: {e}")
-        return False
+        st.error(f"Error loading lyrics files: {e}")
+        return []
+
+def load_lyrics_content(song_name: str) -> str:
+    """Load lyrics content from file"""
+    try:
+        lyrics_file = LYRICS_DIR / f"{song_name}.txt"
+        if lyrics_file.exists():
+            with open(lyrics_file, 'r', encoding='utf-8') as f:
+                return f.read()
+        else:
+            return f"Lyrics file for '{song_name}' not found."
+    except Exception as e:
+        return f"Error loading lyrics: {e}"
+
+def load_available_tabs() -> List[str]:
+    """Load list of available tab files"""
+    try:
+        tab_files = []
+        if TABS_DIR.exists():
+            for file in TABS_DIR.glob("*"):
+                if file.is_file():
+                    tab_files.append(file.name)  # Get full filename with extension
+        return sorted(tab_files)
+    except Exception as e:
+        st.error(f"Error loading tab files: {e}")
+        return []
+
+def load_tab_content(filename: str) -> tuple[str, str]:
+    """Load tab content from file. Returns (content, file_type)"""
+    try:
+        tab_file = TABS_DIR / filename
+        if tab_file.exists():
+            file_ext = tab_file.suffix.lower()
+            if file_ext in ['.txt', '.tab']:
+                with open(tab_file, 'r', encoding='utf-8') as f:
+                    return f.read(), 'text'
+            elif file_ext in ['.pdf', '.png', '.jpg', '.jpeg']:
+                return str(tab_file), 'file'
+            else:
+                return f"Unsupported file type: {file_ext}", 'error'
+        else:
+            return f"Tab file '{filename}' not found.", 'error'
+    except Exception as e:
+        return f"Error loading tab: {e}", 'error'
+
+ 
 
 def add_new_song(name: str, bpm: int, has_horn: bool = False, has_vocals: bool = False, 
                  energy_level: str = 'standard', is_jam_vehicle: bool = False):
@@ -439,7 +593,7 @@ songs_data = st.session_state.songs_data
 previous_setlists = load_previous_setlists()
 
 # Create tabs
-tab1, tab2, tab3 = st.tabs(["📚 Song Library", "🎵 Setlist Builder", "📋 Previous Setlists"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["📚 Song Library", "🎵 Setlist Builder", "📋 Previous Setlists", "📜 Lyrics", "🎸 Tabs"])
 
 with tab1:
     st.header("📚 Song Library & Editor")
@@ -642,7 +796,8 @@ with tab1:
                         markers += "🛸"
                     
                     energy_emoji = get_energy_emoji(song_info.get('energy_level', 'standard'))
-                    st.markdown(f"{energy_emoji} **{song_name}** {markers}")
+                    artist_display = f" - {song_info.get('artist', '')}" if song_info.get('artist') else ""
+                    st.markdown(f"{energy_emoji} **{song_name}**{artist_display} {markers}")
                 
                 with col2:
                     st.markdown(f"**{song_info['bpm']}** BPM")
@@ -883,31 +1038,33 @@ with tab3:
                 if st.session_state.edited_setlist_data is None:
                     st.session_state.edited_setlist_data = setlist.copy()
                 
-                # Edit form
-                with st.form(f"edit_setlist_{setlist_id}"):
-                    # Venue and date editing
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        edited_venue = st.text_input("Venue", value=st.session_state.edited_setlist_data['venue'], key=f"venue_{setlist_id}")
-                    with col2:
-                        edited_date = st.text_input("Date", value=st.session_state.edited_setlist_data['date'], key=f"date_{setlist_id}")
+                # Venue and date editing (outside form for better UX)
+                col1, col2 = st.columns(2)
+                with col1:
+                    edited_venue = st.text_input("Venue", value=st.session_state.edited_setlist_data['venue'], key=f"venue_{setlist_id}")
+                    st.session_state.edited_setlist_data['venue'] = edited_venue
+                with col2:
+                    edited_date = st.text_input("Date", value=st.session_state.edited_setlist_data['date'], key=f"date_{setlist_id}")
+                    st.session_state.edited_setlist_data['date'] = edited_date
+                
+                # Edit sets
+                st.subheader("Edit Sets")
+                col1, col2, col3 = st.columns(3)
+                
+                for set_num, (col, set_name) in enumerate([(col1, "Set 1"), (col2, "Set 2"), (col3, "Set 3")], 1):
+                    set_key = f"set{set_num}"
+                    set_songs = st.session_state.edited_setlist_data['sets'].get(set_key, [])
                     
-                    # Edit sets
-                    st.subheader("Edit Sets")
-                    col1, col2, col3 = st.columns(3)
-                    
-                    for set_num, (col, set_name) in enumerate([(col1, "Set 1"), (col2, "Set 2"), (col3, "Set 3")], 1):
-                        set_key = f"set{set_num}"
-                        set_songs = st.session_state.edited_setlist_data['sets'].get(set_key, [])
+                    with col:
+                        st.markdown(f"**{set_name}**")
                         
-                        with col:
-                            st.markdown(f"**{set_name}**")
-                            
-                            # Add song to set
-                            song_names = list(songs_data.keys()) if songs_data else []
-                            new_song = st.selectbox(f"Add song to {set_name}:", [""] + sorted(song_names), key=f"add_song_{set_key}_{setlist_id}")
-                            
-                            if st.form_submit_button(f"➕ Add to {set_name}", key=f"add_btn_{set_key}_{setlist_id}"):
+                        # Add song to set
+                        song_names = list(songs_data.keys()) if songs_data else []
+                        add_song_col1, add_song_col2 = st.columns([3, 1])
+                        with add_song_col1:
+                            new_song = st.selectbox(f"Song:", [""] + sorted(song_names), key=f"add_song_{set_key}_{setlist_id}", label_visibility="collapsed")
+                        with add_song_col2:
+                            if st.button("➕", key=f"add_btn_{set_key}_{setlist_id}", help=f"Add to {set_name}"):
                                 if new_song and new_song not in [s['name'] for s in set_songs]:
                                     song_info = songs_data.get(new_song, {})
                                     set_songs.append({
@@ -916,48 +1073,47 @@ with tab3:
                                         'raw_line': f"{new_song} ({song_info.get('bpm', '')})" if song_info.get('bpm') else new_song
                                     })
                                     st.rerun()
+                        
+                        st.markdown("---")
+                        
+                        # Display and edit existing songs
+                        for j, song in enumerate(set_songs):
+                            song_col1, song_col2, song_col3 = st.columns([3, 1, 1])
                             
-                            # Display and edit existing songs
-                            for j, song in enumerate(set_songs):
-                                song_col1, song_col2, song_col3 = st.columns([3, 1, 1])
-                                
-                                with song_col1:
-                                    st.markdown(f"• {song['name']} ({song['bpm']})" if song['bpm'] else f"• {song['name']}")
-                                
-                                with song_col2:
-                                    if st.form_submit_button("⬆️", key=f"up_{set_key}_{j}_{setlist_id}", disabled=j==0):
-                                        set_songs[j], set_songs[j-1] = set_songs[j-1], set_songs[j]
-                                        st.rerun()
-                                
-                                with song_col3:
-                                    if st.form_submit_button("🗑️", key=f"del_{set_key}_{j}_{setlist_id}"):
-                                        set_songs.pop(j)
-                                        st.rerun()
-                    
-                    # Save/Cancel buttons
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        if st.form_submit_button("💾 Save Setlist"):
-                            # Update the setlist data
-                            st.session_state.edited_setlist_data['venue'] = edited_venue
-                            st.session_state.edited_setlist_data['date'] = edited_date
+                            with song_col1:
+                                st.markdown(f"• {song['name']} ({song['bpm']})" if song['bpm'] else f"• {song['name']}")
                             
-                            # Save to file
-                            if save_setlist_to_file(st.session_state.edited_setlist_data):
-                                st.session_state.editing_setlist = None
-                                st.session_state.edited_setlist_data = None
-                                # Clear cache to reload data
-                                st.cache_data.clear()
-                                st.success(f"Saved changes to '{edited_venue} - {edited_date}'!")
-                                st.rerun()
-                            else:
-                                st.error("Failed to save setlist changes.")
-                    
-                    with col2:
-                        if st.form_submit_button("❌ Cancel"):
+                            with song_col2:
+                                if st.button("⬆️", key=f"up_{set_key}_{j}_{setlist_id}", disabled=j==0, help="Move up"):
+                                    set_songs[j], set_songs[j-1] = set_songs[j-1], set_songs[j]
+                                    st.rerun()
+                            
+                            with song_col3:
+                                if st.button("🗑️", key=f"del_{set_key}_{j}_{setlist_id}", help="Delete"):
+                                    set_songs.pop(j)
+                                    st.rerun()
+                
+                # Save/Cancel buttons
+                st.markdown("---")
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("💾 Save Setlist", key=f"save_{setlist_id}", type="primary"):
+                        # Save to file
+                        if save_setlist_to_file(st.session_state.edited_setlist_data):
                             st.session_state.editing_setlist = None
                             st.session_state.edited_setlist_data = None
+                            # Clear cache to reload data
+                            st.cache_data.clear()
+                            st.success(f"Saved changes to '{edited_venue} - {edited_date}'!")
                             st.rerun()
+                        else:
+                            st.error("Failed to save setlist changes.")
+                
+                with col2:
+                    if st.button("❌ Cancel", key=f"cancel_{setlist_id}"):
+                        st.session_state.editing_setlist = None
+                        st.session_state.edited_setlist_data = None
+                        st.rerun()
             
             else:
                 # Display mode
@@ -986,6 +1142,245 @@ with tab3:
     else:
         st.info("No previous setlists found.")
 
+with tab4:
+    st.header("📜 Lyrics Viewer")
+    
+    # Device type selector
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.markdown("**Select a song to view lyrics:**")
+    
+    with col2:
+        device_type = st.selectbox(
+            "Display Mode:",
+            ["Mobile", "Tablet", "Desktop"],
+            index=["Mobile", "Tablet", "Desktop"].index(st.session_state.device_type),
+            key="device_selector"
+        )
+        st.session_state.device_type = device_type
+    
+    # Load available lyrics
+    available_lyrics = load_available_lyrics()
+    
+    if available_lyrics:
+        # Song selector
+        col1, col2 = st.columns([3, 1])
+        
+        with col1:
+            selected_song = st.selectbox(
+                "Choose a song:",
+                [""] + available_lyrics,
+                index=0 if st.session_state.selected_lyrics_song is None else 
+                      (available_lyrics.index(st.session_state.selected_lyrics_song) + 1 
+                       if st.session_state.selected_lyrics_song in available_lyrics else 0),
+                key="lyrics_song_selector"
+            )
+            
+            if selected_song:
+                st.session_state.selected_lyrics_song = selected_song
+        
+        with col2:
+            if st.button("🔄 Refresh Lyrics", key="refresh_lyrics"):
+                st.rerun()
+        
+        # Display lyrics
+        if selected_song:
+            lyrics_content = load_lyrics_content(selected_song)
+            
+            # Get artist info if available
+            artist_info = ""
+            if songs_data and selected_song in songs_data:
+                artist = songs_data[selected_song].get('artist', '')
+                artist_info = f"<div style='text-align: center; color: #ccc; font-size: 16px; margin-bottom: 1rem;'>{artist}</div>" if artist else ""
+            
+            # Determine styling based on device type
+            if device_type == "Mobile":
+                container_class = "lyrics-container-mobile"
+                text_class = "lyrics-text-mobile"
+            elif device_type == "Tablet":
+                container_class = "lyrics-container"
+                text_class = "lyrics-text-tablet"
+            else:  # Desktop
+                container_class = "lyrics-container"
+                text_class = "lyrics-text-desktop"
+            
+            # Display the lyrics with device-specific styling
+            st.markdown(f"""
+            <div class="{container_class}">
+                <div class="lyrics-title">{selected_song}</div>
+                {artist_info}
+                <div class="{text_class}">{lyrics_content}</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Add helpful info
+            st.markdown("---")
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.markdown(f"""
+                <div class="metric-card">
+                    <div class="metric-title">Display Mode</div>
+                    <div class="metric-value">{device_type}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col2:
+                line_count = len(lyrics_content.split('\n'))
+                st.markdown(f"""
+                <div class="metric-card">
+                    <div class="metric-title">Lines</div>
+                    <div class="metric-value">{line_count}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col3:
+                st.markdown(f"""
+                <div class="metric-card">
+                    <div class="metric-title">Available Songs</div>
+                    <div class="metric-value">{len(available_lyrics)}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            # Tips section
+            with st.expander("💡 Lyrics Viewer Tips"):
+                st.markdown("""
+                - **Mobile Mode**: Optimized for phones with larger text and tighter spacing
+                - **Tablet Mode**: Best for iPads with extra-large text for easy reading at distance
+                - **Desktop Mode**: Balanced view for laptop/desktop screens
+                - Scroll within the lyrics box to navigate through the song
+                - The lyrics are loaded from `.txt` files in the `song_data` directory
+                - To add new lyrics, create a `.txt` file with the song name in the `song_data` folder
+                """)
+        else:
+            st.info("👆 Select a song from the dropdown above to view its lyrics.")
+    
+    else:
+        st.warning("No lyrics files found in the song_data directory.")
+        st.markdown("""
+        **To add lyrics:**
+        1. Create a `.txt` file in the `buckingham_conspiracy/song_data/` directory
+        2. Name the file with the song name (e.g., `Move.txt`)
+        3. Add the lyrics to the file, one line at a time
+        4. Refresh this page to see the new lyrics appear
+        """)
+
+with tab5:
+    st.header("🎸 Tabs & Notation")
+    
+    # Device type selector
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.markdown("**Select a tab file to view:**")
+    
+    with col2:
+        if st.button("🔄 Refresh Tabs", key="refresh_tabs"):
+            st.rerun()
+    
+    # Load available tabs
+    available_tabs = load_available_tabs()
+    
+    if available_tabs:
+        # File selector
+        selected_tab = st.selectbox(
+            "Choose a tab file:",
+            [""] + available_tabs,
+            key="tabs_file_selector"
+        )
+        
+        # Display tabs
+        if selected_tab:
+            tab_content, file_type = load_tab_content(selected_tab)
+            
+            if file_type == 'text':
+                # Display ASCII tabs
+                st.markdown(f"""
+                <div class="lyrics-container">
+                    <div class="lyrics-title">{selected_tab}</div>
+                    <div class="lyrics-text-desktop">{tab_content}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            elif file_type == 'file':
+                # Display file (PDF, image, etc.)
+                st.subheader(selected_tab)
+                file_ext = Path(selected_tab).suffix.lower()
+                
+                if file_ext == '.pdf':
+                    with open(tab_content, 'rb') as f:
+                        st.download_button(
+                            label="📥 Download PDF",
+                            data=f,
+                            file_name=selected_tab,
+                            mime="application/pdf"
+                        )
+                    st.info("PDF files can be downloaded. Future updates may include in-browser viewing.")
+                
+                elif file_ext in ['.png', '.jpg', '.jpeg']:
+                    st.image(tab_content, use_container_width=True)
+            
+            else:  # error
+                st.error(tab_content)
+            
+            # Add helpful info
+            st.markdown("---")
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                file_ext = Path(selected_tab).suffix.upper()[1:] if Path(selected_tab).suffix else "Unknown"
+                st.markdown(f"""
+                <div class="metric-card">
+                    <div class="metric-title">File Type</div>
+                    <div class="metric-value">{file_ext}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col2:
+                file_size = Path(TABS_DIR / selected_tab).stat().st_size if (TABS_DIR / selected_tab).exists() else 0
+                size_kb = file_size / 1024
+                st.markdown(f"""
+                <div class="metric-card">
+                    <div class="metric-title">File Size</div>
+                    <div class="metric-value">{size_kb:.1f} KB</div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col3:
+                st.markdown(f"""
+                <div class="metric-card">
+                    <div class="metric-title">Available Tabs</div>
+                    <div class="metric-value">{len(available_tabs)}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            # Tips section
+            with st.expander("💡 Tabs Viewer Tips"):
+                st.markdown("""
+                - **ASCII Tabs** (`.txt`, `.tab`): Displayed directly in the browser
+                - **PDF Files**: Available for download, optimized for printing
+                - **Images** (`.png`, `.jpg`): Guitar tablature or sheet music images
+                - Files are loaded from the `song_data/tabs/` directory
+                - To add new tabs:
+                  1. Save your tab file in `buckingham_conspiracy/song_data/tabs/`
+                  2. Supported formats: `.txt`, `.tab`, `.pdf`, `.png`, `.jpg`
+                  3. Name the file with the song name for easy reference
+                  4. Refresh this page to see the new tabs appear
+                """)
+        else:
+            st.info("👆 Select a tab file from the dropdown above to view it.")
+    
+    else:
+        st.warning("No tab files found in the song_data/tabs directory.")
+        st.markdown("""
+        **To add tabs:**
+        1. Create or save your tab file in the `buckingham_conspiracy/song_data/tabs/` directory
+        2. Supported formats: `.txt` (ASCII tabs), `.tab`, `.pdf`, `.png`, `.jpg`
+        3. Name the file with the song name (e.g., `Move.txt`, `Superstition.pdf`)
+        4. Refresh this page to see the new tabs appear
+        """)
+
 # Sidebar with quick stats
 st.sidebar.markdown("### 🎸 Quick Stats")
 if st.session_state.current_setlist:
@@ -994,6 +1389,8 @@ if st.session_state.current_setlist:
 
 st.sidebar.metric("Total Songs in Library", len(st.session_state.songs_data) if st.session_state.songs_data else 0)
 st.sidebar.metric("Previous Setlists", len(previous_setlists))
+st.sidebar.metric("Lyrics Available", len(load_available_lyrics()))
+st.sidebar.metric("Tabs Available", len(load_available_tabs()))
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Legend")

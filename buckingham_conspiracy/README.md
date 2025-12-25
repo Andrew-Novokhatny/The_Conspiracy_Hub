@@ -7,6 +7,7 @@ A Streamlit-based web application for managing band setlists, song libraries, an
 - **📚 Song Library**: Manage and edit your complete song catalog with BPM, energy levels, and special markers
 - **🎵 Setlist Builder**: Create and organize setlists with automatic timing calculations
 - **📋 Previous Setlists**: Browse and edit historical setlists from past shows
+- **📜 Lyrics Viewer**: View song lyrics with device-optimized display modes (Mobile/Tablet/Desktop) for rehearsals and performances
 - **🎺 Special Markers**: Track horn parts, vocal parts, jam vehicles, and energy levels
 
 ## Quick Start with Docker
@@ -42,6 +43,7 @@ docker run -d \
     -p 8501:8501 \
     -v "$(pwd)/setlists:/app/setlists" \
     -v "$(pwd)/songlist:/app/songlist" \
+    -v "$(pwd)/song_data:/app/song_data" \
     --restart unless-stopped \
     buckingham-conspiracy-hub
 
@@ -51,11 +53,12 @@ docker run -d \
     -p 8080:8501 \
     -v "$(pwd)/setlists:/app/setlists" \
     -v "$(pwd)/songlist:/app/songlist" \
+    -v "$(pwd)/song_data:/app/song_data" \
     --restart unless-stopped \
     buckingham-conspiracy-hub
 ```
 
-4. Access the application at: `http://localhost:8501` (or your custom port)
+4. Access the application at: `http://localhost:8502` when using `start.sh` (the script maps the container’s 8501 to 8502 by default) or `http://localhost:8501` when you run the container manually as shown above.
 
 ### Docker Commands
 
@@ -95,15 +98,47 @@ buckingham_conspiracy/
 │   └── app.py              # Main Streamlit application
 ├── setlists/               # Historical setlist storage
 ├── songlist/               # Song library data
+├── song_data/              # Lyrics files (.txt format)
 ├── requirements.txt        # Python dependencies
 ├── Dockerfile             # Docker container configuration
-├── docker-compose.yml     # Docker Compose orchestration
 └── README.md             # This file
 ```
 
 ## Data Persistence
 
-When running with Docker, the `setlists` and `songlist` directories are mounted as volumes, ensuring your data persists between container restarts.
+When running with Docker, the `setlists`, `songlist`, and `song_data` directories are mounted as volumes, ensuring your data persists between container restarts.
+
+### Adding Lyrics
+
+To add lyrics for songs:
+1. Create a `.txt` file in the `song_data/` directory
+2. Name it with the song title (e.g., `Move.txt`)
+3. Add the lyrics line by line
+4. The lyrics will automatically appear in the Lyrics tab
+
+### Optional: Populate Lyrics with the Genius API
+
+The helper script at `scripts/genius_fetch_lyrics.py` can automate lyric collection by:
+1. Querying the Genius search API for each song (title + artist)
+2. Opening the Genius song page returned by the API
+3. Scraping the rendered HTML lyrics containers and saving the text into `song_data/lyrics`
+
+To use it:
+1. [Create a Genius API client](https://docs.genius.com/) for this project. When the form asks for an app website, you can use the repo URL (`https://github.com/Andrew-Novokhatny/The_Conspiracy_Hub`).
+2. Export the token (or pass it via `--token`):
+    ```bash
+    export GENIUS_ACCESS_TOKEN="<your-token>"
+    ```
+3. Install dependencies if you have not already:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4. Run the script from the repo root.
+    - Fetch one song: `python scripts/genius_fetch_lyrics.py --song "1612"`
+    - Fill gaps (first 5 missing files): `python scripts/genius_fetch_lyrics.py --all-missing --limit 5`
+    - Rebuild every file: add `--overwrite`
+
+Respect Genius’s API terms of service and rate limits, and ensure you are licensed to store any lyrics you download.
 
 ## Configuration
 
