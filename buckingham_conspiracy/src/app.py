@@ -121,172 +121,358 @@ st.set_page_config(
 # Custom CSS for band styling
 st.markdown("""
 <style>
-    .main-header {
-        background: linear-gradient(90deg, #033f57, #045a7a, #033f57);
-        color: white;
-        padding: 1rem;
-        border-radius: 10px;
-        text-align: center;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    
-    .song-card {
-        background: linear-gradient(135deg, #2d2d2d, #3d3d3d);
-        border-radius: 8px;
-        padding: 0.8rem;
-        margin: 0.5rem 0;
-        border-left: 3px solid #B22222;
-        color: white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    
-    .metric-card {
-        background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
-        border-radius: 8px;
-        padding: 1rem;
-        text-align: center;
-        border: 1px solid #033f57;
-        color: white;
-    }
-    
-    .metric-title {
-        font-size: 14px;
-        color: #ccc;
-        margin-bottom: 5px;
-    }
-    
-    .metric-value {
-        font-size: 24px;
-        font-weight: bold;
-        color: #045a7a;
-    }
-    
-    .stTabs [data-baseweb="tab-list"] {
-        background: linear-gradient(90deg, #1e1e1e, #2d2d2d);
-        border-radius: 10px;
-        padding: 0.5rem;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        background: transparent;
-        color: #ccc;
-        font-size: 18px;
-        font-weight: bold;
-        border-radius: 8px;
-        padding: 0.5rem 1rem;
-    }
-    
-    .stTabs [aria-selected="true"] {
-        background: linear-gradient(90deg, #033f57, #045a7a);
-        color: white;
-    }
-    
-    .edit-song-form {
-        background: linear-gradient(135deg, #2d2d2d, #3d3d3d);
-        border-radius: 8px;
-        padding: 1rem;
-        margin: 0.5rem 0;
-        border: 1px solid #033f57;
-    }
-    
-    .lyrics-container {
-        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-        border-radius: 15px;
-        padding: 2rem;
-        margin: 1rem 0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        min-height: 500px;
-        max-height: 70vh;
-        overflow-y: auto;
-    }
-    
-    .lyrics-container-mobile {
-        background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
-        border-radius: 10px;
-        padding: 1.5rem 1rem;
-        margin: 0.5rem 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.6);
-        min-height: 400px;
-        max-height: 65vh;
-        overflow-y: auto;
-    }
-    
-    .lyrics-text {
-        color: #e0e0e0;
-        font-size: 18px;
-        line-height: 2;
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        white-space: pre-wrap;
-        text-align: left;
-        letter-spacing: 0.3px;
-    }
-    
-    .lyrics-text-mobile {
-        color: #e0e0e0;
-        font-size: 20px;
-        line-height: 2.2;
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        white-space: pre-wrap;
-        text-align: left;
-        letter-spacing: 0.5px;
-        font-weight: 400;
-    }
-    
-    .lyrics-text-tablet {
-        color: #e0e0e0;
-        font-size: 22px;
-        line-height: 2.4;
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        white-space: pre-wrap;
-        text-align: left;
-        letter-spacing: 0.5px;
-        font-weight: 400;
-    }
-    
-    .lyrics-text-desktop {
-        color: #e0e0e0;
-        font-size: 20px;
-        line-height: 2.2;
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        white-space: pre-wrap;
-        text-align: left;
-        letter-spacing: 0.4px;
-    }
-    
-    .lyrics-title {
-        color: #045a7a;
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 1.5rem;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-    
-    .lyrics-container::-webkit-scrollbar,
-    .lyrics-container-mobile::-webkit-scrollbar {
-        width: 8px;
-    }
-    
-    .lyrics-container::-webkit-scrollbar-track,
-    .lyrics-container-mobile::-webkit-scrollbar-track {
-        background: #1a1a1a;
-        border-radius: 10px;
-    }
-    
-    .lyrics-container::-webkit-scrollbar-thumb,
-    .lyrics-container-mobile::-webkit-scrollbar-thumb {
-        background: #045a7a;
-        border-radius: 10px;
-    }
-    
-    .lyrics-container::-webkit-scrollbar-thumb:hover,
-    .lyrics-container-mobile::-webkit-scrollbar-thumb:hover {
-        background: #056a8f;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap');
+
+:root {
+    --bg-deep: #0c0f15;
+    --bg-panel: #141821;
+    --bg-raised: #1d2230;
+    --bg-highlight: #3f4863;
+    --border-subtle: rgba(255,255,255,0.08);
+    --text-primary: #ffffff;
+    --text-muted: #f0f2f5;
+    --accent-primary: #00d4d8;
+    --accent-secondary: #41ffe2;
+    --accent-soft: rgba(0,212,216,0.15);
+    --shadow-soft: 0 25px 40px rgba(0,0,0,0.35);
+}
+
+body, .stApp {
+    background: radial-gradient(circle at top, #131722 0%, #0c0f15 60%);
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+}
+
+[data-testid="stAppViewContainer"] > .main {
+    background: transparent;
+}
+
+header[data-testid="stHeader"] {
+    background: var(--bg-deep);
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: none;
+}
+
+.main-header {
+    background: linear-gradient(120deg, rgba(33, 41, 57, 0.95), rgba(16, 19, 27, 0.9));
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 1.4rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.main-header h1 {
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.08em;
+}
+
+section[data-testid="stSidebar"] > div {
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border-subtle);
+}
+
+section[data-testid="stSidebar"] * {
+    color: var(--text-primary) !important;
+}
+
+.song-card,
+.edit-song-form {
+    background: var(--bg-raised);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--border-subtle);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+}
+
+.song-card {
+    margin: 0.6rem 0;
+    border-left: 3px solid var(--accent-primary);
+}
+
+.metric-card {
+    background: var(--bg-raised);
+    border-radius: 14px;
+    padding: 1.25rem;
+    text-align: center;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-soft);
+}
+
+.metric-title {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    background: rgba(255,255,255,0.02);
+    border-radius: 14px;
+    padding: 0.25rem;
+    border: 1px solid var(--border-subtle);
+}
+
+.stTabs [data-baseweb="tab"] {
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 12px;
+    padding: 0.5rem 1.25rem;
+}
+
+.stTabs [aria-selected="true"] {
+    background: var(--bg-raised);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-soft);
+}
+
+.lyrics-container,
+.lyrics-container-mobile {
+    background: linear-gradient(150deg, rgba(19,23,34,0.95), rgba(11,14,20,0.95));
+    border-radius: 18px;
+    padding: 2rem;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-soft);
+    min-height: 500px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.lyrics-container-mobile {
+    padding: 1.4rem;
+    min-height: 420px;
+}
+
+.lyrics-text,
+.lyrics-text-mobile,
+.lyrics-text-tablet,
+.lyrics-text-desktop {
+    color: #f1f5f9;
+    font-size: 1.15rem;
+    line-height: 2.1;
+    font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+    white-space: pre-wrap;
+    letter-spacing: 0.04em;
+}
+
+.lyrics-text-mobile {
+    font-size: 1.25rem;
+}
+
+.lyrics-text-tablet {
+    font-size: 1.35rem;
+}
+
+.lyrics-title {
+    color: var(--accent-secondary);
+    font-size: 1.8rem;
+    letter-spacing: 0.3em;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+}
+
+.lyrics-container::-webkit-scrollbar,
+.lyrics-container-mobile::-webkit-scrollbar {
+    width: 10px;
+}
+
+.lyrics-container::-webkit-scrollbar-track,
+.lyrics-container-mobile::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+.lyrics-container::-webkit-scrollbar-thumb,
+.lyrics-container-mobile::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 10px;
+}
+
+.lyrics-container::-webkit-scrollbar-thumb:hover,
+.lyrics-container-mobile::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+}
+
+.stButton button,
+.stDownloadButton button,
+.stFileUploader label {
+    background: var(--bg-raised);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 0.65rem 1.5rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-soft);
+}
+
+.stButton button:hover,
+.stDownloadButton button:hover {
+    background: var(--bg-highlight);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+}
+
+.stButton button[kind="primary"],
+.stButton button[data-testid="baseButton-primary"] {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: #0c1118;
+    border: none;
+    box-shadow: 0 12px 25px rgba(0,212,216,0.25);
+}
+
+.stButton button[kind="primary"]:hover,
+.stButton button[data-testid="baseButton-primary"]:hover {
+    box-shadow: 0 18px 30px rgba(0,212,216,0.4);
+}
+
+.stFormSubmitButton button {
+    background: var(--bg-raised);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-soft);
+}
+
+.stFormSubmitButton button:hover {
+    background: var(--bg-highlight);
+}
+
+input,
+textarea,
+select,
+.stTextInput input,
+.stNumberInput input,
+.stSelectbox div[data-baseweb="select"] > div,
+.stTextArea textarea,
+.stDateInput input,
+.stTimeInput input {
+    background: var(--bg-panel);
+    color: var(--text-primary);
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+input::placeholder,
+textarea::placeholder,
+.stTextInput input::placeholder,
+.stTextArea textarea::placeholder {
+    color: rgba(196, 206, 221, 0.6);
+    opacity: 1;
+}
+
+.stNumberInput button {
+    background: var(--bg-highlight);
+    border: none;
+    color: var(--text-primary);
+}
+
+.stTextInput input:focus,
+.stNumberInput input:focus,
+.stTextArea textarea:focus,
+.stSelectbox div[data-baseweb="select"] > div:focus,
+.stDateInput input:focus,
+.stTimeInput input:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 1px var(--accent-primary);
+}
+
+.stCheckbox {
+    color: var(--text-primary);
+}
+
+.stCheckbox label {
+    color: var(--text-primary) !important;
+}
+
+.stCheckbox input[type="checkbox"] {
+    border: 2px solid var(--text-primary);
+}
+
+.streamlit-expanderHeader {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.streamlit-expanderHeader p {
+    font-size: 1.2rem;
+}
+
+label,
+.stTextInput label,
+.stNumberInput label,
+.stSelectbox label,
+.stDateInput label,
+.stTimeInput label {
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.stMarkdown a {
+    color: var(--accent-secondary);
+}
+
+.streamlit-expanderHeader {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.control-label {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.35rem;
+}
+
+.inline-hint {
+    background: linear-gradient(120deg, rgba(33, 41, 57, 0.7), rgba(10, 13, 19, 0.95));
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+.inline-hint span {
+    font-size: 1.3rem;
+}
+
+.inline-hint p {
+    margin: 0;
+}
 </style>
 """, unsafe_allow_html=True)
+
+
+def render_control_label(label_text: str):
+    """Render a consistent label style for Streamlit inputs."""
+    safe = html.escape(label_text.strip()) if label_text else ""
+    if safe:
+        st.markdown(f"<p class='control-label'>{safe}</p>", unsafe_allow_html=True)
+
+
+def styled_selectbox(label: str, options, *, label_visibility: str = "collapsed", **kwargs):
+    """Selectbox with themed label treatment."""
+    plain_label = (label or "").rstrip(':').strip()
+    render_control_label(plain_label)
+    internal_label = label if label.endswith(':') else f"{label}:"
+    return st.selectbox(internal_label, options, label_visibility=label_visibility, **kwargs)
 
 # Initialize session state for setlist builder
 if 'current_setlist' not in st.session_state:
@@ -711,7 +897,7 @@ def add_new_song(name: str, bpm: int, has_horn: bool = False, has_vocals: bool =
     return save_song_list(st.session_state.songs_data)
 
 def update_song(old_name: str, new_name: str, bpm: int, has_horn: bool = False, has_vocals: bool = False,
-                energy_level: str = 'standard', is_jam_vehicle: bool = False):
+                energy_level: str = 'standard', is_jam_vehicle: bool = False, artist: str = ''):
     """Update an existing song"""
     if st.session_state.songs_data is None:
         st.session_state.songs_data = load_song_list()
@@ -731,6 +917,7 @@ def update_song(old_name: str, new_name: str, bpm: int, has_horn: bool = False, 
         'has_vocals': has_vocals,
         'energy_level': energy_level,
         'is_jam_vehicle': is_jam_vehicle,
+        'artist': artist,
         'raw_line': f"{new_name} ({bpm})"
     }
     
@@ -979,8 +1166,12 @@ with tab_library:
                     new_has_vocals = st.checkbox("Has Vocal Parts 🥁", key="add_song_vocals")
                 
                 with col3:
-                    new_energy_level = st.selectbox("Energy Level", get_energy_options(), 
-                                                   index=1, key="add_song_energy")  # Default to 'standard'
+                    new_energy_level = styled_selectbox(
+                        "Energy Level",
+                        get_energy_options(),
+                        index=1,
+                        key="add_song_energy",
+                    )  # Default to 'standard'
                     new_is_jam_vehicle = st.checkbox("Jam Vehicle 🛸", key="add_song_jam")
                 
                 if st.form_submit_button("➕ Add Song"):
@@ -1005,12 +1196,23 @@ with tab_library:
             search_term = st.text_input("🔍 Search songs:", placeholder="Enter song name...", key="song_search")
         
         with col2:
-            filter_type = st.selectbox("Filter by:", ["All Songs", "Horn Songs", "Vocal Songs", "Jam Vehicles", 
-                                                     "High Energy", "Standard Energy", "Low Energy"], 
-                                     key="song_library_filter")
+            filter_type = styled_selectbox(
+                "Filter by",
+                [
+                    "All Songs",
+                    "Horn Songs",
+                    "Vocal Songs",
+                    "Jam Vehicles",
+                    "High Energy",
+                    "Standard Energy",
+                    "Low Energy",
+                ],
+                key="song_library_filter",
+            )
         
         with col3:
-            if st.button("🔄 Refresh Library", key="refresh_song_library"):
+            render_control_label(" ")
+            if st.button("🔄 Refresh Library", key="refresh_song_library", use_container_width=True):
                 st.session_state.songs_data = load_song_list()
                 st.success("Song library refreshed!")
                 st.rerun()
@@ -1051,14 +1253,19 @@ with tab_library:
                 """, unsafe_allow_html=True)
                 
                 with st.form(f"edit_song_{song_name}"):
-                    # First row: Song name and BPM
-                    col1, col2 = st.columns([3, 1])
+                    # First row: Song name and Artist
+                    col1, col2 = st.columns([2, 1])
                     with col1:
                         edited_name = st.text_input("Song Name", value=song_name, key=f"edit_name_{song_name}")
                     with col2:
+                        edited_artist = st.text_input("Artist", value=song_info.get('artist', ''), key=f"edit_artist_{song_name}")
+                    
+                    # Second row: BPM
+                    col1, col2, col3 = st.columns([1, 1, 2])
+                    with col1:
                         edited_bpm = st.number_input("BPM", min_value=60, max_value=200, value=song_info['bpm'], key=f"edit_bpm_{song_name}")
                     
-                    # Second row: Metadata
+                    # Third row: Metadata
                     col1, col2, col3, col4 = st.columns(4)
                     with col1:
                         edited_horn = st.checkbox("Horn 🎺", value=song_info.get('has_horn', False), key=f"edit_horn_{song_name}")
@@ -1067,7 +1274,12 @@ with tab_library:
                     with col3:
                         current_energy = song_info.get('energy_level', 'standard')
                         energy_index = get_energy_options().index(current_energy) if current_energy in get_energy_options() else 1
-                        edited_energy = st.selectbox("Energy", get_energy_options(), index=energy_index, key=f"edit_energy_{song_name}")
+                        edited_energy = styled_selectbox(
+                            "Energy",
+                            get_energy_options(),
+                            index=energy_index,
+                            key=f"edit_energy_{song_name}",
+                        )
                     with col4:
                         edited_jam = st.checkbox("Jam Vehicle 🎸", value=song_info.get('is_jam_vehicle', False), key=f"edit_jam_{song_name}")
                     
@@ -1076,7 +1288,7 @@ with tab_library:
                         if st.form_submit_button("💾 Save Changes"):
                             if edited_name.strip():
                                 if update_song(song_name, edited_name, edited_bpm, edited_horn, edited_vocals, 
-                                              edited_energy, edited_jam):
+                                              edited_energy, edited_jam, edited_artist):
                                     st.session_state.editing_song = None
                                     st.success(f"Updated '{edited_name}'!")
                                     st.rerun()
@@ -1160,17 +1372,17 @@ with tab_setlist:
     with col1:
         # Create searchable song list
         song_names = list(songs_data.keys())
-        selected_song = st.selectbox(
-            "Select a song to add:",
+        selected_song = styled_selectbox(
+            "Select a song to add",
             [""] + sorted(song_names),
-            key="song_selector"
+            key="song_selector",
         )
     
     with col2:
-        target_set = st.selectbox(
-            "Add to set:",
+        target_set = styled_selectbox(
+            "Add to set",
             ["Set 1", "Set 2", "Set 3"],
-            key="target_set"
+            key="target_set",
         )
     
     # Add song button
@@ -1283,7 +1495,15 @@ with tab_setlist:
                             st.session_state.current_setlist[set_key].pop(i)
                             st.rerun()
             else:
-                st.info(f"No songs in {set_name} yet. Add some songs above!")
+                st.markdown(
+                    f"""
+                    <div class="inline-hint">
+                        <span>👆</span>
+                        <p>No songs in {set_name} yet. Add some songs above!</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
     
     # Export functionality
     st.markdown("---")
@@ -1323,7 +1543,11 @@ with tab_previous:
     if previous_setlists:
         # Display filters
         venues = sorted(list(set(setlist['venue'] for setlist in previous_setlists)))
-        selected_venue = st.selectbox("Filter by venue:", ["All Venues"] + venues, key="previous_setlists_venue_filter")
+        selected_venue = styled_selectbox(
+            "Filter by venue",
+            ["All Venues"] + venues,
+            key="previous_setlists_venue_filter",
+        )
         
         # Filter setlists
         filtered_setlists = previous_setlists
@@ -1372,7 +1596,11 @@ with tab_previous:
                         song_names = list(songs_data.keys()) if songs_data else []
                         add_song_col1, add_song_col2 = st.columns([3, 1])
                         with add_song_col1:
-                            new_song = st.selectbox(f"Song:", [""] + sorted(song_names), key=f"add_song_{set_key}_{setlist_id}", label_visibility="collapsed")
+                            new_song = styled_selectbox(
+                                f"Add song to {set_name}",
+                                [""] + sorted(song_names),
+                                key=f"add_song_{set_key}_{setlist_id}",
+                            )
                         with add_song_col2:
                             if st.button("➕", key=f"add_btn_{set_key}_{setlist_id}", help=f"Add to {set_name}"):
                                 if new_song and new_song not in [s['name'] for s in set_songs]:
@@ -1455,44 +1683,43 @@ with tab_previous:
 with tab_lyrics:
     st.header("📜 Lyrics Viewer")
     
-    # Device type selector
-    col1, col2 = st.columns([2, 1])
-    
-    with col1:
-        st.markdown("**Select a song to view lyrics:**")
-    
-    with col2:
-        device_type = st.selectbox(
-            "Display Mode:",
+    render_control_label("Select a song to view lyrics")
+    available_lyrics = load_available_lyrics()
+
+    song_index = 0
+    if (
+        st.session_state.selected_lyrics_song
+        and st.session_state.selected_lyrics_song in available_lyrics
+    ):
+        song_index = available_lyrics.index(st.session_state.selected_lyrics_song) + 1
+
+    selector_cols = st.columns([2.6, 1.2, 0.9])
+
+    with selector_cols[0]:
+        selected_song = styled_selectbox(
+            "Choose a song",
+            [""] + available_lyrics,
+            index=song_index,
+            key="lyrics_song_selector",
+        )
+        if selected_song:
+            st.session_state.selected_lyrics_song = selected_song
+
+    with selector_cols[1]:
+        device_type = styled_selectbox(
+            "Display Mode",
             ["Mobile", "Tablet", "Desktop"],
             index=["Mobile", "Tablet", "Desktop"].index(st.session_state.device_type),
-            key="device_selector"
+            key="device_selector",
         )
         st.session_state.device_type = device_type
-    
-    # Load available lyrics
-    available_lyrics = load_available_lyrics()
-    
+
+    with selector_cols[2]:
+        st.markdown("<p class='control-label'>&nbsp;</p>", unsafe_allow_html=True)
+        if st.button("🔄 Refresh Lyrics", key="refresh_lyrics", use_container_width=True):
+            st.rerun()
+
     if available_lyrics:
-        # Song selector
-        col1, col2 = st.columns([3, 1])
-        
-        with col1:
-            selected_song = st.selectbox(
-                "Choose a song:",
-                [""] + available_lyrics,
-                index=0 if st.session_state.selected_lyrics_song is None else 
-                      (available_lyrics.index(st.session_state.selected_lyrics_song) + 1 
-                       if st.session_state.selected_lyrics_song in available_lyrics else 0),
-                key="lyrics_song_selector"
-            )
-            
-            if selected_song:
-                st.session_state.selected_lyrics_song = selected_song
-        
-        with col2:
-            if st.button("🔄 Refresh Lyrics", key="refresh_lyrics"):
-                st.rerun()
         
         # Display lyrics
         if selected_song:
@@ -1565,8 +1792,16 @@ with tab_lyrics:
                 - To add new lyrics, create a `.txt` file with the song name in the `song_data` folder
                 """)
         else:
-            st.info("👆 Select a song from the dropdown above to view its lyrics.")
-    
+            st.markdown(
+                """
+                <div class="inline-hint">
+                    <span>👆</span>
+                    <p>Select a song from the dropdown above to view its lyrics.</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
     else:
         st.warning("No lyrics files found in the song_data directory.")
         st.markdown("""
@@ -1596,10 +1831,10 @@ with tab_tabs:
     
     if available_tabs:
         # File selector
-        selected_tab = st.selectbox(
-            "Choose a tab file:",
+        selected_tab = styled_selectbox(
+            "Choose a tab file",
             [""] + available_tabs,
-            key="tabs_file_selector"
+            key="tabs_file_selector",
         )
         
         # Display tabs
@@ -1718,7 +1953,15 @@ with tab_tabs:
                   4. Refresh this page to see the new tabs appear
                 """)
         else:
-            st.info("👆 Select a tab file from the dropdown above to view it.")
+            st.markdown(
+                """
+                <div class="inline-hint">
+                    <span>👆</span>
+                    <p>Select a tab file from the dropdown above to view it.</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
     
     else:
         st.warning("No tab files found in the song_data/tabs directory.")
@@ -1731,102 +1974,107 @@ with tab_tabs:
         """)
 
     st.markdown("---")
-    st.markdown("### 🛠️ Quick Tab Builder (MVP)")
-    st.markdown(
-        "Build a simple riff directly in the Hub and save it as a MusicXML chart. "
-        "Use space-separated tokens with the `NOTE:DURATION` format (ex: `C4:q`). "
-        "Write each measure on its own line; prefix lines with `#` to add comments."
-    )
-
-    with st.form("tab_builder_form"):
-        builder_chart_name = st.text_input("Chart Name", placeholder="e.g., Late Night Groove", key="tab_builder_chart_name")
-        builder_artist_name = st.text_input("Artist / Movement Title", value="Buckingham Conspiracy", key="tab_builder_artist")
-        builder_subtitle = st.text_input("Subtitle (optional)", placeholder="e.g., Verse idea", key="tab_builder_subtitle")
-        builder_col1, builder_col2, builder_col3 = st.columns(3)
-        with builder_col1:
-            builder_bpm = st.number_input("Tempo (BPM)", min_value=40, max_value=240, value=120, key="tab_builder_bpm")
-        with builder_col2:
-            builder_time_signature = st.selectbox("Time Signature", ["4/4", "3/4", "6/8"], index=0, key="tab_builder_time_signature")
-        with builder_col3:
-            builder_instrument_label = st.text_input("Instrument Label", value="Guitar", key="tab_builder_instrument_label")
-        builder_measure_input = st.text_area(
-            "Measure Input",
-            height=180,
-            key="tab_builder_measure_input",
-            help="Example: C4:q E4:q G4:q C5:q",
+    with st.expander("🛠️ Quick Tab Builder (MVP)", expanded=False):
+        st.markdown(
+            "Build a simple riff directly in the Hub and save it as a MusicXML chart. "
+            "Use space-separated tokens with the `NOTE:DURATION` format (ex: `C4:q`). "
+            "Write each measure on its own line; prefix lines with `#` to add comments."
         )
-        st.caption("Supported durations: w (whole), h (half), q (quarter), e (eighth), s (sixteenth). Use `rest:q` for rests.")
-        auto_preview = st.checkbox("Auto-preview after saving", value=True, key="tab_builder_auto_preview")
-        builder_submitted = st.form_submit_button("Generate MusicXML")
 
-    if builder_submitted:
-        builder_text = (builder_measure_input or "").strip()
-        chart_label = builder_chart_name.strip()
-
-        if not chart_label:
-            st.error("Chart name is required.")
-        elif not builder_text:
-            st.error("Enter at least one measure before generating.")
-        else:
-            success, result = create_musicxml_from_builder(
-                chart_label,
-                int(builder_bpm),
-                builder_time_signature,
-                builder_text,
-                movement_title=builder_artist_name,
-                subtitle=builder_subtitle,
-                instrument_label=builder_instrument_label,
+        with st.form("tab_builder_form"):
+            builder_chart_name = st.text_input("Chart Name", placeholder="e.g., Late Night Groove", key="tab_builder_chart_name")
+            builder_artist_name = st.text_input("Artist / Movement Title", value="Buckingham Conspiracy", key="tab_builder_artist")
+            builder_subtitle = st.text_input("Subtitle (optional)", placeholder="e.g., Verse idea", key="tab_builder_subtitle")
+            builder_col1, builder_col2, builder_col3 = st.columns(3)
+            with builder_col1:
+                builder_bpm = st.number_input("Tempo (BPM)", min_value=40, max_value=240, value=120, key="tab_builder_bpm")
+            with builder_col2:
+                builder_time_signature = styled_selectbox(
+                    "Time Signature",
+                    ["4/4", "3/4", "6/8"],
+                    index=0,
+                    key="tab_builder_time_signature",
+                )
+            with builder_col3:
+                builder_instrument_label = st.text_input("Instrument Label", value="Guitar", key="tab_builder_instrument_label")
+            builder_measure_input = st.text_area(
+                "Measure Input",
+                height=180,
+                key="tab_builder_measure_input",
+                help="Example: C4:q E4:q G4:q C5:q",
             )
-            if success:
-                generated_path = Path(result)
-                st.success(f"Saved {generated_path.name} to song_data/tabs")
-                if auto_preview:
-                    st.session_state.tabs_file_selector = generated_path.name
-                st.rerun()
+            st.markdown("<p style='color: var(--text-primary); font-size: 0.95rem;'>Supported durations: w (whole), h (half), q (quarter), e (eighth), s (sixteenth). Use <code>rest:q</code> for rests.</p>", unsafe_allow_html=True)
+            auto_preview = st.checkbox("Auto-preview after saving", value=True, key="tab_builder_auto_preview")
+            builder_submitted = st.form_submit_button("Generate MusicXML")
+
+        if builder_submitted:
+            builder_text = (builder_measure_input or "").strip()
+            chart_label = builder_chart_name.strip()
+
+            if not chart_label:
+                st.error("Chart name is required.")
+            elif not builder_text:
+                st.error("Enter at least one measure before generating.")
             else:
-                st.error(result)
+                success, result = create_musicxml_from_builder(
+                    chart_label,
+                    int(builder_bpm),
+                    builder_time_signature,
+                    builder_text,
+                    movement_title=builder_artist_name,
+                    subtitle=builder_subtitle,
+                    instrument_label=builder_instrument_label,
+                )
+                if success:
+                    generated_path = Path(result)
+                    st.success(f"Saved {generated_path.name} to song_data/tabs")
+                    if auto_preview:
+                        st.session_state.tabs_file_selector = generated_path.name
+                    st.rerun()
+                else:
+                    st.error(result)
 
     st.markdown("---")
-    st.markdown("### ♻️ Convert Legacy JSON Tabs")
-    if TABS_RAW_JSON_DIR.exists():
-        json_tab_files = sorted([f.name for f in TABS_RAW_JSON_DIR.glob("*.json")])
-    else:
-        json_tab_files = []
-    if json_tab_files:
-        st.caption("Pick any of the legacy Ultimate-Guitar exports and convert them into MusicXML charts for the viewer.")
-        selected_json_tabs = st.multiselect(
-            "Select JSON tabs to convert:",
-            options=json_tab_files,
-            key="json_tab_multiselect"
-        )
-        col_conv1, col_conv2 = st.columns(2)
-        with col_conv1:
-            convert_selected = st.button("Convert Selected", key="convert_selected_json")
-        with col_conv2:
-            convert_all = st.button("Convert All JSON", key="convert_all_json")
+    with st.expander("♻️ Convert Legacy JSON Tabs", expanded=False):
+        if TABS_RAW_JSON_DIR.exists():
+            json_tab_files = sorted([f.name for f in TABS_RAW_JSON_DIR.glob("*.json")])
+        else:
+            json_tab_files = []
+        if json_tab_files:
+            st.caption("Pick any of the legacy Ultimate-Guitar exports and convert them into MusicXML charts for the viewer.")
+            selected_json_tabs = st.multiselect(
+                "Select JSON tabs to convert:",
+                options=json_tab_files,
+                key="json_tab_multiselect"
+            )
+            col_conv1, col_conv2 = st.columns(2)
+            with col_conv1:
+                convert_selected = st.button("Convert Selected", key="convert_selected_json")
+            with col_conv2:
+                convert_all = st.button("Convert All JSON", key="convert_all_json")
 
-        conversion_triggered = convert_selected or convert_all
-        if conversion_triggered:
-            targets = json_tab_files if convert_all else selected_json_tabs
-            if not targets:
-                st.warning("Select at least one JSON file to convert.")
-            else:
-                conversion_messages = []
-                last_successful = None
-                for filename in targets:
-                    success, message = convert_json_tab_file(filename)
-                    if success:
-                        conversion_messages.append(f"✅ {Path(message).name} created")
-                        last_successful = Path(message).name
-                    else:
-                        conversion_messages.append(f"❌ {filename}: {message}")
-                for msg in conversion_messages:
-                    st.write(msg)
-                if last_successful:
-                    st.session_state.pending_tab_selection = last_successful
-                    st.rerun()
-    else:
-        st.info("No legacy JSON tabs detected in song_data/tabs/raw_json.")
+            conversion_triggered = convert_selected or convert_all
+            if conversion_triggered:
+                targets = json_tab_files if convert_all else selected_json_tabs
+                if not targets:
+                    st.warning("Select at least one JSON file to convert.")
+                else:
+                    conversion_messages = []
+                    last_successful = None
+                    for filename in targets:
+                        success, message = convert_json_tab_file(filename)
+                        if success:
+                            conversion_messages.append(f"✅ {Path(message).name} created")
+                            last_successful = Path(message).name
+                        else:
+                            conversion_messages.append(f"❌ {filename}: {message}")
+                    for msg in conversion_messages:
+                        st.write(msg)
+                    if last_successful:
+                        st.session_state.pending_tab_selection = last_successful
+                        st.rerun()
+        else:
+            st.info("No legacy JSON tabs detected in song_data/tabs/raw_json.")
 
 # Sidebar with quick stats
 st.sidebar.markdown("### 🎸 Quick Stats")
@@ -1846,8 +2094,3 @@ st.sidebar.markdown("🥁 = Drum Vocal parts")
 st.sidebar.markdown("🛸 = Jam vehicle")
 st.sidebar.markdown("🔥 = High energy")
 st.sidebar.markdown("💤 = Low energy")
-
-if st.sidebar.button("🔄 Reload All Data"):
-    st.session_state.songs_data = load_song_list()
-    st.sidebar.success("Data reloaded!")
-    st.rerun()
