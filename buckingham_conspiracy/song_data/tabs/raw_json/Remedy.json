@@ -1,0 +1,628 @@
+{
+  "tab": {
+    "title": "Remedy",
+    "artist_name": "The Black Crowes",
+    "author": "ejapaga",
+    "difficulty": "intermediate",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "Song: Remedy"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Artist: The Black Crowes"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Album: The Southern Harmony and Musical Companion"
+      },
+      {
+        "type": "lyric",
+        "lyric": "1992"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Tabbed By E. Jay Apaga"
+      },
+      {
+        "type": "lyric",
+        "lyric": "7/25/2008"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Bb",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bb",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Baby, baby why can't you sit still?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Who killed that bird out on you window sill?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bb",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Are you the reason that he broke his back?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Did I see you laugh about that?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Bb",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "If I come on like a dream?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Would you let me show you what I mean?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Bb",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "If you let me come on inside?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Will you let it glide?"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bb",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C#",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Ab",
+            "pre_spaces": 8
+          },
+          {
+            "note": "Eb",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can I have some remedy?"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Remedy for me please."
+      },
+      {
+        "type": "lyric",
+        "lyric": "Cause if I had some remedy"
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'd take enough to please me."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Bb",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bb",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Baby, baby why did you dye your hair?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Why you always keeping with your mother's dare?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bb",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Baby why's who's who, who know you too?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Did the other children scold on you?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Bb",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "If I come on like a dream?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Would you let me show you what I mean?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Bb",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "If you let me come on inside?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Will you let it slide?"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "repeat Chorus"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Solo]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Bb",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Bb",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "repeat Chorus through ending groove"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Outro]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Bb",
+            "pre_spaces": 1
+          },
+          {
+            "note": "---",
+            "pre_spaces": 1
+          },
+          {
+            "note": "hold",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          },
+          {
+            "note": "---",
+            "pre_spaces": 2
+          },
+          {
+            "note": "hold",
+            "pre_spaces": 1
+          }
+        ]
+      }
+    ]
+  }
+}

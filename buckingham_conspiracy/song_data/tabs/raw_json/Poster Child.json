@@ -1,0 +1,1705 @@
+{
+  "tab": {
+    "title": "Californication",
+    "artist_name": "Red Hot Chili Peppers",
+    "author": "Unregistered",
+    "key": "Am",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          },
+          {
+            "note": "x2",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Psychic spies from China"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Try to steal your mind's elation"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Little girls from Sweden"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of silver screen quotations"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And if you want these kind of dreams"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It's Californication"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It's the edge of the world"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 11
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And all of western civilization"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The sun may rise in the East"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "At least it settled in a final location"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 15
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It's understood that Hollywood"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 6
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "sells Californication"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Pre-Chorus 1]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Pay your surgeon very well"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "To break the spell of aging"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Celebrity skin, is this your chin?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Or is that war you're waging?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "First born unicorn"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hardcore soft porn"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 3]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Marry me girl, be my fairy to the world"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Be my very own constellation"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "A teenage bride with a baby inside"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Getting high on information"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 20
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And buy me a star on the boulevard"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It's Californication"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 4]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Space may be the final frontier"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "But it's made in a Hollywood basement"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And Cobain can you hear the spheres"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Singing songs off station to station?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And Alderaan's not far away"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It's Californication"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Ooooo - ooooh   Oooo -  ooooh"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Pre-Chorus 2]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Born and raised by those who praise"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Control of population"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Everybody's been there and"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I don't mean on vacation"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "First born unicorn"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hardcore soft porn"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Solo]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 3
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 3
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 2
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 3
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 3
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 2
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 2
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 2
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 5]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Destruction leads to a very rough road"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "But it also breeds creation"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And earthquakes are to a girl's guitar"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "They're just another good vibration"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 20
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And tidal waves couldn't save the world"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From Californication"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Ooooo - ooooh   Oooo -  ooooh"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Pre-Chorus 3]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Pay your surgeon very well"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "To break the spell of aging"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Sicker than the rest, there is no test"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "But this is what you're craving"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "First born unicorn"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hardcore soft porn"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dream of Californication"
+      }
+    ]
+  }
+}

@@ -1,0 +1,945 @@
+{
+  "tab": {
+    "title": "W S Walcott Medicine Show",
+    "artist_name": "The Band",
+    "author": "Lunchbox16",
+    "difficulty": "intermediate",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "[Verse]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 31
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "When your arms are empty, got nowhere to go"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Come on out and catch the show"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 11
+          },
+          {
+            "note": "B7",
+            "pre_spaces": 29
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "There'll be saints and sinners you'll see losers and winners"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C#dim7",
+            "pre_spaces": 27
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "All kinds of people you might want to know"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 10
+          },
+          {
+            "note": "E7",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Once you get it, you can't forget it,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb7",
+            "pre_spaces": 5
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "W.S. Walcott Medicine Show"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus 1]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 8
+          },
+          {
+            "note": "D",
+            "pre_spaces": 10
+          },
+          {
+            "note": "E",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You know he always holds it in a tent,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "C",
+            "pre_spaces": 11
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And if you're looking for the real thing,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 7
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "He can show you where it went."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 10
+          },
+          {
+            "note": "F",
+            "pre_spaces": 25
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "There's a young faith healer he's a woman stealer"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "He will cure by his command"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 9
+          },
+          {
+            "note": "B7",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "When the music's hot you might have to stand"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 3
+          },
+          {
+            "note": "C#dim7",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "To hear the Klondike Klu Klux steamboat band"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 10
+          },
+          {
+            "note": "E7",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't you sweat it, you can't forget it"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb7",
+            "pre_spaces": 5
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "W.S. Walcott Medicine Show"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus 2]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D",
+            "pre_spaces": 13
+          },
+          {
+            "note": "E",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'd rather die happy than not die at all"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C",
+            "pre_spaces": 8
+          },
+          {
+            "note": "D",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And a man is a fool,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "who will not heed the call"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 10
+          },
+          {
+            "note": "F",
+            "pre_spaces": 27
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Gonna see Miss Brer Foxhole she's got diamonds in her teeth"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "She is real gold down underneath"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 8
+          },
+          {
+            "note": "B7",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "She's a rock and roll singer and a true dead ringer"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C#dim7",
+            "pre_spaces": 30
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "For something like you ain't never seen"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 9
+          },
+          {
+            "note": "E7",
+            "pre_spaces": 20
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Once you get it, you can't forget it"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb7",
+            "pre_spaces": 5
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "W.S. Walcott Medicine Show"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb7",
+            "pre_spaces": 5
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "W.S. Walcott Medicine Show"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb7",
+            "pre_spaces": 5
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "W.S. Walcott Medicine Show"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Eb7",
+            "pre_spaces": 5
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "W.S. Walcott Medicine Show"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "lyric",
+        "lyric": "e---------------------3-|-------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "B-----------------------|-------------6--3--|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G------------------2b---|-------------5--3--|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D------0-3----3---------|------0-3----------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A----3------------------|----3--------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E-3--------3-----3------|-3--------3--------|"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "e---------------------3-|-------------6-6-3--|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "B-----------------------|-------------6-6-3--|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G------------------2b---|--------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D------0-3----3---------|------0-3-----------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A----3------------------|----3---------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E-3--------3-----3------|-3--------3---------|"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "e---------------------3-|----------------3-|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "B-----------------------|-------------6----|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G------------------2b---|-------------5b---|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D------0-3----3---------|------0-3---------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A----3------------------|----3-------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E-3--------3-----3------|-3--------3-------|"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "e---------------------3-|----------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "B-----------------------|-------------6--6-6-6-|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G------------------2b---|-------------5b-3h5p3-|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D------0-3----3---------|------0-3-------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A----3------------------|----3-----------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E-3--------3-----3------|-3--------3-----------|"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Chords Used"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "W.S. Walcott Medicine Show (Robertson)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Time signature: 4/4"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Key = C"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "||",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "||",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "||",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "B7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C#dim7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "||",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "||",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Eb",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "||",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "||",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "/",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "||",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "C#dim7: x4535x"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Eb:    xx5343"
+      }
+    ]
+  }
+}

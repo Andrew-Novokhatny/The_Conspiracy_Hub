@@ -1,0 +1,1667 @@
+{
+  "tab": {
+    "title": "Higher Ground",
+    "artist_name": "Stevie Wonder",
+    "author": "DiddyD",
+    "difficulty": "intermediate",
+    "key": "Eb",
+    "capo": "1",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "Song: Higher ground (Full 'Innervisions' version)"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Artist: Stevie Wonder"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Composer: Stevie Wonder"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Album: Innervisions"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Tabbed by DJ  2nd May 2016"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "This is the full version on the 'Innervisions' album."
+      },
+      {
+        "type": "lyric",
+        "lyric": "The single (and some compilation albums) have an"
+      },
+      {
+        "type": "lyric",
+        "lyric": "edited version, which misses out the 4th verse."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "IGNORE THE CHORD BOX DIAGRAMS that the website"
+      },
+      {
+        "type": "lyric",
+        "lyric": "displays, they are generated automatically from a"
+      },
+      {
+        "type": "lyric",
+        "lyric": "generic database and often don't show the best"
+      },
+      {
+        "type": "lyric",
+        "lyric": "options for a particular chord progression. Just use"
+      },
+      {
+        "type": "lyric",
+        "lyric": "the voicings suggested in the text column numbers."
+      },
+      {
+        "type": "lyric",
+        "lyric": "Chord names & fret positions are relative to the capo"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "CAPO: 1st fret"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Will then sound in the recorded key of Eb)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "DOUBLE DROPPED 'D' TUNING:"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D-A-D-G-B-d"
+      },
+      {
+        "type": "lyric",
+        "lyric": "De-tune both the high and low E strings DOWN to D"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D5 = 000230    E   = xx2102    C9 = x32330"
+      },
+      {
+        "type": "lyric",
+        "lyric": "F  = xx3213    A   = xx7657    D7 = xx0210"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G  = xx5435    F#7 = xx4322    E7 = xx2100"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G7 = xx5433"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Please take a second to scroll down to the bottom of"
+      },
+      {
+        "type": "lyric",
+        "lyric": "the page and select a star rating for my tab, thanks"
+      },
+      {
+        "type": "lyric",
+        "lyric": "====================================================="
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "||: / / / / | / / / / | / / / / | / / / / :|| [x3]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "People...           keep on learnin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Soldiers...         keep on warrin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 8
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F#7",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "World...           keep on turnin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C9",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 25
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "'Cause it won't be too long      | /  /  /  / |"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 2
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "| /  /  /  / | /  /  /  / |"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Powers...           keep on lyin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 10
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "While your people..."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 5
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Keep on dyin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 6
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F#7",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "World...         keep on turnin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C9",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 25
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "'Cause it won't be too long      | /  /  /  / |"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 2
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "| /  /  /  / | /  /  /  / |"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Bridge]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G7",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'm so darn glad he let me try it again,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G7",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "'Cause my last time on Earth..."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D7",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I lived a whole world of sin,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G7",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'm so glad that I know more than I knew then,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E7",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Gonna keep on tryin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 5
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 16
+          },
+          {
+            "note": "F",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "'Til I reach the highest ground-------!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 2
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "| /  /  /  / | /  /  /  / | /  /  /  / |"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 4]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Teachers...       keep on teachin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Preachers...      keep on preachin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 9
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F#7",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "World...           just keep on turnin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C9",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 26
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "'Cause it won't be too long"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh, no!"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 5]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 9
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Lovers...           keep on lovin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 6
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Be- lievers...      keep on be- lievin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 8
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F#7",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Sleepers...        just stop sleepin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C9",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 26
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "'Cause it won't be too long"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 5
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh, no!       |  /  /  /  /  |"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Bridge]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G7",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'm so darn glad he let me try it again,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G7",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "'Cause my last time on Earth..."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D7",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I lived a whole world of sin,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G7",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D7",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'm so glad that I know more than I knew then,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E7",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Gonna keep on tryin',"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "G7",
+            "pre_spaces": 5
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 15
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "'Til I reach my highest ground"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Coda]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 8
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 7
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Woo!      'Til I reach my highest ground,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 5
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 8
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "No,     no one's gonna bring me down,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 8
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 7
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh, no,   'til I reach my highest ground,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 6
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 9
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hum, ...don't you let no - body bring you down------,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 11
+          },
+          {
+            "note": "G",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(That's sure not right!)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D5",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F",
+            "pre_spaces": 11
+          },
+          {
+            "note": "G",
+            "pre_spaces": 8
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 6
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 2
+          },
+          {
+            "note": "F",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D5",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "God is gonna show you higher ground"
+      }
+    ]
+  }
+}

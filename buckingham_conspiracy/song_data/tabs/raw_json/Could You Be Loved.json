@@ -1,0 +1,990 @@
+{
+  "tab": {
+    "title": "Could You Be Loved",
+    "artist_name": "Bob Marley",
+    "author": "MatisyahuFan",
+    "difficulty": "intermediate",
+    "key": "Bm",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "Artist: Bob Marley"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Song: Could You Be Loved?"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "The playback is a little sharp, so if you want to play along,"
+      },
+      {
+        "type": "lyric",
+        "lyric": "tune up your instrument accordingly."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "%",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "%",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "%",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "%",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 15
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And be loved"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't let them fool ya"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 28
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Or even try to school ya          Oh, no!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "We've got a mind of our own"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 10
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 6
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 22
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "So go to hell if what you're thinking is not right!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Love would never leave us alone,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 10
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 14
+          },
+          {
+            "note": "A",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "A-yin the darkness there must come out to light."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 15
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And be loved"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Post-Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "could you be, could you be, could you be loved?"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The road of life is rocky and you may stumble too,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "So while you point your fingers someone else is judging you"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Love your brotherman!"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be, could you be, could you be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be, could you be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be, could you be, could you be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be, could you be loved"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 3]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't let them change ya"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "oh! buddum ba-ba-dum baba dum dum   buddum ba-ba-dum baba dum dum"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Or even rearrange ya!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "oh! buddum ba-ba-dum baba dum dum   buddum ba-ba-dum baba dum dum"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 28
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "We've got a life to live.  Ooh, ooh, ooh"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "They say: only, only"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 9
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 14
+          },
+          {
+            "note": "A",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Only the fittest of the fittest shall survive, stay alive! Eh!"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 15
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And be loved"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 3]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You ain't gonna miss your water, until your well runs dry"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "No matter how you treat him, the man will never be satisfied"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something!"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Could you be, could you be, could you be loved"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Could you be, could you be loved)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something!"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Could you be, could you be, could you be loved)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something!"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(could you be, could you be loved)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something! Say something!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something! Say something! (could you be loved?)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something! Say something!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something! Say something! Reggae, reggae!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something! Rasta, rasta!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something! Reggae, reggae!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something! Rasta, rasta!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something! (Could you be loved)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something! Uh!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something! Come on!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something!"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Could you be, could you be, could you be loved?)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something!"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Could you be, could you be loved?)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something!"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Could you be, could you be, could you be loved?)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Say something!"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Could you be, could you be loved?"
+      }
+    ]
+  }
+}

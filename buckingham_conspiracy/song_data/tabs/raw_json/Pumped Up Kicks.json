@@ -1,0 +1,671 @@
+{
+  "tab": {
+    "title": "Pumped Up Kicks",
+    "artist_name": "Foster the People",
+    "author": "Unregistered",
+    "difficulty": "novice",
+    "capo": "1",
+    "tuning": "G C E A",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 3
+          },
+          {
+            "note": "D",
+            "pre_spaces": 3
+          },
+          {
+            "note": "A",
+            "pre_spaces": 3
+          },
+          {
+            "note": "x4",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Robert's got a quick hand"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 6
+          },
+          {
+            "note": "A",
+            "pre_spaces": 29
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "He'll look around the room, he won't tell you his plan"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 22
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "He's got a rolled cigarette"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 29
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hanging out his mouth, he's a cowboy kid"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 22
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Yeah, he found a six-shooter gun"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 7
+          },
+          {
+            "note": "A",
+            "pre_spaces": 22
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "In his dad's closet, oh in a box of fun things"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 20
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I don't even know what"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 9
+          },
+          {
+            "note": "A",
+            "pre_spaces": 25
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "But he's coming for you, yeah he's coming for you"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus] (x2)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "All the other kids with the pumped up kicks"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You'd better run, better run"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Outrun my gun"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "All the other kids with the pumped up kicks"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You'd better run, better run"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Faster than my bullet"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 20
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Daddy works a long day"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 6
+          },
+          {
+            "note": "A",
+            "pre_spaces": 25
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "He be coming home late, and he's coming home late"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 9
+          },
+          {
+            "note": "G",
+            "pre_spaces": 20
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And he's bringing me a surprise"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 8
+          },
+          {
+            "note": "A",
+            "pre_spaces": 32
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "'Cause dinner's in the kitchen and it's packed in ice"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I've waited for a long time"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 10
+          },
+          {
+            "note": "A",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Yeah, the slight of my hand is now a quick-pull trigger"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 22
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I reason with my cigarette"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 15
+          },
+          {
+            "note": "A",
+            "pre_spaces": 29
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And say, \"Your hair's on fire, you must have lost your wits,\" yeah"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus] (x2)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "All the other kids with the pumped up kicks"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You'd better run, better run"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Outrun my gun"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "All the other kids with the pumped up kicks"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You'd better run, better run"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Faster than my bullet"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 3
+          },
+          {
+            "note": "D",
+            "pre_spaces": 3
+          },
+          {
+            "note": "A",
+            "pre_spaces": 3
+          },
+          {
+            "note": "x2",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(run run run)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 3
+          },
+          {
+            "note": "D",
+            "pre_spaces": 3
+          },
+          {
+            "note": "A",
+            "pre_spaces": 3
+          },
+          {
+            "note": "x2",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(whistle)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus] (x2)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "All the other kids with the pumped up kicks"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You'd better run, better run"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Outrun my gun"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "All the other kids with the pumped up kicks"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You'd better run, better run"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Faster than my bullet"
+      }
+    ]
+  }
+}

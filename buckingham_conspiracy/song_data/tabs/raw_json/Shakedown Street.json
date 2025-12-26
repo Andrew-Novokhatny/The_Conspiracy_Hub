@@ -1,0 +1,2504 @@
+{
+  "tab": {
+    "title": "Shakedown Street",
+    "artist_name": "Grateful Dead",
+    "author": "dbmcintyre",
+    "difficulty": "intermediate",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(2nd Position)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(3rd Position)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 6
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 30
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C9",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You tell me this town ain't got no heart."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 3
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Well, well, well, you can never tell."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 27
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C9",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The sunny side of the street is dark."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 3
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Well, well, well, you can never tell."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Bridge 1]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Maybe that's cause it's midnight,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And the dark of the moon besides."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Maybe the dark is from your eyes"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(maybe the dark is from your eyes)."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Maybe the dark is from your eyes"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Ebm7",
+            "pre_spaces": 29
+          },
+          {
+            "note": "Dm7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(maybe the dark is from your ey    es)."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Maybe the dark is from your eyes"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(maybe the dark is from your eyes)."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You know you got such dark eyes."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Nothin' shakin' on Shakedown Street;"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "used to be the heart of town."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't tell me this town ain't got no heart."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You just gotta poke around."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(2nd Position)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(3rd Position)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 6
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 30
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C9",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You think you've seen this town clear through."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 3
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Well, well, well, you can never tell."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 30
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C9",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Nothin' here that could int'rest you."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 3
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Well, well, well, you can never tell."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Bridge 2]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It's not because you missed out"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "On the things that we had to start."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Maybe you had too much too fast"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(maybe you had too much too fast)."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Maybe you had too much too fast"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Ebm7",
+            "pre_spaces": 28
+          },
+          {
+            "note": "Dm7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(maybe you had too much too fa    st)."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Maybe you had too much too fast"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(maybe you had too much too fast)."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Or just overplayed your part."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Nothin' shakin' on Shakedown Street;"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "used to be the heart of town."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't tell me this town ain't got no heart."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You just gotta poke around."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(2nd Position)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(3rd Position)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 6
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Solo]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 30
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C9",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 3
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 30
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C9",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 3
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Ebm7",
+            "pre_spaces": 28
+          },
+          {
+            "note": "Dm7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Interlude]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(2nd Position)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(3rd Position)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 1
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 6
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 3]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 28
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C9",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Since I'm passin' your way today,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 3
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Well, well, well, you can never tell."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 27
+          },
+          {
+            "note": "F",
+            "pre_spaces": 1
+          },
+          {
+            "note": "C9",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I just stopped by 'cause I want to say:"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 3
+          },
+          {
+            "note": "C/D",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 5
+          },
+          {
+            "note": "C",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Well, well, well, you can never tell."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Bridge 3]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I recall your darkness when it"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Cracked like a thunder cloud."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't tell me this town ain't got no heart"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Don't tell me this town ain't got no heart)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't tell me this town ain't got no heart"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Ebm7",
+            "pre_spaces": 29
+          },
+          {
+            "note": "Dm7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Don't tell me this town ain't got no heart)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't tell me this town ain't got no heart"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Don't tell me this town ain't got no heart)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "When I can hear it beat out loud."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Final Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Nothin' shakin' on Shakedown Street;"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "used to be the heart of town."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't tell me this town ain't got no heart."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You just gotta poke around."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Nothin' shakin' on Shakedown Street;"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "used to be the heart of town."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't tell me this town ain't got no heart."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You just gotta poke around."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Nothin' shakin' on Shakedown Street;"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "used to be the heart of town."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't tell me this town ain't got no heart."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You just gotta poke around."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Nothin' shakin' on Shakedown Street;"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "used to be the heart of town."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Don't tell me this town ain't got no heart."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You just gotta poke around."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Jam]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 13
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 17
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 18
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C7sus4",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C7sus4",
+            "pre_spaces": 6
+          },
+          {
+            "note": "C7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#7",
+            "pre_spaces": 3
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,1074 @@
+{
+  "tab": {
+    "title": "Down Under",
+    "artist_name": "Men At Work",
+    "author": "guitarchris602",
+    "difficulty": "novice",
+    "capo": "2",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 3
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "(x2)",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 15
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Traveling in a fried-out Kombi"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 19
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "On a hippie trail, head full of zombie"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 16
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F",
+            "pre_spaces": 15
+          },
+          {
+            "note": "G",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I met a strange lady,  she made me nervous"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 15
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "She took me in and gave me breakfast"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "And she said,"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "\"Do you come from a land down under?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Where women glow and men plunder?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 15
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 20
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you hear, can't you hear the thunder?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 16
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You better run, you better take cover.\""
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 3
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "(x2)",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 20
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 10
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Buying bread from a man in Brussels"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 15
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "He was six foot four and full of muscles"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 16
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          },
+          {
+            "note": "F",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I said, \"Do you speak-a my language?\""
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 17
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 17
+          },
+          {
+            "note": "F",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "He just smiled and gave me a Vegemite sandwich"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "And he said,"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 9
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "\"I come from a land down under"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 16
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Where beer does flow and men chunder"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 15
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 19
+          },
+          {
+            "note": "F",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you hear, can't you hear the thunder?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 15
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 15
+          },
+          {
+            "note": "F",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You better run, you better take cover.\""
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 3
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          },
+          {
+            "note": "(x2)",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 3]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 11
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 10
+          },
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Lying in a den in Bombay"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 16
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          },
+          {
+            "note": "F",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "With a slack jaw, and not much to say"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 23
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I said to the man, \"Are you trying to tempt me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 10
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 21
+          },
+          {
+            "note": "F",
+            "pre_spaces": 7
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Because I come from the land of plenty?\""
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "And he said,"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          },
+          {
+            "note": "F",
+            "pre_spaces": 11
+          },
+          {
+            "note": "G",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "\"Do you come from a land down under? (oh yeah, yeah)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Where women glow and men plunder?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 15
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 20
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you hear, can't you hear the thunder?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 16
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You better run, you better take cover.\""
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 9
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 18
+          },
+          {
+            "note": "F",
+            "pre_spaces": 10
+          },
+          {
+            "note": "G",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "\"Oh, I come from a land down under (oh yeah, yeah)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 16
+          },
+          {
+            "note": "F",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Where beer does flow and men chunder"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 15
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 19
+          },
+          {
+            "note": "F",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you hear, can't you hear the thunder?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 15
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 15
+          },
+          {
+            "note": "F",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You better run, you better take cover.\""
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Outro]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 3
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 3
+          },
+          {
+            "note": "F",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(x4 while fading)"
+      }
+    ]
+  }
+}

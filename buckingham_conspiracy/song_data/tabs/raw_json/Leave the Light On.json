@@ -1,0 +1,875 @@
+{
+  "tab": {
+    "title": "Leave The Light On",
+    "artist_name": "Spafford",
+    "author": "Outlier73",
+    "difficulty": "novice",
+    "key": "B",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "Intro Lick:"
+      },
+      {
+        "type": "lyric",
+        "lyric": "e|----------------------------------------------------------------------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "B|----------------------------------------------------------------------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G|------8-8--9-9--8-8---------------------------8-8--9-9--8-8-----------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D|--9-9---------------9-9--6-6--7-7--6-6----9-9---------------9-9--6-6--7-7--6-6----|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A|----------------------------------------------------------------------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E|----------------------------------------------------------------------------------|"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "B",
+            "pre_spaces": 2
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "(x2)",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Intro Chords:"
+      },
+      {
+        "type": "lyric",
+        "lyric": "e|--7-------7-7-----------5-5---------------7------7-7--------5-------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "B|--7h9p7---7-7-----------5-5h7p5-----------7h9p7--7-7--------5-------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G|--8-----8----8----------6-6-----6---------8-----8---8-------6-------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D|--9---------------------7-7---------------9-----------------7-------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A|--------------------------------------------------------------------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E|--------------------------------------------------------------------------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Repeat x4, These intro chords actual vary sometimes with the hammer on and"
+      },
+      {
+        "type": "lyric",
+        "lyric": "pull offs.  Sometimes straight and sometimes instead of the hammer-on on A chord"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Brian will slide up to B)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(playing intro lick)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 9
+          },
+          {
+            "note": "A",
+            "pre_spaces": 6
+          },
+          {
+            "note": "B",
+            "pre_spaces": 15
+          },
+          {
+            "note": "A",
+            "pre_spaces": 15
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "When the fall begins, time will come to take me in."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 8
+          },
+          {
+            "note": "A",
+            "pre_spaces": 9
+          },
+          {
+            "note": "B",
+            "pre_spaces": 18
+          },
+          {
+            "note": "A",
+            "pre_spaces": 11
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I\u2019ll be strong, I hope you\u2019ll do the same."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 9
+          },
+          {
+            "note": "A",
+            "pre_spaces": 7
+          },
+          {
+            "note": "B",
+            "pre_spaces": 12
+          },
+          {
+            "note": "A",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I would stay you know, but my honor begs me go."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 7
+          },
+          {
+            "note": "A",
+            "pre_spaces": 14
+          },
+          {
+            "note": "B",
+            "pre_spaces": 16
+          },
+          {
+            "note": "A",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Just a pawn lost in another rich man\u2019s game."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(playing intro chords)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          },
+          {
+            "note": "B",
+            "pre_spaces": 10
+          },
+          {
+            "note": "A",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Leave the light on for me lady."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 23
+          },
+          {
+            "note": "B",
+            "pre_spaces": 16
+          },
+          {
+            "note": "A",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "So in the darkness I can find my way home."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          },
+          {
+            "note": "B",
+            "pre_spaces": 10
+          },
+          {
+            "note": "A",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Leave the light on for me lady."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 20
+          },
+          {
+            "note": "B",
+            "pre_spaces": 9
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Let me know that I\u2019m not alone"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 9
+          },
+          {
+            "note": "A",
+            "pre_spaces": 13
+          },
+          {
+            "note": "B",
+            "pre_spaces": 19
+          },
+          {
+            "note": "A",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "5 years have passed us by, not one without you on my mind."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 8
+          },
+          {
+            "note": "A",
+            "pre_spaces": 9
+          },
+          {
+            "note": "B",
+            "pre_spaces": 18
+          },
+          {
+            "note": "A",
+            "pre_spaces": 11
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Your face is all I ever dream of."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 8
+          },
+          {
+            "note": "A",
+            "pre_spaces": 7
+          },
+          {
+            "note": "B",
+            "pre_spaces": 15
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It\u2019s so cold at night, and I pretend that it\u2019s all right."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 4
+          },
+          {
+            "note": "A",
+            "pre_spaces": 11
+          },
+          {
+            "note": "B",
+            "pre_spaces": 21
+          },
+          {
+            "note": "A",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "But I keep your candle burning in the window."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          },
+          {
+            "note": "B",
+            "pre_spaces": 10
+          },
+          {
+            "note": "A",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Leave the light on for me lady"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 23
+          },
+          {
+            "note": "B",
+            "pre_spaces": 16
+          },
+          {
+            "note": "A",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "So in the darkness I can find my way home"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          },
+          {
+            "note": "B",
+            "pre_spaces": 10
+          },
+          {
+            "note": "A",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Leave your light on for me lady"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 20
+          },
+          {
+            "note": "B",
+            "pre_spaces": 9
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Let me know that I'm not alone"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Instrumental]"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(C# Minor)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 3]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 10
+          },
+          {
+            "note": "A",
+            "pre_spaces": 8
+          },
+          {
+            "note": "B",
+            "pre_spaces": 12
+          },
+          {
+            "note": "A",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It\u2019s been 10 years now since I struck that rich man down"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 4
+          },
+          {
+            "note": "A",
+            "pre_spaces": 10
+          },
+          {
+            "note": "B",
+            "pre_spaces": 16
+          },
+          {
+            "note": "A",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "As he tried to take you for his own."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 8
+          },
+          {
+            "note": "A",
+            "pre_spaces": 6
+          },
+          {
+            "note": "B",
+            "pre_spaces": 16
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can you see my light? I pray it guides you home tonight."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 4
+          },
+          {
+            "note": "A",
+            "pre_spaces": 12
+          },
+          {
+            "note": "B",
+            "pre_spaces": 13
+          },
+          {
+            "note": "A",
+            "pre_spaces": 11
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Cuz I\u2019m tired of sleeping all alone."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          },
+          {
+            "note": "B",
+            "pre_spaces": 10
+          },
+          {
+            "note": "A",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Leave the light on for me lady"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 23
+          },
+          {
+            "note": "B",
+            "pre_spaces": 16
+          },
+          {
+            "note": "A",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "So in the darkness I can find my way home"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          },
+          {
+            "note": "B",
+            "pre_spaces": 10
+          },
+          {
+            "note": "A",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Leave your light on for me lady"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 20
+          },
+          {
+            "note": "B",
+            "pre_spaces": 9
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Let me know that I'm not alone"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Outro]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          },
+          {
+            "note": "B",
+            "pre_spaces": 10
+          },
+          {
+            "note": "A",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Leave the light on for me lady"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 23
+          },
+          {
+            "note": "B",
+            "pre_spaces": 16
+          },
+          {
+            "note": "A",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "So in the darkness I can find my way home"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          },
+          {
+            "note": "B",
+            "pre_spaces": 10
+          },
+          {
+            "note": "A",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Leave your light on for me lady"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 20
+          },
+          {
+            "note": "B",
+            "pre_spaces": 9
+          },
+          {
+            "note": "A",
+            "pre_spaces": 18
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Let me know that I'm not alone"
+      }
+    ]
+  }
+}

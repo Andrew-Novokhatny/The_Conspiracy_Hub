@@ -1,0 +1,1190 @@
+{
+  "tab": {
+    "title": "The Greatest Showman - From Now On",
+    "artist_name": "Misc Soundtrack",
+    "author": "kaat04",
+    "difficulty": "novice",
+    "key": "C#m",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 1
+          },
+          {
+            "note": "B",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 1
+          },
+          {
+            "note": "B",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Hugh Jackman]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I saw the sun begin to dim"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And felt that winter wind"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 6
+          },
+          {
+            "note": "B",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Blow cold"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 3
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "A man learns who is there for him"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 11
+          },
+          {
+            "note": "E",
+            "pre_spaces": 33
+          },
+          {
+            "note": "B",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "When the glitter fades and the walls won't hold"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Cause from then, rubble"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "What remains"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 4
+          },
+          {
+            "note": "B",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can only be what's true"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 4
+          },
+          {
+            "note": "E",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "If all was lost"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 4
+          },
+          {
+            "note": "E",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Is more I gain"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 2
+          },
+          {
+            "note": "B",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Cause it led me back"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "To you"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 41
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "These eyes will not be blinded by the light"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 36
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "What's waited till tomorrow starts tonight"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Tonight"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 11
+          },
+          {
+            "note": "E",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Let this promise in me start"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C#m",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Like an anthem in my heart"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 10
+          },
+          {
+            "note": "C#m",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Instrumental]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 1
+          },
+          {
+            "note": "B",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I drank champagne with kings and queens"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 7
+          },
+          {
+            "note": "E",
+            "pre_spaces": 14
+          },
+          {
+            "note": "B",
+            "pre_spaces": 11
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The politicians praised my name"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "But those are someone else's dreams"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 6
+          },
+          {
+            "note": "E",
+            "pre_spaces": 16
+          },
+          {
+            "note": "B",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The pitfalls of the man I became"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "For years and years"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 5
+          },
+          {
+            "note": "E",
+            "pre_spaces": 14
+          },
+          {
+            "note": "B/D#",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I chased their cheers"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 6
+          },
+          {
+            "note": "E/G#",
+            "pre_spaces": 11
+          },
+          {
+            "note": "B",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The crazy speed of always needing more"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 6
+          },
+          {
+            "note": "E/G#",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "But when I stop"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Cdim",
+            "pre_spaces": 3
+          },
+          {
+            "note": "C#m",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And see you here"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 7
+          },
+          {
+            "note": "B/D#",
+            "pre_spaces": 8
+          },
+          {
+            "note": "|",
+            "pre_spaces": 8
+          },
+          {
+            "note": "E",
+            "pre_spaces": 1
+          },
+          {
+            "note": "-",
+            "pre_spaces": 1
+          },
+          {
+            "note": "-",
+            "pre_spaces": 1
+          },
+          {
+            "note": "-",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E/G#",
+            "pre_spaces": 1
+          },
+          {
+            "note": "-",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 1
+          },
+          {
+            "note": "-",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I remember who all this was for"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 41
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "These eyes will not be blinded by the light"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E/G#",
+            "pre_spaces": 4
+          },
+          {
+            "note": "A",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 36
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "What's waited till tomorrow starts tonight"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Tonight"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 11
+          },
+          {
+            "note": "E",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Let this promise in me start"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C#m",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Like an anthem in my heart"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 10
+          },
+          {
+            "note": "C#m",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Ensemble]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And we will come back home"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 24
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And we will come back home"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Home, again! (x4)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Ensemble]"
+      },
+      {
+        "type": "lyric",
+        "lyric": "N.C."
+      },
+      {
+        "type": "lyric",
+        "lyric": "And we will come back home"
+      },
+      {
+        "type": "lyric",
+        "lyric": "N.C."
+      },
+      {
+        "type": "lyric",
+        "lyric": "And we will come back home"
+      },
+      {
+        "type": "lyric",
+        "lyric": "N.C."
+      },
+      {
+        "type": "lyric",
+        "lyric": "Home, again! (x3)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Ensemble] (building up)"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And we will come back home"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 24
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And we will come back home"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Home, again!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 41
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "These eyes will not be blinded by the light"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 36
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "What's waited till tomorrow starts tonight"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Tonight"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 11
+          },
+          {
+            "note": "E",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Let this promise in me start"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 11
+          },
+          {
+            "note": "C#m",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Like an anthem in my heart"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 10
+          },
+          {
+            "note": "C#m",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Ensemble] fading out"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And we will come back home"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 24
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And we will come back home"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Home, again! (x2)"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Outro]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 10
+          },
+          {
+            "note": "B",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on, home again."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 10
+          },
+          {
+            "note": "B",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "From now on, home again."
+      }
+    ]
+  }
+}

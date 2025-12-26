@@ -1,0 +1,560 @@
+{
+  "tab": {
+    "title": "Fire On The Mountain",
+    "artist_name": "Grateful Dead",
+    "author": "baylorfk",
+    "difficulty": "novice",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 31
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Long distance runner, what you standin' there for?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 30
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Get up, get out,          get out of the door"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 33
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You're playin' cold music on the barroom floor"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 29
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Drowned in your laughter and dead to the core."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 36
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "There's a dragon with matches that's loose on the town"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 35
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Takes a whole pail of water just to cool him down."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Hook]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Almost ablaze still you don't feel the heat"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 28
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It takes all you got just to stay on the beat."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 34
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You say it's a livin', we all gotta eat"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 33
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "But you're here alone, there's no one to compete."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 24
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "If mercy's a business, I wish it for you"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 30
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "More than just ashes when your dreams come true."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Hook]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 3]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 30
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Long distance runner, what you holdin' out for?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Caught in slow motion in a dash for the door."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 33
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The flame from your stage has now spread to the floor"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 29
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You gave all you had. why you wanna give more?"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 27
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The more that you give, the more it will take"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 33
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "To the thin line beyond which you really can't fake."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Hook]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "B",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 17
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fire! fire on the mountain!"
+      }
+    ]
+  }
+}

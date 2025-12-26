@@ -1,0 +1,554 @@
+{
+  "tab": {
+    "title": "Bertha",
+    "artist_name": "Grateful Dead",
+    "author": "Petekruse",
+    "difficulty": "intermediate",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "tabbed by Peter Kruse"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 11
+          },
+          {
+            "note": "G",
+            "pre_spaces": 5
+          },
+          {
+            "note": "C",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "1  &  2  &  3  &  4  &  1  &  2  &  3  &  4  &"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 29
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I had a hard run, runnin' from your window"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 16
+          },
+          {
+            "note": "G",
+            "pre_spaces": 38
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I was all night runnin', runnin', Lord I wonder if you care"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 8
+          },
+          {
+            "note": "G",
+            "pre_spaces": 22
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I had a run in, run around and run down"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 15
+          },
+          {
+            "note": "G",
+            "pre_spaces": 39
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Run around the corner, corner, Lord I run smack into a tree"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 9
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 5
+          },
+          {
+            "note": "C",
+            "pre_spaces": 12
+          },
+          {
+            "note": "D",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I had to move, move, really had to move"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 17
+          },
+          {
+            "note": "D",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "That's why if you please, I am on my bended knees"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 21
+          },
+          {
+            "note": "G/C",
+            "pre_spaces": 12
+          },
+          {
+            "note": "(Repeat",
+            "pre_spaces": 15
+          },
+          {
+            "note": "Intro)",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Bertha don't you come around here anymore"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 18
+          },
+          {
+            "note": "G",
+            "pre_spaces": 27
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Dressed myself in green, I went down unto the sea"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 29
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Try to see what's goin' down, try to read between the lines"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 22
+          },
+          {
+            "note": "G",
+            "pre_spaces": 35
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I had a feelin' I was fallin', fallin, I turned around to see"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 14
+          },
+          {
+            "note": "G",
+            "pre_spaces": 30
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Heard a voice callin', you were comin' after me"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 9
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 5
+          },
+          {
+            "note": "G",
+            "pre_spaces": 5
+          },
+          {
+            "note": "C",
+            "pre_spaces": 12
+          },
+          {
+            "note": "D",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I had to move, move, really had to move"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          },
+          {
+            "note": "G",
+            "pre_spaces": 17
+          },
+          {
+            "note": "D",
+            "pre_spaces": 12
+          },
+          {
+            "note": "C",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "That's why if you please, I am on my bended knees"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 21
+          },
+          {
+            "note": "G/C",
+            "pre_spaces": 12
+          },
+          {
+            "note": "(Repeat",
+            "pre_spaces": 15
+          },
+          {
+            "note": "Intro)",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Bertha don't you come around here anymore"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 3]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 11
+          },
+          {
+            "note": "G",
+            "pre_spaces": 36
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Ran into a rainstorm, I ducked back into a bar door"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 15
+          },
+          {
+            "note": "G",
+            "pre_spaces": 41
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It's all night pourin', pourin', Lord but not a drop on me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 9
+          },
+          {
+            "note": "G",
+            "pre_spaces": 32
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Test me, test me, test me, why don't you arrest me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 18
+          },
+          {
+            "note": "G",
+            "pre_spaces": 35
+          },
+          {
+            "note": "C/G",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Throw me into the jail house, Lord until the sun goes down"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "(Chorus - Repeat a few times)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,444 @@
+{
+  "tab": {
+    "title": "Electric Avenue",
+    "artist_name": "Eddy Grant",
+    "author": "Tikken",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "Boy!"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Boy!"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 35
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Now in the street there is violence"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 30
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And a lots of work to be done"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 31
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "No place to hang out our washing"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 38
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And I can't blame all on the sun, oh no"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]:"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 34
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "We gonna rock down to Electric Avenue"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 31
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And then we'll take it higher"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 36
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh, we gonna rock down to Electric Avenue"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 5
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And then we'll take it higher"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Workin' so hard like a soldier"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't afford a thing on TV"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Deep in my heart I abhor ya"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 33
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't get food for them kid, good God"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "We gonna rock down to Electric Avenue"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 6
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 24
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And then we'll take it higher"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 13
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 30
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh, we gonna rock down to Electric Avenue"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And then we'll take it higher"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh no..."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh no..."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh no..."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 7
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh no..."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "We gonna rock down to Electric Avenue"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 6
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 24
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And then we'll take it higher"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 13
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 30
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh, we gonna rock down to Electric Avenue"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 19
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,781 @@
+{
+  "tab": {
+    "title": "Time",
+    "artist_name": "Pink Floyd",
+    "author": "Arindam.Ray",
+    "difficulty": "novice",
+    "key": "F#m",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "TIME"
+      },
+      {
+        "type": "lyric",
+        "lyric": "=============="
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Album: Dark Side of the Moon"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Words & Music by Roger Waters, Richard Wright, David Gilmour and Nicholas Mason"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F#m",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Dmaj7",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Amaj7",
+            "pre_spaces": 4
+          },
+          {
+            "note": "C#m7",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Bm7",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F/B",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "(or Fadd#11/B but that won't highlight)"
+      },
+      {
+        "type": "lyric",
+        "lyric": "e|-2-------2--------0--------4-------2-------1-----|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "B|-2-------2--------2--------5-------3-------1-----|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G|-2-------2--------1--------4-------2-------2-----|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D|-4-------0--------2--------6-------4-------3-----|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A|-4----------------0--------4-------2-------2-----|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E|-2-----------------------------------------------|"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "E",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|(E)",
+            "pre_spaces": 5
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|(F#m)",
+            "pre_spaces": 3
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          },
+          {
+            "note": "x4",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|(F#m)",
+            "pre_spaces": 3
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          },
+          {
+            "note": "A",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|(A)",
+            "pre_spaces": 5
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "|",
+            "pre_spaces": 0
+          },
+          {
+            "note": "E",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|(E)",
+            "pre_spaces": 5
+          },
+          {
+            "note": "|",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 1
+          },
+          {
+            "note": "|(F#m)",
+            "pre_spaces": 3
+          },
+          {
+            "note": "|",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 39
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Ticking away the moments that make up a dull day"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 42
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Fritter and waste the hours in an offhand way"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 41
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Kicking around on a piece of ground in your hometown"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 49
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Waiting for someone or something to show you the way"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dmaj7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Amaj7",
+            "pre_spaces": 27
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Tired of lying in the sunshine, staying home to watch the rain"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dmaj7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Amaj7",
+            "pre_spaces": 31
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You are young and life is long, and there is time to kill today"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dmaj7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C#m7",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And then one day you find,   ten years have got behind you"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "E",
+            "pre_spaces": 27
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "No one told you when to run ... You missed the starting gun"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Guitar Solo]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F#m",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 4
+          },
+          {
+            "note": "E",
+            "pre_spaces": 4
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 4
+          },
+          {
+            "note": "x4",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dmaj7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Amaj7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Dmaj7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Amaj7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Dmaj7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "C#m7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Bm7",
+            "pre_spaces": 2
+          },
+          {
+            "note": "E",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F#m",
+            "pre_spaces": 9
+          },
+          {
+            "note": "A",
+            "pre_spaces": 48
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And you run and you run to catch up with the Sun, but it's sinking;"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 37
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Racing around to come up behind you again."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F#m",
+            "pre_spaces": 4
+          },
+          {
+            "note": "A",
+            "pre_spaces": 44
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The Sun is the same in a relative way, but you're older,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "F#m",
+            "pre_spaces": 41
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "shorter of breath, and one day closer to death."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dmaj7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Amaj7",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Every year is getting shorter, never seem to find the time."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dmaj7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Amaj7",
+            "pre_spaces": 32
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Plans that either come to naught, or half a page of scribbled lines."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dmaj7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C#m7",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hanging on in quiet desperation is the English way."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Bm7",
+            "pre_spaces": 30
+          },
+          {
+            "note": "F/B",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The time is gone, the song is over. Thought I'd something more to say."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Emadd9",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Emadd9",
+            "pre_spaces": 4
+          },
+          {
+            "note": "A",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 3]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A7",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Home, home again"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A7",
+            "pre_spaces": 22
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I like to be here when I can"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 0
+          },
+          {
+            "note": "A7",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "When I come home, cold and tired"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Em7",
+            "pre_spaces": 5
+          },
+          {
+            "note": "A7",
+            "pre_spaces": 31
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It's good to warm my bones beside the fire"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Cmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Far away, across the field"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Bm7",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The tolling of the iron bell"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Fmaj7",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Calls the faithful to their knees"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D7#9",
+            "pre_spaces": 18
+          },
+          {
+            "note": "D7b9",
+            "pre_spaces": 3
+          },
+          {
+            "note": "Bm",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "To hear the softly spoken magic spell"
+      }
+    ]
+  }
+}

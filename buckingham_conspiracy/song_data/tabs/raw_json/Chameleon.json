@@ -1,0 +1,180 @@
+{
+  "tab": {
+    "title": "Chameleon",
+    "artist_name": "Herbie Hancock",
+    "author": "playfielder",
+    "difficulty": "intermediate",
+    "key": "Bbm",
+    "tuning": "E A D G",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "Artist: Herbie Hancock"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Song  : Chameleon"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Album : Head Hunters"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Tuning: EADG (standard)"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Key: Bb minor"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Time Signature: 4/4"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Tabbed by: Simon Skipper"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Anacrusis]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G|-----------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D|-----------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A|-----------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E|-----------3-4-5-|"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Main Riff]"
+      },
+      {
+        "type": "lyric",
+        "lyric": ".  .  .           .  .  ."
+      },
+      {
+        "type": "lyric",
+        "lyric": "G|-------3---------|----3--6---------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D|----6------------|-----------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A|-----------3-4-5-|-6---------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E|-6---------------|-----------3-4-5-|"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "If you get bored here are the saxophone parts too"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G|-----------------6~---------------------6~~/8---|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D|--8-8--6-6--8-8-----8-----8-6---6~--8-----------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A|------------------------------8-----------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E|------------------------------------------------|"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "G|---8/10-8--8-6--6h8-6----------------------6~~/8--|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D|---------------------8---------8-6---6~--8--------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "A|----------------------8^-----------8--------------|"
+      },
+      {
+        "type": "lyric",
+        "lyric": "E|-----------------------9~-6-----------------------|"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "******************************"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "| h  Hammer-on"
+      },
+      {
+        "type": "lyric",
+        "lyric": "| /  Slide up"
+      },
+      {
+        "type": "lyric",
+        "lyric": "| ~  Vibrato"
+      },
+      {
+        "type": "lyric",
+        "lyric": "| .  Staccato"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "******************************"
+      }
+    ]
+  }
+}

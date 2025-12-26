@@ -21,6 +21,8 @@ SETLISTS_DIR = BASE_DIR / "setlists"
 SONG_DATA_DIR = BASE_DIR / "song_data"
 LYRICS_DIR = SONG_DATA_DIR / "lyrics"
 TABS_DIR = SONG_DATA_DIR / "tabs"
+TABS_RAW_JSON_DIR = TABS_DIR / "raw_json"
+TABS_MUSICXML_DIR = TABS_DIR / "musicxml"
 SECTION_LABEL_PATTERN = re.compile(r"^\s*\[.+?\]\s*$")
 TAB_DURATION_MAP = {
     'w': 4.0,   # whole note
@@ -368,33 +370,53 @@ def format_lyrics_for_display(content: str) -> str:
 def load_available_tabs() -> List[str]:
     """Load list of available tab files"""
     try:
-        tab_files = []
+        tab_files: set[str] = set()
+        if TABS_MUSICXML_DIR.exists():
+            for file in TABS_MUSICXML_DIR.glob("*"):
+                if file.is_file():
+                    tab_files.add(file.name)
         if TABS_DIR.exists():
             for file in TABS_DIR.glob("*"):
                 if file.is_file():
-                    tab_files.append(file.name)  # Get full filename with extension
+                    tab_files.add(file.name)
         return sorted(tab_files)
     except Exception as e:
         st.error(f"Error loading tab files: {e}")
         return []
 
-def load_tab_content(filename: str) -> tuple[str, str]:
+def resolve_tab_file(filename: str) -> Path | None:
+    """Find the actual path for a tab filename across supported directories"""
+    search_paths = [TABS_MUSICXML_DIR, TABS_DIR, TABS_RAW_JSON_DIR]
+    for directory in search_paths:
+        if not directory.exists():
+            continue
+        candidate = directory / filename
+        if candidate.exists():
+            return candidate
+    return None
+
+def load_tab_content(filename: str) -> tuple[str | dict, str]:
     """Load tab content from file. Returns (content, file_type)"""
     try:
-        tab_file = TABS_DIR / filename
-        if tab_file.exists():
-            file_ext = tab_file.suffix.lower()
-            if file_ext in ['.txt', '.tab']:
-                with open(tab_file, 'r', encoding='utf-8') as f:
-                    return f.read(), 'text'
-            elif file_ext in ['.pdf', '.png', '.jpg', '.jpeg']:
-                return str(tab_file), 'file'
-            elif file_ext in ['.musicxml', '.xml']:
-                return str(tab_file), 'musicxml'
-            else:
-                return f"Unsupported file type: {file_ext}", 'error'
-        else:
+        tab_file = resolve_tab_file(filename)
+        if tab_file is None:
             return f"Tab file '{filename}' not found.", 'error'
+
+        file_ext = tab_file.suffix.lower()
+        if file_ext in ['.txt', '.tab']:
+            with open(tab_file, 'r', encoding='utf-8') as f:
+                return f.read(), 'text'
+        if file_ext in ['.pdf', '.png', '.jpg', '.jpeg']:
+            return str(tab_file), 'file'
+        if file_ext in ['.musicxml', '.xml']:
+            return str(tab_file), 'musicxml'
+        if file_ext == '.json':
+            with open(tab_file, 'r', encoding='utf-8') as f:
+                try:
+                    return json.load(f), 'json'
+                except json.JSONDecodeError as exc:
+                    return f"Invalid JSON tab: {exc}", 'error'
+        return f"Unsupported file type: {file_ext}", 'error'
     except Exception as e:
         return f"Error loading tab: {e}", 'error'
 
@@ -405,10 +427,13 @@ def sanitize_filename(name: str) -> str:
 
 def create_musicxml_from_builder(chart_name: str, bpm: int, time_signature: str,
                                  builder_text: str, composer: str = "",
-                                 subtitle: str = "", instrument_label: str = "Guitar") -> Tuple[bool, str]:
+                                 movement_title: str = "",
+                                 subtitle: str = "", instrument_label: str = "Guitar",
+                                 measure_chords: Dict[int, List[str]] | None = None,
+                                 measure_texts: Dict[int, List[str]] | None = None) -> Tuple[bool, str]:
     """Generate a simple MusicXML file from the MVP builder input"""
     try:
-        from music21 import chord, clef, duration, instrument, meter, metadata, note as m21note, stream, tempo
+        from music21 import chord, clef, duration, expressions, harmony, instrument, meter, metadata, note as m21note, stream, tempo
     except ImportError:
         return False, "music21 is required to generate MusicXML tabs. Please install it and try again."
 
@@ -421,12 +446,21 @@ def create_musicxml_from_builder(chart_name: str, bpm: int, time_signature: str,
     if not lines:
         return False, "Add at least one measure before generating."
 
+    measure_chords = measure_chords or {}
+    measure_texts = measure_texts or {}
+
     score = stream.Score()
     score.metadata = metadata.Metadata()
     title_text = chart_name.strip() or "Untitled Tab"
     score.metadata.title = title_text
+
+    movement_text = movement_title.strip()
+    score.metadata.movementName = movement_text or None
+
     subtitle_text = subtitle.strip()
-    score.metadata.movementName = subtitle_text or None
+    if subtitle_text:
+        score.metadata.subtitle = subtitle_text
+
     composer_text = composer.strip()
     if composer_text:
         score.metadata.composer = composer_text
@@ -455,6 +489,9 @@ def create_musicxml_from_builder(chart_name: str, bpm: int, time_signature: str,
         if not tokens:
             continue
 
+        chord_labels = measure_chords.get(idx, [])
+        chord_pointer = 0
+        current_offset = 0.0
         for token in tokens:
             if ':' not in token:
                 return False, f"Line {idx}: '{token}' is missing ':' to separate note and duration."
@@ -482,19 +519,172 @@ def create_musicxml_from_builder(chart_name: str, bpm: int, time_signature: str,
             element.duration = duration.Duration(quarter_length)
             measure_stream.append(element)
 
+            if chord_pointer < len(chord_labels):
+                label = chord_labels[chord_pointer].strip()
+                if label:
+                    try:
+                        harmony_symbol = harmony.ChordSymbol(label)
+                    except Exception:
+                        harmony_symbol = expressions.TextExpression(label)
+                    harmony_symbol.offset = current_offset
+                    harmony_symbol.placement = 'above'
+                    measure_stream.insert(harmony_symbol)
+                chord_pointer += 1
+
+            current_offset += quarter_length
+
+        if idx in measure_texts:
+            for text_label in measure_texts[idx]:
+                cue = expressions.TextExpression(text_label)
+                cue.placement = 'above'
+                measure_stream.insert(0, cue)
+
         part.append(measure_stream)
 
     score.append(part)
 
     try:
         TABS_DIR.mkdir(parents=True, exist_ok=True)
+        TABS_MUSICXML_DIR.mkdir(parents=True, exist_ok=True)
         filename = sanitize_filename(chart_name or "chart") + ".musicxml"
-        output_path = TABS_DIR / filename
+        output_path = TABS_MUSICXML_DIR / filename
         score.write('musicxml', fp=str(output_path))
     except Exception as exc:
         return False, f"Could not save MusicXML file: {exc}"
 
     return True, str(output_path)
+
+JSON_CHORD_SKIP_TOKENS = {
+    "riff", "intro", "verse", "chorus", "bridge", "solo", "pre-chorus",
+    "hook", "outro", "nc", "n.c.", "repeat", "x2", "x3", "x4", "x5"
+}
+CHORD_NAME_PATTERN = re.compile(r"^[A-Ga-g][#b]?")
+
+def chord_symbol_to_builder_token(symbol: str) -> str | None:
+    """Convert a chord symbol into a builder token like 'C4+E4+G4:q'"""
+    cleaned = (symbol or "").strip()
+    if not cleaned:
+        return None
+    lowered = cleaned.lower()
+    if lowered in JSON_CHORD_SKIP_TOKENS or lowered.startswith('x'):
+        return None
+    if lowered in {"n.c", "n.c."}:
+        return "rest:q"
+
+    try:
+        from music21 import harmony
+        chord_symbol = harmony.ChordSymbol(cleaned)
+        pitches = []
+        for pitch in chord_symbol.pitches:
+            octave = pitch.octave if pitch.octave is not None else 4
+            pitches.append(f"{pitch.name}{octave}")
+        if not pitches:
+            match = CHORD_NAME_PATTERN.match(cleaned)
+            if match:
+                pitches.append(f"{match.group(0).upper()}4")
+        if not pitches:
+            return None
+        return "+".join(pitches) + ":q"
+    except Exception:
+        match = CHORD_NAME_PATTERN.match(cleaned)
+        if not match:
+            return None
+        root = match.group(0).upper()
+        return f"{root}4:q"
+
+def convert_json_tab_to_musicxml(json_path: Path) -> Tuple[bool, str]:
+    """Read a legacy JSON tab and convert it into a MusicXML file via the builder"""
+    try:
+        with open(json_path, 'r', encoding='utf-8') as f:
+            payload = json.load(f)
+    except Exception as exc:
+        return False, f"Failed to read {json_path.name}: {exc}"
+
+    tab_data = payload.get('tab') if isinstance(payload, dict) else None
+    if not tab_data:
+        return False, f"{json_path.name} does not contain a 'tab' object."
+
+    title = tab_data.get('title') or json_path.stem
+    artist = tab_data.get('artist_name', '')
+    subtitle = tab_data.get('author', '')
+    bpm = 110
+
+    builder_lines: List[str] = []
+    current_tokens: List[str] = []
+    current_chord_labels: List[str] = []
+    measure_chords: Dict[int, List[str]] = {}
+    measure_texts: Dict[int, List[str]] = {}
+    pending_texts: List[str] = []
+    measure_counter = 0
+
+    def commit_measure(force: bool = False):
+        nonlocal current_tokens, current_chord_labels, pending_texts, measure_counter
+        if not current_tokens and not force:
+            return
+        builder_lines.append(" ".join(current_tokens))
+        measure_counter += 1
+        if current_chord_labels:
+            measure_chords[measure_counter] = current_chord_labels.copy()
+        if pending_texts:
+            measure_texts.setdefault(measure_counter, []).extend(pending_texts)
+            pending_texts = []
+        current_tokens = []
+        current_chord_labels = []
+
+    for entry in tab_data.get('lines', []):
+        entry_type = entry.get('type')
+        if entry_type == 'chords':
+            for chord_entry in entry.get('chords', []):
+                token = chord_symbol_to_builder_token(chord_entry.get('note', ''))
+                if not token:
+                    continue
+                current_tokens.append(token)
+                current_chord_labels.append(chord_entry.get('note', '').strip())
+                if len(current_tokens) == 4:
+                    commit_measure()
+            commit_measure()
+        elif entry_type == 'lyric':
+            lyric_text = entry.get('lyric', '').strip()
+            if lyric_text:
+                if lyric_text.startswith('[') and lyric_text.endswith(']'):
+                    pending_texts.append(lyric_text.strip('[]'))
+                else:
+                    builder_lines.append(f"# {lyric_text}")
+        elif entry_type == 'blank':
+            commit_measure(force=False)
+        else:
+            commit_measure(force=False)
+
+    commit_measure()
+
+    builder_text = "\n".join(builder_lines).strip()
+    if not builder_text:
+        return False, f"{json_path.name} did not include convertible chord data."
+
+    success, output = create_musicxml_from_builder(
+        chart_name=title,
+        bpm=bpm,
+        time_signature="4/4",
+        builder_text=builder_text,
+        movement_title=artist,
+        subtitle=subtitle,
+        instrument_label="Guitar",
+        measure_chords=measure_chords,
+        measure_texts=measure_texts,
+    )
+    if success:
+        return True, output
+    return False, output
+
+def convert_json_tab_file(filename: str) -> Tuple[bool, str]:
+    """Helper to convert a JSON tab referenced by filename"""
+    json_path = TABS_RAW_JSON_DIR / filename
+    if not json_path.exists():
+        # Fallback to legacy location for backwards compatibility
+        json_path = TABS_DIR / filename
+    if not json_path.exists():
+        return False, f"{filename} was not found."
+    return convert_json_tab_to_musicxml(json_path)
 
  
 
@@ -1398,6 +1588,9 @@ with tab_tabs:
         if st.button("🔄 Refresh Tabs", key="refresh_tabs"):
             st.rerun()
 
+    if 'pending_tab_selection' in st.session_state:
+        st.session_state.tabs_file_selector = st.session_state.pop('pending_tab_selection')
+
     # Load available tabs
     available_tabs = load_available_tabs()
     
@@ -1427,6 +1620,36 @@ with tab_tabs:
                 viewer_result = musicxml_viewer(tab_content, key=f"musicxml_{selected_tab}")
                 if isinstance(viewer_result, str) and viewer_result.startswith("Error"):
                     st.error(viewer_result)
+            elif file_type == 'json':
+                st.subheader(selected_tab)
+                tab_payload = tab_content if isinstance(tab_content, dict) else {}
+                tab_meta = tab_payload.get('tab', {}) if isinstance(tab_payload, dict) else {}
+
+                col_a, col_b, col_c = st.columns(3)
+                meta_pairs = [
+                    (col_a, 'Song Title', tab_meta.get('title', 'Unknown')),
+                    (col_b, 'Artist', tab_meta.get('artist_name', 'Unknown')),
+                    (col_c, 'Tuning', tab_meta.get('tuning', 'Standard') or 'Standard'),
+                ]
+                for column, label, value in meta_pairs:
+                    with column:
+                        st.markdown(
+                            f"""
+                            <div class="metric-card">
+                                <div class="metric-title">{label}</div>
+                                <div class="metric-value">{value}</div>
+                            </div>
+                            """,
+                            unsafe_allow_html=True,
+                        )
+
+                line_count = len(tab_meta.get('lines', [])) if isinstance(tab_meta, dict) else 0
+                st.markdown(
+                    f"This JSON tab contains **{line_count}** structured lines parsed from Ultimate Guitar."
+                )
+
+                with st.expander("Raw Tab Payload", expanded=False):
+                    st.json(tab_content)
             elif file_type == 'file':
                 # Display file (PDF, image, etc.)
                 st.subheader(selected_tab)
@@ -1462,7 +1685,8 @@ with tab_tabs:
                 """, unsafe_allow_html=True)
             
             with col2:
-                file_size = Path(TABS_DIR / selected_tab).stat().st_size if (TABS_DIR / selected_tab).exists() else 0
+                tab_path = resolve_tab_file(selected_tab)
+                file_size = tab_path.stat().st_size if tab_path and tab_path.exists() else 0
                 size_kb = file_size / 1024
                 st.markdown(f"""
                 <div class="metric-card">
@@ -1485,10 +1709,11 @@ with tab_tabs:
                 - **ASCII Tabs** (`.txt`, `.tab`): Displayed directly in the browser
                 - **PDF Files**: Available for download, optimized for printing
                 - **Images** (`.png`, `.jpg`): Guitar tablature or sheet music images
+                                        - **JSON Tabs** (`.json`): Structured payloads fetched from Ultimate Guitar
                 - Files are loaded from the `song_data/tabs/` directory
                 - To add new tabs:
                   1. Save your tab file in `buckingham_conspiracy/song_data/tabs/`
-                  2. Supported formats: `.txt`, `.tab`, `.pdf`, `.png`, `.jpg`
+                                            2. Supported formats: `.txt`, `.tab`, `.json`, `.pdf`, `.png`, `.jpg`
                   3. Name the file with the song name for easy reference
                   4. Refresh this page to see the new tabs appear
                 """)
@@ -1515,16 +1740,14 @@ with tab_tabs:
 
     with st.form("tab_builder_form"):
         builder_chart_name = st.text_input("Chart Name", placeholder="e.g., Late Night Groove", key="tab_builder_chart_name")
+        builder_artist_name = st.text_input("Artist / Movement Title", value="Buckingham Conspiracy", key="tab_builder_artist")
         builder_subtitle = st.text_input("Subtitle (optional)", placeholder="e.g., Verse idea", key="tab_builder_subtitle")
-        builder_col1, builder_col2 = st.columns(2)
+        builder_col1, builder_col2, builder_col3 = st.columns(3)
         with builder_col1:
             builder_bpm = st.number_input("Tempo (BPM)", min_value=40, max_value=240, value=120, key="tab_builder_bpm")
         with builder_col2:
             builder_time_signature = st.selectbox("Time Signature", ["4/4", "3/4", "6/8"], index=0, key="tab_builder_time_signature")
-        builder_col3, builder_col4 = st.columns(2)
         with builder_col3:
-            builder_composer = st.text_input("Composer / Credit", value="Buckingham Conspiracy", key="tab_builder_composer")
-        with builder_col4:
             builder_instrument_label = st.text_input("Instrument Label", value="Guitar", key="tab_builder_instrument_label")
         builder_measure_input = st.text_area(
             "Measure Input",
@@ -1550,7 +1773,7 @@ with tab_tabs:
                 int(builder_bpm),
                 builder_time_signature,
                 builder_text,
-                composer=builder_composer,
+                movement_title=builder_artist_name,
                 subtitle=builder_subtitle,
                 instrument_label=builder_instrument_label,
             )
@@ -1562,6 +1785,48 @@ with tab_tabs:
                 st.rerun()
             else:
                 st.error(result)
+
+    st.markdown("---")
+    st.markdown("### ♻️ Convert Legacy JSON Tabs")
+    if TABS_RAW_JSON_DIR.exists():
+        json_tab_files = sorted([f.name for f in TABS_RAW_JSON_DIR.glob("*.json")])
+    else:
+        json_tab_files = []
+    if json_tab_files:
+        st.caption("Pick any of the legacy Ultimate-Guitar exports and convert them into MusicXML charts for the viewer.")
+        selected_json_tabs = st.multiselect(
+            "Select JSON tabs to convert:",
+            options=json_tab_files,
+            key="json_tab_multiselect"
+        )
+        col_conv1, col_conv2 = st.columns(2)
+        with col_conv1:
+            convert_selected = st.button("Convert Selected", key="convert_selected_json")
+        with col_conv2:
+            convert_all = st.button("Convert All JSON", key="convert_all_json")
+
+        conversion_triggered = convert_selected or convert_all
+        if conversion_triggered:
+            targets = json_tab_files if convert_all else selected_json_tabs
+            if not targets:
+                st.warning("Select at least one JSON file to convert.")
+            else:
+                conversion_messages = []
+                last_successful = None
+                for filename in targets:
+                    success, message = convert_json_tab_file(filename)
+                    if success:
+                        conversion_messages.append(f"✅ {Path(message).name} created")
+                        last_successful = Path(message).name
+                    else:
+                        conversion_messages.append(f"❌ {filename}: {message}")
+                for msg in conversion_messages:
+                    st.write(msg)
+                if last_successful:
+                    st.session_state.pending_tab_selection = last_successful
+                    st.rerun()
+    else:
+        st.info("No legacy JSON tabs detected in song_data/tabs/raw_json.")
 
 # Sidebar with quick stats
 st.sidebar.markdown("### 🎸 Quick Stats")

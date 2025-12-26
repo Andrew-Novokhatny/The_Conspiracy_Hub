@@ -1,0 +1,709 @@
+{
+  "tab": {
+    "title": "Cant You See",
+    "artist_name": "The Marshall Tucker Band",
+    "author": "bootie_queen19",
+    "key": "D",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "Can't You See"
+      },
+      {
+        "type": "lyric",
+        "lyric": "by Marshall Tucker Band"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Submitted by: Angie Bristol"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "Link to the (long) version tabbed - https://www.youtube.com/watch?v=5KaAOrjKVJI"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 3
+          },
+          {
+            "note": "D",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'm gonna take a freight train,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Down at the station, Lord"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I don't care where it goes"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Gonna climb me a mountain,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "The highest mountain"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 28
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Gonna jump off, nobody gonna know"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman, she been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman been doin' to me"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'm gonna find me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "A hole in the wall"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 26
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'm gonna crawl inside and die"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "'Cause my lady, now, a mean ol' woman, Lord"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Never told me goodbye"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman, she been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman been doin' to me"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Solo]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 3]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'm gonna buy me a ticket now,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "As far as I can"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 18
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Ain't never comin' back"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Take me southbound,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "C",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "All the way to Georgia now"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 25
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Till the train run out of track"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman, she been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman, she been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman, she been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman, she been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman, she been doin' to me"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "D",
+            "pre_spaces": 0
+          },
+          {
+            "note": "C",
+            "pre_spaces": 24
+          },
+          {
+            "note": "G",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 19
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Can't you see, can't you see, what that woman been doin' to me"
+      }
+    ]
+  }
+}

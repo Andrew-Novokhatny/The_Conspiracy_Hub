@@ -1,0 +1,638 @@
+{
+  "tab": {
+    "title": "No Rain",
+    "artist_name": "Blind Melon",
+    "author": "Unregistered",
+    "key": "E",
+    "tuning": "E A D G B E",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "E (chorus)  x-7-9-9-9-x"
+      },
+      {
+        "type": "lyric",
+        "lyric": "D (chorus)  x-5-7-7-7-x"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "E",
+            "pre_spaces": 2
+          },
+          {
+            "note": "D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "(x2)",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 1]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 25
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "All I can say is that my life is pretty plain"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 2
+          },
+          {
+            "note": "G",
+            "pre_spaces": 25
+          },
+          {
+            "note": "E",
+            "pre_spaces": 6
+          },
+          {
+            "note": "E7",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I like watchin\u2019 the puddles gather rain"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D",
+            "pre_spaces": 20
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And all I can do is just pour some tea for two"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 4
+          },
+          {
+            "note": "G",
+            "pre_spaces": 25
+          },
+          {
+            "note": "E",
+            "pre_spaces": 9
+          },
+          {
+            "note": "E7",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "and speak my point of view but it\u2019s not sane, It\u2019s not sane"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          },
+          {
+            "note": "E",
+            "pre_spaces": 13
+          },
+          {
+            "note": "D",
+            "pre_spaces": 11
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I just want    someone to say to me  oh,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          },
+          {
+            "note": "E",
+            "pre_spaces": 18
+          },
+          {
+            "note": "D",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I\u2019ll always be there when you wake       yeah,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 22
+          },
+          {
+            "note": "E",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Ya know I\u2019d like to keep my cheeks dry today"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 15
+          },
+          {
+            "note": "E",
+            "pre_spaces": 19
+          },
+          {
+            "note": "D",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "so stay with me and I\u2019ll have it made"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse 2]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 6
+          },
+          {
+            "note": "D",
+            "pre_spaces": 22
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And I don\u2019t understand why I sleep all day"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 6
+          },
+          {
+            "note": "G",
+            "pre_spaces": 23
+          },
+          {
+            "note": "E",
+            "pre_spaces": 9
+          },
+          {
+            "note": "E7",
+            "pre_spaces": 5
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And I start to complain that there\u2019s no rain"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 4
+          },
+          {
+            "note": "D",
+            "pre_spaces": 22
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "And all I can do is read a book to stay awake"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 3
+          },
+          {
+            "note": "G",
+            "pre_spaces": 27
+          },
+          {
+            "note": "E",
+            "pre_spaces": 11
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It rips my life away, but it\u2019s a great escape"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "escape, escape, escape"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Solo]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "E",
+            "pre_spaces": 2
+          },
+          {
+            "note": "D",
+            "pre_spaces": 2
+          },
+          {
+            "note": "(x2)",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Bridge]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 24
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "All I can say is that my life is pretty plain"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "A",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "ya don\u2019t like my point of view"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "G",
+            "pre_spaces": 9
+          },
+          {
+            "note": "E",
+            "pre_spaces": 8
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "ya think that I\u2019m insane"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Its not sane, it\u2019s not sane"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          },
+          {
+            "note": "E",
+            "pre_spaces": 13
+          },
+          {
+            "note": "D",
+            "pre_spaces": 11
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I just want    someone to say to me  oh,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 14
+          },
+          {
+            "note": "E",
+            "pre_spaces": 18
+          },
+          {
+            "note": "D",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I\u2019ll always be there when you wake       yeah,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 22
+          },
+          {
+            "note": "E",
+            "pre_spaces": 14
+          },
+          {
+            "note": "D",
+            "pre_spaces": 10
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Ya know I\u2019d like to keep my cheeks dry today"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 15
+          },
+          {
+            "note": "E",
+            "pre_spaces": 19
+          },
+          {
+            "note": "D",
+            "pre_spaces": 6
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "so stay with me and I\u2019ll have it made"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Outro/Guitar Solo]"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 0
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          },
+          {
+            "note": "E",
+            "pre_spaces": 1
+          },
+          {
+            "note": "D",
+            "pre_spaces": 1
+          }
+        ]
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'll have it made"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I'll have it made"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh oh oh oh"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh oh oh oh"
+      }
+    ]
+  }
+}

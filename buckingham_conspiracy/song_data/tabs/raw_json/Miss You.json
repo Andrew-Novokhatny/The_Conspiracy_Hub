@@ -1,0 +1,984 @@
+{
+  "tab": {
+    "title": "Miss You",
+    "artist_name": "The Rolling Stones",
+    "author": "Kurt1964",
+    "lines": [
+      {
+        "type": "lyric",
+        "lyric": "[Intro]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 0
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 2
+          }
+        ]
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I've been holding on so long."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I've been sleeping all alone."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Lord, I miss you."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I've been hanging on the phone."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I've been sleeping all alone."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I want to kiss you."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hoo, hoo, hoo, hoo, hoo, hoo, hoo."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hoo, hoo, hoo, hoo, hoo, hoo, hoo."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hoo, hoo, hoo."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I've been haunted in my sleep."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You've been staring in my dreams."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Lord, I miss you."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I've been waiting in the hall."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Been waiting on your call."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "When the phone rings."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "It's just some friends of mine that say,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 9
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "hey, what's the matter man?"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "We're gonna come around at twelve."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "With some Purto Rican girls that are just dying to meet you."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "We're gonna bring a case of wine,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 47
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hey lets go fool around, you know, like we used to."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 15
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Bridge]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 3
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 20
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh, everybody waits so long."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "F",
+            "pre_spaces": 4
+          },
+          {
+            "note": "Em",
+            "pre_spaces": 2
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 23
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Oh baby, why you wait so long."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "E",
+            "pre_spaces": 15
+          },
+          {
+            "note": "E",
+            "pre_spaces": 8
+          },
+          {
+            "note": "Am",
+            "pre_spaces": 8
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 11
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Won't you, come on! come on!"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Verse]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I've been walkin Central Park,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "singing after dark."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 21
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "People think I'm crazy."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I've been stumbling on my feet,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "shuffeling through the street."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Asking people, what's the matter with you boy?"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Sometimes I want to say to myself,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 22
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "sometimes I say..."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Chorus]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hoo, hoo, hoo, hoo, hoo, hoo, hoo."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hoo, hoo, hoo, hoo, hoo, hoo, hoo."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Hoo, hoo, hoo."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 15
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "lyric",
+        "lyric": "[Outro]"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I won't miss you child."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "I guess I'm lying to myself."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 14
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "It's just you, and no one else."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Lord, I won't miss you child."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "You've been blotting out my mind,"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 4
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "fooling on my time."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "No, I won't miss you, baby, yeah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Lord, I miss you child."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 15
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Lord, I miss you child."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 15
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 12
+          },
+          {
+            "note": "Dm",
+            "pre_spaces": 13
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Lord, I miss you child."
+      },
+      {
+        "type": "blank"
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 12
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Am",
+            "pre_spaces": 15
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah, aaah, aaah, aaah."
+      },
+      {
+        "type": "chords",
+        "chords": [
+          {
+            "note": "Dm",
+            "pre_spaces": 16
+          }
+        ]
+      },
+      {
+        "type": "lyric",
+        "lyric": "Aaah, aaah, aaah, aaah."
+      }
+    ]
+  }
+}
