@@ -1,4 +1,21 @@
-# Use Python 3.11 slim image
+# Stage 1: Build the frontend for the custom component
+FROM node:18-slim as builder
+
+# Set the working directory for the frontend build
+WORKDIR /app/components/st_musicxml_viewer/frontend
+
+# Copy package.json and install dependencies to leverage Docker layer caching
+COPY ./components/st_musicxml_viewer/frontend/package.json ./
+# Use `ci` for reproducible builds if a lock file is present
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+# Copy the rest of the frontend source code and build it
+COPY ./components/st_musicxml_viewer/frontend/ .
+RUN npm run build
+
+# ---
+
+# Stage 2: Build the final Python application image
 FROM python:3.11-slim
 
 # Set working directory
@@ -22,8 +39,11 @@ COPY requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the entire buckingham_conspiracy directory
+# Copy the entire application source code
 COPY . .
+
+# Copy the built frontend from the builder stage
+COPY --from=builder /app/components/st_musicxml_viewer/frontend/build /app/components/st_musicxml_viewer/frontend/build
 
 # Create a directory for persistent data if needed
 RUN mkdir -p /app/data

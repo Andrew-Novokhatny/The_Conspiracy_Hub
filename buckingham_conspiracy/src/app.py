@@ -3,18 +3,37 @@ import os
 import re
 import json
 import html
+import sys
 from datetime import datetime
 from typing import Dict, List, Tuple
 from pathlib import Path
 
 # Get the base directory (parent of src/)
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Ensure the repository root is on sys.path so custom components can be imported
+if str(BASE_DIR) not in sys.path:
+    sys.path.append(str(BASE_DIR))
+
+from components.st_musicxml_viewer import musicxml_viewer
 SONGLIST_DIR = BASE_DIR / "songlist" / "Buckingham Conspiracy 3.0  SONG LIST"
 SETLISTS_DIR = BASE_DIR / "setlists"
 SONG_DATA_DIR = BASE_DIR / "song_data"
 LYRICS_DIR = SONG_DATA_DIR / "lyrics"
 TABS_DIR = SONG_DATA_DIR / "tabs"
 SECTION_LABEL_PATTERN = re.compile(r"^\s*\[.+?\]\s*$")
+TAB_DURATION_MAP = {
+    'w': 4.0,   # whole note
+    'h': 2.0,   # half note
+    'q': 1.0,   # quarter note
+    'e': 0.5,   # eighth note
+    's': 0.25,  # sixteenth note
+}
+TAB_BUILDER_SAMPLE = (
+    "C4:q E4:q G4:q C5:q\n"
+    "rest:h C4:q G3:q\n"
+    "C4+E4+G4:h rest:h"
+)
 
 def load_song_list() -> Dict[str, Dict]:
     """Load the complete song list from markdown file"""
@@ -300,6 +319,9 @@ if 'selected_lyrics_song' not in st.session_state:
 if 'device_type' not in st.session_state:
     st.session_state.device_type = 'Desktop'
 
+if 'tab_builder_measure_input' not in st.session_state:
+    st.session_state.tab_builder_measure_input = TAB_BUILDER_SAMPLE
+
 # Utility functions
 
 # Utility functions
@@ -367,12 +389,112 @@ def load_tab_content(filename: str) -> tuple[str, str]:
                     return f.read(), 'text'
             elif file_ext in ['.pdf', '.png', '.jpg', '.jpeg']:
                 return str(tab_file), 'file'
+            elif file_ext in ['.musicxml', '.xml']:
+                return str(tab_file), 'musicxml'
             else:
                 return f"Unsupported file type: {file_ext}", 'error'
         else:
             return f"Tab file '{filename}' not found.", 'error'
     except Exception as e:
         return f"Error loading tab: {e}", 'error'
+
+def sanitize_filename(name: str) -> str:
+    """Convert arbitrary text into a filesystem-friendly filename"""
+    sanitized = re.sub(r'[^a-zA-Z0-9._-]+', '_', name).strip('_')
+    return sanitized or "chart"
+
+def create_musicxml_from_builder(chart_name: str, bpm: int, time_signature: str,
+                                 builder_text: str, composer: str = "",
+                                 subtitle: str = "", instrument_label: str = "Guitar") -> Tuple[bool, str]:
+    """Generate a simple MusicXML file from the MVP builder input"""
+    try:
+        from music21 import chord, clef, duration, instrument, meter, metadata, note as m21note, stream, tempo
+    except ImportError:
+        return False, "music21 is required to generate MusicXML tabs. Please install it and try again."
+
+    lines = []
+    for raw_line in builder_text.splitlines():
+        stripped = raw_line.strip()
+        if stripped and not stripped.startswith('#'):
+            lines.append(stripped)
+
+    if not lines:
+        return False, "Add at least one measure before generating."
+
+    score = stream.Score()
+    score.metadata = metadata.Metadata()
+    title_text = chart_name.strip() or "Untitled Tab"
+    score.metadata.title = title_text
+    subtitle_text = subtitle.strip()
+    score.metadata.movementName = subtitle_text or None
+    composer_text = composer.strip()
+    if composer_text:
+        score.metadata.composer = composer_text
+
+    part_name = instrument_label.strip() or "Guitar"
+    part = stream.Part(id="P1")
+    part.partName = part_name
+    part.partAbbreviation = (part_name[:3].upper() if len(part_name) > 3 else part_name)
+    try:
+        inst = instrument.fromString(part_name)
+    except Exception:
+        inst = instrument.Instrument()
+        inst.instrumentName = part_name
+
+    part.insert(0, inst)
+    part.insert(0, tempo.MetronomeMark(number=bpm))
+    try:
+        part.insert(0, meter.TimeSignature(time_signature))
+    except Exception:
+        part.insert(0, meter.TimeSignature("4/4"))
+    part.insert(0, clef.TrebleClef())
+
+    for idx, line in enumerate(lines, start=1):
+        measure_stream = stream.Measure(number=idx)
+        tokens = [token.strip() for token in line.split() if token.strip()]
+        if not tokens:
+            continue
+
+        for token in tokens:
+            if ':' not in token:
+                return False, f"Line {idx}: '{token}' is missing ':' to separate note and duration."
+
+            symbol, duration_symbol = token.split(':', 1)
+            duration_symbol = duration_symbol.lower()
+            if duration_symbol not in TAB_DURATION_MAP:
+                return False, f"Line {idx}: duration '{duration_symbol}' is not supported."
+
+            quarter_length = TAB_DURATION_MAP[duration_symbol]
+            try:
+                if symbol.lower() == "rest":
+                    element = m21note.Rest()
+                else:
+                    pitches = [value.strip() for value in symbol.split('+') if value.strip()]
+                    if not pitches:
+                        return False, f"Line {idx}: '{token}' does not list any notes."
+                    if len(pitches) == 1:
+                        element = m21note.Note(pitches[0])
+                    else:
+                        element = chord.Chord(pitches)
+            except Exception as exc:
+                return False, f"Line {idx}: unable to create note '{symbol}' ({exc})."
+
+            element.duration = duration.Duration(quarter_length)
+            measure_stream.append(element)
+
+        part.append(measure_stream)
+
+    score.append(part)
+
+    try:
+        TABS_DIR.mkdir(parents=True, exist_ok=True)
+        filename = sanitize_filename(chart_name or "chart") + ".musicxml"
+        output_path = TABS_DIR / filename
+        score.write('musicxml', fp=str(output_path))
+    except Exception as exc:
+        return False, f"Could not save MusicXML file: {exc}"
+
+    return True, str(output_path)
 
  
 
@@ -1267,17 +1389,15 @@ with tab_lyrics:
 
 with tab_tabs:
     st.header("🎸 Tabs & Notation")
-    
-    # Device type selector
+    st.markdown("### 🎧 Browse Saved Files")
+
     col1, col2 = st.columns([2, 1])
-    
     with col1:
         st.markdown("**Select a tab file to view:**")
-    
     with col2:
         if st.button("🔄 Refresh Tabs", key="refresh_tabs"):
             st.rerun()
-    
+
     # Load available tabs
     available_tabs = load_available_tabs()
     
@@ -1302,6 +1422,11 @@ with tab_tabs:
                 </div>
                 """, unsafe_allow_html=True)
             
+            elif file_type == 'musicxml':
+                st.subheader(selected_tab)
+                viewer_result = musicxml_viewer(tab_content, key=f"musicxml_{selected_tab}")
+                if isinstance(viewer_result, str) and viewer_result.startswith("Error"):
+                    st.error(viewer_result)
             elif file_type == 'file':
                 # Display file (PDF, image, etc.)
                 st.subheader(selected_tab)
@@ -1379,6 +1504,64 @@ with tab_tabs:
         3. Name the file with the song name (e.g., `Move.txt`, `Superstition.pdf`)
         4. Refresh this page to see the new tabs appear
         """)
+
+    st.markdown("---")
+    st.markdown("### 🛠️ Quick Tab Builder (MVP)")
+    st.markdown(
+        "Build a simple riff directly in the Hub and save it as a MusicXML chart. "
+        "Use space-separated tokens with the `NOTE:DURATION` format (ex: `C4:q`). "
+        "Write each measure on its own line; prefix lines with `#` to add comments."
+    )
+
+    with st.form("tab_builder_form"):
+        builder_chart_name = st.text_input("Chart Name", placeholder="e.g., Late Night Groove", key="tab_builder_chart_name")
+        builder_subtitle = st.text_input("Subtitle (optional)", placeholder="e.g., Verse idea", key="tab_builder_subtitle")
+        builder_col1, builder_col2 = st.columns(2)
+        with builder_col1:
+            builder_bpm = st.number_input("Tempo (BPM)", min_value=40, max_value=240, value=120, key="tab_builder_bpm")
+        with builder_col2:
+            builder_time_signature = st.selectbox("Time Signature", ["4/4", "3/4", "6/8"], index=0, key="tab_builder_time_signature")
+        builder_col3, builder_col4 = st.columns(2)
+        with builder_col3:
+            builder_composer = st.text_input("Composer / Credit", value="Buckingham Conspiracy", key="tab_builder_composer")
+        with builder_col4:
+            builder_instrument_label = st.text_input("Instrument Label", value="Guitar", key="tab_builder_instrument_label")
+        builder_measure_input = st.text_area(
+            "Measure Input",
+            height=180,
+            key="tab_builder_measure_input",
+            help="Example: C4:q E4:q G4:q C5:q",
+        )
+        st.caption("Supported durations: w (whole), h (half), q (quarter), e (eighth), s (sixteenth). Use `rest:q` for rests.")
+        auto_preview = st.checkbox("Auto-preview after saving", value=True, key="tab_builder_auto_preview")
+        builder_submitted = st.form_submit_button("Generate MusicXML")
+
+    if builder_submitted:
+        builder_text = (builder_measure_input or "").strip()
+        chart_label = builder_chart_name.strip()
+
+        if not chart_label:
+            st.error("Chart name is required.")
+        elif not builder_text:
+            st.error("Enter at least one measure before generating.")
+        else:
+            success, result = create_musicxml_from_builder(
+                chart_label,
+                int(builder_bpm),
+                builder_time_signature,
+                builder_text,
+                composer=builder_composer,
+                subtitle=builder_subtitle,
+                instrument_label=builder_instrument_label,
+            )
+            if success:
+                generated_path = Path(result)
+                st.success(f"Saved {generated_path.name} to song_data/tabs")
+                if auto_preview:
+                    st.session_state.tabs_file_selector = generated_path.name
+                st.rerun()
+            else:
+                st.error(result)
 
 # Sidebar with quick stats
 st.sidebar.markdown("### 🎸 Quick Stats")
