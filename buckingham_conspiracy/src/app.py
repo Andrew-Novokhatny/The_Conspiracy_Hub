@@ -623,13 +623,10 @@ with tab_library:
     if songs_data:
         # Display song statistics with new metadata
         total_songs = len(songs_data)
-        horn_songs = len([s for s in songs_data.values() if s.get('has_horn')])
-        vocal_songs = len([s for s in songs_data.values() if s.get('has_vocals')])
         jam_vehicles = len([s for s in songs_data.values() if s.get('is_jam_vehicle')])
-        high_energy_songs = len([s for s in songs_data.values() if s.get('energy_level') == 'high'])
         avg_bpm = sum(s['bpm'] for s in songs_data.values()) / len(songs_data)
         
-        col1, col2, col3, col4, col5, col6 = st.columns(6)
+        col1, col2, col3 = st.columns(3)
         
         with col1:
             st.markdown(f"""
@@ -642,36 +639,12 @@ with tab_library:
         with col2:
             st.markdown(f"""
             <div class="metric-card">
-                <div class="metric-title">Horn Songs</div>
-                <div class="metric-value">{horn_songs}</div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col3:
-            st.markdown(f"""
-            <div class="metric-card">
-                <div class="metric-title">Vocal Songs</div>
-                <div class="metric-value">{vocal_songs}</div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col4:
-            st.markdown(f"""
-            <div class="metric-card">
                 <div class="metric-title">Jam Vehicles</div>
                 <div class="metric-value">{jam_vehicles}</div>
             </div>
             """, unsafe_allow_html=True)
         
-        with col5:
-            st.markdown(f"""
-            <div class="metric-card">
-                <div class="metric-title">High Energy</div>
-                <div class="metric-value">{high_energy_songs}</div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col6:
+        with col3:
             st.markdown(f"""
             <div class="metric-card">
                 <div class="metric-title">Avg BPM</div>
@@ -806,7 +779,7 @@ with tab_library:
                             st.rerun()
             else:
                 # Display mode
-                col1, col2, col3, col4, col5 = st.columns([3, 1, 1, 1, 1])
+                col1, col2, col3, col4, col5, col6 = st.columns([2.5, 1.5, 1, 1, 1, 1])
                 
                 with col1:
                     markers = ""
@@ -818,21 +791,24 @@ with tab_library:
                         markers += "🛸"
                     
                     energy_emoji = get_energy_emoji(song_info.get('energy_level', 'standard'))
-                    artist_display = f" - {song_info.get('artist', '')}" if song_info.get('artist') else ""
-                    st.markdown(f"{energy_emoji} **{song_name}**{artist_display} {markers}")
+                    st.markdown(f"{energy_emoji} **{song_name}** {markers}")
                 
                 with col2:
-                    st.markdown(f"**{song_info['bpm']}** BPM")
+                    artist = song_info.get('artist', '')
+                    st.markdown(f"*{artist if artist else '—'}*")
                 
                 with col3:
-                    st.markdown(f"**{format_duration(song_info['duration'])}**")
+                    st.markdown(f"**{song_info['bpm']}** BPM")
                 
                 with col4:
+                    st.markdown(f"**{format_duration(song_info['duration'])}**")
+                
+                with col5:
                     if st.button(f"✏️", key=f"edit_btn_{song_name}", help="Edit song"):
                         st.session_state.editing_song = song_name
                         st.rerun()
                 
-                with col5:
+                with col6:
                     if st.button(f"🗑️", key=f"delete_btn_{song_name}", help="Delete song"):
                         if delete_song(song_name):
                             st.success(f"Deleted '{song_name}'!")
