@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import re
 import json
+import html
 from datetime import datetime
 from typing import Dict, List, Tuple
 from pathlib import Path
@@ -13,6 +14,7 @@ SETLISTS_DIR = BASE_DIR / "setlists"
 SONG_DATA_DIR = BASE_DIR / "song_data"
 LYRICS_DIR = SONG_DATA_DIR / "lyrics"
 TABS_DIR = SONG_DATA_DIR / "tabs"
+SECTION_LABEL_PATTERN = re.compile(r"^\s*\[.+?\]\s*$")
 
 def load_song_list() -> Dict[str, Dict]:
     """Load the complete song list from markdown file"""
@@ -327,6 +329,20 @@ def load_lyrics_content(song_name: str) -> str:
     except Exception as e:
         return f"Error loading lyrics: {e}"
 
+
+def format_lyrics_for_display(content: str) -> str:
+    """Ensure section headers have padding and render bold in HTML."""
+    formatted_lines: List[str] = []
+    for line in content.splitlines():
+        stripped = line.strip()
+        if SECTION_LABEL_PATTERN.match(stripped):
+            if formatted_lines and formatted_lines[-1] != "":
+                formatted_lines.append("")
+            formatted_lines.append(f"<strong>{html.escape(stripped)}</strong>")
+        else:
+            formatted_lines.append(html.escape(line))
+    return "<br/>".join(formatted_lines)
+
 def load_available_tabs() -> List[str]:
     """Load list of available tab files"""
     try:
@@ -593,9 +609,15 @@ songs_data = st.session_state.songs_data
 previous_setlists = load_previous_setlists()
 
 # Create tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["📚 Song Library", "🎵 Setlist Builder", "📋 Previous Setlists", "📜 Lyrics", "🎸 Tabs"])
+tab_lyrics, tab_setlist, tab_library, tab_tabs, tab_previous = st.tabs([
+    "📜 Lyrics",
+    "🎵 Setlist Builder",
+    "📚 Song Library",
+    "🎸 Tabs",
+    "📋 Previous Setlists",
+])
 
-with tab1:
+with tab_library:
     st.header("📚 Song Library & Editor")
     
     if songs_data:
@@ -820,7 +842,7 @@ with tab1:
     else:
         st.error("No songs found. Please check the song list file.")
 
-with tab2:
+with tab_setlist:
     st.header("🎵 Setlist Builder")
     
     # Setlist metadata
@@ -1007,7 +1029,7 @@ with tab2:
             st.success("All sets cleared!")
             st.rerun()
 
-with tab3:
+with tab_previous:
     st.header("📋 Previous Setlists")
     
     if previous_setlists:
@@ -1142,7 +1164,7 @@ with tab3:
     else:
         st.info("No previous setlists found.")
 
-with tab4:
+with tab_lyrics:
     st.header("📜 Lyrics Viewer")
     
     # Device type selector
@@ -1187,6 +1209,7 @@ with tab4:
         # Display lyrics
         if selected_song:
             lyrics_content = load_lyrics_content(selected_song)
+            formatted_lyrics = format_lyrics_for_display(lyrics_content)
             
             # Get artist info if available
             artist_info = ""
@@ -1210,7 +1233,7 @@ with tab4:
             <div class="{container_class}">
                 <div class="lyrics-title">{selected_song}</div>
                 {artist_info}
-                <div class="{text_class}">{lyrics_content}</div>
+                <div class="{text_class}" style="white-space: normal;">{formatted_lyrics}</div>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1266,7 +1289,7 @@ with tab4:
         4. Refresh this page to see the new lyrics appear
         """)
 
-with tab5:
+with tab_tabs:
     st.header("🎸 Tabs & Notation")
     
     # Device type selector
