@@ -5,6 +5,7 @@ import json
 import html
 import csv
 import io
+import base64
 import sys
 from datetime import datetime
 from typing import Dict, List, Tuple
@@ -38,6 +39,9 @@ LYRICS_DIR = SONG_DATA_DIR / "lyrics"
 TABS_DIR = SONG_DATA_DIR / "tabs"
 TABS_RAW_JSON_DIR = TABS_DIR / "raw_json"
 TABS_MUSICXML_DIR = TABS_DIR / "musicxml"
+MIXER_CONFIG_DIR = DATA_ROOT / "mixer_configurations"
+MIXER_CONFIG_DEFAULT = MIXER_CONFIG_DIR / "Bunker_2025_config.json"
+STAGE_PLOTS_DIR = DATA_ROOT / "stage_plots"
 
 def describe_data_path(path: Path) -> str:
     for root in (DATA_ROOT, BASE_DIR):
@@ -46,6 +50,33 @@ def describe_data_path(path: Path) -> str:
         except ValueError:
             continue
     return str(path)
+
+
+def render_pdf_inline(file_path: Path, *, height: int = 700):
+    """Render a PDF inline using a data URI iframe."""
+    if not file_path.exists():
+        st.warning(f"PDF not found at `{describe_data_path(file_path)}`.")
+        return
+    try:
+        pdf_bytes = file_path.read_bytes()
+    except Exception as exc:
+        st.error(f"Unable to read PDF: {exc}")
+        return
+    encoded = base64.b64encode(pdf_bytes).decode("ascii")
+    data_uri = f"data:application/pdf;base64,{encoded}"
+    pdf_html = (
+        f'<iframe src="{data_uri}" '
+        f'width="100%" height="{height}" style="border:none;"></iframe>'
+    )
+    st.markdown(pdf_html, unsafe_allow_html=True)
+
+
+def list_files_by_extension(directory: Path, extensions: tuple[str, ...]) -> List[Path]:
+    if not directory.exists():
+        return []
+    normalized = {ext.lower() for ext in extensions}
+    files = [p for p in directory.iterdir() if p.is_file() and p.suffix.lower() in normalized]
+    return sorted(files, key=lambda p: p.name.lower())
 
 SONGLIST_CSV_HEADERS = [
     "title",
@@ -1361,14 +1392,18 @@ previous_setlists = load_previous_setlists()
 lyrics_hint = describe_data_path(LYRICS_DIR)
 tabs_hint = describe_data_path(TABS_DIR)
 tabs_raw_hint = describe_data_path(TABS_RAW_JSON_DIR)
+mixer_config_hint = describe_data_path(MIXER_CONFIG_DIR)
+stage_plot_hint = describe_data_path(STAGE_PLOTS_DIR)
 
 # Create tabs
-tab_lyrics, tab_setlist, tab_library, tab_tabs, tab_previous = st.tabs([
+tab_lyrics, tab_setlist, tab_library, tab_tabs, tab_previous, tab_stage, tab_mixer = st.tabs([
     "📜 Lyrics",
     "🎵 Setlist Builder",
     "📚 Song Library",
     "🎸 Tabs",
     "📋 Previous Setlists",
+    "🗺️ Stage Plot",
+    "🎛️ Mixer Configurations",
 ])
 
 with tab_library:
@@ -2678,6 +2713,136 @@ with tab_tabs:
                         st.rerun()
         else:
             st.info(f"No legacy JSON tabs detected in {tabs_raw_hint}.")
+
+with tab_mixer:
+    st.header("🎛️ Mixer Configurations")
+    st.markdown(
+        "Upload, download, or view the current mixer configuration and reference PDF."
+    )
+
+    st.subheader("Bunker 2025 Mixer Config (.json)")
+    config_files = list_files_by_extension(MIXER_CONFIG_DIR, (".json",))
+    config_names = [cfg.name for cfg in config_files]
+    config_map = {cfg.name: cfg for cfg in config_files}
+    default_config = MIXER_CONFIG_DEFAULT.name if MIXER_CONFIG_DEFAULT.exists() else (config_names[0] if config_names else "")
+
+    selected_config = ""
+    if config_names:
+        if is_mobile_view:
+            selected_config = tap_selectbox(
+                "Select config file",
+                config_names,
+                index=config_names.index(default_config) if default_config in config_names else 0,
+                key="mixer_config_selector",
+            )
+        else:
+            selected_config = styled_selectbox(
+                "Select config file",
+                config_names,
+                index=config_names.index(default_config) if default_config in config_names else 0,
+                key="mixer_config_selector",
+            )
+
+        config_path = config_map.get(selected_config)
+        if config_path:
+            try:
+                config_bytes = config_path.read_bytes()
+                st.download_button(
+                    "⬇️ Download Mixer Config",
+                    data=config_bytes,
+                    file_name=config_path.name,
+                    mime="application/json",
+                    use_container_width=True,
+                )
+                st.caption(f"Current file: `{describe_data_path(config_path)}`")
+            except Exception as exc:
+                st.error(f"Failed to read mixer config: {exc}")
+    else:
+        st.warning(f"No mixer config files found in `{mixer_config_hint}`.")
+
+    uploaded_config = st.file_uploader(
+        "Upload a new mixer config (.json)",
+        type=["json"],
+        key="mixer_config_upload",
+    )
+    if uploaded_config is not None:
+        uploaded_bytes = uploaded_config.getvalue()
+        if st.button("💾 Save Uploaded Config", key="save_mixer_config", use_container_width=True):
+            try:
+                MIXER_CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+                destination = MIXER_CONFIG_DIR / uploaded_config.name
+                destination.write_bytes(uploaded_bytes)
+                st.success(f"Saved to `{describe_data_path(destination)}`.")
+                st.rerun()
+            except Exception as exc:
+                st.error(f"Failed to save config: {exc}")
+
+    st.markdown("---")
+    st.subheader("BC Mixer Configurations (PDF)")
+    mixer_pdfs = list_files_by_extension(MIXER_CONFIG_DIR, (".pdf",))
+    mixer_pdf_names = [pdf.name for pdf in mixer_pdfs]
+    mixer_pdf_map = {pdf.name: pdf for pdf in mixer_pdfs}
+    if mixer_pdf_names:
+        if is_mobile_view:
+            selected_pdf = tap_selectbox(
+                "Select mixer PDF",
+                mixer_pdf_names,
+                key="mixer_pdf_selector",
+            )
+        else:
+            selected_pdf = styled_selectbox(
+                "Select mixer PDF",
+                mixer_pdf_names,
+                key="mixer_pdf_selector",
+            )
+
+        pdf_path = mixer_pdf_map.get(selected_pdf)
+        if pdf_path:
+            st.download_button(
+                "⬇️ Download Mixer PDF",
+                data=pdf_path.read_bytes(),
+                file_name=pdf_path.name,
+                mime="application/pdf",
+                use_container_width=True,
+            )
+            pdf_height = 600 if is_mobile_view else 750
+            render_pdf_inline(pdf_path, height=pdf_height)
+    else:
+        st.warning(f"No mixer PDFs found in `{mixer_config_hint}`.")
+
+with tab_stage:
+    st.header("🗺️ Stage Plot")
+    stage_pdfs = list_files_by_extension(STAGE_PLOTS_DIR, (".pdf",))
+    stage_pdf_names = [pdf.name for pdf in stage_pdfs]
+    stage_pdf_map = {pdf.name: pdf for pdf in stage_pdfs}
+
+    if stage_pdf_names:
+        if is_mobile_view:
+            selected_stage_pdf = tap_selectbox(
+                "Select stage plot PDF",
+                stage_pdf_names,
+                key="stage_plot_selector",
+            )
+        else:
+            selected_stage_pdf = styled_selectbox(
+                "Select stage plot PDF",
+                stage_pdf_names,
+                key="stage_plot_selector",
+            )
+
+        pdf_path = stage_pdf_map.get(selected_stage_pdf)
+        if pdf_path:
+            st.download_button(
+                "⬇️ Download Stage Plot PDF",
+                data=pdf_path.read_bytes(),
+                file_name=pdf_path.name,
+                mime="application/pdf",
+                use_container_width=True,
+            )
+            pdf_height = 600 if is_mobile_view else 750
+            render_pdf_inline(pdf_path, height=pdf_height)
+    else:
+        st.warning(f"No stage plot PDFs found in `{stage_plot_hint}`.")
 
 # Sidebar with quick stats
 st.sidebar.markdown("### 🎸 Quick Stats")
