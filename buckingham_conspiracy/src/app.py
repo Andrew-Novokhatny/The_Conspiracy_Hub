@@ -115,7 +115,7 @@ st.set_page_config(
     page_title="🎸 Buckingham Conspiracy Hub",
     page_icon="🎸",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="auto"
 )
 
 # Custom CSS for band styling
@@ -251,6 +251,15 @@ section[data-testid="stSidebar"] * {
 .lyrics-container-mobile {
     padding: 1.4rem;
     min-height: 420px;
+}
+
+.lyrics-container-fullscreen {
+    max-height: none;
+    min-height: 80vh;
+    height: 80vh;
+    width: 100%;
+    border-radius: 0;
+    padding: 2.2rem;
 }
 
 .lyrics-text,
@@ -456,6 +465,50 @@ label,
 .inline-hint p {
     margin: 0;
 }
+
+@media (max-width: 900px) {
+    .main-header {
+        padding: 1.1rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .main-header h1 {
+        font-size: 1.6rem;
+        letter-spacing: 0.06em;
+    }
+
+    .main-header p {
+        font-size: 0.95rem;
+    }
+
+    .metric-card {
+        padding: 1rem;
+    }
+
+    div[data-testid="stHorizontalBlock"] {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    div[data-testid="stHorizontalBlock"] > div {
+        width: 100% !important;
+    }
+
+    .stTabs [data-baseweb="tab-list"] {
+        flex-wrap: wrap;
+    }
+
+    .lyrics-container,
+    .lyrics-container-mobile {
+        max-height: none;
+    }
+
+    .lyrics-container-fullscreen {
+        min-height: 75vh;
+        height: 75vh;
+        padding: 1.6rem;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -504,8 +557,11 @@ if 'edited_setlist_data' not in st.session_state:
 if 'selected_lyrics_song' not in st.session_state:
     st.session_state.selected_lyrics_song = None
 
-if 'device_type' not in st.session_state:
-    st.session_state.device_type = 'Desktop'
+if 'lyrics_fullscreen' not in st.session_state:
+    st.session_state.lyrics_fullscreen = False
+
+if 'view_mode' not in st.session_state:
+    st.session_state.view_mode = 'Desktop'
 
 if 'tab_builder_measure_input' not in st.session_state:
     st.session_state.tab_builder_measure_input = TAB_BUILDER_SAMPLE
@@ -1100,6 +1156,30 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+render_control_label("View Mode")
+toggle_cols = st.columns(2)
+mobile_selected = st.session_state.view_mode == "Mobile"
+
+with toggle_cols[0]:
+    if st.button(
+        "📱 Mobile View",
+        key="view_mode_mobile",
+        type="primary" if mobile_selected else "secondary",
+        use_container_width=True,
+    ):
+        st.session_state.view_mode = "Mobile"
+
+with toggle_cols[1]:
+    if st.button(
+        "🖥️ Desktop View",
+        key="view_mode_desktop",
+        type="primary" if not mobile_selected else "secondary",
+        use_container_width=True,
+    ):
+        st.session_state.view_mode = "Desktop"
+
+is_mobile_view = st.session_state.view_mode == "Mobile"
+
 # Load data - Initialize if not in session state
 if st.session_state.songs_data is None:
     st.session_state.songs_data = load_song_list()
@@ -1346,47 +1426,75 @@ with tab_setlist:
     st.header("🎵 Setlist Builder")
     
     # Setlist metadata
-    col1, col2 = st.columns(2)
-    with col1:
+    if is_mobile_view:
         venue = st.text_input("Venue", value=st.session_state.setlist_metadata['venue'], key="setlist_venue")
         st.session_state.setlist_metadata['venue'] = venue
-    
-    with col2:
+
         date = st.text_input("Date (MM/DD/YY)", value=st.session_state.setlist_metadata['date'], key="setlist_date")
         st.session_state.setlist_metadata['date'] = date
+    else:
+        col1, col2 = st.columns(2)
+        with col1:
+            venue = st.text_input("Venue", value=st.session_state.setlist_metadata['venue'], key="setlist_venue")
+            st.session_state.setlist_metadata['venue'] = venue
+
+        with col2:
+            date = st.text_input("Date (MM/DD/YY)", value=st.session_state.setlist_metadata['date'], key="setlist_date")
+            st.session_state.setlist_metadata['date'] = date
     
     # Set break durations
-    col1, col2 = st.columns(2)
-    with col1:
+    if is_mobile_view:
         set1_break = st.number_input("Set 1 Break (minutes)", value=15, min_value=0, max_value=60, key="set1_break")
         st.session_state.setlist_metadata['set_breaks']['set1_break'] = set1_break
-    
-    with col2:
+
         set2_break = st.number_input("Set 2 Break (minutes)", value=15, min_value=0, max_value=60, key="set2_break")
         st.session_state.setlist_metadata['set_breaks']['set2_break'] = set2_break
+    else:
+        col1, col2 = st.columns(2)
+        with col1:
+            set1_break = st.number_input("Set 1 Break (minutes)", value=15, min_value=0, max_value=60, key="set1_break")
+            st.session_state.setlist_metadata['set_breaks']['set1_break'] = set1_break
+
+        with col2:
+            set2_break = st.number_input("Set 2 Break (minutes)", value=15, min_value=0, max_value=60, key="set2_break")
+            st.session_state.setlist_metadata['set_breaks']['set2_break'] = set2_break
     
     # Song selector
     st.subheader("Add Songs to Sets")
     
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        # Create searchable song list
+    if is_mobile_view:
         song_names = list(songs_data.keys())
         selected_song = styled_selectbox(
             "Select a song to add",
             [""] + sorted(song_names),
             key="song_selector",
         )
-    
-    with col2:
+
         target_set = styled_selectbox(
             "Add to set",
             ["Set 1", "Set 2", "Set 3"],
             key="target_set",
         )
+    else:
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            # Create searchable song list
+            song_names = list(songs_data.keys())
+            selected_song = styled_selectbox(
+                "Select a song to add",
+                [""] + sorted(song_names),
+                key="song_selector",
+            )
+
+        with col2:
+            target_set = styled_selectbox(
+                "Add to set",
+                ["Set 1", "Set 2", "Set 3"],
+                key="target_set",
+            )
     
     # Add song button
-    if st.button("➕ Add Song", key="add_song_to_setlist") and selected_song:
+    if st.button("➕ Add Song", key="add_song_to_setlist", use_container_width=is_mobile_view) and selected_song:
         set_key = f"set{target_set.split()[-1]}"
         if selected_song not in st.session_state.current_setlist[set_key]:
             st.session_state.current_setlist[set_key].append(selected_song)
@@ -1417,39 +1525,76 @@ with tab_setlist:
                      (st.session_state.setlist_metadata['set_breaks']['set2_break'] * 60)
     
     # Summary metrics
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-title">Set 1 Length</div>
-            <div class="metric-value">{format_duration(set1_duration)}</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-title">Set 2 Length</div>
-            <div class="metric-value">{format_duration(set2_duration)}</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-title">Set 3 Length</div>
-            <div class="metric-value">{format_duration(set3_duration)}</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col4:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-title">Total Show</div>
-            <div class="metric-value">{format_duration(total_show_time)}</div>
-        </div>
-        """, unsafe_allow_html=True)
+    if is_mobile_view:
+        row1_col1, row1_col2 = st.columns(2)
+
+        with row1_col1:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Set 1 Length</div>
+                <div class="metric-value">{format_duration(set1_duration)}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with row1_col2:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Set 2 Length</div>
+                <div class="metric-value">{format_duration(set2_duration)}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        row2_col1, row2_col2 = st.columns(2)
+
+        with row2_col1:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Set 3 Length</div>
+                <div class="metric-value">{format_duration(set3_duration)}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with row2_col2:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Total Show</div>
+                <div class="metric-value">{format_duration(total_show_time)}</div>
+            </div>
+            """, unsafe_allow_html=True)
+    else:
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Set 1 Length</div>
+                <div class="metric-value">{format_duration(set1_duration)}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with col2:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Set 2 Length</div>
+                <div class="metric-value">{format_duration(set2_duration)}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with col3:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Set 3 Length</div>
+                <div class="metric-value">{format_duration(set3_duration)}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with col4:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Total Show</div>
+                <div class="metric-value">{format_duration(total_show_time)}</div>
+            </div>
+            """, unsafe_allow_html=True)
     
     # Display sets
     for set_num, set_name in [(1, "Set 1"), (2, "Set 2"), (3, "Set 3")]:
@@ -1458,42 +1603,76 @@ with tab_setlist:
         with st.expander(f"🎵 {set_name} ({len(st.session_state.current_setlist[set_key])} songs)", expanded=True):
             if st.session_state.current_setlist[set_key]:
                 for i, song in enumerate(st.session_state.current_setlist[set_key]):
-                    col1, col2, col3, col4 = st.columns([3, 1, 1, 1])
-                    
-                    with col1:
-                        song_info = songs_data.get(song, {})
-                        markers = ""
-                        if song_info.get('has_horn'):
-                            markers += "🎺 "
-                        if song_info.get('has_vocals'):
-                            markers += "🥁 "
-                        
+                    song_info = songs_data.get(song, {})
+                    markers = ""
+                    if song_info.get('has_horn'):
+                        markers += "🎺 "
+                    if song_info.get('has_vocals'):
+                        markers += "🥁 "
+
+                    if is_mobile_view:
                         st.markdown(f"""
                         <div class="song-card">
                             <strong>{song}</strong> {markers}<br>
                             <small>BPM: {song_info.get('bpm', 'Unknown')} | Duration: {format_duration(song_info.get('duration', 210))}</small>
                         </div>
                         """, unsafe_allow_html=True)
-                    
-                    with col2:
-                        if st.button("⬆️", key=f"up_{set_key}_{i}", disabled=i==0):
-                            # Move song up
-                            songs = st.session_state.current_setlist[set_key]
-                            songs[i], songs[i-1] = songs[i-1], songs[i]
-                            st.rerun()
-                    
-                    with col3:
-                        if st.button("⬇️", key=f"down_{set_key}_{i}", disabled=i==len(st.session_state.current_setlist[set_key])-1):
-                            # Move song down
-                            songs = st.session_state.current_setlist[set_key]
-                            songs[i], songs[i+1] = songs[i+1], songs[i]
-                            st.rerun()
-                    
-                    with col4:
-                        if st.button("🗑️", key=f"remove_{set_key}_{i}"):
-                            # Remove song
-                            st.session_state.current_setlist[set_key].pop(i)
-                            st.rerun()
+
+                        btn_col1, btn_col2, btn_col3 = st.columns(3)
+                        with btn_col1:
+                            if st.button("⬆️", key=f"up_{set_key}_{i}", disabled=i==0, use_container_width=True):
+                                # Move song up
+                                songs = st.session_state.current_setlist[set_key]
+                                songs[i], songs[i-1] = songs[i-1], songs[i]
+                                st.rerun()
+
+                        with btn_col2:
+                            if st.button(
+                                "⬇️",
+                                key=f"down_{set_key}_{i}",
+                                disabled=i==len(st.session_state.current_setlist[set_key])-1,
+                                use_container_width=True,
+                            ):
+                                # Move song down
+                                songs = st.session_state.current_setlist[set_key]
+                                songs[i], songs[i+1] = songs[i+1], songs[i]
+                                st.rerun()
+
+                        with btn_col3:
+                            if st.button("🗑️", key=f"remove_{set_key}_{i}", use_container_width=True):
+                                # Remove song
+                                st.session_state.current_setlist[set_key].pop(i)
+                                st.rerun()
+                    else:
+                        col1, col2, col3, col4 = st.columns([3, 1, 1, 1])
+
+                        with col1:
+                            st.markdown(f"""
+                            <div class="song-card">
+                                <strong>{song}</strong> {markers}<br>
+                                <small>BPM: {song_info.get('bpm', 'Unknown')} | Duration: {format_duration(song_info.get('duration', 210))}</small>
+                            </div>
+                            """, unsafe_allow_html=True)
+
+                        with col2:
+                            if st.button("⬆️", key=f"up_{set_key}_{i}", disabled=i==0):
+                                # Move song up
+                                songs = st.session_state.current_setlist[set_key]
+                                songs[i], songs[i-1] = songs[i-1], songs[i]
+                                st.rerun()
+
+                        with col3:
+                            if st.button("⬇️", key=f"down_{set_key}_{i}", disabled=i==len(st.session_state.current_setlist[set_key])-1):
+                                # Move song down
+                                songs = st.session_state.current_setlist[set_key]
+                                songs[i], songs[i+1] = songs[i+1], songs[i]
+                                st.rerun()
+
+                        with col4:
+                            if st.button("🗑️", key=f"remove_{set_key}_{i}"):
+                                # Remove song
+                                st.session_state.current_setlist[set_key].pop(i)
+                                st.rerun()
             else:
                 st.markdown(
                     f"""
@@ -1507,10 +1686,8 @@ with tab_setlist:
     
     # Export functionality
     st.markdown("---")
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        if st.button("📄 Export Setlist", key="export_setlist"):
+    if is_mobile_view:
+        if st.button("📄 Export Setlist", key="export_setlist", use_container_width=True):
             # Create export data
             export_data = {
                 'venue': venue,
@@ -1523,19 +1700,49 @@ with tab_setlist:
                     'total_show': format_duration(total_show_time)
                 }
             }
-            
+
             st.download_button(
                 "💾 Download JSON",
                 data=json.dumps(export_data, indent=2),
                 file_name=f"setlist_{venue}_{date.replace('/', '')}.json",
-                mime="application/json"
+                mime="application/json",
+                use_container_width=True,
             )
-    
-    with col2:
-        if st.button("🗑️ Clear All Sets"):
+
+        if st.button("🗑️ Clear All Sets", use_container_width=True):
             st.session_state.current_setlist = {'set1': [], 'set2': [], 'set3': []}
             st.success("All sets cleared!")
             st.rerun()
+    else:
+        col1, col2 = st.columns(2)
+
+        with col1:
+            if st.button("📄 Export Setlist", key="export_setlist"):
+                # Create export data
+                export_data = {
+                    'venue': venue,
+                    'date': date,
+                    'setlist': st.session_state.current_setlist,
+                    'timing': {
+                        'set1_duration': format_duration(set1_duration),
+                        'set2_duration': format_duration(set2_duration),
+                        'set3_duration': format_duration(set3_duration),
+                        'total_show': format_duration(total_show_time)
+                    }
+                }
+
+                st.download_button(
+                    "💾 Download JSON",
+                    data=json.dumps(export_data, indent=2),
+                    file_name=f"setlist_{venue}_{date.replace('/', '')}.json",
+                    mime="application/json"
+                )
+
+        with col2:
+            if st.button("🗑️ Clear All Sets"):
+                st.session_state.current_setlist = {'set1': [], 'set2': [], 'set3': []}
+                st.success("All sets cleared!")
+                st.rerun()
 
 with tab_previous:
     st.header("📋 Previous Setlists")
@@ -1573,19 +1780,45 @@ with tab_previous:
                     st.session_state.edited_setlist_data = setlist.copy()
                 
                 # Venue and date editing (outside form for better UX)
-                col1, col2 = st.columns(2)
-                with col1:
-                    edited_venue = st.text_input("Venue", value=st.session_state.edited_setlist_data['venue'], key=f"venue_{setlist_id}")
+                if is_mobile_view:
+                    edited_venue = st.text_input(
+                        "Venue",
+                        value=st.session_state.edited_setlist_data['venue'],
+                        key=f"venue_{setlist_id}",
+                    )
                     st.session_state.edited_setlist_data['venue'] = edited_venue
-                with col2:
-                    edited_date = st.text_input("Date", value=st.session_state.edited_setlist_data['date'], key=f"date_{setlist_id}")
+
+                    edited_date = st.text_input(
+                        "Date",
+                        value=st.session_state.edited_setlist_data['date'],
+                        key=f"date_{setlist_id}",
+                    )
                     st.session_state.edited_setlist_data['date'] = edited_date
+                else:
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        edited_venue = st.text_input(
+                            "Venue",
+                            value=st.session_state.edited_setlist_data['venue'],
+                            key=f"venue_{setlist_id}",
+                        )
+                        st.session_state.edited_setlist_data['venue'] = edited_venue
+                    with col2:
+                        edited_date = st.text_input(
+                            "Date",
+                            value=st.session_state.edited_setlist_data['date'],
+                            key=f"date_{setlist_id}",
+                        )
+                        st.session_state.edited_setlist_data['date'] = edited_date
                 
                 # Edit sets
                 st.subheader("Edit Sets")
-                col1, col2, col3 = st.columns(3)
-                
-                for set_num, (col, set_name) in enumerate([(col1, "Set 1"), (col2, "Set 2"), (col3, "Set 3")], 1):
+                if is_mobile_view:
+                    set_columns = [st.container(), st.container(), st.container()]
+                else:
+                    set_columns = st.columns(3)
+
+                for set_num, (col, set_name) in enumerate(zip(set_columns, ["Set 1", "Set 2", "Set 3"]), 1):
                     set_key = f"set{set_num}"
                     set_songs = st.session_state.edited_setlist_data['sets'].get(set_key, [])
                     
@@ -1594,7 +1827,12 @@ with tab_previous:
                         
                         # Add song to set
                         song_names = list(songs_data.keys()) if songs_data else []
-                        add_song_col1, add_song_col2 = st.columns([3, 1])
+                        if is_mobile_view:
+                            add_song_col1 = st.container()
+                            add_song_col2 = st.container()
+                        else:
+                            add_song_col1, add_song_col2 = st.columns([3, 1])
+
                         with add_song_col1:
                             new_song = styled_selectbox(
                                 f"Add song to {set_name}",
@@ -1602,7 +1840,12 @@ with tab_previous:
                                 key=f"add_song_{set_key}_{setlist_id}",
                             )
                         with add_song_col2:
-                            if st.button("➕", key=f"add_btn_{set_key}_{setlist_id}", help=f"Add to {set_name}"):
+                            if st.button(
+                                "➕",
+                                key=f"add_btn_{set_key}_{setlist_id}",
+                                help=f"Add to {set_name}",
+                                use_container_width=is_mobile_view,
+                            ):
                                 if new_song and new_song not in [s['name'] for s in set_songs]:
                                     song_info = songs_data.get(new_song, {})
                                     set_songs.append({
@@ -1616,26 +1859,49 @@ with tab_previous:
                         
                         # Display and edit existing songs
                         for j, song in enumerate(set_songs):
-                            song_col1, song_col2, song_col3 = st.columns([3, 1, 1])
-                            
-                            with song_col1:
+                            if is_mobile_view:
                                 st.markdown(f"• {song['name']} ({song['bpm']})" if song['bpm'] else f"• {song['name']}")
-                            
-                            with song_col2:
-                                if st.button("⬆️", key=f"up_{set_key}_{j}_{setlist_id}", disabled=j==0, help="Move up"):
-                                    set_songs[j], set_songs[j-1] = set_songs[j-1], set_songs[j]
-                                    st.rerun()
-                            
-                            with song_col3:
-                                if st.button("🗑️", key=f"del_{set_key}_{j}_{setlist_id}", help="Delete"):
-                                    set_songs.pop(j)
-                                    st.rerun()
+                                action_col1, action_col2 = st.columns(2)
+                                with action_col1:
+                                    if st.button(
+                                        "⬆️",
+                                        key=f"up_{set_key}_{j}_{setlist_id}",
+                                        disabled=j==0,
+                                        help="Move up",
+                                        use_container_width=True,
+                                    ):
+                                        set_songs[j], set_songs[j-1] = set_songs[j-1], set_songs[j]
+                                        st.rerun()
+
+                                with action_col2:
+                                    if st.button(
+                                        "🗑️",
+                                        key=f"del_{set_key}_{j}_{setlist_id}",
+                                        help="Delete",
+                                        use_container_width=True,
+                                    ):
+                                        set_songs.pop(j)
+                                        st.rerun()
+                            else:
+                                song_col1, song_col2, song_col3 = st.columns([3, 1, 1])
+
+                                with song_col1:
+                                    st.markdown(f"• {song['name']} ({song['bpm']})" if song['bpm'] else f"• {song['name']}")
+
+                                with song_col2:
+                                    if st.button("⬆️", key=f"up_{set_key}_{j}_{setlist_id}", disabled=j==0, help="Move up"):
+                                        set_songs[j], set_songs[j-1] = set_songs[j-1], set_songs[j]
+                                        st.rerun()
+
+                                with song_col3:
+                                    if st.button("🗑️", key=f"del_{set_key}_{j}_{setlist_id}", help="Delete"):
+                                        set_songs.pop(j)
+                                        st.rerun()
                 
                 # Save/Cancel buttons
                 st.markdown("---")
-                col1, col2 = st.columns(2)
-                with col1:
-                    if st.button("💾 Save Setlist", key=f"save_{setlist_id}", type="primary"):
+                if is_mobile_view:
+                    if st.button("💾 Save Setlist", key=f"save_{setlist_id}", type="primary", use_container_width=True):
                         # Save to file
                         if save_setlist_to_file(st.session_state.edited_setlist_data):
                             st.session_state.editing_setlist = None
@@ -1646,25 +1912,51 @@ with tab_previous:
                             st.rerun()
                         else:
                             st.error("Failed to save setlist changes.")
-                
-                with col2:
-                    if st.button("❌ Cancel", key=f"cancel_{setlist_id}"):
+
+                    if st.button("❌ Cancel", key=f"cancel_{setlist_id}", use_container_width=True):
                         st.session_state.editing_setlist = None
                         st.session_state.edited_setlist_data = None
                         st.rerun()
+                else:
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        if st.button("💾 Save Setlist", key=f"save_{setlist_id}", type="primary"):
+                            # Save to file
+                            if save_setlist_to_file(st.session_state.edited_setlist_data):
+                                st.session_state.editing_setlist = None
+                                st.session_state.edited_setlist_data = None
+                                # Clear cache to reload data
+                                st.cache_data.clear()
+                                st.success(f"Saved changes to '{edited_venue} - {edited_date}'!")
+                                st.rerun()
+                            else:
+                                st.error("Failed to save setlist changes.")
+
+                    with col2:
+                        if st.button("❌ Cancel", key=f"cancel_{setlist_id}"):
+                            st.session_state.editing_setlist = None
+                            st.session_state.edited_setlist_data = None
+                            st.rerun()
             
             else:
                 # Display mode
                 with st.expander(f"🎸 {setlist['venue']} - {setlist['date']}", expanded=False):
                     # Edit button
-                    if st.button(f"✏️ Edit Setlist", key=f"edit_setlist_{setlist_id}"):
+                    if st.button(
+                        f"✏️ Edit Setlist",
+                        key=f"edit_setlist_{setlist_id}",
+                        use_container_width=is_mobile_view,
+                    ):
                         st.session_state.editing_setlist = setlist_id
                         st.session_state.edited_setlist_data = None  # Will be loaded in edit mode
                         st.rerun()
                     
-                    col1, col2, col3 = st.columns(3)
-                    
-                    for set_num, (col, set_name) in enumerate([(col1, "Set 1"), (col2, "Set 2"), (col3, "Set 3")], 1):
+                    if is_mobile_view:
+                        display_columns = [st.container(), st.container(), st.container()]
+                    else:
+                        display_columns = st.columns(3)
+
+                    for set_num, (col, set_name) in enumerate(zip(display_columns, ["Set 1", "Set 2", "Set 3"]), 1):
                         set_key = f"set{set_num}"
                         set_songs = setlist['sets'].get(set_key, [])
                         
@@ -1693,9 +1985,7 @@ with tab_lyrics:
     ):
         song_index = available_lyrics.index(st.session_state.selected_lyrics_song) + 1
 
-    selector_cols = st.columns([2.6, 1.2, 0.9])
-
-    with selector_cols[0]:
+    if is_mobile_view:
         selected_song = styled_selectbox(
             "Choose a song",
             [""] + available_lyrics,
@@ -1705,19 +1995,39 @@ with tab_lyrics:
         if selected_song:
             st.session_state.selected_lyrics_song = selected_song
 
-    with selector_cols[1]:
-        device_type = styled_selectbox(
-            "Display Mode",
-            ["Mobile", "Tablet", "Desktop"],
-            index=["Mobile", "Tablet", "Desktop"].index(st.session_state.device_type),
-            key="device_selector",
-        )
-        st.session_state.device_type = device_type
-
-    with selector_cols[2]:
-        st.markdown("<p class='control-label'>&nbsp;</p>", unsafe_allow_html=True)
         if st.button("🔄 Refresh Lyrics", key="refresh_lyrics", use_container_width=True):
             st.rerun()
+
+        if selected_song:
+            toggle_label = "↩️ Exit Full Screen" if st.session_state.lyrics_fullscreen else "🔍 Full Screen"
+            if st.button(toggle_label, key="lyrics_fullscreen_toggle", use_container_width=True):
+                st.session_state.lyrics_fullscreen = not st.session_state.lyrics_fullscreen
+    else:
+        selector_cols = st.columns([3, 1, 1])
+        with selector_cols[0]:
+            selected_song = styled_selectbox(
+                "Choose a song",
+                [""] + available_lyrics,
+                index=song_index,
+                key="lyrics_song_selector",
+            )
+            if selected_song:
+                st.session_state.selected_lyrics_song = selected_song
+
+        with selector_cols[1]:
+            st.markdown("<p class='control-label'>&nbsp;</p>", unsafe_allow_html=True)
+            if st.button("🔄 Refresh Lyrics", key="refresh_lyrics", use_container_width=True):
+                st.rerun()
+
+        with selector_cols[2]:
+            st.markdown("<p class='control-label'>&nbsp;</p>", unsafe_allow_html=True)
+            if selected_song:
+                toggle_label = "↩️ Exit Full Screen" if st.session_state.lyrics_fullscreen else "🔍 Full Screen"
+                if st.button(toggle_label, key="lyrics_fullscreen_toggle", use_container_width=True):
+                    st.session_state.lyrics_fullscreen = not st.session_state.lyrics_fullscreen
+
+    if not selected_song and st.session_state.lyrics_fullscreen:
+        st.session_state.lyrics_fullscreen = False
 
     if available_lyrics:
         
@@ -1732,16 +2042,17 @@ with tab_lyrics:
                 artist = songs_data[selected_song].get('artist', '')
                 artist_info = f"<div style='text-align: center; color: #ccc; font-size: 16px; margin-bottom: 1rem;'>{artist}</div>" if artist else ""
             
-            # Determine styling based on device type
+            # Determine styling based on view mode
+            device_type = st.session_state.view_mode
             if device_type == "Mobile":
-                container_class = "lyrics-container-mobile"
+                base_container = "lyrics-container-mobile"
                 text_class = "lyrics-text-mobile"
-            elif device_type == "Tablet":
-                container_class = "lyrics-container"
-                text_class = "lyrics-text-tablet"
             else:  # Desktop
-                container_class = "lyrics-container"
+                base_container = "lyrics-container"
                 text_class = "lyrics-text-desktop"
+
+            fullscreen_class = "lyrics-container-fullscreen" if st.session_state.lyrics_fullscreen else ""
+            container_class = f"{base_container} {fullscreen_class}".strip()
             
             # Display the lyrics with device-specific styling
             st.markdown(f"""
@@ -1752,45 +2063,68 @@ with tab_lyrics:
             </div>
             """, unsafe_allow_html=True)
             
-            # Add helpful info
-            st.markdown("---")
-            col1, col2, col3 = st.columns(3)
-            
-            with col1:
-                st.markdown(f"""
-                <div class="metric-card">
-                    <div class="metric-title">Display Mode</div>
-                    <div class="metric-value">{device_type}</div>
-                </div>
-                """, unsafe_allow_html=True)
-            
-            with col2:
-                line_count = len(lyrics_content.split('\n'))
-                st.markdown(f"""
-                <div class="metric-card">
-                    <div class="metric-title">Lines</div>
-                    <div class="metric-value">{line_count}</div>
-                </div>
-                """, unsafe_allow_html=True)
-            
-            with col3:
-                st.markdown(f"""
-                <div class="metric-card">
-                    <div class="metric-title">Available Songs</div>
-                    <div class="metric-value">{len(available_lyrics)}</div>
-                </div>
-                """, unsafe_allow_html=True)
-            
-            # Tips section
-            with st.expander("💡 Lyrics Viewer Tips"):
-                st.markdown("""
-                - **Mobile Mode**: Optimized for phones with larger text and tighter spacing
-                - **Tablet Mode**: Best for iPads with extra-large text for easy reading at distance
-                - **Desktop Mode**: Balanced view for laptop/desktop screens
-                - Scroll within the lyrics box to navigate through the song
-                - The lyrics are loaded from `.txt` files in the `song_data` directory
-                - To add new lyrics, create a `.txt` file with the song name in the `song_data` folder
-                """)
+            if not st.session_state.lyrics_fullscreen:
+                # Add helpful info
+                st.markdown("---")
+                if is_mobile_view:
+                    st.markdown(f"""
+                    <div class="metric-card">
+                        <div class="metric-title">Display Mode</div>
+                        <div class="metric-value">{device_type}</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    line_count = len(lyrics_content.split('\n'))
+                    st.markdown(f"""
+                    <div class="metric-card">
+                        <div class="metric-title">Lines</div>
+                        <div class="metric-value">{line_count}</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    st.markdown(f"""
+                    <div class="metric-card">
+                        <div class="metric-title">Available Songs</div>
+                        <div class="metric-value">{len(available_lyrics)}</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    col1, col2, col3 = st.columns(3)
+
+                    with col1:
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <div class="metric-title">Display Mode</div>
+                            <div class="metric-value">{device_type}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    with col2:
+                        line_count = len(lyrics_content.split('\n'))
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <div class="metric-title">Lines</div>
+                            <div class="metric-value">{line_count}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    with col3:
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <div class="metric-title">Available Songs</div>
+                            <div class="metric-value">{len(available_lyrics)}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                
+                # Tips section
+                with st.expander("💡 Lyrics Viewer Tips"):
+                    st.markdown("""
+                    - **Mobile Mode**: Optimized for phones with larger text and tighter spacing
+                    - **Desktop Mode**: Balanced view for laptop/desktop screens
+                    - Scroll within the lyrics box to navigate through the song
+                    - The lyrics are loaded from `.txt` files in the `song_data` directory
+                    - To add new lyrics, create a `.txt` file with the song name in the `song_data` folder
+                    """)
         else:
             st.markdown(
                 """
@@ -1816,12 +2150,17 @@ with tab_tabs:
     st.header("🎸 Tabs & Notation")
     st.markdown("### 🎧 Browse Saved Files")
 
-    col1, col2 = st.columns([2, 1])
-    with col1:
+    if is_mobile_view:
         st.markdown("**Select a tab file to view:**")
-    with col2:
-        if st.button("🔄 Refresh Tabs", key="refresh_tabs"):
+        if st.button("🔄 Refresh Tabs", key="refresh_tabs", use_container_width=True):
             st.rerun()
+    else:
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            st.markdown("**Select a tab file to view:**")
+        with col2:
+            if st.button("🔄 Refresh Tabs", key="refresh_tabs"):
+                st.rerun()
 
     if 'pending_tab_selection' in st.session_state:
         st.session_state.tabs_file_selector = st.session_state.pop('pending_tab_selection')
@@ -1843,10 +2182,12 @@ with tab_tabs:
             
             if file_type == 'text':
                 # Display ASCII tabs
+                tab_container_class = "lyrics-container-mobile" if is_mobile_view else "lyrics-container"
+                tab_text_class = "lyrics-text-mobile" if is_mobile_view else "lyrics-text-desktop"
                 st.markdown(f"""
-                <div class="lyrics-container">
+                <div class="{tab_container_class}">
                     <div class="lyrics-title">{selected_tab}</div>
-                    <div class="lyrics-text-desktop">{tab_content}</div>
+                    <div class="{tab_text_class}">{tab_content}</div>
                 </div>
                 """, unsafe_allow_html=True)
             
@@ -1860,14 +2201,13 @@ with tab_tabs:
                 tab_payload = tab_content if isinstance(tab_content, dict) else {}
                 tab_meta = tab_payload.get('tab', {}) if isinstance(tab_payload, dict) else {}
 
-                col_a, col_b, col_c = st.columns(3)
                 meta_pairs = [
-                    (col_a, 'Song Title', tab_meta.get('title', 'Unknown')),
-                    (col_b, 'Artist', tab_meta.get('artist_name', 'Unknown')),
-                    (col_c, 'Tuning', tab_meta.get('tuning', 'Standard') or 'Standard'),
+                    ('Song Title', tab_meta.get('title', 'Unknown')),
+                    ('Artist', tab_meta.get('artist_name', 'Unknown')),
+                    ('Tuning', tab_meta.get('tuning', 'Standard') or 'Standard'),
                 ]
-                for column, label, value in meta_pairs:
-                    with column:
+                if is_mobile_view:
+                    for label, value in meta_pairs:
                         st.markdown(
                             f"""
                             <div class="metric-card">
@@ -1877,6 +2217,19 @@ with tab_tabs:
                             """,
                             unsafe_allow_html=True,
                         )
+                else:
+                    col_a, col_b, col_c = st.columns(3)
+                    for column, (label, value) in zip((col_a, col_b, col_c), meta_pairs):
+                        with column:
+                            st.markdown(
+                                f"""
+                                <div class="metric-card">
+                                    <div class="metric-title">{label}</div>
+                                    <div class="metric-value">{value}</div>
+                                </div>
+                                """,
+                                unsafe_allow_html=True,
+                            )
 
                 line_count = len(tab_meta.get('lines', [])) if isinstance(tab_meta, dict) else 0
                 st.markdown(
@@ -1896,7 +2249,8 @@ with tab_tabs:
                             label="📥 Download PDF",
                             data=f,
                             file_name=selected_tab,
-                            mime="application/pdf"
+                            mime="application/pdf",
+                            use_container_width=is_mobile_view,
                         )
                     st.info("PDF files can be downloaded. Future updates may include in-browser viewing.")
                 
@@ -1908,35 +2262,58 @@ with tab_tabs:
             
             # Add helpful info
             st.markdown("---")
-            col1, col2, col3 = st.columns(3)
-            
-            with col1:
-                file_ext = Path(selected_tab).suffix.upper()[1:] if Path(selected_tab).suffix else "Unknown"
+            file_ext = Path(selected_tab).suffix.upper()[1:] if Path(selected_tab).suffix else "Unknown"
+            tab_path = resolve_tab_file(selected_tab)
+            file_size = tab_path.stat().st_size if tab_path and tab_path.exists() else 0
+            size_kb = file_size / 1024
+
+            if is_mobile_view:
                 st.markdown(f"""
                 <div class="metric-card">
                     <div class="metric-title">File Type</div>
                     <div class="metric-value">{file_ext}</div>
                 </div>
                 """, unsafe_allow_html=True)
-            
-            with col2:
-                tab_path = resolve_tab_file(selected_tab)
-                file_size = tab_path.stat().st_size if tab_path and tab_path.exists() else 0
-                size_kb = file_size / 1024
+
                 st.markdown(f"""
                 <div class="metric-card">
                     <div class="metric-title">File Size</div>
                     <div class="metric-value">{size_kb:.1f} KB</div>
                 </div>
                 """, unsafe_allow_html=True)
-            
-            with col3:
+
                 st.markdown(f"""
                 <div class="metric-card">
                     <div class="metric-title">Available Tabs</div>
                     <div class="metric-value">{len(available_tabs)}</div>
                 </div>
                 """, unsafe_allow_html=True)
+            else:
+                col1, col2, col3 = st.columns(3)
+
+                with col1:
+                    st.markdown(f"""
+                    <div class="metric-card">
+                        <div class="metric-title">File Type</div>
+                        <div class="metric-value">{file_ext}</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                with col2:
+                    st.markdown(f"""
+                    <div class="metric-card">
+                        <div class="metric-title">File Size</div>
+                        <div class="metric-value">{size_kb:.1f} KB</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                with col3:
+                    st.markdown(f"""
+                    <div class="metric-card">
+                        <div class="metric-title">Available Tabs</div>
+                        <div class="metric-value">{len(available_tabs)}</div>
+                    </div>
+                    """, unsafe_allow_html=True)
             
             # Tips section
             with st.expander("💡 Tabs Viewer Tips"):
@@ -1985,7 +2362,12 @@ with tab_tabs:
             builder_chart_name = st.text_input("Chart Name", placeholder="e.g., Late Night Groove", key="tab_builder_chart_name")
             builder_artist_name = st.text_input("Artist / Movement Title", value="Buckingham Conspiracy", key="tab_builder_artist")
             builder_subtitle = st.text_input("Subtitle (optional)", placeholder="e.g., Verse idea", key="tab_builder_subtitle")
-            builder_col1, builder_col2, builder_col3 = st.columns(3)
+            if is_mobile_view:
+                builder_col1 = st.container()
+                builder_col2 = st.container()
+                builder_col3 = st.container()
+            else:
+                builder_col1, builder_col2, builder_col3 = st.columns(3)
             with builder_col1:
                 builder_bpm = st.number_input("Tempo (BPM)", min_value=40, max_value=240, value=120, key="tab_builder_bpm")
             with builder_col2:
@@ -2047,11 +2429,15 @@ with tab_tabs:
                 options=json_tab_files,
                 key="json_tab_multiselect"
             )
-            col_conv1, col_conv2 = st.columns(2)
-            with col_conv1:
-                convert_selected = st.button("Convert Selected", key="convert_selected_json")
-            with col_conv2:
-                convert_all = st.button("Convert All JSON", key="convert_all_json")
+            if is_mobile_view:
+                convert_selected = st.button("Convert Selected", key="convert_selected_json", use_container_width=True)
+                convert_all = st.button("Convert All JSON", key="convert_all_json", use_container_width=True)
+            else:
+                col_conv1, col_conv2 = st.columns(2)
+                with col_conv1:
+                    convert_selected = st.button("Convert Selected", key="convert_selected_json")
+                with col_conv2:
+                    convert_all = st.button("Convert All JSON", key="convert_all_json")
 
             conversion_triggered = convert_selected or convert_all
             if conversion_triggered:
