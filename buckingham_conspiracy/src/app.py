@@ -30,7 +30,7 @@ def resolve_data_root(base_dir: Path) -> Path:
 
 from components.st_musicxml_viewer import musicxml_viewer
 DATA_ROOT = resolve_data_root(BASE_DIR)
-SONGLIST_DIR = DATA_ROOT / "songlist" / "Buckingham Conspiracy 3.0  SONG LIST"
+SONGLIST_DIR = DATA_ROOT / "songlist" / "Buckingham_Conspiracy_Song_List"
 SONGLIST_MARKDOWN = SONGLIST_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
 SONGLIST_CSV = SONGLIST_DIR / "songlist_master.csv"
 SETLISTS_DIR = DATA_ROOT / "setlists"

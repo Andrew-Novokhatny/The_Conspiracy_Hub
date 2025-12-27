@@ -29,7 +29,7 @@ DATA_ROOT = resolve_data_root(BASE_DIR)
 SONGLIST_FILE = (
     DATA_ROOT
     / "songlist"
-    / "Buckingham Conspiracy 3.0  SONG LIST"
+    / "Buckingham_Conspiracy_Song_List"
     / "Buckingham Conspiracy 3.0  SONG LIST.md"
 )
 LYRICS_DIR = DATA_ROOT / "song_data" / "lyrics"

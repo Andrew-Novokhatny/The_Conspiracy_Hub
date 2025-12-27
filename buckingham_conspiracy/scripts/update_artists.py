@@ -80,7 +80,7 @@ DATA_ROOT = resolve_data_root(BASE_DIR)
 file_path = (
     DATA_ROOT
     / "songlist"
-    / "Buckingham Conspiracy 3.0  SONG LIST"
+    / "Buckingham_Conspiracy_Song_List"
     / "Buckingham Conspiracy 3.0  SONG LIST.md"
 )
 with open(file_path, 'r', encoding='utf-8') as f:

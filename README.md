@@ -115,6 +115,7 @@ streamlit run src/app.py
 ## Project Structure
 
 ```
+README.md
 buckingham_conspiracy/
 ├── src/
 │   ├── __init__.py
@@ -126,8 +127,7 @@ buckingham_conspiracy/
 ├── mixer_configurations/   # Mixer JSON + PDF references
 ├── stage_plots/            # Stage plot PDFs
 ├── requirements.txt        # Python dependencies
-├── Dockerfile             # Docker container configuration
-└── README.md             # This file
+└── Dockerfile             # Docker container configuration
 ```
 
 ## Data Persistence
