@@ -527,6 +527,44 @@ def styled_selectbox(label: str, options, *, label_visibility: str = "collapsed"
     internal_label = label if label.endswith(':') else f"{label}:"
     return st.selectbox(internal_label, options, label_visibility=label_visibility, **kwargs)
 
+def tap_selectbox(label: str, options, *, index: int = 0, key: str, **_kwargs):
+    """Tap-only select list for mobile to avoid triggering the keyboard."""
+    plain_label = (label or "").rstrip(':').strip()
+    render_control_label(plain_label)
+    default_value = options[index] if options and 0 <= index < len(options) else ""
+    if key not in st.session_state:
+        st.session_state[key] = default_value
+
+    current_value = st.session_state.get(key, default_value)
+    display_value = current_value if current_value else "Select..."
+    trigger_label = f"{plain_label}: {display_value}" if plain_label else display_value
+
+    popover = getattr(st, "popover", None)
+    if popover:
+        with popover(trigger_label):
+            for option_index, option in enumerate(options):
+                option_label = option if option else "Select..."
+                if st.button(
+                    option_label,
+                    key=f"{key}_option_{option_index}",
+                    use_container_width=True,
+                ):
+                    st.session_state[key] = option
+                    st.rerun()
+    else:
+        with st.expander(trigger_label, expanded=False):
+            for option_index, option in enumerate(options):
+                option_label = option if option else "Select..."
+                if st.button(
+                    option_label,
+                    key=f"{key}_option_{option_index}",
+                    use_container_width=True,
+                ):
+                    st.session_state[key] = option
+                    st.rerun()
+
+    return st.session_state.get(key, default_value)
+
 # Initialize session state for setlist builder
 if 'current_setlist' not in st.session_state:
     st.session_state.current_setlist = {
@@ -1464,13 +1502,13 @@ with tab_setlist:
     
     if is_mobile_view:
         song_names = list(songs_data.keys())
-        selected_song = styled_selectbox(
+        selected_song = tap_selectbox(
             "Select a song to add",
             [""] + sorted(song_names),
             key="song_selector",
         )
 
-        target_set = styled_selectbox(
+        target_set = tap_selectbox(
             "Add to set",
             ["Set 1", "Set 2", "Set 3"],
             key="target_set",
@@ -1750,11 +1788,18 @@ with tab_previous:
     if previous_setlists:
         # Display filters
         venues = sorted(list(set(setlist['venue'] for setlist in previous_setlists)))
-        selected_venue = styled_selectbox(
-            "Filter by venue",
-            ["All Venues"] + venues,
-            key="previous_setlists_venue_filter",
-        )
+        if is_mobile_view:
+            selected_venue = tap_selectbox(
+                "Filter by venue",
+                ["All Venues"] + venues,
+                key="previous_setlists_venue_filter",
+            )
+        else:
+            selected_venue = styled_selectbox(
+                "Filter by venue",
+                ["All Venues"] + venues,
+                key="previous_setlists_venue_filter",
+            )
         
         # Filter setlists
         filtered_setlists = previous_setlists
@@ -1834,11 +1879,18 @@ with tab_previous:
                             add_song_col1, add_song_col2 = st.columns([3, 1])
 
                         with add_song_col1:
-                            new_song = styled_selectbox(
-                                f"Add song to {set_name}",
-                                [""] + sorted(song_names),
-                                key=f"add_song_{set_key}_{setlist_id}",
-                            )
+                            if is_mobile_view:
+                                new_song = tap_selectbox(
+                                    f"Add song to {set_name}",
+                                    [""] + sorted(song_names),
+                                    key=f"add_song_{set_key}_{setlist_id}",
+                                )
+                            else:
+                                new_song = styled_selectbox(
+                                    f"Add song to {set_name}",
+                                    [""] + sorted(song_names),
+                                    key=f"add_song_{set_key}_{setlist_id}",
+                                )
                         with add_song_col2:
                             if st.button(
                                 "➕",
@@ -1986,14 +2038,13 @@ with tab_lyrics:
         song_index = available_lyrics.index(st.session_state.selected_lyrics_song) + 1
 
     if is_mobile_view:
-        selected_song = styled_selectbox(
+        selected_song = tap_selectbox(
             "Choose a song",
             [""] + available_lyrics,
             index=song_index,
             key="lyrics_song_selector",
         )
-        if selected_song:
-            st.session_state.selected_lyrics_song = selected_song
+        st.session_state.selected_lyrics_song = selected_song or None
 
         if st.button("🔄 Refresh Lyrics", key="refresh_lyrics", use_container_width=True):
             st.rerun()
@@ -2011,8 +2062,7 @@ with tab_lyrics:
                 index=song_index,
                 key="lyrics_song_selector",
             )
-            if selected_song:
-                st.session_state.selected_lyrics_song = selected_song
+            st.session_state.selected_lyrics_song = selected_song or None
 
         with selector_cols[1]:
             st.markdown("<p class='control-label'>&nbsp;</p>", unsafe_allow_html=True)
@@ -2170,11 +2220,18 @@ with tab_tabs:
     
     if available_tabs:
         # File selector
-        selected_tab = styled_selectbox(
-            "Choose a tab file",
-            [""] + available_tabs,
-            key="tabs_file_selector",
-        )
+        if is_mobile_view:
+            selected_tab = tap_selectbox(
+                "Choose a tab file",
+                [""] + available_tabs,
+                key="tabs_file_selector",
+            )
+        else:
+            selected_tab = styled_selectbox(
+                "Choose a tab file",
+                [""] + available_tabs,
+                key="tabs_file_selector",
+            )
         
         # Display tabs
         if selected_tab:
