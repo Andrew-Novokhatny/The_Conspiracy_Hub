@@ -4,10 +4,13 @@ A Streamlit-based web application for managing band setlists, song libraries, an
 
 ## Features
 
-- **📚 Song Library**: Manage and edit your complete song catalog with BPM, energy levels, and special markers
+- **📚 Song Library**: Manage the catalog in CSV (`songlist_master.csv`) with BPM, energy levels, and special markers
 - **🎵 Setlist Builder**: Create and organize setlists with automatic timing calculations
 - **📋 Previous Setlists**: Browse and edit historical setlists from past shows
-- **📜 Lyrics Viewer**: View song lyrics with device-optimized display modes (Mobile/Tablet/Desktop) for rehearsals and performances
+- **📜 Lyrics Viewer**: Mobile/Desktop view modes with fullscreen toggle for performance use
+- **🎸 Tabs & Notation**: View ASCII tabs, MusicXML, images, and JSON tab payloads
+- **🗺️ Stage Plot**: View and download the latest stage plot PDF
+- **🎛️ Mixer Configurations**: Upload/download mixer JSON configs and view mixer PDFs
 - **🎺 Special Markers**: Track horn parts, vocal parts, jam vehicles, and energy levels
 
 ## Quick Start with Docker
@@ -85,7 +88,9 @@ docker run -d \
 - **Start stopped container**: `docker start buckingham-conspiracy-hub`
 - **Restart**: `docker restart buckingham-conspiracy-hub`
 - **Remove container**: `docker rm buckingham-conspiracy-hub`
-- **Rebuild image**: `docker build -t buckingham-conspiracy-hub .`
+- **Build image**: `docker build -t buckingham-conspiracy-hub .`
+- **Run container (bind-mount)**:
+  `docker run -d --name buckingham-conspiracy-hub -p 8501:8501 -e BCH_DATA_DIR=/data -v "$HOME/buckingham_data:/data" --restart unless-stopped buckingham-conspiracy-hub`
 
 ## Local Development (without Docker)
 
@@ -115,8 +120,11 @@ buckingham_conspiracy/
 │   ├── __init__.py
 │   └── app.py              # Main Streamlit application
 ├── setlists/               # Historical setlist storage
-├── songlist/               # Song library data
-├── song_data/              # Lyrics files (.txt format)
+├── songlist/               # Song library data (CSV master)
+│   └── songlist_master.csv
+├── song_data/              # Lyrics + tabs
+├── mixer_configurations/   # Mixer JSON + PDF references
+├── stage_plots/            # Stage plot PDFs
 ├── requirements.txt        # Python dependencies
 ├── Dockerfile             # Docker container configuration
 └── README.md             # This file
@@ -124,7 +132,7 @@ buckingham_conspiracy/
 
 ## Data Persistence
 
-When running with Docker, bind-mount your data directory so edits persist between container restarts. The recommended approach is to mount a single directory and set `BCH_DATA_DIR` (see the Docker section above). The legacy approach mounts `setlists`, `songlist`, and `song_data` individually.
+When running with Docker, bind-mount your data directory so edits persist between container restarts. The recommended approach is to mount a single directory and set `BCH_DATA_DIR` (see the Docker section above). Include `songlist/`, `setlists/`, `song_data/`, `mixer_configurations/`, and `stage_plots/` under that data root.
 
 ### Adding Lyrics
 
@@ -160,7 +168,7 @@ Respect Genius’s API terms of service and rate limits, and ensure you are lice
 
 ## Configuration
 
-The application uses relative paths by default. To store data outside the repo, set `BCH_DATA_DIR` (or `DATA_DIR`) to a bind-mounted directory that contains `songlist/`, `setlists/`, and `song_data/`.
+The application uses relative paths by default. To store data outside the repo, set `BCH_DATA_DIR` (or `DATA_DIR`) to a bind-mounted directory that contains `songlist/`, `setlists/`, `song_data/`, `mixer_configurations/`, and `stage_plots/`.
 
 ## Legend
 
