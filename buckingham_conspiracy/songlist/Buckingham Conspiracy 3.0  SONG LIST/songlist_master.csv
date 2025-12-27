@@ -1,0 +1,53 @@
+title,artist,bpm,has_horn,has_vocals,energy_level,is_jam_vehicle
+1612,Vulfpeck,86,TRUE,FALSE,standard,FALSE
+2nd Red Barn on the Right,From Good Homes,96,FALSE,FALSE,standard,FALSE
+After Midnight,JJ Cale,100,FALSE,FALSE,standard,FALSE
+Another Brick in the Wall,Pink Floyd,104,FALSE,TRUE,high,TRUE
+Bertha,Grateful Dead,100,FALSE,FALSE,standard,FALSE
+Can’t U See,Marshall Tucker Band,87,FALSE,FALSE,standard,TRUE
+Chameleon,Herbie Hancock,107,FALSE,FALSE,standard,TRUE
+Cissy Strut,The Meters,88,TRUE,FALSE,standard,FALSE
+Cities,Talking Heads,94,FALSE,TRUE,standard,FALSE
+Cocaine,JJ Cale,105,FALSE,FALSE,standard,FALSE
+Could You Be Loved,Bob Marley,103,FALSE,TRUE,standard,TRUE
+DWBWID,Delvin Lamar Organ Trio,85,FALSE,FALSE,high,FALSE
+Dancing in the Moonlight,King Harvest,123,TRUE,FALSE,low,FALSE
+Deal,Grateful Dead,140,FALSE,TRUE,standard,FALSE
+Down Under,Men at Work,107,FALSE,TRUE,high,FALSE
+Electric Avenue,Eddy Grant,116,FALSE,TRUE,high,TRUE
+Elizabeth,Goose,150,FALSE,TRUE,high,TRUE
+Express Urself,Charles Wright & the Watts 103rd Street Rhythm Band,93,TRUE,FALSE,high,FALSE
+Fire on the Mountain,Grateful Dead,77,FALSE,FALSE,standard,FALSE
+Ghostbusters,Ray Parker Jr.,115,FALSE,TRUE,High,FALSE
+Green Onions,Booker T. & the M.G.'s,137,FALSE,FALSE,standard,FALSE
+Green River,Creedence Clearwater Revival,140,FALSE,FALSE,standard,TRUE
+Hard to Handle,The Black Crowes,105,FALSE,FALSE,high,FALSE
+Higher Ground,Stevie Wonder,140,FALSE,FALSE,high,FALSE
+Hollywood Swinging,Kool & The Gang,110,TRUE,FALSE,high,TRUE
+I'm a Ram,Al Green,81,FALSE,FALSE,low,FALSE
+In the Meantime,Spacehog,85,FALSE,FALSE,standard,FALSE
+It’s a Bunch,Spafford,88,FALSE,FALSE,standard,FALSE
+Jumping Jack Flash,The Rolling Stones,136,FALSE,TRUE,high,FALSE
+Leave the Light On,Spafford,80,FALSE,FALSE,standard,FALSE
+Little L,Jamiroquai,118,FALSE,TRUE,standard,FALSE
+Mary Janes Last Dance,Tom Petty,86,FALSE,FALSE,low,FALSE
+Midnight Rider,The Allman Brothers Band,87,FALSE,FALSE,standard,TRUE
+Miss You,The Rolling Stones,110,FALSE,TRUE,standard,TRUE
+No Rain,Blind Melon,144,FALSE,TRUE,standard,FALSE
+Officer,Slightly Stoopid,95,FALSE,TRUE,standard,FALSE
+Owner of a Lonely Heart,Yes,120,FALSE,TRUE,high,FALSE
+Poster Child,Red Hot Chili Peppers,83,FALSE,FALSE,standard,FALSE
+Praise U,Fatboy Slim,119,FALSE,FALSE,high,FALSE
+Pumped Up Kicks,Foster the People,130,FALSE,TRUE,high,TRUE
+Remedy,The Black Crowes,80,FALSE,FALSE,high,FALSE
+Shakedown Street,Grateful Dead,106,FALSE,TRUE,high,TRUE
+Southbound,The Allman Brothers Band,124,FALSE,FALSE,high,FALSE
+Superstition,Stevie Wonder,100,TRUE,FALSE,high,FALSE
+Take Me to the River,Al Green,108,FALSE,FALSE,standard,FALSE
+Thank U,Sly and the Family Stone,110,TRUE,TRUE,high,TRUE
+Time,Pink Floyd,71,FALSE,FALSE,low,FALSE
+Use Me,Bill Withers,78,TRUE,FALSE,standard,FALSE
+WS Walcott,The Band,90,FALSE,TRUE,high,TRUE
+When My Train Pulls In,Gary Clark Jr.,85,FALSE,FALSE,standard,FALSE
+White Wedding,Billy Idol,140,FALSE,TRUE,high,TRUE
+Wish I Knew You,The Revivalists,101,FALSE,TRUE,standard,FALSE

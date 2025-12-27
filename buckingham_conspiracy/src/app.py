@@ -3,6 +3,8 @@ import os
 import re
 import json
 import html
+import csv
+import io
 import sys
 from datetime import datetime
 from typing import Dict, List, Tuple
@@ -28,6 +30,8 @@ def resolve_data_root(base_dir: Path) -> Path:
 from components.st_musicxml_viewer import musicxml_viewer
 DATA_ROOT = resolve_data_root(BASE_DIR)
 SONGLIST_DIR = DATA_ROOT / "songlist" / "Buckingham Conspiracy 3.0  SONG LIST"
+SONGLIST_MARKDOWN = SONGLIST_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
+SONGLIST_CSV = SONGLIST_DIR / "songlist_master.csv"
 SETLISTS_DIR = DATA_ROOT / "setlists"
 SONG_DATA_DIR = DATA_ROOT / "song_data"
 LYRICS_DIR = SONG_DATA_DIR / "lyrics"
@@ -42,6 +46,16 @@ def describe_data_path(path: Path) -> str:
         except ValueError:
             continue
     return str(path)
+
+SONGLIST_CSV_HEADERS = [
+    "title",
+    "artist",
+    "bpm",
+    "has_horn",
+    "has_vocals",
+    "energy_level",
+    "is_jam_vehicle",
+]
 SECTION_LABEL_PATTERN = re.compile(r"^\s*\[.+?\]\s*$")
 TAB_DURATION_MAP = {
     'w': 4.0,   # whole note
@@ -56,35 +70,83 @@ TAB_BUILDER_SAMPLE = (
     "C4+E4+G4:h rest:h"
 )
 
-def load_song_list() -> Dict[str, Dict]:
-    """Load the complete song list from markdown file"""
-    song_file = SONGLIST_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
-    songs = {}
-    
+def parse_bool(value: str | bool | None) -> bool:
+    if isinstance(value, bool):
+        return value
+    if value is None:
+        return False
+    return str(value).strip().lower() in {"1", "true", "yes", "y", "t"}
+
+
+def calculate_song_duration(bpm: int) -> int:
+    base_duration = 210  # 3.5 minutes in seconds
+    return int(base_duration * (120 / max(bpm, 60)))
+
+
+def load_song_list_from_csv(song_file: Path) -> Dict[str, Dict]:
+    songs: Dict[str, Dict] = {}
+    try:
+        with open(song_file, 'r', encoding='utf-8', newline='') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                title = (row.get("title") or "").strip()
+                if not title:
+                    continue
+                artist = (row.get("artist") or "").strip()
+                bpm_raw = (row.get("bpm") or "").strip()
+                try:
+                    bpm = int(float(bpm_raw))
+                except (TypeError, ValueError):
+                    bpm = 120
+                energy_level = (row.get("energy_level") or "standard").strip().lower()
+                energy_level = energy_level if energy_level in {"high", "standard", "low"} else "standard"
+                has_horn = parse_bool(row.get("has_horn"))
+                has_vocals = parse_bool(row.get("has_vocals"))
+                is_jam_vehicle = parse_bool(row.get("is_jam_vehicle"))
+                duration_seconds = calculate_song_duration(bpm)
+
+                songs[title] = {
+                    'bpm': bpm,
+                    'duration': duration_seconds,
+                    'has_horn': has_horn,
+                    'has_vocals': has_vocals,
+                    'energy_level': energy_level,
+                    'is_jam_vehicle': is_jam_vehicle,
+                    'artist': artist,
+                    'raw_line': f"{title} ({bpm})",
+                }
+    except Exception as e:
+        st.error(f"Error loading song list CSV: {e}")
+    return songs
+
+
+def load_song_list_from_markdown(song_file: Path) -> Dict[str, Dict]:
+    """Load the complete song list from markdown file."""
+    songs: Dict[str, Dict] = {}
+
     try:
         with open(song_file, 'r', encoding='utf-8') as f:
-                content = f.read()
-            
+            content = f.read()
+
         for line in content.split('\n'):
             line = line.strip()
             if line and not line.startswith('#') and '(' in line:
                 has_horn = '🎺' in line
                 has_vocals = '🥁' in line
-                
+
                 clean_line = re.sub(r'\^.*?\^', '', line)
                 match = re.search(r'^(.+?)\s*\((\d+)\)', clean_line)
                 if match:
                     name_with_artist = match.group(1).strip()
                     bpm = int(match.group(2))
-                    
+
                     song_name = name_with_artist
                     artist = ''
                     if ' - ' in name_with_artist:
                         song_name, artist = [part.strip() for part in name_with_artist.split(' - ', 1)]
-                    
-                    base_duration = 210  # 3.5 minutes in seconds
-                    duration_seconds = int(base_duration * (120 / max(bpm, 60)))
-                    
+
+                    duration_seconds = calculate_song_duration(bpm)
+
                     songs[song_name] = {
                         'bpm': bpm,
                         'duration': duration_seconds,
@@ -97,16 +159,46 @@ def load_song_list() -> Dict[str, Dict]:
                     }
     except Exception as e:
         st.error(f"Error loading song list: {e}")
-    
+
     return songs
 
-def save_song_list(songs_data: Dict[str, Dict]):
-    """Save the updated song list back to the markdown file"""
-    song_file = SONGLIST_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
-    
+
+def load_song_list() -> Dict[str, Dict]:
+    """Load the complete song list, preferring CSV when available."""
+    if SONGLIST_CSV.exists():
+        return load_song_list_from_csv(SONGLIST_CSV)
+    return load_song_list_from_markdown(SONGLIST_MARKDOWN)
+
+def save_song_list_csv(songs_data: Dict[str, Dict]) -> bool:
+    """Save song metadata to CSV for editing outside the app."""
     try:
+        SONGLIST_DIR.mkdir(parents=True, exist_ok=True)
+        with open(SONGLIST_CSV, 'w', encoding='utf-8', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=SONGLIST_CSV_HEADERS)
+            writer.writeheader()
+            for song_name in sorted(songs_data.keys()):
+                song_info = songs_data[song_name]
+                writer.writerow({
+                    "title": song_name,
+                    "artist": song_info.get('artist', ''),
+                    "bpm": song_info.get('bpm', ''),
+                    "has_horn": song_info.get('has_horn', False),
+                    "has_vocals": song_info.get('has_vocals', False),
+                    "energy_level": song_info.get('energy_level', 'standard'),
+                    "is_jam_vehicle": song_info.get('is_jam_vehicle', False),
+                })
+        return True
+    except Exception as e:
+        st.error(f"Error saving song list CSV: {e}")
+        return False
+
+
+def save_song_list_markdown(songs_data: Dict[str, Dict]) -> bool:
+    """Save the updated song list back to the markdown file."""
+    try:
+        SONGLIST_DIR.mkdir(parents=True, exist_ok=True)
         content = "# ****Buckingham Conspiracy 3.0 : SONG LIST ****  \n  \n#   \n"
-        
+
         for song_name in sorted(songs_data.keys()):
             song_info = songs_data[song_name]
             markers = ""
@@ -114,20 +206,44 @@ def save_song_list(songs_data: Dict[str, Dict]):
                 markers += "^🎺 ^"
             if song_info.get('has_vocals'):
                 markers += "^🥁^"
-            
+
             display_name = song_name if not song_info.get('artist') else f"{song_name} - {song_info['artist']}"
             line = f"{display_name}{markers} ({song_info['bpm']})"
             content += line + "  \n"
-        
+
         content += "  \n  \n#   \n  \n"
-        
-        with open(song_file, 'w', encoding='utf-8') as f:
+
+        with open(SONGLIST_MARKDOWN, 'w', encoding='utf-8') as f:
             f.write(content)
-        
         return True
     except Exception as e:
         st.error(f"Error saving song list: {e}")
         return False
+
+
+def save_song_list(songs_data: Dict[str, Dict]) -> bool:
+    """Save song data to CSV and markdown for compatibility."""
+    csv_ok = save_song_list_csv(songs_data)
+    md_ok = save_song_list_markdown(songs_data)
+    return csv_ok and md_ok
+
+
+def export_song_list_csv(songs_data: Dict[str, Dict]) -> str:
+    buffer = io.StringIO()
+    writer = csv.DictWriter(buffer, fieldnames=SONGLIST_CSV_HEADERS)
+    writer.writeheader()
+    for song_name in sorted(songs_data.keys()):
+        song_info = songs_data[song_name]
+        writer.writerow({
+            "title": song_name,
+            "artist": song_info.get('artist', ''),
+            "bpm": song_info.get('bpm', ''),
+            "has_horn": song_info.get('has_horn', False),
+            "has_vocals": song_info.get('has_vocals', False),
+            "energy_level": song_info.get('energy_level', 'standard'),
+            "is_jam_vehicle": song_info.get('is_jam_vehicle', False),
+        })
+    return buffer.getvalue()
 
 # Page configuration
 st.set_page_config(
@@ -987,15 +1103,14 @@ def convert_json_tab_file(filename: str) -> Tuple[bool, str]:
 
  
 
-def add_new_song(name: str, bpm: int, has_horn: bool = False, has_vocals: bool = False, 
-                 energy_level: str = 'standard', is_jam_vehicle: bool = False):
+def add_new_song(name: str, bpm: int, has_horn: bool = False, has_vocals: bool = False,
+                 energy_level: str = 'standard', is_jam_vehicle: bool = False, artist: str = ''):
     """Add a new song to the song list"""
     if st.session_state.songs_data is None:
         st.session_state.songs_data = load_song_list()
     
     # Calculate duration
-    base_duration = 210  # 3.5 minutes in seconds
-    duration_seconds = int(base_duration * (120 / max(bpm, 60)))
+    duration_seconds = calculate_song_duration(bpm)
     
     st.session_state.songs_data[name] = {
         'bpm': bpm,
@@ -1004,6 +1119,7 @@ def add_new_song(name: str, bpm: int, has_horn: bool = False, has_vocals: bool =
         'has_vocals': has_vocals,
         'energy_level': energy_level,
         'is_jam_vehicle': is_jam_vehicle,
+        'artist': artist,
         'raw_line': f"{name} ({bpm})"
     }
     
@@ -1020,8 +1136,7 @@ def update_song(old_name: str, new_name: str, bpm: int, has_horn: bool = False, 
         del st.session_state.songs_data[old_name]
     
     # Calculate duration
-    base_duration = 210  # 3.5 minutes in seconds
-    duration_seconds = int(base_duration * (120 / max(bpm, 60)))
+    duration_seconds = calculate_song_duration(bpm)
     
     st.session_state.songs_data[new_name] = {
         'bpm': bpm,
@@ -1327,6 +1442,29 @@ with tab_library:
                             st.error("Song already exists in the library!")
                     else:
                         st.error("Song name is required!")
+
+        st.markdown("---")
+        with st.expander("📦 Song Library CSV", expanded=False):
+            csv_payload = export_song_list_csv(songs_data)
+            st.download_button(
+                "💾 Download Song Library CSV",
+                data=csv_payload,
+                file_name="songlist_master.csv",
+                mime="text/csv",
+                use_container_width=True,
+            )
+            st.caption(
+                f"Edits are loaded from `{describe_data_path(SONGLIST_CSV)}` when present."
+            )
+            if st.button(
+                "📝 Regenerate Markdown",
+                key="regen_songlist_markdown",
+                use_container_width=True,
+            ):
+                if save_song_list_markdown(songs_data):
+                    st.success("Markdown regenerated from the current library data.")
+                else:
+                    st.error("Failed to regenerate the markdown file.")
         
         # Search and filter
         st.markdown("---")
