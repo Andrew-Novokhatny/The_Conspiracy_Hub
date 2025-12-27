@@ -15,13 +15,24 @@ import requests
 from bs4 import BeautifulSoup
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+def resolve_data_root(base_dir: Path) -> Path:
+    data_root_env = os.getenv("BCH_DATA_DIR") or os.getenv("DATA_DIR")
+    if not data_root_env:
+        return base_dir
+    data_root = Path(data_root_env).expanduser()
+    if not data_root.is_absolute():
+        data_root = base_dir / data_root
+    return data_root.resolve()
+
+DATA_ROOT = resolve_data_root(BASE_DIR)
 SONGLIST_FILE = (
-    BASE_DIR
+    DATA_ROOT
     / "songlist"
     / "Buckingham Conspiracy 3.0  SONG LIST"
     / "Buckingham Conspiracy 3.0  SONG LIST.md"
 )
-LYRICS_DIR = BASE_DIR / "song_data" / "lyrics"
+LYRICS_DIR = DATA_ROOT / "song_data" / "lyrics"
 GENIUS_API_BASE = "https://api.genius.com"
 MARKER_PATTERN = re.compile(r"\^.*?\^")
 USER_AGENT = (
@@ -33,6 +44,15 @@ USER_AGENT = (
 
 def normalize(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", text.lower())
+
+
+def display_path(path: Path) -> str:
+    for root in (DATA_ROOT, BASE_DIR):
+        try:
+            return str(path.relative_to(root))
+        except ValueError:
+            continue
+    return str(path)
 
 
 def parse_song_list() -> Dict[str, Dict[str, str]]:
@@ -228,7 +248,7 @@ def main() -> int:
             continue
 
         destination = save_lyrics(title, lyrics)
-        print(f"  ✓ Saved to {destination.relative_to(BASE_DIR)}")
+        print(f"  ✓ Saved to {display_path(destination)}")
         success_count += 1
 
         if index < len(targets):

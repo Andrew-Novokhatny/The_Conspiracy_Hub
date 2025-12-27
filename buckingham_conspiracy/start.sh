@@ -6,6 +6,7 @@
 PORT=8502
 IMAGE_NAME="buckingham-conspiracy-hub"
 CONTAINER_NAME="buckingham-conspiracy-hub"
+DATA_DIR=""
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -14,9 +15,13 @@ while [[ $# -gt 0 ]]; do
             PORT="$2"
             shift 2
             ;;
+        -d|--data-dir)
+            DATA_DIR="$2"
+            shift 2
+            ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [-p|--port PORT]"
+            echo "Usage: $0 [-p|--port PORT] [-d|--data-dir PATH]"
             exit 1
             ;;
     esac
@@ -55,14 +60,25 @@ echo ""
 echo "🚀 Starting application on port $PORT..."
 
 # Run the container with volume mounts for data persistence
-docker run -d \
-    --name $CONTAINER_NAME \
-    -p $PORT:8501 \
-    -v "$(pwd)/setlists:/app/setlists" \
-    -v "$(pwd)/songlist:/app/songlist" \
-    -v "$(pwd)/song_data:/app/song_data" \
-    --restart unless-stopped \
-    $IMAGE_NAME
+if [ -n "$DATA_DIR" ]; then
+    mkdir -p "$DATA_DIR"
+    docker run -d \
+        --name $CONTAINER_NAME \
+        -p $PORT:8501 \
+        -e BCH_DATA_DIR=/data \
+        -v "$DATA_DIR:/data" \
+        --restart unless-stopped \
+        $IMAGE_NAME
+else
+    docker run -d \
+        --name $CONTAINER_NAME \
+        -p $PORT:8501 \
+        -v "$(pwd)/setlists:/app/setlists" \
+        -v "$(pwd)/songlist:/app/songlist" \
+        -v "$(pwd)/song_data:/app/song_data" \
+        --restart unless-stopped \
+        $IMAGE_NAME
+fi
 
 # Wait a moment for the container to start
 sleep 3

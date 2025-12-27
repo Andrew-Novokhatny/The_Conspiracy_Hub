@@ -59,10 +59,30 @@ ARTISTS = {
     "Wish I Knew You": "The Revivalists"
 }
 
+import os
 import re
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+def resolve_data_root(base_dir: Path) -> Path:
+    data_root_env = os.getenv("BCH_DATA_DIR") or os.getenv("DATA_DIR")
+    if not data_root_env:
+        return base_dir
+    data_root = Path(data_root_env).expanduser()
+    if not data_root.is_absolute():
+        data_root = base_dir / data_root
+    return data_root.resolve()
+
+DATA_ROOT = resolve_data_root(BASE_DIR)
 
 # Read the file
-file_path = "songlist/Buckingham Conspiracy 3.0  SONG LIST/Buckingham Conspiracy 3.0  SONG LIST.md"
+file_path = (
+    DATA_ROOT
+    / "songlist"
+    / "Buckingham Conspiracy 3.0  SONG LIST"
+    / "Buckingham Conspiracy 3.0  SONG LIST.md"
+)
 with open(file_path, 'r', encoding='utf-8') as f:
     content = f.read()
 

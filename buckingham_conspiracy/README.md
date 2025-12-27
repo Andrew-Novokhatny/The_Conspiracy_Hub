@@ -32,12 +32,30 @@ Or specify a custom port:
 ./start.sh -p 8080
 ```
 
+Or bind-mount a single data directory:
+```bash
+./start.sh -d ~/buckingham_data
+```
+
 3. **Option B: Build and run manually**
 ```bash
 # Build the image
 docker build -t buckingham-conspiracy-hub .
 
-# Run the container (default port 8501)
+# Recommended: bind-mount a single data directory
+# (copy songlist/, setlists/, and song_data/ into ~/buckingham_data once)
+mkdir -p ~/buckingham_data
+cp -R songlist setlists song_data ~/buckingham_data/
+
+docker run -d \
+    --name buckingham-conspiracy-hub \
+    -p 8501:8501 \
+    -e BCH_DATA_DIR=/data \
+    -v "$HOME/buckingham_data:/data" \
+    --restart unless-stopped \
+    buckingham-conspiracy-hub
+
+# Alternative: mount individual directories
 docker run -d \
     --name buckingham-conspiracy-hub \
     -p 8501:8501 \
@@ -106,7 +124,7 @@ buckingham_conspiracy/
 
 ## Data Persistence
 
-When running with Docker, the `setlists`, `songlist`, and `song_data` directories are mounted as volumes, ensuring your data persists between container restarts.
+When running with Docker, bind-mount your data directory so edits persist between container restarts. The recommended approach is to mount a single directory and set `BCH_DATA_DIR` (see the Docker section above). The legacy approach mounts `setlists`, `songlist`, and `song_data` individually.
 
 ### Adding Lyrics
 
@@ -142,7 +160,7 @@ Respect Genius’s API terms of service and rate limits, and ensure you are lice
 
 ## Configuration
 
-The application uses relative paths, making it portable across different environments. No configuration changes needed for basic usage.
+The application uses relative paths by default. To store data outside the repo, set `BCH_DATA_DIR` (or `DATA_DIR`) to a bind-mounted directory that contains `songlist/`, `setlists/`, and `song_data/`.
 
 ## Legend
 

@@ -15,14 +15,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 if str(BASE_DIR) not in sys.path:
     sys.path.append(str(BASE_DIR))
 
+def resolve_data_root(base_dir: Path) -> Path:
+    """Resolve the data root for bind-mounted storage."""
+    data_root_env = os.getenv("BCH_DATA_DIR") or os.getenv("DATA_DIR")
+    if not data_root_env:
+        return base_dir
+    data_root = Path(data_root_env).expanduser()
+    if not data_root.is_absolute():
+        data_root = base_dir / data_root
+    return data_root.resolve()
+
 from components.st_musicxml_viewer import musicxml_viewer
-SONGLIST_DIR = BASE_DIR / "songlist" / "Buckingham Conspiracy 3.0  SONG LIST"
-SETLISTS_DIR = BASE_DIR / "setlists"
-SONG_DATA_DIR = BASE_DIR / "song_data"
+DATA_ROOT = resolve_data_root(BASE_DIR)
+SONGLIST_DIR = DATA_ROOT / "songlist" / "Buckingham Conspiracy 3.0  SONG LIST"
+SETLISTS_DIR = DATA_ROOT / "setlists"
+SONG_DATA_DIR = DATA_ROOT / "song_data"
 LYRICS_DIR = SONG_DATA_DIR / "lyrics"
 TABS_DIR = SONG_DATA_DIR / "tabs"
 TABS_RAW_JSON_DIR = TABS_DIR / "raw_json"
 TABS_MUSICXML_DIR = TABS_DIR / "musicxml"
+
+def describe_data_path(path: Path) -> str:
+    for root in (DATA_ROOT, BASE_DIR):
+        try:
+            return str(path.relative_to(root))
+        except ValueError:
+            continue
+    return str(path)
 SECTION_LABEL_PATTERN = re.compile(r"^\s*\[.+?\]\s*$")
 TAB_DURATION_MAP = {
     'w': 4.0,   # whole note
@@ -1224,6 +1243,9 @@ if st.session_state.songs_data is None:
 
 songs_data = st.session_state.songs_data
 previous_setlists = load_previous_setlists()
+lyrics_hint = describe_data_path(LYRICS_DIR)
+tabs_hint = describe_data_path(TABS_DIR)
+tabs_raw_hint = describe_data_path(TABS_RAW_JSON_DIR)
 
 # Create tabs
 tab_lyrics, tab_setlist, tab_library, tab_tabs, tab_previous = st.tabs([
@@ -2168,12 +2190,12 @@ with tab_lyrics:
                 
                 # Tips section
                 with st.expander("💡 Lyrics Viewer Tips"):
-                    st.markdown("""
+                    st.markdown(f"""
                     - **Mobile Mode**: Optimized for phones with larger text and tighter spacing
                     - **Desktop Mode**: Balanced view for laptop/desktop screens
                     - Scroll within the lyrics box to navigate through the song
-                    - The lyrics are loaded from `.txt` files in the `song_data` directory
-                    - To add new lyrics, create a `.txt` file with the song name in the `song_data` folder
+                    - The lyrics are loaded from `.txt` files in the `{lyrics_hint}` directory
+                    - To add new lyrics, create a `.txt` file with the song name in `{lyrics_hint}`
                     """)
         else:
             st.markdown(
@@ -2187,10 +2209,10 @@ with tab_lyrics:
             )
 
     else:
-        st.warning("No lyrics files found in the song_data directory.")
-        st.markdown("""
+        st.warning(f"No lyrics files found in the {lyrics_hint} directory.")
+        st.markdown(f"""
         **To add lyrics:**
-        1. Create a `.txt` file in the `buckingham_conspiracy/song_data/` directory
+        1. Create a `.txt` file in `{lyrics_hint}`
         2. Name the file with the song name (e.g., `Move.txt`)
         3. Add the lyrics to the file, one line at a time
         4. Refresh this page to see the new lyrics appear
@@ -2374,14 +2396,14 @@ with tab_tabs:
             
             # Tips section
             with st.expander("💡 Tabs Viewer Tips"):
-                st.markdown("""
+                st.markdown(f"""
                 - **ASCII Tabs** (`.txt`, `.tab`): Displayed directly in the browser
                 - **PDF Files**: Available for download, optimized for printing
                 - **Images** (`.png`, `.jpg`): Guitar tablature or sheet music images
                                         - **JSON Tabs** (`.json`): Structured payloads fetched from Ultimate Guitar
-                - Files are loaded from the `song_data/tabs/` directory
+                - Files are loaded from the `{tabs_hint}` directory
                 - To add new tabs:
-                  1. Save your tab file in `buckingham_conspiracy/song_data/tabs/`
+                  1. Save your tab file in `{tabs_hint}`
                                             2. Supported formats: `.txt`, `.tab`, `.json`, `.pdf`, `.png`, `.jpg`
                   3. Name the file with the song name for easy reference
                   4. Refresh this page to see the new tabs appear
@@ -2398,10 +2420,10 @@ with tab_tabs:
             )
     
     else:
-        st.warning("No tab files found in the song_data/tabs directory.")
-        st.markdown("""
+        st.warning(f"No tab files found in the {tabs_hint} directory.")
+        st.markdown(f"""
         **To add tabs:**
-        1. Create or save your tab file in the `buckingham_conspiracy/song_data/tabs/` directory
+        1. Create or save your tab file in `{tabs_hint}`
         2. Supported formats: `.txt` (ASCII tabs), `.tab`, `.pdf`, `.png`, `.jpg`
         3. Name the file with the song name (e.g., `Move.txt`, `Superstition.pdf`)
         4. Refresh this page to see the new tabs appear
@@ -2466,7 +2488,7 @@ with tab_tabs:
                 )
                 if success:
                     generated_path = Path(result)
-                    st.success(f"Saved {generated_path.name} to song_data/tabs")
+                    st.success(f"Saved {generated_path.name} to {tabs_hint}")
                     if auto_preview:
                         st.session_state.tabs_file_selector = generated_path.name
                     st.rerun()
@@ -2517,7 +2539,7 @@ with tab_tabs:
                         st.session_state.pending_tab_selection = last_successful
                         st.rerun()
         else:
-            st.info("No legacy JSON tabs detected in song_data/tabs/raw_json.")
+            st.info(f"No legacy JSON tabs detected in {tabs_raw_hint}.")
 
 # Sidebar with quick stats
 st.sidebar.markdown("### 🎸 Quick Stats")

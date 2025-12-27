@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 import time
@@ -15,13 +16,24 @@ import requests
 from bs4 import BeautifulSoup
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+def resolve_data_root(base_dir: Path) -> Path:
+    data_root_env = os.getenv("BCH_DATA_DIR") or os.getenv("DATA_DIR")
+    if not data_root_env:
+        return base_dir
+    data_root = Path(data_root_env).expanduser()
+    if not data_root.is_absolute():
+        data_root = base_dir / data_root
+    return data_root.resolve()
+
+DATA_ROOT = resolve_data_root(BASE_DIR)
 SONGLIST_FILE = (
-    BASE_DIR
+    DATA_ROOT
     / "songlist"
     / "Buckingham Conspiracy 3.0  SONG LIST"
     / "Buckingham Conspiracy 3.0  SONG LIST.md"
 )
-TABS_DIR = BASE_DIR / "song_data" / "tabs"
+TABS_DIR = DATA_ROOT / "song_data" / "tabs"
 DEFAULT_UG_API_DIR = BASE_DIR.parent.parent / "Ultimate-Guitar-Tabs" / "ultimate-api"
 UG_SEARCH_URL = "https://www.ultimate-guitar.com/search.php"
 USER_AGENT = (
@@ -35,6 +47,15 @@ PREFERRED_TYPES = ("Official", "Chords", "Tabs", "Bass Tabs", "Ukulele Chords")
 
 def normalize(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", value.lower())
+
+
+def display_path(path: Path) -> str:
+    for root in (DATA_ROOT, BASE_DIR):
+        try:
+            return str(path.relative_to(root))
+        except ValueError:
+            continue
+    return str(path)
 
 
 def parse_song_list() -> Dict[str, Dict[str, str]]:
@@ -207,7 +228,7 @@ def fetch_tab_for_song(
         print(f"  ✗ Failed to parse tab page: {exc}")
         return None
     destination = save_tab_payload(title, payload)
-    print(f"  ✓ Saved JSON to {destination.relative_to(BASE_DIR)}")
+    print(f"  ✓ Saved JSON to {display_path(destination)}")
     return destination
 
 
