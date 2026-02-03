@@ -92,6 +92,49 @@ docker run -d \
 - **Run container (bind-mount)**:
   `docker run -d --name buckingham-conspiracy-hub -p 8501:8501 -e BCH_DATA_DIR=/data -v "$HOME/buckingham_data:/data" --restart unless-stopped buckingham-conspiracy-hub`
 
+### Deploying to a Raspberry Pi
+
+1. **Build a Pi-ready image** (from the repo root):
+    ```bash
+    docker build -t buckingham-conspiracy-hub:pi-latest .
+    docker images buckingham-conspiracy-hub:pi-latest
+    ```
+    Tagging with `pi-latest` (or a date) makes it easier to roll back later.
+
+2. **Export the image to a tarball** so it can cross the network:
+    ```bash
+    docker save buckingham-conspiracy-hub:pi-latest | gzip > /tmp/buckingham-conspiracy-hub.tar.gz
+    ```
+
+3. **Copy the tarball to your Raspberry Pi** (replace `<pi-host>` with your Pi’s hostname or IP):
+    ```bash
+    scp /tmp/buckingham-conspiracy-hub.tar.gz pi@<pi-host>:/tmp/
+    mkdir -p ~/buckingham_data
+    rsync -a songlist setlists song_data mixer_configurations stage_plots pi@<pi-host>:~/buckingham_data/
+    ```
+    The `rsync` step only needs to run once unless the data changes.
+
+4. **Load and restart the container on the Pi**:
+    ```bash
+    ssh pi@<pi-host> <<'EOF'
+    docker load < /tmp/buckingham-conspiracy-hub.tar.gz
+    docker stop buckingham-conspiracy-hub || true
+    docker rm buckingham-conspiracy-hub || true
+    docker run -d \
+        --name buckingham-conspiracy-hub \
+        -p 8501:8501 \
+        -e BCH_DATA_DIR=/data \
+        -v ~/buckingham_data:/data \
+        --restart unless-stopped \
+        buckingham-conspiracy-hub:pi-latest
+    EOF
+    ```
+    That command reuses the same port and data layout as the desktop instructions. Update `~/buckingham_data` if you keep the files elsewhere.
+
+5. **Verify the Pi container** with `ssh pi@<pi-host> docker ps` and `docker logs -f buckingham-conspiracy-hub`.
+
+If your Pi is air-gapped, you can skip `rsync` and ship the `songlist/`, `setlists/`, and `song_data/` folders on a thumb drive, then populate `~/buckingham_data` before running the container.
+
 ## Local Development (without Docker)
 
 ### Prerequisites
