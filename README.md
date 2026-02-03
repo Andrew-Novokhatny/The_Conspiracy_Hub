@@ -8,7 +8,7 @@ A Streamlit-based web application for managing band setlists, song libraries, an
 - **🎵 Setlist Builder**: Create and organize setlists with automatic timing calculations
 - **📋 Previous Setlists**: Browse and edit historical setlists from past shows
 - **📜 Lyrics Viewer**: Mobile/Desktop view modes with fullscreen toggle for performance use
-- **🎸 Tabs & Notation**: View ASCII tabs, MusicXML, images, and JSON tab payloads
+- **🎸 Tabs & Notation**: View ASCII tabs, PDFs, and images (PDF tab viewer coming soon)
 - **🗺️ Stage Plot**: View and download the latest stage plot PDF
 - **🎛️ Mixer Configurations**: Upload/download mixer JSON configs and view mixer PDFs
 - **🎺 Special Markers**: Track horn parts, vocal parts, jam vehicles, and energy levels
