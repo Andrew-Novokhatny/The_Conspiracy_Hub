@@ -8,7 +8,7 @@ import io
 import base64
 import sys
 from datetime import datetime
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional, Union
 from pathlib import Path
 
 # Get the base directory (parent of src/)
@@ -67,7 +67,6 @@ def render_pdf_inline(file_path: Path, *, height: int = 700):
     )
     st.markdown(pdf_html, unsafe_allow_html=True)
 
-
 def list_files_by_extension(directory: Path, extensions: tuple[str, ...]) -> List[Path]:
     if not directory.exists():
         return []
@@ -86,7 +85,7 @@ SONGLIST_CSV_HEADERS = [
 ]
 SECTION_LABEL_PATTERN = re.compile(r"^\s*\[.+?\]\s*$")
 
-def parse_bool(value: str | bool | None) -> bool:
+def parse_bool(value: Union[str, bool, None]) -> bool:
     if isinstance(value, bool):
         return value
     if value is None:
@@ -808,7 +807,7 @@ def load_available_tabs() -> List[str]:
         st.error(f"Error loading tab files: {e}")
         return []
 
-def resolve_tab_file(filename: str) -> Path | None:
+def resolve_tab_file(filename: str) -> Optional[Path]:
     """Find the actual path for a tab filename across supported directories"""
     search_paths = [TABS_DIR]
     for directory in search_paths:
@@ -819,7 +818,7 @@ def resolve_tab_file(filename: str) -> Path | None:
             return candidate
     return None
 
-def load_tab_content(filename: str) -> tuple[str | dict, str]:
+def load_tab_content(filename: str) -> Tuple[Union[str, dict], str]:
     """Load tab content from file. Returns (content, file_type)"""
     try:
         tab_file = resolve_tab_file(filename)
@@ -1061,28 +1060,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-render_control_label("View Mode")
-toggle_cols = st.columns(2)
-mobile_selected = st.session_state.view_mode == "Mobile"
-
-with toggle_cols[0]:
-    if st.button(
-        "📱 Mobile View",
-        key="view_mode_mobile",
-        type="primary" if mobile_selected else "secondary",
-        use_container_width=True,
-    ):
-        st.session_state.view_mode = "Mobile"
-
-with toggle_cols[1]:
-    if st.button(
-        "🖥️ Desktop View",
-        key="view_mode_desktop",
-        type="primary" if not mobile_selected else "secondary",
-        use_container_width=True,
-    ):
-        st.session_state.view_mode = "Desktop"
-
 is_mobile_view = st.session_state.view_mode == "Mobile"
 
 # Load data - Initialize if not in session state
@@ -1094,6 +1071,39 @@ lyrics_hint = describe_data_path(LYRICS_DIR)
 tabs_hint = describe_data_path(TABS_DIR)
 mixer_config_hint = describe_data_path(MIXER_CONFIG_DIR)
 stage_plot_hint = describe_data_path(STAGE_PLOTS_DIR)
+
+available_lyrics = load_available_lyrics()
+available_tabs = load_available_tabs()
+
+sidebar = st.sidebar
+sidebar.markdown("### 🎸 Quick Stats")
+if st.session_state.current_setlist:
+    total_songs_in_setlist = sum(len(songs) for songs in st.session_state.current_setlist.values())
+    sidebar.metric("Songs in Current Setlist", total_songs_in_setlist)
+
+sidebar.metric("Total Songs in Library", len(st.session_state.songs_data) if st.session_state.songs_data else 0)
+sidebar.metric("Previous Setlists", len(previous_setlists))
+sidebar.metric("Lyrics Available", len(available_lyrics))
+sidebar.metric("Tabs Available", len(available_tabs))
+
+sidebar.markdown("---")
+sidebar.markdown("### Legend")
+sidebar.markdown("🎺 = Horn parts")
+sidebar.markdown("🥁 = Drum Vocal parts")
+sidebar.markdown("🛸 = Jam vehicle")
+sidebar.markdown("🔥 = High energy")
+sidebar.markdown("💤 = Low energy")
+
+sidebar.markdown("---")
+sidebar.markdown("### Lyrics Quick Links")
+if available_lyrics:
+    for lyric_song in available_lyrics:
+        button_key = f"lyrics_quick_{re.sub(r'[^a-zA-Z0-9_]+', '_', lyric_song)}"
+        if sidebar.button(lyric_song, key=button_key, use_container_width=True):
+            st.session_state.selected_lyrics_song = lyric_song
+            st.session_state.lyrics_fullscreen = False
+else:
+    sidebar.markdown("*No lyrics files found yet.*")
 
 # Create tabs
 tab_lyrics, tab_setlist, tab_library, tab_tabs, tab_previous, tab_stage, tab_mixer = st.tabs([
@@ -1923,7 +1933,6 @@ with tab_lyrics:
     st.header("📜 Lyrics Viewer")
     
     render_control_label("Select a song to view lyrics")
-    available_lyrics = load_available_lyrics()
 
     song_index = 0
     if (
@@ -2110,9 +2119,8 @@ with tab_tabs:
     if 'pending_tab_selection' in st.session_state:
         st.session_state.tabs_file_selector = st.session_state.pop('pending_tab_selection')
 
-    # Load available tabs
-    available_tabs = load_available_tabs()
-    
+    # Use the preloaded tabs list
+
     if available_tabs:
         # File selector
         if is_mobile_view:
@@ -2380,21 +2388,3 @@ with tab_stage:
     else:
         st.warning(f"No stage plot PDFs found in `{stage_plot_hint}`.")
 
-# Sidebar with quick stats
-st.sidebar.markdown("### 🎸 Quick Stats")
-if st.session_state.current_setlist:
-    total_songs_in_setlist = sum(len(songs) for songs in st.session_state.current_setlist.values())
-    st.sidebar.metric("Songs in Current Setlist", total_songs_in_setlist)
-
-st.sidebar.metric("Total Songs in Library", len(st.session_state.songs_data) if st.session_state.songs_data else 0)
-st.sidebar.metric("Previous Setlists", len(previous_setlists))
-st.sidebar.metric("Lyrics Available", len(load_available_lyrics()))
-st.sidebar.metric("Tabs Available", len(load_available_tabs()))
-
-st.sidebar.markdown("---")
-st.sidebar.markdown("### Legend")
-st.sidebar.markdown("🎺 = Horn parts")
-st.sidebar.markdown("🥁 = Drum Vocal parts")
-st.sidebar.markdown("🛸 = Jam vehicle")
-st.sidebar.markdown("🔥 = High energy")
-st.sidebar.markdown("💤 = Low energy")
