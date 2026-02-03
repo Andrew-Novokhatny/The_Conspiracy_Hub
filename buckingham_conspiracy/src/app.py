@@ -794,6 +794,36 @@ def format_lyrics_for_display(content: str) -> str:
             formatted_lines.append(html.escape(line))
     return "<br/>".join(formatted_lines)
 
+IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tif", ".tiff"}
+DOCUMENT_EXTENSIONS = {".pdf"}
+TAB_UPLOAD_TYPES = [ext.lstrip(".") for ext in sorted(IMAGE_EXTENSIONS | DOCUMENT_EXTENSIONS)]
+
+def sanitize_tab_filename(filename: str) -> str:
+    base = Path(filename).stem
+    sanitized = re.sub(r"[^A-Za-z0-9_.-]+", "_", base).strip("_-")
+    if not sanitized:
+        sanitized = "tab_upload"
+    return sanitized
+
+def save_uploaded_tab(uploaded_file) -> Optional[Path]:
+    ext = Path(uploaded_file.name).suffix.lower()
+    if ext not in IMAGE_EXTENSIONS and ext not in DOCUMENT_EXTENSIONS:
+        st.error("Only PDF or common image files are supported for tab uploads.")
+        return None
+
+    TABS_DIR.mkdir(parents=True, exist_ok=True)
+    sanitized_name = sanitize_tab_filename(uploaded_file.name)
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    destination = TABS_DIR / f"{sanitized_name}_{timestamp}{ext}"
+
+    try:
+        destination.write_bytes(uploaded_file.read())
+    except Exception as exc:
+        st.error(f"Failed to save uploaded tab: {exc}")
+        return None
+
+    return destination
+
 def load_available_tabs() -> List[str]:
     """Load list of available tab files"""
     try:
@@ -829,7 +859,7 @@ def load_tab_content(filename: str) -> Tuple[Union[str, dict], str]:
         if file_ext in ['.txt', '.tab']:
             with open(tab_file, 'r', encoding='utf-8') as f:
                 return f.read(), 'text'
-        if file_ext in ['.pdf', '.png', '.jpg', '.jpeg']:
+        if file_ext in DOCUMENT_EXTENSIONS or file_ext in IMAGE_EXTENSIONS:
             return str(tab_file), 'file'
         return f"Unsupported file type: {file_ext}", 'error'
     except Exception as e:
@@ -2104,6 +2134,19 @@ with tab_tabs:
     st.header("🎸 Tabs & Notation")
     st.markdown("### 🎧 Browse Saved Files")
 
+    uploaded_tab = st.file_uploader(
+        "Upload a PDF or image tab",
+        type=TAB_UPLOAD_TYPES,
+        key="tabs_uploader",
+        help="Upload from mobile or desktop and the file will be stored in the tabs directory for quick access.",
+    )
+    if uploaded_tab is not None:
+        saved_path = save_uploaded_tab(uploaded_tab)
+        if saved_path:
+            st.success(f"Saved {saved_path.name} to the tabs directory.")
+            st.session_state['pending_tab_selection'] = saved_path.name
+            st.experimental_rerun()
+
     if is_mobile_view:
         st.markdown("**Select a tab file to view:**")
         if st.button("🔄 Refresh Tabs", key="refresh_tabs", use_container_width=True):
@@ -2120,7 +2163,6 @@ with tab_tabs:
         st.session_state.tabs_file_selector = st.session_state.pop('pending_tab_selection')
 
     # Use the preloaded tabs list
-
     if available_tabs:
         # File selector
         if is_mobile_view:
@@ -2139,6 +2181,8 @@ with tab_tabs:
         # Display tabs
         if selected_tab:
             tab_content, file_type = load_tab_content(selected_tab)
+            file_ext = Path(selected_tab).suffix.lower()
+
             if file_type == 'text':
                 tab_container_class = "lyrics-container-mobile" if is_mobile_view else "lyrics-container"
                 tab_text_class = "lyrics-text-mobile" if is_mobile_view else "lyrics-text-desktop"
@@ -2150,8 +2194,29 @@ with tab_tabs:
                 """, unsafe_allow_html=True)
             elif file_type == 'file':
                 st.subheader(selected_tab)
-                file_ext = Path(selected_tab).suffix.lower()
-                if file_ext == '.pdf':
+                if file_ext in IMAGE_EXTENSIONS:
+                    zoom_key = f"tab_image_zoom_{re.sub(r'[^A-Za-z0-9_]+', '_', selected_tab)}"
+                    zoom_pct = st.slider(
+                        "Zoom",
+                        min_value=80,
+                        max_value=220,
+                        value=120,
+                        step=10,
+                        format="%d%%",
+                        key=zoom_key,
+                    )
+                    display_width = int(600 * (zoom_pct / 100))
+                    st.image(tab_content, width=display_width)
+                    st.caption("Pinch or use the slider to zoom the image before downloading.")
+                    with open(tab_content, 'rb') as f:
+                        st.download_button(
+                            label="📥 Download Image",
+                            data=f,
+                            file_name=selected_tab,
+                            mime=f"image/{file_ext.lstrip('.')}",
+                            use_container_width=is_mobile_view,
+                        )
+                elif file_ext in DOCUMENT_EXTENSIONS:
                     with open(tab_content, 'rb') as f:
                         st.download_button(
                             label="📥 Download PDF",
@@ -2161,8 +2226,8 @@ with tab_tabs:
                             use_container_width=is_mobile_view,
                         )
                     st.info("PDF files can be downloaded. A live preview is on the roadmap.")
-                elif file_ext in ['.png', '.jpg', '.jpeg']:
-                    st.image(tab_content, use_container_width=True)
+                else:
+                    st.info("This file type can be downloaded via the selector above.")
             else:
                 st.error(tab_content)
 
