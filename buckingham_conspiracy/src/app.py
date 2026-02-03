@@ -341,6 +341,104 @@ section[data-testid="stSidebar"] * {
     border-left: 3px solid var(--accent-primary);
 }
 
+.setlist-song-row {
+    background: #141821;
+    border-radius: 12px;
+    padding: 0.45rem 0.85rem;
+    margin: 0.35rem 0;
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.setlist-song-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.setlist-song-info strong {
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+.setlist-song-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+.setlist-action-container {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.setlist-action-container button {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0.25rem;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.setlist-legend {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+#setlist-builder .stExpanderHeader span {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.setlist-song-row {
+    background: #141821;
+    border-radius: 12px;
+    padding: 0.45rem 0.85rem;
+    margin: 0.35rem 0;
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.setlist-song-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.setlist-song-info strong {
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+.setlist-song-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+.setlist-action-container {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.setlist-action-container button {
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0;
+    border-radius: 10px;
+    font-size: 1.15rem;
+}
+
 .metric-card {
     background: var(--bg-raised);
     border-radius: 14px;
@@ -1082,6 +1180,48 @@ def calculate_set_timing(songs: List[str], song_data: Dict, break_duration: int 
     
     return total_seconds, format_duration(total_with_break)
 
+
+def human_readable_date(date_str: str) -> str:
+    """Convert MM/DD/YY input into a verbose date whenever possible."""
+    try:
+        parsed = datetime.strptime(date_str, "%m/%d/%y")
+        return parsed.strftime("%B %d, %Y")
+    except ValueError:
+        return date_str
+
+
+def build_setlist_markdown(venue: str, date: str, setlist: Dict[str, List[str]], songs_data: Dict[str, Dict], set_durations: Dict[str, str], total_show: str) -> str:
+    friendly_date = human_readable_date(date)
+    header = f"## 🎸 {venue} ({friendly_date})"
+    lines = [header, ""]
+
+    for set_num in range(1, 4):
+        set_key = f"set{set_num}"
+        songs = setlist.get(set_key, [])
+        lines.append(f"#### **Set {set_num}**")
+        lines.append("| # | Song | BPM | Duration |")
+        lines.append("|---|------|-----|----------|")
+        if songs:
+            for idx, song in enumerate(songs, start=1):
+                song_info = songs_data.get(song, {})
+                bpm = song_info.get('bpm', '—')
+                duration = format_duration(song_info.get('duration', 0))
+                lines.append(f"| {idx} | {song} | {bpm} | {duration} |")
+        else:
+            lines.append("| — | *No songs* | — | — |")
+        lines.append("")
+
+    lines.append("---")
+    lines.append("")
+    lines.append("### ⏱️ Timing")
+    for set_num in range(1, 4):
+        set_key = f"set{set_num}_duration"
+        if set_durations.get(set_key):
+            lines.append(f"| Set {set_num} | {set_durations[set_key]} |")
+    lines.append("|--------|----------|")
+    lines.append(f"| **Total Show** | **{total_show}** |")
+    return "\n".join(lines)
+
 # Main app header
 st.markdown("""
 <div class="main-header">
@@ -1496,6 +1636,12 @@ with tab_setlist:
     total_show_time = set1_duration + set2_duration + set3_duration + \
                      (st.session_state.setlist_metadata['set_breaks']['set1_break'] * 60) + \
                      (st.session_state.setlist_metadata['set_breaks']['set2_break'] * 60)
+    set_duration_values = {
+        'set1_duration': format_duration(set1_duration),
+        'set2_duration': format_duration(set2_duration),
+        'set3_duration': format_duration(set3_duration),
+        'total_show': format_duration(total_show_time)
+    }
     
     # Summary metrics
     if is_mobile_view:
@@ -1570,6 +1716,7 @@ with tab_setlist:
             """, unsafe_allow_html=True)
     
     # Display sets
+    st.markdown('<div id="setlist-builder">', unsafe_allow_html=True)
     for set_num, set_name in [(1, "Set 1"), (2, "Set 2"), (3, "Set 3")]:
         set_key = f"set{set_num}"
         
@@ -1582,70 +1729,42 @@ with tab_setlist:
                         markers += "🎺 "
                     if song_info.get('has_vocals'):
                         markers += "🥁 "
+                    if song_info.get('is_jam_vehicle'):
+                        markers += "🛸 "
 
-                    if is_mobile_view:
+                    energy_emoji = get_energy_emoji(song_info.get('energy_level', 'standard'))
+                    if energy_emoji:
+                        markers += f"{energy_emoji} "
+
+                    action_layout = [4, 0.8, 0.8, 0.8] if is_mobile_view else [4, 0.6, 0.6, 0.6]
+                    row_cols = st.columns(action_layout, gap="small")
+
+                    with row_cols[0]:
                         st.markdown(f"""
-                        <div class="song-card">
-                            <strong>{song}</strong> {markers}<br>
-                            <small>BPM: {song_info.get('bpm', 'Unknown')} | Duration: {format_duration(song_info.get('duration', 210))}</small>
+                        <div class="setlist-song-row">
+                            <div class="setlist-song-info">
+                                <strong>{song}</strong>
+                                <div class="setlist-song-meta">{markers}BPM: {song_info.get('bpm', 'Unknown')} | Duration: {format_duration(song_info.get('duration', 210))}</div>
+                            </div>
                         </div>
                         """, unsafe_allow_html=True)
 
-                        btn_col1, btn_col2, btn_col3 = st.columns(3)
-                        with btn_col1:
-                            if st.button("⬆️", key=f"up_{set_key}_{i}", disabled=i==0, use_container_width=True):
-                                # Move song up
-                                songs = st.session_state.current_setlist[set_key]
-                                songs[i], songs[i-1] = songs[i-1], songs[i]
-                                st.rerun()
+                    with row_cols[1]:
+                        if st.button("⬆️", key=f"up_{set_key}_{i}", disabled=i==0):
+                            songs = st.session_state.current_setlist[set_key]
+                            songs[i], songs[i-1] = songs[i-1], songs[i]
+                            st.rerun()
 
-                        with btn_col2:
-                            if st.button(
-                                "⬇️",
-                                key=f"down_{set_key}_{i}",
-                                disabled=i==len(st.session_state.current_setlist[set_key])-1,
-                                use_container_width=True,
-                            ):
-                                # Move song down
-                                songs = st.session_state.current_setlist[set_key]
-                                songs[i], songs[i+1] = songs[i+1], songs[i]
-                                st.rerun()
+                    with row_cols[2]:
+                        if st.button("⬇️", key=f"down_{set_key}_{i}", disabled=i==len(st.session_state.current_setlist[set_key])-1):
+                            songs = st.session_state.current_setlist[set_key]
+                            songs[i], songs[i+1] = songs[i+1], songs[i]
+                            st.rerun()
 
-                        with btn_col3:
-                            if st.button("🗑️", key=f"remove_{set_key}_{i}", use_container_width=True):
-                                # Remove song
-                                st.session_state.current_setlist[set_key].pop(i)
-                                st.rerun()
-                    else:
-                        col1, col2, col3, col4 = st.columns([3, 1, 1, 1])
-
-                        with col1:
-                            st.markdown(f"""
-                            <div class="song-card">
-                                <strong>{song}</strong> {markers}<br>
-                                <small>BPM: {song_info.get('bpm', 'Unknown')} | Duration: {format_duration(song_info.get('duration', 210))}</small>
-                            </div>
-                            """, unsafe_allow_html=True)
-
-                        with col2:
-                            if st.button("⬆️", key=f"up_{set_key}_{i}", disabled=i==0):
-                                # Move song up
-                                songs = st.session_state.current_setlist[set_key]
-                                songs[i], songs[i-1] = songs[i-1], songs[i]
-                                st.rerun()
-
-                        with col3:
-                            if st.button("⬇️", key=f"down_{set_key}_{i}", disabled=i==len(st.session_state.current_setlist[set_key])-1):
-                                # Move song down
-                                songs = st.session_state.current_setlist[set_key]
-                                songs[i], songs[i+1] = songs[i+1], songs[i]
-                                st.rerun()
-
-                        with col4:
-                            if st.button("🗑️", key=f"remove_{set_key}_{i}"):
-                                # Remove song
-                                st.session_state.current_setlist[set_key].pop(i)
-                                st.rerun()
+                    with row_cols[3]:
+                        if st.button("🗑️", key=f"remove_{set_key}_{i}"):
+                            st.session_state.current_setlist[set_key].pop(i)
+                            st.rerun()
             else:
                 st.markdown(
                     f"""
@@ -1657,59 +1776,68 @@ with tab_setlist:
                     unsafe_allow_html=True,
                 )
     
+    st.markdown('</div>', unsafe_allow_html=True)
+
     # Export functionality
     st.markdown("---")
-    if is_mobile_view:
-        if st.button("📄 Export Setlist", key="export_setlist", use_container_width=True):
-            # Create export data
-            export_data = {
-                'venue': venue,
-                'date': date,
-                'setlist': st.session_state.current_setlist,
-                'timing': {
-                    'set1_duration': format_duration(set1_duration),
-                    'set2_duration': format_duration(set2_duration),
-                    'set3_duration': format_duration(set3_duration),
-                    'total_show': format_duration(total_show_time)
-                }
-            }
+    export_data = {
+        'venue': venue,
+        'date': date,
+        'setlist': st.session_state.current_setlist,
+        'timing': set_duration_values
+    }
+    markdown_payload = build_setlist_markdown(
+        venue,
+        date,
+        st.session_state.current_setlist,
+        songs_data,
+        set_duration_values,
+        set_duration_values['total_show'],
+    )
+    safe_base = re.sub(r"[^A-Za-z0-9_]+", "_", f"{venue}_{date}").strip('_') or "setlist"
+    md_filename = f"{safe_base}.md"
+    json_filename = f"{safe_base}.json"
 
+    if is_mobile_view:
+        row_button_col, row_clear_col = st.columns(2)
+
+        with row_button_col:
             st.download_button(
                 "💾 Download JSON",
                 data=json.dumps(export_data, indent=2),
-                file_name=f"setlist_{venue}_{date.replace('/', '')}.json",
+                file_name=json_filename,
                 mime="application/json",
                 use_container_width=True,
             )
+            st.download_button(
+                "📝 Download Markdown",
+                data=markdown_payload,
+                file_name=md_filename,
+                mime="text/markdown",
+                use_container_width=True,
+            )
 
-        if st.button("🗑️ Clear All Sets", use_container_width=True):
-            st.session_state.current_setlist = {'set1': [], 'set2': [], 'set3': []}
-            st.success("All sets cleared!")
-            st.rerun()
+        with row_clear_col:
+            if st.button("🗑️ Clear All Sets", use_container_width=True):
+                st.session_state.current_setlist = {'set1': [], 'set2': [], 'set3': []}
+                st.success("All sets cleared!")
+                st.rerun()
     else:
         col1, col2 = st.columns(2)
 
         with col1:
-            if st.button("📄 Export Setlist", key="export_setlist"):
-                # Create export data
-                export_data = {
-                    'venue': venue,
-                    'date': date,
-                    'setlist': st.session_state.current_setlist,
-                    'timing': {
-                        'set1_duration': format_duration(set1_duration),
-                        'set2_duration': format_duration(set2_duration),
-                        'set3_duration': format_duration(set3_duration),
-                        'total_show': format_duration(total_show_time)
-                    }
-                }
-
-                st.download_button(
-                    "💾 Download JSON",
-                    data=json.dumps(export_data, indent=2),
-                    file_name=f"setlist_{venue}_{date.replace('/', '')}.json",
-                    mime="application/json"
-                )
+            st.download_button(
+                "💾 Download JSON",
+                data=json.dumps(export_data, indent=2),
+                file_name=json_filename,
+                mime="application/json"
+            )
+            st.download_button(
+                "📝 Download Markdown",
+                data=markdown_payload,
+                file_name=md_filename,
+                mime="text/markdown"
+            )
 
         with col2:
             if st.button("🗑️ Clear All Sets"):
