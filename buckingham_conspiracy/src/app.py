@@ -79,9 +79,9 @@ SONGLIST_CSV_HEADERS = [
     "artist",
     "bpm",
     "has_horn",
-    "has_vocals",
     "energy_level",
     "is_jam_vehicle",
+    "avg_length",
 ]
 SECTION_LABEL_PATTERN = re.compile(r"^\s*\[.+?\]\s*$")
 
@@ -96,6 +96,48 @@ def parse_bool(value: Union[str, bool, None]) -> bool:
 def calculate_song_duration(bpm: int) -> int:
     base_duration = 210  # 3.5 minutes in seconds
     return int(base_duration * (120 / max(bpm, 60)))
+
+
+def derive_song_duration(bpm: int, avg_length_seconds: Optional[int]) -> int:
+    """Use the provided average length, falling back to the BPM-derived duration."""
+    if isinstance(avg_length_seconds, int) and avg_length_seconds > 0:
+        return avg_length_seconds
+    return calculate_song_duration(bpm)
+
+
+def parse_avg_length_value(value: Union[str, int, float, None]) -> Optional[int]:
+    """Parse the avg length value stored in the CSV into seconds."""
+    if value is None:
+        return None
+
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        seconds = int(value)
+        return seconds if seconds > 0 else None
+
+    raw = str(value).strip()
+    if not raw:
+        return None
+
+    try:
+        seconds = int(float(raw))
+        return seconds if seconds > 0 else None
+    except ValueError:
+        return None
+
+
+def split_minutes_seconds(seconds: Optional[int]) -> Tuple[int, int]:
+    """Convert total seconds into (minutes, seconds)."""
+    if not seconds or seconds <= 0:
+        return 0, 0
+    minutes = seconds // 60
+    secs = seconds % 60
+    return minutes, secs
+
+
+def combine_avg_length(minutes: int, seconds: int) -> Optional[int]:
+    """Turn a minutes/seconds pair into a total-second value."""
+    total_seconds = max(0, int(minutes)) * 60 + max(0, int(seconds))
+    return total_seconds if total_seconds > 0 else None
 
 
 def load_song_list_from_csv(song_file: Path) -> Dict[str, Dict]:
@@ -116,18 +158,18 @@ def load_song_list_from_csv(song_file: Path) -> Dict[str, Dict]:
                 energy_level = (row.get("energy_level") or "standard").strip().lower()
                 energy_level = energy_level if energy_level in {"high", "standard", "low"} else "standard"
                 has_horn = parse_bool(row.get("has_horn"))
-                has_vocals = parse_bool(row.get("has_vocals"))
                 is_jam_vehicle = parse_bool(row.get("is_jam_vehicle"))
-                duration_seconds = calculate_song_duration(bpm)
+                avg_length_seconds = parse_avg_length_value(row.get("avg_length"))
+                duration_seconds = derive_song_duration(bpm, avg_length_seconds)
 
                 songs[title] = {
                     'bpm': bpm,
                     'duration': duration_seconds,
                     'has_horn': has_horn,
-                    'has_vocals': has_vocals,
                     'energy_level': energy_level,
                     'is_jam_vehicle': is_jam_vehicle,
                     'artist': artist,
+                    'avg_length': avg_length_seconds,
                     'raw_line': f"{title} ({bpm})",
                 }
     except Exception as e:
@@ -147,7 +189,6 @@ def load_song_list_from_markdown(song_file: Path) -> Dict[str, Dict]:
             line = line.strip()
             if line and not line.startswith('#') and '(' in line:
                 has_horn = '🎺' in line
-                has_vocals = '🥁' in line
 
                 clean_line = re.sub(r'\^.*?\^', '', line)
                 match = re.search(r'^(.+?)\s*\((\d+)\)', clean_line)
@@ -166,10 +207,10 @@ def load_song_list_from_markdown(song_file: Path) -> Dict[str, Dict]:
                         'bpm': bpm,
                         'duration': duration_seconds,
                         'has_horn': has_horn,
-                        'has_vocals': has_vocals,
                         'energy_level': 'standard',
                         'is_jam_vehicle': False,
                         'artist': artist,
+                        'avg_length': None,
                         'raw_line': line
                     }
     except Exception as e:
@@ -193,14 +234,15 @@ def save_song_list_csv(songs_data: Dict[str, Dict]) -> bool:
             writer.writeheader()
             for song_name in sorted(songs_data.keys()):
                 song_info = songs_data[song_name]
+                avg_length_value = song_info.get('avg_length')
                 writer.writerow({
                     "title": song_name,
                     "artist": song_info.get('artist', ''),
                     "bpm": song_info.get('bpm', ''),
                     "has_horn": song_info.get('has_horn', False),
-                    "has_vocals": song_info.get('has_vocals', False),
                     "energy_level": song_info.get('energy_level', 'standard'),
                     "is_jam_vehicle": song_info.get('is_jam_vehicle', False),
+                    "avg_length": avg_length_value if avg_length_value is not None else '',
                 })
         return True
     except Exception as e:
@@ -219,8 +261,6 @@ def save_song_list_markdown(songs_data: Dict[str, Dict]) -> bool:
             markers = ""
             if song_info.get('has_horn'):
                 markers += "^🎺 ^"
-            if song_info.get('has_vocals'):
-                markers += "^🥁^"
 
             display_name = song_name if not song_info.get('artist') else f"{song_name} - {song_info['artist']}"
             line = f"{display_name}{markers} ({song_info['bpm']})"
@@ -249,14 +289,15 @@ def export_song_list_csv(songs_data: Dict[str, Dict]) -> str:
     writer.writeheader()
     for song_name in sorted(songs_data.keys()):
         song_info = songs_data[song_name]
+        avg_length_value = song_info.get('avg_length')
         writer.writerow({
             "title": song_name,
             "artist": song_info.get('artist', ''),
             "bpm": song_info.get('bpm', ''),
             "has_horn": song_info.get('has_horn', False),
-            "has_vocals": song_info.get('has_vocals', False),
             "energy_level": song_info.get('energy_level', 'standard'),
             "is_jam_vehicle": song_info.get('is_jam_vehicle', False),
+            "avg_length": avg_length_value if avg_length_value is not None else '',
         })
     return buffer.getvalue()
 
@@ -963,30 +1004,32 @@ def load_tab_content(filename: str) -> Tuple[Union[str, dict], str]:
     except Exception as e:
         return f"Error loading tab: {e}", 'error'
 
-def add_new_song(name: str, bpm: int, has_horn: bool = False, has_vocals: bool = False,
-                 energy_level: str = 'standard', is_jam_vehicle: bool = False, artist: str = ''):
+def add_new_song(name: str, bpm: int, has_horn: bool = False,
+                 energy_level: str = 'standard', is_jam_vehicle: bool = False,
+                 avg_length_seconds: Optional[int] = None, artist: str = ''):
     """Add a new song to the song list"""
     if st.session_state.songs_data is None:
         st.session_state.songs_data = load_song_list()
     
     # Calculate duration
-    duration_seconds = calculate_song_duration(bpm)
+    duration_seconds = derive_song_duration(bpm, avg_length_seconds)
     
     st.session_state.songs_data[name] = {
         'bpm': bpm,
         'duration': duration_seconds,
         'has_horn': has_horn,
-        'has_vocals': has_vocals,
         'energy_level': energy_level,
         'is_jam_vehicle': is_jam_vehicle,
         'artist': artist,
+        'avg_length': avg_length_seconds,
         'raw_line': f"{name} ({bpm})"
     }
     
     return save_song_list(st.session_state.songs_data)
 
-def update_song(old_name: str, new_name: str, bpm: int, has_horn: bool = False, has_vocals: bool = False,
-                energy_level: str = 'standard', is_jam_vehicle: bool = False, artist: str = ''):
+def update_song(old_name: str, new_name: str, bpm: int, has_horn: bool = False,
+                energy_level: str = 'standard', is_jam_vehicle: bool = False,
+                avg_length_seconds: Optional[int] = None, artist: str = ''):
     """Update an existing song"""
     if st.session_state.songs_data is None:
         st.session_state.songs_data = load_song_list()
@@ -996,15 +1039,15 @@ def update_song(old_name: str, new_name: str, bpm: int, has_horn: bool = False, 
         del st.session_state.songs_data[old_name]
     
     # Calculate duration
-    duration_seconds = calculate_song_duration(bpm)
+    duration_seconds = derive_song_duration(bpm, avg_length_seconds)
     
     st.session_state.songs_data[new_name] = {
         'bpm': bpm,
         'duration': duration_seconds,
         'has_horn': has_horn,
-        'has_vocals': has_vocals,
         'energy_level': energy_level,
         'is_jam_vehicle': is_jam_vehicle,
+        'avg_length': avg_length_seconds,
         'artist': artist,
         'raw_line': f"{new_name} ({bpm})"
     }
@@ -1259,7 +1302,6 @@ sidebar.metric("Tabs Available", len(available_tabs))
 sidebar.markdown("---")
 sidebar.markdown("### Legend")
 sidebar.markdown("🎺 = Horn parts")
-sidebar.markdown("🥁 = Drum Vocal parts")
 sidebar.markdown("🛸 = Jam vehicle")
 sidebar.markdown("🔥 = High energy")
 sidebar.markdown("💤 = Low energy")
@@ -1333,7 +1375,6 @@ with tab_library:
                 
                 with col2:
                     new_has_horn = st.checkbox("Has Horn Parts 🎺", key="add_song_horn")
-                    new_has_vocals = st.checkbox("Has Vocal Parts 🥁", key="add_song_vocals")
                 
                 with col3:
                     new_energy_level = styled_selectbox(
@@ -1343,12 +1384,39 @@ with tab_library:
                         key="add_song_energy",
                     )  # Default to 'standard'
                     new_is_jam_vehicle = st.checkbox("Jam Vehicle 🛸", key="add_song_jam")
+
+                col4, col5 = st.columns(2)
+                with col4:
+                    new_avg_length_minutes = st.number_input(
+                        "Avg Length Minutes",
+                        min_value=0,
+                        max_value=30,
+                        value=0,
+                        key="add_song_avg_minutes",
+                        help="Leave both fields at 0 to let BPM drive the duration."
+                    )
+                with col5:
+                    new_avg_length_seconds = st.number_input(
+                        "Avg Length Seconds",
+                        min_value=0,
+                        max_value=59,
+                        value=0,
+                        key="add_song_avg_seconds",
+                        help="Enter the seconds portion of the avg length."
+                    )
                 
                 if st.form_submit_button("➕ Add Song"):
                     if new_song_name.strip():
                         if new_song_name not in songs_data:
-                            if add_new_song(new_song_name, new_song_bpm, new_has_horn, new_has_vocals, 
-                                          new_energy_level, new_is_jam_vehicle):
+                            avg_length_seconds = combine_avg_length(new_avg_length_minutes, new_avg_length_seconds)
+                            if add_new_song(
+                                new_song_name,
+                                new_song_bpm,
+                                new_has_horn,
+                                new_energy_level,
+                                new_is_jam_vehicle,
+                                avg_length_seconds,
+                            ):
                                 st.success(f"Added '{new_song_name}' to the song library!")
                                 st.rerun()
                             else:
@@ -1394,7 +1462,6 @@ with tab_library:
                 [
                     "All Songs",
                     "Horn Songs",
-                    "Vocal Songs",
                     "Jam Vehicles",
                     "High Energy",
                     "Standard Energy",
@@ -1419,8 +1486,6 @@ with tab_library:
         
         if filter_type == "Horn Songs":
             filtered_songs = {k: v for k, v in filtered_songs.items() if v.get('has_horn')}
-        elif filter_type == "Vocal Songs":
-            filtered_songs = {k: v for k, v in filtered_songs.items() if v.get('has_vocals')}
         elif filter_type == "Jam Vehicles":
             filtered_songs = {k: v for k, v in filtered_songs.items() if v.get('is_jam_vehicle')}
         elif filter_type == "High Energy":
@@ -1459,12 +1524,10 @@ with tab_library:
                         edited_bpm = st.number_input("BPM", min_value=60, max_value=200, value=song_info['bpm'], key=f"edit_bpm_{song_name}")
                     
                     # Third row: Metadata
-                    col1, col2, col3, col4 = st.columns(4)
+                    col1, col2, col3 = st.columns(3)
                     with col1:
                         edited_horn = st.checkbox("Horn 🎺", value=song_info.get('has_horn', False), key=f"edit_horn_{song_name}")
                     with col2:
-                        edited_vocals = st.checkbox("Vocals 🥁", value=song_info.get('has_vocals', False), key=f"edit_vocals_{song_name}")
-                    with col3:
                         current_energy = song_info.get('energy_level', 'standard')
                         energy_index = get_energy_options().index(current_energy) if current_energy in get_energy_options() else 1
                         edited_energy = styled_selectbox(
@@ -1473,15 +1536,39 @@ with tab_library:
                             index=energy_index,
                             key=f"edit_energy_{song_name}",
                         )
-                    with col4:
+                    with col3:
                         edited_jam = st.checkbox("Jam Vehicle 🎸", value=song_info.get('is_jam_vehicle', False), key=f"edit_jam_{song_name}")
                     
+                    avg_length_minutes, avg_length_seconds = split_minutes_seconds(song_info.get('avg_length'))
+                    col5, col6 = st.columns(2)
+                    with col5:
+                        edited_avg_length_minutes = st.number_input(
+                            "Avg Length Minutes",
+                            min_value=0,
+                            max_value=30,
+                            value=avg_length_minutes,
+                            key=f"edit_avg_minutes_{song_name}",
+                            help="Leave both fields at 0 to let BPM drive the duration."
+                        )
+                    with col6:
+                        edited_avg_length_seconds = st.number_input(
+                            "Avg Length Seconds",
+                            min_value=0,
+                            max_value=59,
+                            value=avg_length_seconds,
+                            key=f"edit_avg_seconds_{song_name}",
+                            help="Enter the seconds portion of the avg length."
+                        )
+
                     col1, col2 = st.columns(2)
                     with col1:
                         if st.form_submit_button("💾 Save Changes"):
                             if edited_name.strip():
-                                if update_song(song_name, edited_name, edited_bpm, edited_horn, edited_vocals, 
-                                              edited_energy, edited_jam, edited_artist):
+                                avg_length_seconds_value = combine_avg_length(edited_avg_length_minutes, edited_avg_length_seconds)
+                                if update_song(song_name, edited_name, edited_bpm, edited_horn,
+                                              edited_energy, edited_jam,
+                                              avg_length_seconds_value,
+                                              edited_artist):
                                     st.session_state.editing_song = None
                                     st.success(f"Updated '{edited_name}'!")
                                     st.rerun()
@@ -1502,8 +1589,6 @@ with tab_library:
                     markers = ""
                     if song_info.get('has_horn'):
                         markers += "🎺 "
-                    if song_info.get('has_vocals'):
-                        markers += "🥁 "
                     if song_info.get('is_jam_vehicle'):
                         markers += "🛸"
                     
@@ -1727,8 +1812,6 @@ with tab_setlist:
                     markers = ""
                     if song_info.get('has_horn'):
                         markers += "🎺 "
-                    if song_info.get('has_vocals'):
-                        markers += "🥁 "
                     if song_info.get('is_jam_vehicle'):
                         markers += "🛸 "
 
@@ -2580,4 +2663,3 @@ with tab_stage:
             render_pdf_inline(pdf_path, height=pdf_height)
     else:
         st.warning(f"No stage plot PDFs found in `{stage_plot_hint}`.")
-

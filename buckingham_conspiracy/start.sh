@@ -60,25 +60,27 @@ echo ""
 echo "🚀 Starting application on port $PORT..."
 
 # Run the container with volume mounts for data persistence
+DATA_SUBDIRS=("songlist" "setlists" "song_data" "mixer_configurations" "stage_plots")
+
 if [ -n "$DATA_DIR" ]; then
     mkdir -p "$DATA_DIR"
-    docker run -d \
-        --name $CONTAINER_NAME \
-        -p $PORT:8501 \
-        -e BCH_DATA_DIR=/data \
-        -v "$DATA_DIR:/data" \
-        --restart unless-stopped \
-        $IMAGE_NAME
+    DOCKER_VOLUME_ARGS=("-v" "$DATA_DIR:/data")
 else
-    docker run -d \
-        --name $CONTAINER_NAME \
-        -p $PORT:8501 \
-        -v "$(pwd)/setlists:/app/setlists" \
-        -v "$(pwd)/songlist:/app/songlist" \
-        -v "$(pwd)/song_data:/app/song_data" \
-        --restart unless-stopped \
-        $IMAGE_NAME
+    # Ensure default directories exist and mount them under /data so the app uses songlist_master.csv directly
+    DOCKER_VOLUME_ARGS=()
+    for SUBDIR in "${DATA_SUBDIRS[@]}"; do
+        mkdir -p "$SUBDIR"
+        DOCKER_VOLUME_ARGS+=("-v" "$(pwd)/$SUBDIR:/data/$SUBDIR")
+    done
 fi
+
+docker run -d \
+    --name $CONTAINER_NAME \
+    -p $PORT:8501 \
+    -e BCH_DATA_DIR=/data \
+    "${DOCKER_VOLUME_ARGS[@]}" \
+    --restart unless-stopped \
+    $IMAGE_NAME
 
 # Wait a moment for the container to start
 sleep 3
