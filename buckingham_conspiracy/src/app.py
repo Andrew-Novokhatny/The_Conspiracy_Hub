@@ -430,10 +430,31 @@ section[data-testid="stSidebar"] * {
     flex-wrap: wrap;
     font-size: 0.95rem;
     margin-bottom: 0.5rem;
+    justify-content: center;
 }
 
-#setlist-builder .stExpanderHeader span {
-    font-size: 1.4rem;
+/* Remove expander hover highlight (Streamlit 1.54 default) */
+[data-testid="stExpander"] summary,
+[data-testid="stExpander"] summary:hover,
+[data-testid="stExpander"] summary:focus,
+[data-testid="stExpander"] summary:active {
+    background: var(--bg-panel) !important;
+    background-color: var(--bg-panel) !important;
+    transform: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+    border-color: var(--border-subtle) !important;
+}
+
+[data-testid="stExpander"] summary:hover *,
+[data-testid="stExpander"] summary:focus * {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+[data-testid="stExpander"] summary p,
+[data-testid="stExpander"] summary span {
+    font-size: 1.6rem;
     font-weight: 600;
     letter-spacing: 0.05em;
 }
@@ -1300,13 +1321,6 @@ sidebar.metric("Lyrics Available", len(available_lyrics))
 sidebar.metric("Tabs Available", len(available_tabs))
 
 sidebar.markdown("---")
-sidebar.markdown("### Legend")
-sidebar.markdown("🎺 = Horn parts")
-sidebar.markdown("🛸 = Jam vehicle")
-sidebar.markdown("🔥 = High energy")
-sidebar.markdown("💤 = Low energy")
-
-sidebar.markdown("---")
 sidebar.markdown("### Lyrics Quick Links")
 if available_lyrics:
     for lyric_song in available_lyrics:
@@ -1318,12 +1332,13 @@ else:
     sidebar.markdown("*No lyrics files found yet.*")
 
 # Create tabs
-tab_lyrics, tab_setlist, tab_library, tab_tabs, tab_previous, tab_stage, tab_mixer = st.tabs([
+tab_lyrics, tab_setlist, tab_library, tab_tabs, tab_previous, tab_stats, tab_stage, tab_mixer = st.tabs([
     "📜 Lyrics",
     "🎵 Setlist Builder",
     "📚 Song Library",
     "🎸 Tabs",
     "📋 Previous Setlists",
+    "📊 Stats",
     "🗺️ Stage Plot",
     "🎛️ Mixer Configurations",
 ])
@@ -1362,7 +1377,7 @@ with tab_library:
                 <div class="metric-value">{avg_bpm:.0f}</div>
             </div>
             """, unsafe_allow_html=True)
-        
+
         # Add new song section
         st.markdown("---")
         with st.expander("➕ Add New Song", expanded=False):
@@ -1426,29 +1441,7 @@ with tab_library:
                     else:
                         st.error("Song name is required!")
 
-        st.markdown("---")
-        with st.expander("📦 Song Library CSV", expanded=False):
-            csv_payload = export_song_list_csv(songs_data)
-            st.download_button(
-                "💾 Download Song Library CSV",
-                data=csv_payload,
-                file_name="songlist_master.csv",
-                mime="text/csv",
-                use_container_width=True,
-            )
-            st.caption(
-                f"Edits are loaded from `{describe_data_path(SONGLIST_CSV)}` when present."
-            )
-            if st.button(
-                "📝 Regenerate Markdown",
-                key="regen_songlist_markdown",
-                use_container_width=True,
-            ):
-                if save_song_list_markdown(songs_data):
-                    st.success("Markdown regenerated from the current library data.")
-                else:
-                    st.error("Failed to regenerate the markdown file.")
-        
+
         # Search and filter
         st.markdown("---")
         col1, col2, col3 = st.columns([2, 1, 1])
@@ -1496,133 +1489,181 @@ with tab_library:
             filtered_songs = {k: v for k, v in filtered_songs.items() if v.get('energy_level') == 'low'}
         
         st.markdown(f"**Showing {len(filtered_songs)} songs**")
-        
-        # Display songs in a table-like format with edit capabilities
-        for song_name, song_info in sorted(filtered_songs.items()):
-            # Check if this song is being edited
-            is_editing = st.session_state.editing_song == song_name
-            
-            if is_editing:
-                # Edit mode
-                st.markdown(f"""
-                <div class="edit-song-form">
-                    <h4>✏️ Editing: {song_name}</h4>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                with st.form(f"edit_song_{song_name}"):
-                    # First row: Song name and Artist
-                    col1, col2 = st.columns([2, 1])
-                    with col1:
-                        edited_name = st.text_input("Song Name", value=song_name, key=f"edit_name_{song_name}")
-                    with col2:
-                        edited_artist = st.text_input("Artist", value=song_info.get('artist', ''), key=f"edit_artist_{song_name}")
-                    
-                    # Second row: BPM
-                    col1, col2, col3 = st.columns([1, 1, 2])
-                    with col1:
-                        edited_bpm = st.number_input("BPM", min_value=60, max_value=200, value=song_info['bpm'], key=f"edit_bpm_{song_name}")
-                    
-                    # Third row: Metadata
-                    col1, col2, col3 = st.columns(3)
-                    with col1:
-                        edited_horn = st.checkbox("Horn 🎺", value=song_info.get('has_horn', False), key=f"edit_horn_{song_name}")
-                    with col2:
-                        current_energy = song_info.get('energy_level', 'standard')
-                        energy_index = get_energy_options().index(current_energy) if current_energy in get_energy_options() else 1
-                        edited_energy = styled_selectbox(
-                            "Energy",
-                            get_energy_options(),
-                            index=energy_index,
-                            key=f"edit_energy_{song_name}",
-                        )
-                    with col3:
-                        edited_jam = st.checkbox("Jam Vehicle 🎸", value=song_info.get('is_jam_vehicle', False), key=f"edit_jam_{song_name}")
-                    
-                    avg_length_minutes, avg_length_seconds = split_minutes_seconds(song_info.get('avg_length'))
-                    col5, col6 = st.columns(2)
-                    with col5:
-                        edited_avg_length_minutes = st.number_input(
-                            "Avg Length Minutes",
-                            min_value=0,
-                            max_value=30,
-                            value=avg_length_minutes,
-                            key=f"edit_avg_minutes_{song_name}",
-                            help="Leave both fields at 0 to let BPM drive the duration."
-                        )
-                    with col6:
-                        edited_avg_length_seconds = st.number_input(
-                            "Avg Length Seconds",
-                            min_value=0,
-                            max_value=59,
-                            value=avg_length_seconds,
-                            key=f"edit_avg_seconds_{song_name}",
-                            help="Enter the seconds portion of the avg length."
-                        )
 
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        if st.form_submit_button("💾 Save Changes"):
-                            if edited_name.strip():
-                                avg_length_seconds_value = combine_avg_length(edited_avg_length_minutes, edited_avg_length_seconds)
-                                if update_song(song_name, edited_name, edited_bpm, edited_horn,
-                                              edited_energy, edited_jam,
-                                              avg_length_seconds_value,
-                                              edited_artist):
-                                    st.session_state.editing_song = None
-                                    st.success(f"Updated '{edited_name}'!")
-                                    st.rerun()
-                                else:
-                                    st.error("Failed to update song.")
-                            else:
-                                st.error("Song name cannot be empty!")
-                    
-                    with col2:
-                        if st.form_submit_button("❌ Cancel"):
-                            st.session_state.editing_song = None
-                            st.rerun()
-            else:
-                # Display mode
-                col1, col2, col3, col4, col5, col6 = st.columns([2.5, 1.5, 1, 1, 1, 1])
-                
+        # Build DataFrame for display
+        import pandas as pd
+        table_rows = []
+        for song_name, song_info in sorted(filtered_songs.items()):
+            markers = ""
+            if song_info.get('has_horn'):
+                markers += "🎺 "
+            if song_info.get('is_jam_vehicle'):
+                markers += "🛸 "
+            energy_emoji = get_energy_emoji(song_info.get('energy_level', 'standard'))
+            if energy_emoji:
+                markers += energy_emoji
+            table_rows.append({
+                "Song": song_name,
+                "Artist": song_info.get('artist', '') or '—',
+                "BPM": song_info['bpm'],
+                "Length": format_duration(song_info['duration']),
+                "Tags": markers.strip(),
+            })
+        df_library = pd.DataFrame(table_rows)
+        st.dataframe(df_library, use_container_width=True, hide_index=True, height=min(len(table_rows) * 35 + 38, 600))
+
+        # Edit / Delete actions
+        sorted_song_names = sorted(filtered_songs.keys())
+        action_col1, action_col2, action_col3 = st.columns([3, 1, 1])
+        with action_col1:
+            action_song = styled_selectbox(
+                "Select song for actions",
+                [""] + sorted_song_names,
+                key="song_action_selector",
+            )
+        with action_col2:
+            render_control_label(" ")
+            if st.button("✏️ Edit", key="edit_selected_song", use_container_width=True, disabled=not action_song):
+                if action_song:
+                    st.session_state.editing_song = action_song
+                    st.rerun()
+        with action_col3:
+            render_control_label(" ")
+            if st.button("🗑️ Delete", key="delete_selected_song", use_container_width=True, disabled=not action_song):
+                if action_song and delete_song(action_song):
+                    st.success(f"Deleted '{action_song}'!")
+                    st.rerun()
+
+        # Edit form (shown when a song is selected for editing)
+        if st.session_state.editing_song and st.session_state.editing_song in filtered_songs:
+            song_name = st.session_state.editing_song
+            song_info = filtered_songs[song_name]
+            st.markdown("---")
+            st.markdown(f"""
+            <div class="edit-song-form">
+                <h4>✏️ Editing: {song_name}</h4>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            with st.form(f"edit_song_{song_name}"):
+                col1, col2 = st.columns([2, 1])
                 with col1:
-                    markers = ""
-                    if song_info.get('has_horn'):
-                        markers += "🎺 "
-                    if song_info.get('is_jam_vehicle'):
-                        markers += "🛸"
-                    
-                    energy_emoji = get_energy_emoji(song_info.get('energy_level', 'standard'))
-                    st.markdown(f"{energy_emoji} **{song_name}** {markers}")
+                    edited_name = st.text_input("Song Name", value=song_name, key=f"edit_name_{song_name}")
+                with col2:
+                    edited_artist = st.text_input("Artist", value=song_info.get('artist', ''), key=f"edit_artist_{song_name}")
+                
+                col1, col2, col3 = st.columns([1, 1, 2])
+                with col1:
+                    edited_bpm = st.number_input("BPM", min_value=60, max_value=200, value=song_info['bpm'], key=f"edit_bpm_{song_name}")
+                
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    edited_horn = st.checkbox("Horn 🎺", value=song_info.get('has_horn', False), key=f"edit_horn_{song_name}")
+                with col2:
+                    current_energy = song_info.get('energy_level', 'standard')
+                    energy_index = get_energy_options().index(current_energy) if current_energy in get_energy_options() else 1
+                    edited_energy = styled_selectbox(
+                        "Energy",
+                        get_energy_options(),
+                        index=energy_index,
+                        key=f"edit_energy_{song_name}",
+                    )
+                with col3:
+                    edited_jam = st.checkbox("Jam Vehicle 🎸", value=song_info.get('is_jam_vehicle', False), key=f"edit_jam_{song_name}")
+                
+                avg_length_minutes, avg_length_seconds = split_minutes_seconds(song_info.get('avg_length'))
+                col5, col6 = st.columns(2)
+                with col5:
+                    edited_avg_length_minutes = st.number_input(
+                        "Avg Length Minutes", min_value=0, max_value=30, value=avg_length_minutes,
+                        key=f"edit_avg_minutes_{song_name}",
+                        help="Leave both fields at 0 to let BPM drive the duration."
+                    )
+                with col6:
+                    edited_avg_length_seconds = st.number_input(
+                        "Avg Length Seconds", min_value=0, max_value=59, value=avg_length_seconds,
+                        key=f"edit_avg_seconds_{song_name}",
+                        help="Enter the seconds portion of the avg length."
+                    )
+
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.form_submit_button("💾 Save Changes"):
+                        if edited_name.strip():
+                            avg_length_seconds_value = combine_avg_length(edited_avg_length_minutes, edited_avg_length_seconds)
+                            if update_song(song_name, edited_name, edited_bpm, edited_horn,
+                                          edited_energy, edited_jam,
+                                          avg_length_seconds_value,
+                                          edited_artist):
+                                st.session_state.editing_song = None
+                                st.success(f"Updated '{edited_name}'!")
+                                st.rerun()
+                            else:
+                                st.error("Failed to update song.")
+                        else:
+                            st.error("Song name cannot be empty!")
                 
                 with col2:
-                    artist = song_info.get('artist', '')
-                    st.markdown(f"*{artist if artist else '—'}*")
-                
-                with col3:
-                    st.markdown(f"**{song_info['bpm']}** BPM")
-                
-                with col4:
-                    st.markdown(f"**{format_duration(song_info['duration'])}**")
-                
-                with col5:
-                    if st.button(f"✏️", key=f"edit_btn_{song_name}", help="Edit song"):
-                        st.session_state.editing_song = song_name
+                    if st.form_submit_button("❌ Cancel"):
+                        st.session_state.editing_song = None
                         st.rerun()
-                
-                with col6:
-                    if st.button(f"🗑️", key=f"delete_btn_{song_name}", help="Delete song"):
-                        if delete_song(song_name):
-                            st.success(f"Deleted '{song_name}'!")
-                            st.rerun()
-                        else:
-                            st.error("Failed to delete song.")
+        # Song Library CSV (bottom of tab)
+        st.markdown("---")
+        with st.expander("📦 Song Library CSV", expanded=False):
+            csv_payload = export_song_list_csv(songs_data)
+            st.download_button(
+                "💾 Download Song Library CSV",
+                data=csv_payload,
+                file_name="songlist_master.csv",
+                mime="text/csv",
+                use_container_width=True,
+            )
+            st.caption(
+                f"Edits are loaded from `{describe_data_path(SONGLIST_CSV)}` when present."
+            )
+            if st.button(
+                "📝 Regenerate Markdown",
+                key="regen_songlist_markdown",
+                use_container_width=True,
+            ):
+                if save_song_list_markdown(songs_data):
+                    st.success("Markdown regenerated from the current library data.")
+                else:
+                    st.error("Failed to regenerate the markdown file.")
     else:
         st.error("No songs found. Please check the song list file.")
 
 with tab_setlist:
     st.header("🎵 Setlist Builder")
-    
+
+    # Load setlist from JSON
+    with st.expander("📂 Load Setlist from JSON", expanded=False):
+        uploaded_setlist = st.file_uploader(
+            "Upload a previously exported setlist JSON",
+            type=["json"],
+            key="setlist_json_upload",
+        )
+        if uploaded_setlist is not None:
+            try:
+                loaded = json.loads(uploaded_setlist.getvalue().decode("utf-8"))
+                # Validate expected structure
+                if "setlist" in loaded and isinstance(loaded["setlist"], dict):
+                    st.session_state.current_setlist = {
+                        "set1": loaded["setlist"].get("set1", []),
+                        "set2": loaded["setlist"].get("set2", []),
+                        "set3": loaded["setlist"].get("set3", []),
+                    }
+                    if "venue" in loaded:
+                        st.session_state.setlist_metadata["venue"] = loaded["venue"]
+                    if "date" in loaded:
+                        st.session_state.setlist_metadata["date"] = loaded["date"]
+                    st.success("Setlist loaded successfully!")
+                    st.rerun()
+                else:
+                    st.error("Invalid JSON structure. Expected a 'setlist' key with set1/set2/set3.")
+            except json.JSONDecodeError:
+                st.error("Failed to parse JSON file. Please check the file format.")
+
     # Setlist metadata
     if is_mobile_view:
         venue = st.text_input("Venue", value=st.session_state.setlist_metadata['venue'], key="setlist_venue")
@@ -1930,7 +1971,38 @@ with tab_setlist:
 
 with tab_previous:
     st.header("📋 Previous Setlists")
-    
+
+    # Add new setlist
+    with st.expander("➕ Add New Setlist", expanded=False):
+        with st.form("new_setlist_form"):
+            ns_col1, ns_col2 = st.columns(2)
+            with ns_col1:
+                new_setlist_venue = st.text_input("Venue Name*", placeholder="e.g. City Beach", key="new_setlist_venue")
+            with ns_col2:
+                new_setlist_date = st.text_input("Date (MMDDYY)*", placeholder="e.g. 030725", key="new_setlist_date")
+            if st.form_submit_button("➕ Create Setlist"):
+                if new_setlist_venue.strip() and new_setlist_date.strip():
+                    dir_name = f"{new_setlist_venue.strip()} Setlist ({new_setlist_date.strip()})"
+                    new_dir = SETLISTS_DIR / dir_name
+                    new_dir.mkdir(parents=True, exist_ok=True)
+                    # Format a human-readable date for the header
+                    ds = new_setlist_date.strip()
+                    if len(ds) == 6:
+                        hr_date = f"{ds[:2]}/{ds[2:4]}/{ds[4:]}"
+                    else:
+                        hr_date = ds
+                    md_content = f"# ****{new_setlist_venue.strip()} Setlist ({hr_date})****  \n  \n"
+                    md_content += "# ****—SET 1****  \n  \n"
+                    md_content += "# ****—-SET 2****  \n  \n"
+                    md_content += "# ****—-SET 3****  \n"
+                    md_file = new_dir / f"{dir_name}.md"
+                    md_file.write_text(md_content, encoding="utf-8")
+                    st.cache_data.clear()
+                    st.success(f"Created new setlist: {dir_name}")
+                    st.rerun()
+                else:
+                    st.error("Both venue name and date are required.")
+
     if previous_setlists:
         # Display filters
         venues = sorted(list(set(setlist['venue'] for setlist in previous_setlists)))
@@ -2058,7 +2130,14 @@ with tab_previous:
                         # Display and edit existing songs
                         for j, song in enumerate(set_songs):
                             if is_mobile_view:
-                                st.markdown(f"• {song['name']} ({song['bpm']})" if song['bpm'] else f"• {song['name']}")
+                                edited_name = st.text_input(
+                                    f"Song {j+1}",
+                                    value=song['name'],
+                                    key=f"edit_song_name_{set_key}_{j}_{setlist_id}_m",
+                                    label_visibility="collapsed",
+                                )
+                                if edited_name != song['name']:
+                                    song['name'] = edited_name
                                 action_col1, action_col2 = st.columns(2)
                                 with action_col1:
                                     if st.button(
@@ -2084,7 +2163,14 @@ with tab_previous:
                                 song_col1, song_col2, song_col3 = st.columns([3, 1, 1])
 
                                 with song_col1:
-                                    st.markdown(f"• {song['name']} ({song['bpm']})" if song['bpm'] else f"• {song['name']}")
+                                    edited_name = st.text_input(
+                                        f"Song {j+1}",
+                                        value=song['name'],
+                                        key=f"edit_song_name_{set_key}_{j}_{setlist_id}_d",
+                                        label_visibility="collapsed",
+                                    )
+                                    if edited_name != song['name']:
+                                        song['name'] = edited_name
 
                                 with song_col2:
                                     if st.button("⬆️", key=f"up_{set_key}_{j}_{setlist_id}", disabled=j==0, help="Move up"):
@@ -2170,10 +2256,96 @@ with tab_previous:
     else:
         st.info("No previous setlists found.")
 
+with tab_stats:
+    st.header("📊 Stats & Insights")
+
+    if previous_setlists:
+        from collections import Counter
+
+        all_song_names: List[str] = []
+        venue_counts: Counter = Counter()
+        songs_per_show: List[int] = []
+
+        for sl in previous_setlists:
+            venue_counts[sl['venue']] += 1
+            show_song_count = 0
+            for set_key in ['set1', 'set2', 'set3']:
+                for song in sl['sets'].get(set_key, []):
+                    all_song_names.append(song['name'])
+                    show_song_count += 1
+            songs_per_show.append(show_song_count)
+
+        song_counts = Counter(all_song_names)
+        total_shows = len(previous_setlists)
+        unique_songs = len(song_counts)
+        avg_songs_show = sum(songs_per_show) / len(songs_per_show) if songs_per_show else 0
+        played_once = [s for s, c in song_counts.items() if c == 1]
+
+        # Summary metric cards
+        m1, m2, m3, m4 = st.columns(4)
+        with m1:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Total Shows</div>
+                <div class="metric-value">{total_shows}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with m2:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Unique Songs Played</div>
+                <div class="metric-value">{unique_songs}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with m3:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Avg Songs / Show</div>
+                <div class="metric-value">{avg_songs_show:.1f}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with m4:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Played Only Once</div>
+                <div class="metric-value">{len(played_once)}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("---")
+
+        # Most played songs
+        st.subheader("🎵 Most Played Songs")
+        top_n = st.slider("Number of songs to show", min_value=5, max_value=min(40, unique_songs), value=min(15, unique_songs), key="stats_top_n")
+        top_songs = song_counts.most_common(top_n)
+        import pandas as pd
+        df_songs = pd.DataFrame(top_songs, columns=["Song", "Times Played"])
+        st.dataframe(df_songs, use_container_width=True, hide_index=True)
+
+        st.markdown("---")
+
+        # Most played venues
+        st.subheader("📍 Venue Frequency")
+        df_venues = pd.DataFrame(venue_counts.most_common(), columns=["Venue", "Shows"])
+        st.dataframe(df_venues, use_container_width=True, hide_index=True)
+
+        st.markdown("---")
+
+        # Full song play-count table
+        st.subheader("📋 Complete Song Play Counts")
+        df_all = pd.DataFrame(song_counts.most_common(), columns=["Song", "Times Played"])
+        st.dataframe(df_all, use_container_width=True, hide_index=True)
+
+        # Songs played only once
+        if played_once:
+            with st.expander(f"🔍 Songs Played Only Once ({len(played_once)})"):
+                for s in sorted(played_once):
+                    st.markdown(f"• {s}")
+    else:
+        st.info("No setlist data available to generate stats.")
+
 with tab_lyrics:
     st.header("📜 Lyrics Viewer")
-    
-    render_control_label("Select a song to view lyrics")
 
     song_index = 0
     if (
