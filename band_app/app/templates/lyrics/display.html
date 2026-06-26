@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ song_name }} - Lyrics{% endblock %}
+
+{% block content %}
+<a href="/api/lyrics/" class="back-link">← Back to Lyrics</a>
+
+<div class="lyrics-panel fade-in-up">
+    <div class="lyrics-song-header">
+        <div class="flex items-center justify-between">
+            <div>
+                <div class="lyrics-song-title">{{ song_name }}</div>
+                {% if artist %}
+                <div class="lyrics-song-artist">{{ artist }}{% if bpm %} · {{ bpm }} BPM{% endif %}</div>
+                {% endif %}
+            </div>
+            <a href="/api/lyrics/{{ song_name }}/fullscreen" class="band-btn-secondary band-btn-sm">🔍 Full Screen</a>
+        </div>
+    </div>
+    <div class="lyrics-panel-body">
+        {{ lyrics_content | safe }}
+    </div>
+</div>
+
+<!-- Navigation -->
+<div hx-get="/api/lyrics/{{ song_name }}/navigation"
+     hx-trigger="load"
+     hx-swap="innerHTML"
+     class="mt-lg">
+</div>
+{% endblock %}

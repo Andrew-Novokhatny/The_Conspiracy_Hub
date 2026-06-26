@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}{{ setlist.venue }} ({{ setlist.date }}) - Setlist{% endblock %}
+
+{% block content %}
+<a href="/api/setlists/" class="back-link">← Back to Setlists</a>
+
+<div class="fade-in-up">
+    <h1 class="page-title">🎸 {{ setlist.venue }}</h1>
+    <p class="page-subtitle">{{ friendly_date }}</p>
+</div>
+
+<!-- Timing Stats -->
+<div class="stats-grid fade-in-up-delay-1">
+    {% for set_key, timing in set_timings.items() %}
+    {% if timing.song_count > 0 %}
+    <div class="stat-card">
+        <div class="stat-value">{{ timing.formatted }}</div>
+        <div class="stat-label">Set {{ loop.index }}</div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <div class="stat-card">
+        <div class="stat-value">{{ total_show_formatted }}</div>
+        <div class="stat-label">Total</div>
+    </div>
+</div>
+
+<!-- Sets -->
+<div class="fade-in-up-delay-2">
+    {% for set_num in [1, 2, 3] %}
+    {% set set_key = 'set' ~ set_num %}
+    {% set songs = setlist.sets.get(set_key, []) %}
+    {% if songs %}
+    <div class="set-section">
+        <div class="set-section-title">
+            Set {{ set_num }}
+            <span class="set-duration">· {{ set_timings[set_key].formatted }} · {{ songs|length }} songs</span>
+        </div>
+        {% for song in songs %}
+        <div class="set-song-item">
+            <span class="set-song-number">{{ loop.index }}</span>
+            {% if song.name in songs_data and song.name in (songs_data.keys()|list) %}
+            <a href="/api/lyrics/{{ song.name }}" class="set-song-name" style="color: var(--text-primary); text-decoration: none;">
+                {{ song.name }}
+                {% if songs_data.get(song.name, {}).get('has_horn') %}🎺{% endif %}
+                {% if songs_data.get(song.name, {}).get('is_jam_vehicle') %}🛸{% endif %}
+            </a>
+            {% else %}
+            <span class="set-song-name">
+                {{ song.name }}
+            </span>
+            {% endif %}
+            {% if song.bpm %}
+            <span class="set-song-bpm">{{ song.bpm }}</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<hr class="divider">
+
+<!-- Export & Edit -->
+<div class="flex flex-wrap gap-sm justify-between">
+    <div class="flex flex-wrap gap-sm">
+        <a href="/api/setlists/{{ setlist_id }}/export?format=json"
+           class="band-btn-secondary band-btn-sm"
+           target="_blank">
+            💾 Export JSON
+        </a>
+        <a href="/api/setlists/{{ setlist_id }}/export?format=markdown"
+           class="band-btn-secondary band-btn-sm"
+           target="_blank">
+            📝 Export Markdown
+        </a>
+    </div>
+    
+    <a href="/api/setlists/{{ setlist_id }}/edit" class="band-btn-secondary band-btn-sm">
+        ✏️ Edit Raw
+    </a>
+</div>
+{% endblock %}

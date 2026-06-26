@@ -1,0 +1,20 @@
+<!-- Lyrics navigation: prev/next song controls -->
+<div class="flex items-center justify-between gap-md">
+    {% if prev_song %}
+    <a href="/api/lyrics/{{ prev_song }}" class="band-btn-secondary band-btn-sm">
+        ← {{ prev_song }}
+    </a>
+    {% else %}
+    <div></div>
+    {% endif %}
+
+    <span class="text-muted text-sm">{{ current_index }} / {{ total_songs }}</span>
+
+    {% if next_song %}
+    <a href="/api/lyrics/{{ next_song }}" class="band-btn-secondary band-btn-sm">
+        {{ next_song }} →
+    </a>
+    {% else %}
+    <div></div>
+    {% endif %}
+</div>

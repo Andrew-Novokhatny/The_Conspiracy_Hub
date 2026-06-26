@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Lyrics - The Conspiracy Hub{% endblock %}
+
+{% block content %}
+<div class="fade-in-up">
+    <h1 class="page-title">📜 Lyrics</h1>
+    <p class="page-subtitle">{{ total_lyrics }} songs available</p>
+</div>
+
+<!-- Search -->
+<div class="mb-lg fade-in-up-delay-1">
+    <div class="search-box">
+        <input type="text"
+               class="form-input"
+               placeholder="Search songs..."
+               id="lyrics-search"
+               oninput="filterLyrics(this.value)">
+    </div>
+</div>
+
+<!-- Song List -->
+<div class="lyrics-song-list fade-in-up-delay-2" id="lyrics-list">
+    {% for song_name in available_lyrics %}
+    <a href="/api/lyrics/{{ song_name }}"
+       class="lyrics-song-item"
+       data-song="{{ song_name|lower }}">
+        <span class="song-row-number">{{ loop.index }}</span>
+        <div class="song-row-info">
+            <div class="song-row-title">{{ song_name }}</div>
+            {% if songs_data and song_name in songs_data %}
+            <div class="song-row-meta">
+                {{ songs_data[song_name].get('artist', '') }}
+                {% if songs_data[song_name].get('bpm') %} · {{ songs_data[song_name]['bpm'] }} BPM{% endif %}
+            </div>
+            {% endif %}
+        </div>
+        <span class="text-muted text-sm">→</span>
+    </a>
+    {% endfor %}
+</div>
+
+{% if not available_lyrics %}
+<div class="empty-state">
+    <div class="empty-state-icon">📜</div>
+    <div class="empty-state-text">No lyrics files found yet. Add <code>.txt</code> files to the lyrics directory to get started.</div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+function filterLyrics(query) {
+    const items = document.querySelectorAll('.lyrics-song-item');
+    const q = query.toLowerCase();
+    items.forEach(function(item) {
+        const name = item.getAttribute('data-song') || '';
+        item.style.display = name.includes(q) ? '' : 'none';
+    });
+}
+</script>
+{% endblock %}

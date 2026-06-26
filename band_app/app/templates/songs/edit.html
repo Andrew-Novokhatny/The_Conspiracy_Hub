@@ -1,0 +1,60 @@
+<!-- Song Edit Form Partial (Replaces card.html via HTMX) -->
+<div class="panel fade-in-up" id="song-card-{{ song_name|lower|replace(' ', '-') }}">
+    <form hx-post="/api/songs/{{ song_name }}/edit" 
+          hx-target="#song-card-{{ song_name|lower|replace(' ', '-') }}"
+          hx-swap="outerHTML">
+        
+        <div class="flex items-center justify-between mb-md">
+            <div>
+                <div style="font-size: 1.2rem; font-weight: 700;">{{ song_name }}</div>
+                <div class="text-muted text-sm mt-sm">Edit Metadata</div>
+            </div>
+            <button type="button" class="band-btn-secondary band-btn-sm" 
+                    hx-get="/api/songs/{{ song_name }}" 
+                    hx-target="#song-card-{{ song_name|lower|replace(' ', '-') }}"
+                    hx-swap="outerHTML">Cancel</button>
+        </div>
+
+        <div class="grid grid-2 gap-sm mb-md">
+            <div>
+                <label class="text-sm text-muted">Artist</label>
+                <input type="text" name="artist" class="form-input" value="{{ song_info.get('artist', '') }}">
+            </div>
+            <div>
+                <label class="text-sm text-muted">BPM</label>
+                <input type="number" name="bpm" class="form-input" value="{{ song_info.get('bpm', 120) }}">
+            </div>
+        </div>
+        
+        <div class="grid grid-2 gap-sm mb-md">
+            <div>
+                <label class="text-sm text-muted">Average Length (e.g. 4:30 or 270)</label>
+                <input type="text" name="avg_length" class="form-input" 
+                       value="{% if song_info.get('avg_length') %}{{ song_info.get('avg_length') }}{% endif %}">
+            </div>
+            <div>
+                <label class="text-sm text-muted">Energy Level</label>
+                <select name="energy_level" class="form-input" style="background: var(--bg-hover);">
+                    <option value="high" {% if song_info.get('energy_level') == 'high' %}selected{% endif %}>🔥 High</option>
+                    <option value="standard" {% if song_info.get('energy_level') == 'standard' or not song_info.get('energy_level') %}selected{% endif %}>⭐ Standard</option>
+                    <option value="low" {% if song_info.get('energy_level') == 'low' %}selected{% endif %}>💤 Low</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="flex gap-md mb-md">
+            <label class="flex items-center gap-sm cursor-pointer">
+                <input type="checkbox" name="has_horn" value="true" {% if song_info.get('has_horn') %}checked{% endif %}>
+                🎺 Has Horn
+            </label>
+            <label class="flex items-center gap-sm cursor-pointer">
+                <input type="checkbox" name="is_jam_vehicle" value="true" {% if song_info.get('is_jam_vehicle') %}checked{% endif %}>
+                🛸 Jam Vehicle
+            </label>
+        </div>
+
+        <div class="flex flex-wrap gap-sm">
+            <button type="submit" class="band-btn band-btn-sm">💾 Save Changes</button>
+        </div>
+    </form>
+</div>

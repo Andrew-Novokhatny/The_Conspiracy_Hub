@@ -3,7 +3,7 @@ Setlists API endpoints for band app
 Previous setlist viewing, setlist building, and navigation
 """
 
-from fastapi import APIRouter, Request, HTTPException, Query
+from fastapi import APIRouter, Request, HTTPException, Query, Form
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from typing import List, Optional, Dict, Any
@@ -39,10 +39,11 @@ async def setlists_home(request: Request):
     try:
         previous_setlists = load_previous_setlists()
 
-        return templates.TemplateResponse("setlists/index.html", {
+        return templates.TemplateResponse(request=request, name="setlists/index.html", context={
             "request": request,
             "setlists": previous_setlists,
-            "total_setlists": len(previous_setlists)
+            "total_setlists": len(previous_setlists),
+            "active_page": "setlists",
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading setlists: {str(e)}")
@@ -112,7 +113,7 @@ async def get_setlist_details(request: Request, setlist_id: int):
 
         total_show_formatted = format_duration(total_show_seconds)
 
-        return templates.TemplateResponse("setlists/details.html", {
+        return templates.TemplateResponse(request=request, name="setlists/details.html", context={
             "request": request,
             "setlist": setlist,
             "setlist_id": setlist_id,
@@ -120,12 +121,85 @@ async def get_setlist_details(request: Request, setlist_id: int):
             "set_timings": set_timings,
             "total_show_seconds": total_show_seconds,
             "total_show_formatted": total_show_formatted,
-            "friendly_date": human_readable_date(setlist['date'])
+            "friendly_date": human_readable_date(setlist['date']),
+            "active_page": "setlists",
         })
     except HTTPException:
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading setlist details: {str(e)}")
+
+
+@router.get("/{setlist_id}/edit", response_class=HTMLResponse)
+async def get_edit_setlist_form(request: Request, setlist_id: int):
+    """Return the edit form for a setlist (raw markdown editing)."""
+    try:
+        previous_setlists = load_previous_setlists()
+        
+        if setlist_id < 0 or setlist_id >= len(previous_setlists):
+            raise HTTPException(status_code=404, detail="Setlist not found")
+            
+        setlist = previous_setlists[setlist_id]
+        
+        # Read the raw markdown
+        try:
+            with open(setlist['file_path'], 'r', encoding='utf-8') as f:
+                raw_markdown = f.read()
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error reading file: {str(e)}")
+            
+        return templates.TemplateResponse(request=request, name="setlists/edit.html", context={
+            "request": request,
+            "setlist": setlist,
+            "setlist_id": setlist_id,
+            "raw_markdown": raw_markdown,
+            "active_page": "setlists",
+        })
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading edit form: {str(e)}")
+
+
+@router.post("/{setlist_id}/edit", response_class=HTMLResponse)
+async def save_edited_setlist(
+    request: Request, 
+    setlist_id: int,
+    markdown_content: str = Form(...)
+):
+    """Save the raw markdown and return updated details."""
+    try:
+        previous_setlists = load_previous_setlists()
+        
+        if setlist_id < 0 or setlist_id >= len(previous_setlists):
+            raise HTTPException(status_code=404, detail="Setlist not found")
+            
+        setlist = previous_setlists[setlist_id]
+        
+        # Write the raw markdown back
+        try:
+            with open(setlist['file_path'], 'w', encoding='utf-8') as f:
+                f.write(markdown_content)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error writing file: {str(e)}")
+            
+        # Re-parse to ensure valid and then redirect/refresh to the details page
+        # Since it's a full page edit usually, we can return the HX-Redirect header
+        # or render the details page again. Returning the details HTML is easiest.
+        
+        # Reload setlists to get updated data
+        updated_setlists = load_previous_setlists()
+        # Note: saving might change its position in the list if the date was edited. 
+        # But for now, we'll just redirect to the index or try to find it.
+        # HX-Redirect is safer.
+        response = HTMLResponse("")
+        response.headers["HX-Redirect"] = f"/api/setlists/{setlist_id}"
+        return response
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error saving setlist: {str(e)}")
 
 @router.get("/{setlist_id}/navigation", response_class=HTMLResponse)
 async def get_setlist_navigation(request: Request, setlist_id: int, current_song: Optional[str] = Query(None)):
@@ -161,7 +235,7 @@ async def get_setlist_navigation(request: Request, setlist_id: int, current_song
         prev_song = all_songs[current_index - 1] if current_index > 0 else None
         next_song = all_songs[current_index + 1] if current_index < len(all_songs) - 1 else None
 
-        return templates.TemplateResponse("setlists/navigation.html", {
+        return templates.TemplateResponse(request=request, name="setlists/navigation.html", context={
             "request": request,
             "setlist": setlist,
             "setlist_id": setlist_id,
@@ -170,7 +244,8 @@ async def get_setlist_navigation(request: Request, setlist_id: int, current_song
             "total_songs": len(all_songs),
             "prev_song": prev_song,
             "next_song": next_song,
-            "all_songs": all_songs
+            "all_songs": all_songs,
+            "active_page": "setlists",
         })
     except HTTPException:
         raise

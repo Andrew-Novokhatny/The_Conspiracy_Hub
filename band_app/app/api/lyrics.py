@@ -34,11 +34,12 @@ async def lyrics_home(request: Request):
         available_lyrics = load_available_lyrics()
         songs_data = load_song_list()
 
-        return templates.TemplateResponse("lyrics/index.html", {
+        return templates.TemplateResponse(request=request, name="lyrics/index.html", context={
             "request": request,
             "available_lyrics": available_lyrics,
             "songs_data": songs_data,
-            "total_lyrics": len(available_lyrics)
+            "total_lyrics": len(available_lyrics),
+            "active_page": "lyrics",
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading lyrics: {str(e)}")
@@ -82,14 +83,15 @@ async def get_lyrics(request: Request, song_name: str):
         songs_data = load_song_list()
         song_info = songs_data.get(song_name, {})
 
-        return templates.TemplateResponse("lyrics/display.html", {
+        return templates.TemplateResponse(request=request, name="lyrics/display.html", context={
             "request": request,
             "song_name": song_name,
             "lyrics_content": formatted_lyrics,
             "artist": song_info.get('artist', ''),
             "bpm": song_info.get('bpm', ''),
             "duration": song_info.get('duration', ''),
-            "fullscreen": False
+            "fullscreen": False,
+            "active_page": "lyrics",
         })
     except HTTPException:
         raise
@@ -116,7 +118,7 @@ async def get_lyrics_fullscreen(request: Request, song_name: str):
         artist = song_info.get('artist', '')
         bpm = song_info.get('bpm', '')
 
-        # Return beautiful full-screen lyrics
+        # Return beautiful full-screen lyrics with teal theme
         return HTMLResponse(f"""
 <!DOCTYPE html>
 <html lang="en">
@@ -250,14 +252,15 @@ async def get_lyrics_navigation(request: Request, song_name: str, context: Optio
         if current_index < len(available_lyrics) - 1:
             next_song = available_lyrics[current_index + 1]
 
-        return templates.TemplateResponse("lyrics/navigation.html", {
+        return templates.TemplateResponse(request=request, name="lyrics/navigation.html", context={
             "request": request,
             "current_song": song_name,
             "prev_song": prev_song,
             "next_song": next_song,
             "context": context,
             "current_index": current_index + 1,
-            "total_songs": len(available_lyrics)
+            "total_songs": len(available_lyrics),
+            "active_page": "lyrics",
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading navigation: {str(e)}")

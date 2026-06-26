@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Edit {{ setlist.venue }} Setlist{% endblock %}
+
+{% block content %}
+<a href="/api/setlists/{{ setlist_id }}" class="back-link">← Cancel Edit</a>
+
+<div class="fade-in-up">
+    <h1 class="page-title">✏️ Edit Setlist</h1>
+    <p class="page-subtitle">{{ setlist.venue }} - {{ setlist.date }}</p>
+</div>
+
+<div class="panel fade-in-up-delay-1">
+    <form hx-post="/api/setlists/{{ setlist_id }}/edit" 
+          hx-swap="none"
+          hx-disabled-elt="find button">
+        
+        <div class="mb-md">
+            <label class="text-sm text-muted block mb-sm">Raw Markdown Content</label>
+            <textarea name="markdown_content" 
+                      class="form-input" 
+                      style="min-height: 400px; font-family: monospace; font-size: 14px; line-height: 1.5; white-space: pre;">{{ raw_markdown }}</textarea>
+            <p class="text-xs text-muted mt-sm">Use standard markdown. Ensure songs follow the pattern: <code>Song Name (BPM)</code>.</p>
+        </div>
+        
+        <button type="submit" class="band-btn">💾 Save Changes</button>
+    </form>
+</div>
+{% endblock %}

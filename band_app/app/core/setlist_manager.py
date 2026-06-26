@@ -32,7 +32,13 @@ def load_previous_setlists() -> List[Dict]:
     except Exception as e:
         raise Exception(f"Error loading setlists: {e}")
 
-    return sorted(setlists, key=lambda x: x['date'], reverse=True)
+    def sort_key(x):
+        try:
+            return datetime.strptime(x['date'], "%m/%d/%y")
+        except ValueError:
+            return datetime.min
+
+    return sorted(setlists, key=sort_key, reverse=True)
 
 
 def parse_setlist_file(file_path: str, venue_dir: str) -> Dict:

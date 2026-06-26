@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Setlists - The Conspiracy Hub{% endblock %}
+
+{% block content %}
+<div class="fade-in-up">
+    <h1 class="page-title">📋 Setlists</h1>
+    <p class="page-subtitle">{{ total_setlists }} previous shows</p>
+</div>
+
+<!-- Search -->
+<div class="mb-lg fade-in-up-delay-1">
+    <div class="search-box">
+        <input type="text"
+               class="form-input"
+               placeholder="Search by venue..."
+               id="setlist-search"
+               oninput="filterSetlists(this.value)">
+    </div>
+</div>
+
+<!-- Setlist List -->
+<div class="flex-col gap-md fade-in-up-delay-2" id="setlist-list">
+    {% for setlist in setlists %}
+    <a href="/api/setlists/{{ loop.index0 }}"
+       class="setlist-card"
+       data-venue="{{ setlist.venue|lower }}"
+       style="text-decoration: none; color: inherit; display: block;">
+        <div class="setlist-card-header">
+            <div>
+                <div class="setlist-card-venue">🎸 {{ setlist.venue }}</div>
+                <div class="setlist-card-date">{{ setlist.date }}</div>
+            </div>
+            <span class="text-muted">→</span>
+        </div>
+        <div class="setlist-card-body">
+            {% for set_key in ['set1', 'set2', 'set3'] %}
+            {% set songs = setlist.sets.get(set_key, []) %}
+            {% if songs %}
+            <div style="display: inline-block; margin-right: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                <span style="color: var(--accent); font-weight: 600;">Set {{ loop.index }}</span>
+                · {{ songs|length }} songs
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+{% if not setlists %}
+<div class="empty-state">
+    <div class="empty-state-icon">📋</div>
+    <div class="empty-state-text">No setlists found yet. Add setlist markdown files to the setlists directory.</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+function filterSetlists(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.setlist-card').forEach(function(card) {
+        const venue = card.getAttribute('data-venue') || '';
+        card.style.display = venue.includes(q) ? '' : 'none';
+    });
+}
+</script>
+{% endblock %}

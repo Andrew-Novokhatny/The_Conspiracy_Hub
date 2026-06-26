@@ -3,7 +3,7 @@ Songs API endpoints for band app
 Library management, filtering, and song data access
 """
 
-from fastapi import APIRouter, Request, HTTPException, Query
+from fastapi import APIRouter, Request, HTTPException, Query, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from typing import List, Optional, Dict, Any
@@ -37,12 +37,13 @@ async def songs_home(request: Request):
         available_lyrics = load_available_lyrics()
         available_tabs = load_available_tabs()
 
-        return templates.TemplateResponse("songs/index.html", {
+        return templates.TemplateResponse(request=request, name="songs/index.html", context={
             "request": request,
             "songs": songs_data,
             "stats": stats,
             "available_lyrics": available_lyrics,
-            "available_tabs": available_tabs
+            "available_tabs": available_tabs,
+            "active_page": "songs",
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading songs library: {str(e)}")
@@ -192,18 +193,115 @@ async def get_song_card(request: Request, song_name: str):
         # Format duration
         duration_minutes, duration_seconds = split_minutes_seconds(song_info.get('duration', 0))
 
-        return templates.TemplateResponse("songs/card.html", {
+        return templates.TemplateResponse(request=request, name="songs/card.html", context={
             "request": request,
             "song_name": song_name,
             "song_info": song_info,
             "duration_formatted": f"{duration_minutes:02d}:{duration_seconds:02d}",
             "has_lyrics": has_lyrics,
-            "has_tabs": has_tabs
+            "has_tabs": has_tabs,
+            "active_page": "songs",
         })
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error loading song card: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error loading song: {str(e)}")
+
+
+@router.get("/{song_name}/edit", response_class=HTMLResponse)
+async def get_edit_song_form(request: Request, song_name: str):
+    """Return the edit form for a specific song."""
+    try:
+        songs_data = load_song_list()
+        
+        if song_name not in songs_data:
+            raise HTTPException(status_code=404, detail="Song not found")
+            
+        song_info = songs_data[song_name]
+        
+        return templates.TemplateResponse(request=request, name="songs/edit.html", context={
+            "request": request,
+            "song_name": song_name,
+            "song_info": song_info,
+        })
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading song for edit: {str(e)}")
+
+
+@router.post("/{song_name}/edit", response_class=HTMLResponse)
+async def save_edited_song(
+    request: Request,
+    song_name: str,
+    artist: str = Form(""),
+    bpm: int = Form(120),
+    has_horn: bool = Form(False),
+    is_jam_vehicle: bool = Form(False),
+    energy_level: str = Form("standard"),
+    avg_length: str = Form(None)
+):
+    """Save edited song metadata."""
+    try:
+        songs_data = load_song_list()
+        
+        if song_name not in songs_data:
+            raise HTTPException(status_code=404, detail="Song not found")
+            
+        # Parse average length back to seconds if provided
+        avg_length_seconds = None
+        if avg_length:
+            try:
+                # If they enter '4:30', parse it. Or if they enter '270', parse it.
+                if ':' in avg_length:
+                    m, s = avg_length.split(':', 1)
+                    avg_length_seconds = int(m) * 60 + int(s)
+                else:
+                    avg_length_seconds = int(avg_length)
+            except ValueError:
+                pass # fall back to None or whatever is derived
+                
+        # Update metadata
+        songs_data[song_name].update({
+            "artist": artist.strip(),
+            "bpm": bpm,
+            "has_horn": has_horn,
+            "is_jam_vehicle": is_jam_vehicle,
+            "energy_level": energy_level,
+            "avg_length": avg_length_seconds
+        })
+        
+        # Save to disk
+        save_success = save_song_list(songs_data)
+        if not save_success:
+            raise Exception("Failed to save to CSV/Markdown")
+            
+        # Return the read-only card to replace the form via HTMX
+        # Redirect to the card route or just render it here.
+        # Since we use HTMX, we can just return the updated card HTML.
+        
+        song_info = songs_data[song_name]
+        from core.song_manager import derive_song_duration
+        song_info['duration'] = derive_song_duration(bpm, avg_length_seconds)
+        
+        duration_minutes, duration_seconds = split_minutes_seconds(song_info['duration'])
+        
+        has_lyrics = song_name in load_available_lyrics()
+        has_tabs = any(tab for tab in load_available_tabs() if song_name.lower() in tab.lower())
+        
+        return templates.TemplateResponse(request=request, name="songs/card.html", context={
+            "request": request,
+            "song_name": song_name,
+            "song_info": song_info,
+            "duration_formatted": f"{duration_minutes:02d}:{duration_seconds:02d}",
+            "has_lyrics": has_lyrics,
+            "has_tabs": has_tabs,
+            "active_page": "songs",
+        })
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error saving song metadata: {str(e)}")
 
 @router.get("/stats/overview")
 async def get_song_stats_overview():

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Song Library - The Conspiracy Hub{% endblock %}
+
+{% block content %}
+<div class="fade-in-up">
+    <h1 class="page-title">🎵 Song Library</h1>
+    <p class="page-subtitle">{{ stats.total_songs }} songs in the library</p>
+</div>
+
+<!-- Stats Cards — these belong here, not on the homepage -->
+{% if stats %}
+<div class="stats-grid fade-in-up-delay-1">
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.total_songs }}</div>
+        <div class="stat-label">Songs</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.jam_vehicles }}</div>
+        <div class="stat-label">Jam Vehicles</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.avg_bpm }}</div>
+        <div class="stat-label">Avg BPM</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.horn_songs }}</div>
+        <div class="stat-label">Horn Songs</div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Search & Filters -->
+<div class="mb-md fade-in-up-delay-2">
+    <div class="search-box mb-sm">
+        <input type="text"
+               class="form-input"
+               placeholder="Search songs or artists..."
+               id="song-search"
+               oninput="filterSongs(this.value)">
+    </div>
+
+    <div class="filter-group">
+        <button class="filter-pill active" onclick="setFilter('all', this)">All</button>
+        <button class="filter-pill" onclick="setFilter('horn', this)">🎺 Horn</button>
+        <button class="filter-pill" onclick="setFilter('jam', this)">🛸 Jam Vehicle</button>
+        <button class="filter-pill" onclick="setFilter('high', this)">🔥 High Energy</button>
+        <button class="filter-pill" onclick="setFilter('low', this)">💤 Low Energy</button>
+    </div>
+</div>
+
+<!-- Song List -->
+<div id="song-list" class="fade-in-up-delay-3">
+    {% for song_name, song_info in songs|dictsort %}
+    <div class="song-row"
+         data-song="{{ song_name|lower }}"
+         data-artist="{{ song_info.get('artist', '')|lower }}"
+         data-horn="{{ song_info.get('has_horn', False)|string|lower }}"
+         data-jam="{{ song_info.get('is_jam_vehicle', False)|string|lower }}"
+         data-energy="{{ song_info.get('energy_level', 'standard') }}"
+         {% if song_name in available_lyrics %}
+         onclick="window.location.href='/api/lyrics/{{ song_name }}'"
+         {% endif %}>
+        <div class="song-row-info">
+            <div class="song-row-title">
+                {{ song_name }}
+                {% if song_name in available_lyrics %}
+                <span class="text-xs text-accent">📜</span>
+                {% endif %}
+            </div>
+            <div class="song-row-meta">
+                {{ song_info.get('artist', '') or '—' }}
+            </div>
+        </div>
+        <div class="song-row-badges">
+            {% if song_info.get('has_horn') %}<span class="badge badge-horn">🎺</span>{% endif %}
+            {% if song_info.get('is_jam_vehicle') %}<span class="badge badge-jam">JAM</span>{% endif %}
+            {% if song_info.get('energy_level') == 'high' %}<span class="badge badge-energy-high">🔥</span>{% endif %}
+            {% if song_info.get('energy_level') == 'low' %}<span class="badge badge-energy-low">💤</span>{% endif %}
+        </div>
+        <div class="song-row-bpm">{{ song_info.get('bpm', '—') }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if not songs %}
+<div class="empty-state">
+    <div class="empty-state-icon">🎵</div>
+    <div class="empty-state-text">No songs found in the library. Check the song list CSV file.</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+let currentFilter = 'all';
+
+function filterSongs(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.song-row').forEach(function(row) {
+        const name = row.getAttribute('data-song') || '';
+        const artist = row.getAttribute('data-artist') || '';
+        const textMatch = name.includes(q) || artist.includes(q);
+        const filterMatch = checkFilter(row);
+        row.style.display = (textMatch && filterMatch) ? '' : 'none';
+    });
+}
+
+function setFilter(filter, btn) {
+    currentFilter = filter;
+    // Update active pill
+    document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    // Re-apply search + filter
+    const searchVal = document.getElementById('song-search').value;
+    filterSongs(searchVal);
+}
+
+function checkFilter(row) {
+    if (currentFilter === 'all') return true;
+    if (currentFilter === 'horn') return row.getAttribute('data-horn') === 'true';
+    if (currentFilter === 'jam') return row.getAttribute('data-jam') === 'true';
+    if (currentFilter === 'high') return row.getAttribute('data-energy') === 'high';
+    if (currentFilter === 'low') return row.getAttribute('data-energy') === 'low';
+    return true;
+}
+</script>
+{% endblock %}

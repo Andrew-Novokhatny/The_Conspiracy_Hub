@@ -1,0 +1,52 @@
+<!-- Setlist navigation partial: song-by-song progression -->
+<div class="panel">
+    <div class="flex items-center justify-between mb-sm">
+        <span class="text-muted text-sm font-semibold">
+            Set {{ all_songs[current_index - 1].set_number if current_index > 0 and current_index <= total_songs else '?' }}
+            · Song {{ current_index }} of {{ total_songs }}
+        </span>
+    </div>
+
+    {% if current_song %}
+    <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">
+        🎵 {{ current_song }}
+    </div>
+    {% endif %}
+
+    <div class="flex items-center justify-between gap-md">
+        {% if prev_song %}
+        <a href="/api/lyrics/{{ prev_song.name }}" class="band-btn-secondary band-btn-sm">
+            ← {{ prev_song.name }}
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+
+        {% if next_song %}
+        <a href="/api/lyrics/{{ next_song.name }}" class="band-btn band-btn-sm">
+            {{ next_song.name }} →
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+    </div>
+
+    <!-- Full song list toggle -->
+    <details style="margin-top: 1rem;">
+        <summary class="text-muted text-sm" style="cursor: pointer;">View all songs in setlist</summary>
+        <div style="margin-top: 0.75rem;">
+            {% for song in all_songs %}
+            <div class="set-song-item {% if song.name == current_song %}text-accent font-bold{% endif %}">
+                <span class="set-song-number">{{ loop.index }}</span>
+                <span class="set-song-name">
+                    {% if loop.index == 1 or all_songs[loop.index0 - 1].set_number != song.set_number %}
+                    <span class="text-xs text-muted" style="margin-right: 0.25rem;">[Set {{ song.set_number }}]</span>
+                    {% endif %}
+                    {{ song.name }}
+                </span>
+                {% if song.bpm %}<span class="set-song-bpm">{{ song.bpm }}</span>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </details>
+</div>

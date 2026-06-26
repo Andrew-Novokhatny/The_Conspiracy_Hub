@@ -1,0 +1,374 @@
+{% extends "base.html" %}
+
+{% block title %}Setlist Builder - The Conspiracy Hub{% endblock %}
+
+{% block head_extra %}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<style>
+    .builder-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    @media (min-width: 900px) {
+        .builder-layout {
+            grid-template-columns: 350px 1fr;
+        }
+    }
+
+    .song-pool-container {
+        height: calc(100vh - 200px);
+        overflow-y: auto;
+        position: sticky;
+        top: 2rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 1rem;
+    }
+
+    .sortable-list {
+        min-height: 50px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: var(--radius-md);
+        padding: 0.5rem;
+    }
+
+    .sortable-item {
+        background: var(--bg-hover);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-sm);
+        padding: 0.5rem 0.75rem;
+        margin-bottom: 0.5rem;
+        cursor: grab;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+
+    .sortable-item:active {
+        cursor: grabbing;
+    }
+
+    .sortable-ghost {
+        opacity: 0.4;
+    }
+
+    .segue-btn {
+        background: none;
+        border: 1px solid var(--border-subtle);
+        color: var(--text-muted);
+        border-radius: 4px;
+        padding: 0.2rem 0.5rem;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+
+    .segue-btn.active {
+        background: var(--accent);
+        color: var(--bg-base);
+        border-color: var(--accent);
+        font-weight: bold;
+    }
+
+    .set-container {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-lg fade-in-up">
+    <div>
+        <h1 class="page-title"> Setlist Builder</h1>
+        <p class="page-subtitle">Drag and drop to build your next show</p>
+    </div>
+    <button onclick="exportSetlist()" class="band-btn">💾 Save & Export</button>
+</div>
+
+<div class="builder-layout fade-in-up-delay-1">
+    <!-- Left: Song Library -->
+    <div class="song-pool-container">
+        <h3 class="mb-sm">Song Library</h3>
+        <input type="text" id="builder-search" class="form-input mb-md" placeholder="Search songs..."
+            oninput="filterLibrary(this.value)">
+
+        <div id="library-list" class="sortable-list" style="min-height: 500px;">
+            {% for song in sorted_songs %}
+            <div class="sortable-item library-item" data-id="{{ song }}" data-search="{{ song|lower }}">
+                <div>
+                    <strong>{{ song }}</strong>
+                </div>
+                <div class="flex items-center gap-sm">
+                    <span class="text-xs text-muted">{{ songs_data[song].bpm }} BPM</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Right: Builder -->
+    <div>
+        <!-- Settings -->
+        <div class="panel mb-lg">
+            <div class="grid grid-2 gap-md">
+                <div>
+                    <label class="text-sm text-muted">Venue</label>
+                    <input type="text" id="venue-input" class="form-input" placeholder="e.g. The Bluebird">
+                </div>
+                <div>
+                    <label class="text-sm text-muted">Date</label>
+                    <input type="text" id="date-input" class="form-input" placeholder="MM/DD/YY">
+                </div>
+                <div>
+                    <label class="text-sm text-muted">Number of Sets</label>
+                    <select id="num-sets" class="form-input" onchange="updateSetVisibility()">
+                        <option value="1">1 Set</option>
+                        <option value="2" selected>2 Sets</option>
+                        <option value="3">3 Sets</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-sm text-muted">Default Gap Between Songs (sec)</label>
+                    <input type="number" id="default-gap" class="form-input" value="15" onchange="calculateTiming()">
+                </div>
+            </div>
+
+            <div class="mt-md p-sm"
+                style="background: rgba(0,212,216,0.1); border-radius: var(--radius-sm); border: 1px solid var(--accent);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong>Total Show Time:</strong>
+                    <span id="total-time-display"
+                        style="font-size: 1.5rem; font-weight: bold; color: var(--accent);">00:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sets -->
+        <div id="sets-container">
+            <!-- Set 1 -->
+            <div class="set-container" id="set1-container">
+                <div class="flex items-center justify-between mb-sm">
+                    <h3>Set 1</h3>
+                    <span id="set1-time" class="text-muted font-bold">00:00</span>
+                </div>
+                <div id="set1-list" class="sortable-list set-list" data-set="1"></div>
+            </div>
+
+            <!-- Set 2 -->
+            <div class="set-container" id="set2-container">
+                <div class="flex items-center justify-between mb-sm">
+                    <h3>Set 2</h3>
+                    <span id="set2-time" class="text-muted font-bold">00:00</span>
+                </div>
+                <div id="set2-list" class="sortable-list set-list" data-set="2"></div>
+            </div>
+
+            <!-- Set 3 -->
+            <div class="set-container" id="set3-container" style="display: none;">
+                <div class="flex items-center justify-between mb-sm">
+                    <h3>Set 3</h3>
+                    <span id="set3-time" class="text-muted font-bold">00:00</span>
+                </div>
+                <div id="set3-list" class="sortable-list set-list" data-set="3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+    // Load song math data injected from server
+    const songMathData = {{ song_math_data| safe }};
+
+    // Set up Sortable for Library (clone mode)
+    new Sortable(document.getElementById('library-list'), {
+        group: {
+            name: 'shared',
+            pull: 'clone',
+            put: false // Don't allow items to be dropped back into the library (they are just deleted)
+        },
+        sort: false, // Prevent sorting inside library
+        animation: 150
+    });
+
+    // Set up Sortable for Sets
+    document.querySelectorAll('.set-list').forEach(el => {
+        new Sortable(el, {
+            group: 'shared',
+            animation: 150,
+            onAdd: function (evt) {
+                // When an item is dropped from library, transform it into a set item
+                const item = evt.item;
+                const songId = item.getAttribute('data-id');
+                const math = songMathData[songId];
+
+                // Rewrite inner HTML to include segue button and remove button
+                item.innerHTML = `
+                    <div class="flex items-center gap-sm">
+                        <button class="segue-btn" onclick="toggleSegue(this)" title="Segue into next song">-></button>
+                        <strong>${songId}</strong>
+                        ${math.has_horn ? '🎺' : ''}
+                        ${math.is_jam_vehicle ? '🛸' : ''}
+                    </div>
+                    <div class="flex items-center gap-sm">
+                        <span class="text-xs text-muted w-16 text-right">${math.bpm} BPM</span>
+                        <span class="text-xs text-muted w-16 text-right">${formatTime(math.duration)}</span>
+                        <button onclick="this.closest('.sortable-item').remove(); calculateTiming();" class="text-muted hover:text-white" style="background:none; border:none; cursor:pointer;">✕</button>
+                    </div>
+                `;
+                calculateTiming();
+            },
+            onUpdate: function () {
+                calculateTiming();
+            },
+            onRemove: function () {
+                calculateTiming();
+            }
+        });
+    });
+
+    // Filter library search
+    function filterLibrary(query) {
+        const q = query.toLowerCase();
+        document.querySelectorAll('.library-item').forEach(item => {
+            const name = item.getAttribute('data-search');
+            item.style.display = name.includes(q) ? '' : 'none';
+        });
+    }
+
+    // Update Set visibility
+    function updateSetVisibility() {
+        const numSets = parseInt(document.getElementById('num-sets').value);
+        document.getElementById('set1-container').style.display = numSets >= 1 ? 'block' : 'none';
+        document.getElementById('set2-container').style.display = numSets >= 2 ? 'block' : 'none';
+        document.getElementById('set3-container').style.display = numSets >= 3 ? 'block' : 'none';
+        calculateTiming();
+    }
+
+    // Toggle Segue state
+    function toggleSegue(btn) {
+        btn.classList.toggle('active');
+        calculateTiming();
+    }
+
+    // Format seconds to MM:SS
+    function formatTime(seconds) {
+        if (!seconds) return "00:00";
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    // Calculate total durations
+    function calculateTiming() {
+        const defaultGap = parseInt(document.getElementById('default-gap').value) || 0;
+        let totalShowSeconds = 0;
+
+        for (let s = 1; s <= 3; s++) {
+            const setContainer = document.getElementById(`set${s}-container`);
+            if (setContainer.style.display === 'none') continue;
+
+            const list = document.getElementById(`set${s}-list`);
+            const items = list.querySelectorAll('.sortable-item');
+
+            let setSeconds = 0;
+
+            items.forEach((item, index) => {
+                const songId = item.getAttribute('data-id');
+                const math = songMathData[songId];
+                if (!math) return;
+
+                setSeconds += (math.duration || 0);
+
+                // Add gap if this is not the last song and it's not a segue
+                if (index < items.length - 1) {
+                    const segueBtn = item.querySelector('.segue-btn');
+                    if (!segueBtn || !segueBtn.classList.contains('active')) {
+                        setSeconds += defaultGap;
+                    }
+                }
+            });
+
+            document.getElementById(`set${s}-time`).innerText = formatTime(setSeconds);
+            totalShowSeconds += setSeconds;
+        }
+
+        document.getElementById('total-time-display').innerText = formatTime(totalShowSeconds);
+    }
+
+    // Initialize date to today
+    document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date();
+        const mm = (today.getMonth() + 1).toString().padStart(2, '0');
+        const dd = today.getDate().toString().padStart(2, '0');
+        const yy = today.getFullYear().toString().slice(-2);
+        document.getElementById('date-input').value = `${mm}/${dd}/${yy}`;
+    });
+
+    // Export functionality
+    async function exportSetlist() {
+        const venue = document.getElementById('venue-input').value || 'Unknown Venue';
+        const date = document.getElementById('date-input').value;
+        const numSets = parseInt(document.getElementById('num-sets').value);
+
+        const payload = {
+            venue: venue,
+            date: date,
+            sets: {}
+        };
+
+        // Gather data
+        let totalSongs = 0;
+        for (let s = 1; s <= numSets; s++) {
+            const list = document.getElementById(`set${s}-list`);
+            const items = list.querySelectorAll('.sortable-item');
+            const setKey = `set${s}`;
+            payload.sets[setKey] = [];
+
+            items.forEach(item => {
+                const songId = item.getAttribute('data-id');
+                const bpmSpan = item.querySelector('.text-xs.w-16');
+                const bpmText = bpmSpan ? bpmSpan.innerText.replace(' BPM', '') : '120';
+
+                payload.sets[setKey].push({
+                    name: songId,
+                    bpm: parseInt(bpmText) || 120
+                });
+                totalSongs++;
+            });
+        }
+
+        if (totalSongs === 0) {
+            alert('Please add some songs to the setlist first!');
+            return;
+        }
+
+        // Post to server
+        try {
+            const response = await fetch('/api/builder/export', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Setlist saved and exported successfully!');
+                window.location.href = '/api/setlists/';
+            } else {
+                alert('Error saving setlist: ' + result.message);
+            }
+        } catch (e) {
+            alert('Network error while saving setlist.');
+        }
+    }
+</script>
+{% endblock %}

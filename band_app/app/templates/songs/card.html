@@ -1,0 +1,44 @@
+<!-- Song detail card partial (HTMX compatible) -->
+<div class="panel fade-in-up" id="song-card-{{ song_name|lower|replace(' ', '-') }}">
+    <div class="flex items-center justify-between mb-md">
+        <div>
+            <div style="font-size: 1.2rem; font-weight: 700;">{{ song_name }}</div>
+            {% if song_info.get('artist') %}
+            <div class="text-muted text-sm mt-sm">{{ song_info.artist }}</div>
+            {% endif %}
+        </div>
+        <div class="song-row-bpm" style="font-size: 1.5rem;">{{ song_info.get('bpm', '—') }}</div>
+    </div>
+
+    <div class="flex flex-wrap gap-sm mb-md">
+        {% if song_info.get('has_horn') %}<span class="badge badge-horn">🎺 Horn</span>{% endif %}
+        {% if song_info.get('is_jam_vehicle') %}<span class="badge badge-jam">🛸 Jam Vehicle</span>{% endif %}
+        {% if song_info.get('energy_level') == 'high' %}<span class="badge badge-energy-high">🔥 High Energy</span>{% endif %}
+        {% if song_info.get('energy_level') == 'standard' %}<span class="badge" style="background: var(--bg-hover); color: var(--text-secondary); border: 1px solid var(--border-subtle);">⭐ Standard</span>{% endif %}
+        {% if song_info.get('energy_level') == 'low' %}<span class="badge badge-energy-low">💤 Low Energy</span>{% endif %}
+    </div>
+
+    <div class="grid grid-2 gap-sm mb-md">
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 1.1rem;">{{ duration_formatted }}</div>
+            <div class="stat-label">Duration</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 1.1rem;">{{ song_info.get('bpm', '—') }}</div>
+            <div class="stat-label">BPM</div>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap gap-sm justify-between w-full">
+        <div class="flex flex-wrap gap-sm">
+            {% if has_lyrics %}
+            <a href="/api/lyrics/{{ song_name }}" class="band-btn band-btn-sm">📜 View Lyrics</a>
+            <a href="/api/lyrics/{{ song_name }}/fullscreen" class="band-btn-secondary band-btn-sm">🔍 Full Screen</a>
+            {% endif %}
+        </div>
+        <button class="band-btn-secondary band-btn-sm" 
+                hx-get="/api/songs/{{ song_name }}/edit" 
+                hx-target="#song-card-{{ song_name|lower|replace(' ', '-') }}" 
+                hx-swap="outerHTML">✏️ Edit</button>
+    </div>
+</div>
