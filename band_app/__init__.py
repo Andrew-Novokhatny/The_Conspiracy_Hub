@@ -1,0 +1,1 @@
+# Band App - FastAPI + HTMX refactor of Streamlit band management app

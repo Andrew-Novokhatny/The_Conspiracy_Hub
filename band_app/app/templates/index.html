@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Band Hub - Home{% endblock %}
+
+{% block content %}
+<div class="text-center py-8">
+    <h2 class="text-3xl font-bold mb-4">Band Hub</h2>
+    <p class="text-slate-400 mb-8">Mobile-optimized for The Conspiracy Hub</p>
+
+    <!-- Quick stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
+        <div class="bg-slate-800 p-4 rounded-lg">
+            <div class="text-2xl font-bold text-blue-400">54</div>
+            <div class="text-sm text-slate-400">Songs</div>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-lg">
+            <div class="text-2xl font-bold text-green-400">48</div>
+            <div class="text-sm text-slate-400">Lyrics</div>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-lg">
+            <div class="text-2xl font-bold text-purple-400">12</div>
+            <div class="text-sm text-slate-400">Setlists</div>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-lg">
+            <div class="text-2xl font-bold text-orange-400">105</div>
+            <div class="text-sm text-slate-400">Avg BPM</div>
+        </div>
+    </div>
+
+    <!-- Main navigation -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
+        <a href="/api/lyrics"
+           class="block p-8 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors touch-action-manipulation"
+           hx-get="/api/lyrics"
+           hx-target="#main-content"
+           hx-indicator="#loading">
+            <div class="text-5xl mb-4">📜</div>
+            <h3 class="text-xl font-semibold mb-2">Lyrics</h3>
+            <p class="text-slate-400">View and search song lyrics with full-screen mode</p>
+        </a>
+
+        <a href="/api/songs"
+           class="block p-8 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors touch-action-manipulation"
+           hx-get="/api/songs"
+           hx-target="#main-content"
+           hx-indicator="#loading">
+            <div class="text-5xl mb-4">🎵</div>
+            <h3 class="text-xl font-semibold mb-2">Song Library</h3>
+            <p class="text-slate-400">Browse songs by BPM, energy level, and more</p>
+        </a>
+
+        <a href="/api/setlists"
+           class="block p-8 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors touch-action-manipulation"
+           hx-get="/api/setlists"
+           hx-target="#main-content"
+           hx-indicator="#loading">
+            <div class="text-5xl mb-4">📋</div>
+            <h3 class="text-xl font-semibold mb-2">Setlists</h3>
+            <p class="text-slate-400">View previous shows and build new setlists</p>
+        </a>
+    </div>
+</div>
+{% endblock %}
