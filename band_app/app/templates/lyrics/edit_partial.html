@@ -1,0 +1,25 @@
+<form hx-post="/api/lyrics/{{ song_name }}/edit" 
+      hx-target="#lyrics-container" 
+      hx-swap="innerHTML" 
+      class="w-full">
+    <div class="lyrics-song-header">
+        <div class="flex items-center justify-between">
+            <div>
+                <div class="lyrics-song-title">Edit Lyrics: {{ song_name }}</div>
+                {% if artist %}
+                <div class="lyrics-song-artist">{{ artist }}</div>
+                {% endif %}
+            </div>
+            <div class="flex gap-sm">
+                <button type="submit" class="band-btn band-btn-sm">💾 Save</button>
+                <button type="button" class="band-btn-secondary band-btn-sm" 
+                        hx-get="/api/lyrics/{{ song_name }}/view_partial" 
+                        hx-target="#lyrics-container" 
+                        hx-swap="innerHTML">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div class="lyrics-panel-body">
+        <textarea name="lyrics" class="form-input" style="font-family: monospace; min-height: 450px; width: 100%; font-size: 1rem; line-height: 1.5; background: var(--bg-hover); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; resize: vertical;">{{ raw_lyrics }}</textarea>
+    </div>
+</form>

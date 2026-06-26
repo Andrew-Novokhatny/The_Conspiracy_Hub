@@ -1,0 +1,24 @@
+<div class="lyrics-song-header">
+    <div class="flex items-center justify-between">
+        <div>
+            <div class="lyrics-song-title">{{ song_name }}</div>
+            {% if artist %}
+            <div class="lyrics-song-artist">{{ artist }}{% if bpm %} · {{ bpm }} BPM{% endif %}</div>
+            {% endif %}
+        </div>
+        <div class="flex gap-sm">
+            <button class="band-btn-secondary band-btn-sm" 
+                    hx-get="/api/lyrics/{{ song_name }}/edit" 
+                    hx-target="#lyrics-container" 
+                    hx-swap="innerHTML">✏️ Edit Lyrics</button>
+            <a href="/api/lyrics/{{ song_name }}/fullscreen" class="band-btn-secondary band-btn-sm">🔍 Full Screen</a>
+        </div>
+    </div>
+</div>
+<div class="lyrics-panel-body">
+    {% if lyrics_content %}
+        {{ lyrics_content | safe }}
+    {% else %}
+        <p class="text-muted" style="font-style: italic;">No lyrics found for this song. Feel free to edit and add them!</p>
+    {% endif %}
+</div>

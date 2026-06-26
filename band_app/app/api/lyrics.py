@@ -3,7 +3,7 @@ Lyrics API endpoints for band app
 Mobile-optimized with HTMX support for smooth navigation
 """
 
-from fastapi import APIRouter, Request, HTTPException, Query
+from fastapi import APIRouter, Request, HTTPException, Query, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from typing import List, Optional
@@ -73,11 +73,11 @@ async def get_lyrics(request: Request, song_name: str):
         # Load lyrics content
         lyrics_content = load_lyrics_content(song_name)
 
-        if "not found" in lyrics_content.lower():
-            raise HTTPException(status_code=404, detail=f"Lyrics for '{song_name}' not found")
-
-        # Format for HTML display
-        formatted_lyrics = format_lyrics_for_display(lyrics_content)
+        if "not found" in lyrics_content.lower() or not lyrics_content.strip():
+            formatted_lyrics = ""
+        else:
+            # Format for HTML display
+            formatted_lyrics = format_lyrics_for_display(lyrics_content)
 
         # Get song info if available
         songs_data = load_song_list()
@@ -93,10 +93,83 @@ async def get_lyrics(request: Request, song_name: str):
             "fullscreen": False,
             "active_page": "lyrics",
         })
-    except HTTPException:
-        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading lyrics: {str(e)}")
+
+
+@router.get("/{song_name}/view_partial", response_class=HTMLResponse)
+async def get_lyrics_view_partial(request: Request, song_name: str):
+    """Get partial view of lyrics (just the content inside container)"""
+    try:
+        lyrics_content = load_lyrics_content(song_name)
+        if "not found" in lyrics_content.lower() or not lyrics_content.strip():
+            formatted_lyrics = ""
+        else:
+            formatted_lyrics = format_lyrics_for_display(lyrics_content)
+
+        songs_data = load_song_list()
+        song_info = songs_data.get(song_name, {})
+
+        return templates.TemplateResponse(request=request, name="lyrics/display_partial.html", context={
+            "request": request,
+            "song_name": song_name,
+            "lyrics_content": formatted_lyrics,
+            "artist": song_info.get('artist', ''),
+            "bpm": song_info.get('bpm', ''),
+            "duration": song_info.get('duration', ''),
+            "active_page": "lyrics",
+        })
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading lyrics partial: {str(e)}")
+
+
+@router.get("/{song_name}/edit", response_class=HTMLResponse)
+async def get_lyrics_edit(request: Request, song_name: str):
+    """Get partial edit form for lyrics"""
+    try:
+        lyrics_content = load_lyrics_content(song_name)
+        if "not found" in lyrics_content.lower():
+            lyrics_content = ""
+
+        songs_data = load_song_list()
+        song_info = songs_data.get(song_name, {})
+
+        return templates.TemplateResponse(request=request, name="lyrics/edit_partial.html", context={
+            "request": request,
+            "song_name": song_name,
+            "raw_lyrics": lyrics_content,
+            "artist": song_info.get('artist', ''),
+            "active_page": "lyrics",
+        })
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading lyrics edit form: {str(e)}")
+
+
+@router.post("/{song_name}/edit", response_class=HTMLResponse)
+async def post_lyrics_edit(request: Request, song_name: str, lyrics: str = Form("")):
+    """Save edited lyrics and return the display partial"""
+    try:
+        # Save to file (which persists to mounted directory via lyrics_manager)
+        save_lyrics_content(song_name, lyrics)
+
+        # Reload and format
+        lyrics_content = load_lyrics_content(song_name)
+        formatted_lyrics = format_lyrics_for_display(lyrics_content)
+
+        songs_data = load_song_list()
+        song_info = songs_data.get(song_name, {})
+
+        return templates.TemplateResponse(request=request, name="lyrics/display_partial.html", context={
+            "request": request,
+            "song_name": song_name,
+            "lyrics_content": formatted_lyrics,
+            "artist": song_info.get('artist', ''),
+            "bpm": song_info.get('bpm', ''),
+            "duration": song_info.get('duration', ''),
+            "active_page": "lyrics",
+        })
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error saving lyrics: {str(e)}")
 
 @router.get("/{song_name}/fullscreen", response_class=HTMLResponse)
 async def get_lyrics_fullscreen(request: Request, song_name: str):

@@ -58,9 +58,7 @@
          data-horn="{{ song_info.get('has_horn', False)|string|lower }}"
          data-jam="{{ song_info.get('is_jam_vehicle', False)|string|lower }}"
          data-energy="{{ song_info.get('energy_level', 'standard') }}"
-         {% if song_name in available_lyrics %}
-         onclick="window.location.href='/api/lyrics/{{ song_name }}'"
-         {% endif %}>
+         onclick="window.location.href='/api/lyrics/{{ song_name }}'">
         <div class="song-row-info">
             <div class="song-row-title">
                 {{ song_name }}
