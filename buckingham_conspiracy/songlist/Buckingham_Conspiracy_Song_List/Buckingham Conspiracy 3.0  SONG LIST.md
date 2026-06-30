@@ -57,6 +57,12 @@ WS Walcott - The Band^🥁^ (90)
 When My Train Pulls In - Gary Clark Jr. (85)  
 White Wedding - Billy Idol^🥁^ (140)  
 Wish I Knew You - The Revivalists^🥁^ (101)  
+Inside Out - Eve 6 (120)  
+Get Lucky - Daft Punk (116)  
+Come Together - The Beatles (90)  
+Dreams - Fleetwood Mac (120)  
+Crosseyed and Painless - Talking Heads (120)  
+Everybody Wants to Rule the World - Tears for Fears (112)  
   
   
 #   
