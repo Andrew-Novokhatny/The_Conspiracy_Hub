@@ -3,16 +3,12 @@
      data-duration="{{ current_song.duration }}" 
      data-bpm="{{ current_song.bpm or '' }}"
      data-song-idx="{{ current_idx }}">
-    <div class="flex items-center justify-between flex-wrap gap-sm mb-sm">
-        <div class="show-set-badge">{{ current_song.set_label }} · Song {{ current_song.song_in_set }} of {{ current_song.set_total }} (Overall {{ current_idx + 1 }}/{{ total_songs }})</div>
-        <div class="text-muted" style="font-size: 0.85rem;">Est. Duration: {{ current_song.duration_formatted }}</div>
-    </div>
     
     <h1 class="show-song-title">{{ current_song.name }}</h1>
     
     <div class="show-song-meta">
         {% if current_song.artist %}
-        <span style="font-weight: 600; color: var(--text-primary);">{{ current_song.artist }}</span>
+        <span style="font-weight: 600; color: var(--text-primary); font-size: 1.05rem;">{{ current_song.artist }}</span>
         {% endif %}
         
         {% if current_song.bpm %}
@@ -39,7 +35,7 @@
     {% endif %}
 </div>
 
-<!-- Dynamic navigation update data for bottom bar & drawer -->
+<!-- Dynamic navigation update data for bottom bar & sidebar -->
 <div id="nav-meta-update" style="display: none;"
      data-prev-idx="{{ prev_idx if prev_idx is not none else '' }}"
      data-next-idx="{{ next_idx if next_idx is not none else '' }}"

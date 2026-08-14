@@ -1707,13 +1707,22 @@ a {
 }
 
 .show-sidebar-set-header {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 800;
-    color: var(--accent);
+    color: var(--primary);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.4rem 0.5rem 0.2rem 0.5rem;
-    margin-top: 0.3rem;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 0.6rem 0.25rem 0.6rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.15rem;
+    border-bottom: 1px solid rgba(0, 212, 216, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.show-sidebar-set-header:first-child {
+    margin-top: 0;
 }
 
 .show-sidebar-item {

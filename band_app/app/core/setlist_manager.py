@@ -67,11 +67,12 @@ def parse_setlist_file(file_path: str, venue_dir: str) -> Dict:
 
         for line in content.split('\n'):
             line = line.strip()
-            if 'SET 1' in line:
+            line_upper = line.upper()
+            if 'SET 1' in line_upper:
                 current_set = 'set1'
-            elif 'SET 2' in line:
+            elif 'SET 2' in line_upper:
                 current_set = 'set2'
-            elif 'SET 3' in line:
+            elif 'SET 3' in line_upper or 'ENCORE' in line_upper:
                 current_set = 'set3'
             elif current_set and line and not line.startswith('#'):
                 # Extract song name and BPM - Fixed regex to capture full song name

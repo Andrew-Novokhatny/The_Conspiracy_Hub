@@ -480,6 +480,7 @@ async def get_setlist_show_mode(
 
         # Build ordered flattened song list across sets
         flattened_songs = []
+        set_labels = {1: "Set 1", 2: "Set 2", 3: "Encore"}
         for set_num in [1, 2, 3]:
             set_key = f"set{set_num}"
             set_songs = setlist['sets'].get(set_key, [])
@@ -493,7 +494,7 @@ async def get_setlist_show_mode(
                 flattened_songs.append({
                     'global_index': len(flattened_songs),
                     'set_num': set_num,
-                    'set_label': f"Set {set_num}",
+                    'set_label': set_labels.get(set_num, f"Set {set_num}"),
                     'song_in_set': s_idx + 1,
                     'set_total': len(set_songs),
                     'name': s_name,
