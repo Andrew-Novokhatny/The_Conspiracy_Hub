@@ -15,6 +15,10 @@
         <span class="show-meta-tag bpm">⏱️ {{ current_song.bpm }} BPM</span>
         {% endif %}
 
+        {% if current_song.song_key %}
+        <span class="show-meta-tag" style="color: var(--primary); border-color: rgba(0, 212, 216, 0.4); font-weight: 700;">🔑 {{ current_song.song_key }}</span>
+        {% endif %}
+
         {% if current_song.has_horn %}
         <span class="show-meta-tag">🎺 Horn</span>
         {% endif %}

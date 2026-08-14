@@ -89,6 +89,7 @@ async def get_lyrics(request: Request, song_name: str):
             "lyrics_content": formatted_lyrics,
             "artist": song_info.get('artist', ''),
             "bpm": song_info.get('bpm', ''),
+            "song_key": song_info.get('song_key', ''),
             "duration": song_info.get('duration', ''),
             "fullscreen": False,
             "active_page": "lyrics",
@@ -116,6 +117,7 @@ async def get_lyrics_view_partial(request: Request, song_name: str):
             "lyrics_content": formatted_lyrics,
             "artist": song_info.get('artist', ''),
             "bpm": song_info.get('bpm', ''),
+            "song_key": song_info.get('song_key', ''),
             "duration": song_info.get('duration', ''),
             "active_page": "lyrics",
         })
@@ -165,6 +167,7 @@ async def post_lyrics_edit(request: Request, song_name: str, lyrics: str = Form(
             "lyrics_content": formatted_lyrics,
             "artist": song_info.get('artist', ''),
             "bpm": song_info.get('bpm', ''),
+            "song_key": song_info.get('song_key', ''),
             "duration": song_info.get('duration', ''),
             "active_page": "lyrics",
         })
@@ -201,6 +204,7 @@ async def get_lyrics_fullscreen(request: Request, song_name: str):
             "lyrics_content": formatted_lyrics,
             "artist": song_info.get('artist', ''),
             "bpm": song_info.get('bpm', ''),
+            "song_key": song_info.get('song_key', ''),
             "duration": duration,
             "active_page": "lyrics",
         })

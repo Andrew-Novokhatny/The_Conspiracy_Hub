@@ -106,6 +106,9 @@
                     <strong>{{ song }}</strong>
                 </div>
                 <div class="flex items-center gap-sm">
+                    {% if songs_data[song].get('song_key') %}
+                    <span class="badge" style="font-size: 0.72rem; padding: 0.1rem 0.35rem; background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: bold;">🔑 {{ songs_data[song].song_key }}</span>
+                    {% endif %}
                     <span class="text-xs text-muted">{{ songs_data[song].bpm }} BPM</span>
                 </div>
             </div>
@@ -219,6 +222,7 @@
                         ${math.is_jam_vehicle ? '🛸' : ''}
                     </div>
                     <div class="flex items-center gap-sm">
+                        ${math.song_key ? `<span class="badge" style="font-size: 0.72rem; padding: 0.1rem 0.35rem; background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: bold;">🔑 ${math.song_key}</span>` : ''}
                         <span class="text-xs text-muted w-16 text-right">${math.bpm} BPM</span>
                         <span class="text-xs text-muted w-16 text-right">${formatTime(math.duration)}</span>
                         <button onclick="this.closest('.sortable-item').remove(); calculateTiming();" class="text-muted hover:text-white" style="background:none; border:none; cursor:pointer;">✕</button>

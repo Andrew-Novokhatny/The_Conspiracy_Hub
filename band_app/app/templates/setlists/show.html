@@ -60,7 +60,9 @@
                            onclick="onSidebarSongClick()">
                             <span class="show-sidebar-num">{{ song.song_in_set }}.</span>
                             <span class="show-sidebar-name">{{ song.name }}</span>
-                            {% if song.bpm %}
+                            {% if song.song_key %}
+                            <span class="show-sidebar-bpm" style="color: var(--primary); font-weight: 700;">🔑 {{ song.song_key }}</span>
+                            {% elif song.bpm %}
                             <span class="show-sidebar-bpm">{{ song.bpm }}</span>
                             {% endif %}
                         </a>

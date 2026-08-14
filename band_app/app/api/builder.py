@@ -36,6 +36,7 @@ async def get_builder(request: Request):
             song_math_data[song_name] = {
                 'duration': info.get('duration', 0),
                 'bpm': info.get('bpm', 120),
+                'song_key': info.get('song_key', ''),
                 'has_horn': info.get('has_horn', False),
                 'is_jam_vehicle': info.get('is_jam_vehicle', False),
                 'energy': info.get('energy_level', 'standard')

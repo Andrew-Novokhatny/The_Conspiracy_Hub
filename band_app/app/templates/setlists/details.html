@@ -59,6 +59,9 @@
             {% if song.bpm %}
             <span class="set-song-bpm">{{ song.bpm }}</span>
             {% endif %}
+            {% if songs_data.get(song.name, {}).get('song_key') %}
+            <span class="badge" style="background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: 700; font-size: 0.75rem;">🔑 {{ songs_data[song.name].song_key }}</span>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

@@ -18,7 +18,7 @@
         {% if song_info.get('energy_level') == 'low' %}<span class="badge badge-energy-low">💤 Low Energy</span>{% endif %}
     </div>
 
-    <div class="grid grid-2 gap-sm mb-md">
+    <div class="grid grid-3 gap-sm mb-md" style="grid-template-columns: repeat(3, 1fr);">
         <div class="stat-card">
             <div class="stat-value" style="font-size: 1.1rem;">{{ duration_formatted }}</div>
             <div class="stat-label">Duration</div>
@@ -26,6 +26,10 @@
         <div class="stat-card">
             <div class="stat-value" style="font-size: 1.1rem;">{{ song_info.get('bpm', '—') }}</div>
             <div class="stat-label">BPM</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="font-size: 1.1rem; color: var(--accent);">{{ song_info.get('song_key') or '—' }}</div>
+            <div class="stat-label">Key</div>
         </div>
     </div>
 

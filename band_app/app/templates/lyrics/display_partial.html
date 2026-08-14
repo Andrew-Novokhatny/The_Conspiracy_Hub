@@ -2,8 +2,8 @@
     <div class="flex items-center justify-between flex-wrap gap-sm">
         <div>
             <div class="lyrics-song-title">{{ song_name }}</div>
-            {% if artist %}
-            <div class="lyrics-song-artist">{{ artist }}{% if bpm %} · {{ bpm }} BPM{% endif %}{% if duration %} · {{ duration }}s{% endif %}</div>
+            {% if artist or bpm or song_key %}
+            <div class="lyrics-song-artist">{{ artist }}{% if bpm %} · {{ bpm }} BPM{% endif %}{% if song_key %} · <span style="color: var(--primary); font-weight: 700;">🔑 Key: {{ song_key }}</span>{% endif %}{% if duration %} · {{ duration }}s{% endif %}</div>
             {% endif %}
         </div>
         <div class="flex gap-sm items-center flex-wrap">

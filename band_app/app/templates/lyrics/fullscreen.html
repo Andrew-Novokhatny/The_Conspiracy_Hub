@@ -12,9 +12,9 @@
         <div style="display: flex; align-items: center; justify-content: space-between;">
             <div>
                 <h1 class="band-title" style="font-size: 1.4rem; margin: 0;">{{ song_name }}</h1>
-                {% if artist %}
+                {% if artist or bpm or song_key %}
                 <div class="text-muted" style="font-size: 0.85rem; margin-top: 0.2rem;">
-                    {{ artist }}{% if bpm %} · {{ bpm }} BPM{% endif %}{% if duration %} · {{ duration }}s{% endif %}
+                    {{ artist }}{% if bpm %} · {{ bpm }} BPM{% endif %}{% if song_key %} · <span style="color: var(--primary); font-weight: 700;">🔑 Key: {{ song_key }}</span>{% endif %}{% if duration %} · {{ duration }}s{% endif %}
                 </div>
                 {% endif %}
             </div>

@@ -15,7 +15,7 @@
                     hx-swap="outerHTML">Cancel</button>
         </div>
 
-        <div class="grid grid-2 gap-sm mb-md">
+        <div class="grid grid-3 gap-sm mb-md" style="grid-template-columns: 2fr 1fr 1fr;">
             <div>
                 <label class="text-sm text-muted">Artist</label>
                 <input type="text" name="artist" class="form-input" value="{{ song_info.get('artist', '') }}">
@@ -23,6 +23,10 @@
             <div>
                 <label class="text-sm text-muted">BPM</label>
                 <input type="number" name="bpm" class="form-input" value="{{ song_info.get('bpm', 120) }}">
+            </div>
+            <div>
+                <label class="text-sm text-muted">Song Key</label>
+                <input type="text" name="song_key" class="form-input" placeholder="e.g. Am, G" value="{{ song_info.get('song_key', '') }}">
             </div>
         </div>
         

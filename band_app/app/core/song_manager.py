@@ -30,6 +30,7 @@ SONGLIST_CSV_HEADERS = [
     "title",
     "artist",
     "bpm",
+    "song_key",
     "has_horn",
     "energy_level",
     "is_jam_vehicle",
@@ -112,6 +113,7 @@ def load_song_list_from_csv(song_file: Path) -> Dict[str, Dict]:
                     bpm = 120
                 energy_level = (row.get("energy_level") or "standard").strip().lower()
                 energy_level = energy_level if energy_level in {"high", "standard", "low"} else "standard"
+                song_key = (row.get("song_key") or row.get("key") or "").strip()
                 has_horn = parse_bool(row.get("has_horn"))
                 is_jam_vehicle = parse_bool(row.get("is_jam_vehicle"))
                 avg_length_seconds = parse_avg_length_value(row.get("avg_length"))
@@ -119,6 +121,7 @@ def load_song_list_from_csv(song_file: Path) -> Dict[str, Dict]:
 
                 songs[title] = {
                     'bpm': bpm,
+                    'song_key': song_key,
                     'duration': duration_seconds,
                     'has_horn': has_horn,
                     'energy_level': energy_level,
@@ -195,6 +198,7 @@ def save_song_list_csv(songs_data: Dict[str, Dict]) -> bool:
                     "title": song_name,
                     "artist": song_info.get('artist', ''),
                     "bpm": song_info.get('bpm', ''),
+                    "song_key": song_info.get('song_key') or song_info.get('key', ''),
                     "has_horn": song_info.get('has_horn', False),
                     "energy_level": song_info.get('energy_level', 'standard'),
                     "is_jam_vehicle": song_info.get('is_jam_vehicle', False),

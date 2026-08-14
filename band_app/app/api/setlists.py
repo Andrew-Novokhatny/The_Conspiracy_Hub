@@ -509,6 +509,7 @@ async def get_setlist_show_mode(
                     'set_total': len(set_songs),
                     'name': s_name,
                     'bpm': s.get('bpm') or s_info.get('bpm', None),
+                    'song_key': s_info.get('song_key', ''),
                     'duration': duration,
                     'duration_formatted': format_duration(duration),
                     'artist': s_info.get('artist', ''),

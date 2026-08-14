@@ -71,6 +71,7 @@
             </div>
         </div>
         <div class="song-row-badges">
+            {% if song_info.get('song_key') %}<span class="badge" style="background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: 700; font-size: 0.75rem;">🔑 {{ song_info.song_key }}</span>{% endif %}
             {% if song_info.get('has_horn') %}<span class="badge badge-horn">🎺</span>{% endif %}
             {% if song_info.get('is_jam_vehicle') %}<span class="badge badge-jam">JAM</span>{% endif %}
             {% if song_info.get('energy_level') == 'high' %}<span class="badge badge-energy-high">🔥</span>{% endif %}

@@ -157,6 +157,7 @@ async def get_song_details(song_name: str):
             "song_name": song_name,
             "artist": song_info.get('artist', ''),
             "bpm": song_info.get('bpm', 0),
+            "song_key": song_info.get('song_key', ''),
             "duration": song_info.get('duration', 0),
             "duration_formatted": f"{duration_minutes:02d}:{duration_seconds:02d}",
             "energy_level": song_info.get('energy_level', 'standard'),
@@ -236,6 +237,7 @@ async def save_edited_song(
     song_name: str,
     artist: str = Form(""),
     bpm: int = Form(120),
+    song_key: str = Form(""),
     has_horn: bool = Form(False),
     is_jam_vehicle: bool = Form(False),
     energy_level: str = Form("standard"),
@@ -265,6 +267,7 @@ async def save_edited_song(
         songs_data[song_name].update({
             "artist": artist.strip(),
             "bpm": bpm,
+            "song_key": song_key.strip(),
             "has_horn": has_horn,
             "is_jam_vehicle": is_jam_vehicle,
             "energy_level": energy_level,

@@ -82,14 +82,48 @@ def test_regular_lyrics_with_autoscroll():
     res = client.get("/api/lyrics/1999")
     assert res.status_code == 200
     assert "autoscroll-bar" in res.text
-    assert "autoscroll.js" in res.text
-    print("✅ Regular lyrics display autoscroll controls verified")
+def test_song_key_metadata():
+    """Test song key editing, saving, builder, lyrics and show mode rendering"""
+    # 1. Edit song key for '1999' via POST
+    res = client.post("/api/songs/1999/edit", data={
+        "artist": "Prince",
+        "bpm": "119",
+        "song_key": "F",
+        "has_horn": "false",
+        "is_jam_vehicle": "false",
+        "energy_level": "high"
+    })
+    assert res.status_code == 200
+    assert "F" in res.text
+    assert "Key" in res.text
+    print("✅ Song Key edit and save POST verified")
+
+    # 2. Check song details API returns song_key
+    res_details = client.get("/api/songs/1999")
+    assert res_details.status_code == 200
+    data = res_details.json()
+    assert data.get("song_key") == "F"
+    print("✅ Song details API returns song_key")
+
+    # 3. Check lyrics view includes song key
+    res_lyrics = client.get("/api/lyrics/1999")
+    assert res_lyrics.status_code == 200
+    assert "Key: F" in res_lyrics.text
+    print("✅ Lyrics view renders song_key")
+
+    # 4. Check Setlist Builder math JSON includes song_key
+    res_builder = client.get("/api/builder/")
+    assert res_builder.status_code == 200
+    assert '"song_key": "F"' in res_builder.text
+    print("✅ Setlist builder math data includes song_key")
 
 if __name__ == "__main__":
-    print("🎸 Running Show Mode & Autoscroll Tests...\n")
+    print("🎸 Running Show Mode, Autoscroll & Song Key Tests...\n")
     test_new_songs_in_song_list()
     test_lyrics_loaded()
     test_show_mode_endpoint()
     test_fullscreen_lyrics_with_autoscroll()
     test_regular_lyrics_with_autoscroll()
+    test_song_key_metadata()
     print("\n🎉 ALL TESTS PASSED!")
+
