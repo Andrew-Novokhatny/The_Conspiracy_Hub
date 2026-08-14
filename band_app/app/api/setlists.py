@@ -26,6 +26,10 @@ from core.setlist_manager import (
     human_readable_date
 )
 from core.song_manager import load_song_list
+from core.lyrics_manager import (
+    load_lyrics_content,
+    format_lyrics_for_display
+)
 
 router = APIRouter()
 
@@ -456,3 +460,101 @@ async def get_setlist_set_songs(setlist_id: int, set_name: str):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading set songs: {str(e)}")
+
+
+@router.get("/{setlist_id}/show", response_class=HTMLResponse)
+async def get_setlist_show_mode(
+    request: Request,
+    setlist_id: int,
+    song: int = Query(0, description="0-based index of active song in flattened show list"),
+    partial: int = Query(0, description="If 1, return only stage partial for HTMX swap")
+):
+    """Stage-ready Show Mode with ordered setlist navigation and autoscroll lyrics"""
+    try:
+        setlists = load_previous_setlists()
+        if setlist_id < 0 or setlist_id >= len(setlists):
+            raise HTTPException(status_code=404, detail="Setlist not found")
+
+        setlist = setlists[setlist_id]
+        songs_data = load_song_list()
+
+        # Build ordered flattened song list across sets
+        flattened_songs = []
+        for set_num in [1, 2, 3]:
+            set_key = f"set{set_num}"
+            set_songs = setlist['sets'].get(set_key, [])
+            for s_idx, s in enumerate(set_songs):
+                s_name = s['name']
+                s_info = songs_data.get(s_name, {})
+                duration = s_info.get('duration', 0)
+                if not duration or duration <= 0:
+                    duration = 240 # Default 4 mins if unmeasured
+
+                flattened_songs.append({
+                    'global_index': len(flattened_songs),
+                    'set_num': set_num,
+                    'set_label': f"Set {set_num}",
+                    'song_in_set': s_idx + 1,
+                    'set_total': len(set_songs),
+                    'name': s_name,
+                    'bpm': s.get('bpm') or s_info.get('bpm', None),
+                    'duration': duration,
+                    'duration_formatted': format_duration(duration),
+                    'artist': s_info.get('artist', ''),
+                    'energy_level': s_info.get('energy_level', 'standard'),
+                    'has_horn': s_info.get('has_horn', False),
+                    'is_jam_vehicle': s_info.get('is_jam_vehicle', False)
+                })
+
+        total_songs = len(flattened_songs)
+        if total_songs == 0:
+            current_idx = 0
+            current_song = None
+            lyrics_html = "<p class='text-muted' style='font-style: italic;'>This setlist has no songs listed.</p>"
+            prev_idx = None
+            next_idx = None
+        else:
+            current_idx = max(0, min(song, total_songs - 1))
+            current_song = flattened_songs[current_idx]
+            raw_lyrics = load_lyrics_content(current_song['name'])
+            if "not found" in raw_lyrics.lower() or not raw_lyrics.strip():
+                lyrics_html = f"<p class='text-muted' style='font-style: italic;'>No lyrics found for '{current_song['name']}'.</p>"
+            else:
+                lyrics_html = format_lyrics_for_display(raw_lyrics)
+
+            prev_idx = current_idx - 1 if current_idx > 0 else None
+            next_idx = current_idx + 1 if current_idx < total_songs - 1 else None
+
+        template_context = {
+            "request": request,
+            "setlist": setlist,
+            "setlist_id": setlist_id,
+            "friendly_date": human_readable_date(setlist['date']),
+            "flattened_songs": flattened_songs,
+            "total_songs": total_songs,
+            "current_idx": current_idx,
+            "current_song": current_song,
+            "lyrics_content": lyrics_html,
+            "prev_idx": prev_idx,
+            "next_idx": next_idx,
+            "active_page": "setlists",
+        }
+
+        # Check for HTMX request or explicit partial flag
+        is_htmx = request.headers.get("HX-Request") == "true" or partial == 1
+        if is_htmx:
+            return templates.TemplateResponse(
+                request=request,
+                name="setlists/show_song_partial.html",
+                context=template_context
+            )
+
+        return templates.TemplateResponse(
+            request=request,
+            name="setlists/show.html",
+            context=template_context
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading show mode: {str(e)}")

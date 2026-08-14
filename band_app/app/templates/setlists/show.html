@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Mode - {{ setlist.venue }} ({{ setlist.date }})</title>
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="/static/css/band-theme.css">
+    
+    <!-- HTMX for instantaneous song transitions -->
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+</head>
+<body class="show-mode-page">
+    
+    <!-- Stage Header -->
+    <header class="show-stage-header">
+        <div class="show-header-left">
+            <a href="/api/setlists/{{ setlist_id }}" class="band-btn-secondary band-btn-sm" style="padding: 0.4rem 0.8rem;">
+                ↩️ Exit
+            </a>
+            <div>
+                <div class="show-venue-title">🎸 {{ setlist.venue }}</div>
+                <div class="text-muted" style="font-size: 0.8rem;">{{ friendly_date }}</div>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-sm">
+            <button class="band-btn-secondary band-btn-sm" id="drawer-toggle-btn" onclick="toggleDrawer()">
+                📑 <span id="header-song-counter">{{ current_song.set_label if current_song else 'Set 1' }} · {{ current_idx + 1 }}/{{ total_songs }}</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Stage Viewport -->
+    <main class="show-stage-viewport" id="show-main-viewport">
+        <div id="show-song-content">
+            {% include "setlists/show_song_partial.html" %}
+        </div>
+    </main>
+
+    <!-- Stage Fixed Bottom Navigation Bar -->
+    <footer class="show-bottom-bar">
+        <!-- Prev Button -->
+        <button class="show-nav-btn" 
+                id="btn-prev-song"
+                {% if prev_idx is none %}disabled{% endif %}
+                {% if prev_idx is not none %}
+                hx-get="/api/setlists/{{ setlist_id }}/show?song={{ prev_idx }}&partial=1"
+                hx-target="#show-song-content"
+                hx-swap="innerHTML"
+                {% endif %}>
+            ⏮️ Prev
+        </button>
+
+        <!-- Autoscroll Toolbar -->
+        <div class="autoscroll-bar">
+            <!-- Progress Line Track -->
+            <div class="autoscroll-progress-track">
+                <div class="autoscroll-progress-fill"></div>
+            </div>
+
+            <!-- Rewind / Top Button -->
+            <button class="autoscroll-btn autoscroll-top-btn" title="Scroll to Top (R / Home)">
+                ⏮️ Top
+            </button>
+
+            <!-- Play / Pause Button -->
+            <button class="autoscroll-btn autoscroll-play-btn" title="Play/Pause Autoscroll (Space)">
+                <span class="autoscroll-icon">▶️</span>
+                <span class="autoscroll-text">Play</span>
+            </button>
+
+            <!-- Speed Control Group -->
+            <div class="autoscroll-speed-group">
+                <button class="autoscroll-speed-btn autoscroll-slower-btn" title="Slower (-)">−</button>
+                <span class="autoscroll-speed-badge">1.0x</span>
+                <button class="autoscroll-speed-btn autoscroll-faster-btn" title="Faster (+)">+</button>
+            </div>
+        </div>
+
+        <!-- Next Button -->
+        <button class="show-nav-btn next" 
+                id="btn-next-song"
+                {% if next_idx is none %}disabled{% endif %}
+                {% if next_idx is not none %}
+                hx-get="/api/setlists/{{ setlist_id }}/show?song={{ next_idx }}&partial=1"
+                hx-target="#show-song-content"
+                hx-swap="innerHTML"
+                {% endif %}>
+            Next ⏭️
+        </button>
+    </footer>
+
+    <!-- Slide-in Setlist Drawer Backdrop -->
+    <div class="show-drawer-backdrop" id="drawer-backdrop" onclick="closeDrawer()"></div>
+
+    <!-- Slide-in Setlist Drawer -->
+    <aside class="show-drawer" id="show-drawer">
+        <div class="show-drawer-header">
+            <div class="show-drawer-title">📋 Setlist Overview</div>
+            <button class="band-btn-secondary band-btn-sm" onclick="closeDrawer()">✕ Close</button>
+        </div>
+        <div class="show-drawer-content">
+            {% set current_set_num = 0 %}
+            {% for song in flattened_songs %}
+                {% if song.set_num != current_set_num %}
+                    {% set current_set_num = song.set_num %}
+                    <div class="show-drawer-set-title mt-sm">{{ song.set_label }}</div>
+                {% endif %}
+                <a class="show-drawer-song-item {% if song.global_index == current_idx %}is-active{% endif %}"
+                   id="drawer-song-{{ song.global_index }}"
+                   hx-get="/api/setlists/{{ setlist_id }}/show?song={{ song.global_index }}&partial=1"
+                   hx-target="#show-song-content"
+                   hx-swap="innerHTML"
+                   onclick="closeDrawer()">
+                    <span style="font-weight: 600;">{{ song.song_in_set }}. {{ song.name }}</span>
+                    {% if song.bpm %}
+                    <span style="font-size: 0.8rem; color: var(--accent);">{{ song.bpm }} BPM</span>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </aside>
+
+    <!-- Autoscroll Engine Script -->
+    <script src="/static/js/autoscroll.js"></script>
+
+    <!-- Stage Navigation & Hotkey Controller Script -->
+    <script>
+        const setlistId = {{ setlist_id }};
+        const totalSongs = {{ total_songs }};
+
+        function toggleDrawer() {
+            const drawer = document.getElementById('show-drawer');
+            const backdrop = document.getElementById('drawer-backdrop');
+            drawer.classList.toggle('is-open');
+            backdrop.classList.toggle('is-open');
+        }
+
+        function closeDrawer() {
+            document.getElementById('show-drawer').classList.remove('is-open');
+            document.getElementById('drawer-backdrop').classList.remove('is-open');
+        }
+
+        // Initialize autoscroller for stage window
+        let scroller = window.initLyricsAutoscroll({
+            containerSelector: null, // window scroll
+            durationSeconds: {{ current_song.duration if current_song else 240 }},
+            bpm: {{ current_song.bpm if current_song and current_song.bpm else 'null' }},
+            speed: 1.0
+        });
+
+        // Callback invoked on HTMX swap when a new song loads
+        window.onSongLoadedInShowMode = function(data) {
+            // Scroll back to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Reset autoscroller for new song
+            if (window.activeAutoScroller) {
+                window.activeAutoScroller.pause();
+                window.activeAutoScroller.durationSeconds = data.duration || 240;
+                window.activeAutoScroller.bpm = data.bpm || null;
+                window.activeAutoScroller.scrollToTop(false);
+                window.activeAutoScroller.updateUI();
+            }
+
+            // Sync navigation buttons & meta data
+            const metaUpdate = document.getElementById('nav-meta-update');
+            if (metaUpdate) {
+                const prevIdx = metaUpdate.getAttribute('data-prev-idx');
+                const nextIdx = metaUpdate.getAttribute('data-next-idx');
+                const currentIdx = metaUpdate.getAttribute('data-current-idx');
+                const setLabel = metaUpdate.getAttribute('data-set-label');
+
+                // Update Header Counter
+                const headerCounter = document.getElementById('header-song-counter');
+                if (headerCounter && setLabel) {
+                    headerCounter.textContent = setLabel;
+                }
+
+                // Update Prev Button
+                const btnPrev = document.getElementById('btn-prev-song');
+                if (btnPrev) {
+                    if (prevIdx !== "") {
+                        btnPrev.disabled = false;
+                        btnPrev.setAttribute('hx-get', `/api/setlists/${setlistId}/show?song=${prevIdx}&partial=1`);
+                        htmx.process(btnPrev);
+                    } else {
+                        btnPrev.disabled = true;
+                        btnPrev.removeAttribute('hx-get');
+                    }
+                }
+
+                // Update Next Button
+                const btnNext = document.getElementById('btn-next-song');
+                if (btnNext) {
+                    if (nextIdx !== "") {
+                        btnNext.disabled = false;
+                        btnNext.setAttribute('hx-get', `/api/setlists/${setlistId}/show?song=${nextIdx}&partial=1`);
+                        htmx.process(btnNext);
+                    } else {
+                        btnNext.disabled = true;
+                        btnNext.removeAttribute('hx-get');
+                    }
+                }
+
+                // Update Drawer Active Item
+                document.querySelectorAll('.show-drawer-song-item').forEach(item => {
+                    item.classList.remove('is-active');
+                });
+                const activeDrawerItem = document.getElementById(`drawer-song-${currentIdx}`);
+                if (activeDrawerItem) {
+                    activeDrawerItem.classList.add('is-active');
+                }
+            }
+        };
+
+        // Keyboard navigation for live stage performance (pedal / remote / arrow keys)
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'n') {
+                const btnNext = document.getElementById('btn-next-song');
+                if (btnNext && !btnNext.disabled) {
+                    btnNext.click();
+                }
+            } else if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'p') {
+                const btnPrev = document.getElementById('btn-prev-song');
+                if (btnPrev && !btnPrev.disabled) {
+                    btnPrev.click();
+                }
+            } else if (e.key === 'Escape') {
+                const drawer = document.getElementById('show-drawer');
+                if (drawer.classList.contains('is-open')) {
+                    closeDrawer();
+                } else {
+                    window.location.href = `/api/setlists/${setlistId}`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -13,7 +13,9 @@
             <div>
                 <h1 class="band-title" style="font-size: 1.4rem; margin: 0;">{{ song_name }}</h1>
                 {% if artist %}
-                <div class="text-muted" style="font-size: 0.85rem; margin-top: 0.2rem;">{{ artist }}{% if bpm %} · {{ bpm }} BPM{% endif %}</div>
+                <div class="text-muted" style="font-size: 0.85rem; margin-top: 0.2rem;">
+                    {{ artist }}{% if bpm %} · {{ bpm }} BPM{% endif %}{% if duration %} · {{ duration }}s{% endif %}
+                </div>
                 {% endif %}
             </div>
             <a href="/api/lyrics/{{ song_name }}" class="band-btn" style="padding: 0.5rem 1rem;">
@@ -22,33 +24,55 @@
         </div>
     </div>
 
-    <div class="lyrics-content fade-in-up">
+    <div class="lyrics-content fade-in-up" id="fullscreen-lyrics-body">
         {{ lyrics_content | safe }}
     </div>
 
+    <!-- Floating Autoscroll Control Bar -->
+    <div class="lyrics-floating-autoscroll">
+        <div class="autoscroll-bar">
+            <!-- Progress Line Track -->
+            <div class="autoscroll-progress-track">
+                <div class="autoscroll-progress-fill"></div>
+            </div>
+
+            <!-- Rewind / Top Button -->
+            <button class="autoscroll-btn autoscroll-top-btn" title="Scroll to Top (R / Home)">
+                ⏮️ Top
+            </button>
+
+            <!-- Play / Pause Button -->
+            <button class="autoscroll-btn autoscroll-play-btn" title="Play/Pause Autoscroll (Space)">
+                <span class="autoscroll-icon">▶️</span>
+                <span class="autoscroll-text">Play</span>
+            </button>
+
+            <!-- Speed Control Group -->
+            <div class="autoscroll-speed-group">
+                <button class="autoscroll-speed-btn autoscroll-slower-btn" title="Slower (-)">−</button>
+                <span class="autoscroll-speed-badge">1.0x</span>
+                <button class="autoscroll-speed-btn autoscroll-faster-btn" title="Faster (+)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/autoscroll.js"></script>
     <script>
         let isExiting = false;
+
+        // Initialize autoscroller for fullscreen page
+        const scroller = window.initLyricsAutoscroll({
+            containerSelector: null, // window scroll
+            durationSeconds: {{ duration if duration else 240 }},
+            bpm: {{ bpm if bpm else 'null' }},
+            speed: 1.0
+        });
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && !isExiting) {
                 isExiting = true;
                 window.location.href = '/api/lyrics/{{ song_name }}';
             }
-        });
-
-        // Double-tap to exit on touch devices
-        let lastTap = 0;
-        document.addEventListener('touchend', function(e) {
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - lastTap;
-
-            if (tapLength < 500 && tapLength > 0 && !isExiting) {
-                if (confirm('Exit full screen?')) {
-                    isExiting = true;
-                    window.location.href = '/api/lyrics/{{ song_name }}';
-                }
-            }
-            lastTap = currentTime;
         });
     </script>
 </body>

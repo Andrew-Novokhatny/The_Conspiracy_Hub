@@ -63,6 +63,10 @@ Come Together - The Beatles (90)
 Dreams - Fleetwood Mac (120)  
 Crosseyed and Painless - Talking Heads (120)  
 Everybody Wants to Rule the World - Tears for Fears (112)  
+1999 - Prince (119)  
+Abracadabra - Steve Miller Band (127)  
+Rock With You - Michael Jackson^🎺 ^ (114)  
+It Ain't Over Till It's Over - Lenny Kravitz^🎺 ^ (80)  
   
   
 #   

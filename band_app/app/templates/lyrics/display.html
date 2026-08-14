@@ -2,6 +2,10 @@
 
 {% block title %}{{ song_name }} - Lyrics{% endblock %}
 
+{% block head_extra %}
+<script src="/static/js/autoscroll.js"></script>
+{% endblock %}
+
 {% block content %}
 <a href="/api/lyrics/" class="back-link">← Back to Lyrics</a>
 

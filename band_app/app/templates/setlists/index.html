@@ -22,16 +22,24 @@
 <!-- Setlist List -->
 <div class="flex-col gap-md fade-in-up-delay-2" id="setlist-list">
     {% for setlist in setlists %}
-    <a href="/api/setlists/{{ loop.index0 }}"
-       class="setlist-card"
-       data-venue="{{ setlist.venue|lower }}"
-       style="text-decoration: none; color: inherit; display: block;">
+    <div class="setlist-card"
+         data-venue="{{ setlist.venue|lower }}"
+         style="display: block;">
         <div class="setlist-card-header">
             <div>
-                <div class="setlist-card-venue">🎸 {{ setlist.venue }}</div>
-                <div class="setlist-card-date">{{ setlist.date }}</div>
+                <a href="/api/setlists/{{ loop.index0 }}" style="text-decoration: none; color: inherit;">
+                    <div class="setlist-card-venue">🎸 {{ setlist.venue }}</div>
+                    <div class="setlist-card-date">{{ setlist.date }}</div>
+                </a>
             </div>
-            <span class="text-muted">→</span>
+            <div class="flex items-center gap-sm">
+                <a href="/api/setlists/{{ loop.index0 }}/show" class="band-btn-sm band-btn" style="padding: 0.35rem 0.75rem; font-size: 0.85rem;">
+                    🎪 Show Mode
+                </a>
+                <a href="/api/setlists/{{ loop.index0 }}" class="band-btn-secondary band-btn-sm" style="padding: 0.35rem 0.65rem;">
+                    Details →
+                </a>
+            </div>
         </div>
         <div class="setlist-card-body">
             {% for set_key in ['set1', 'set2', 'set3'] %}
@@ -44,7 +52,7 @@
             {% endif %}
             {% endfor %}
         </div>
-    </a>
+    </div>
     {% endfor %}
 </div>
 

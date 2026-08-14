@@ -191,67 +191,19 @@ async def get_lyrics_fullscreen(request: Request, song_name: str):
         artist = song_info.get('artist', '')
         bpm = song_info.get('bpm', '')
 
-        # Return beautiful full-screen lyrics with teal theme
-        return HTMLResponse(f"""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>{song_name} - Full Screen</title>
-    <link rel="stylesheet" href="/static/css/band-theme.css">
-</head>
-<body class="lyrics-fullscreen-container">
-    <div class="lyrics-header">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-            <div class="fade-in-up">
-                <h1 class="band-title" style="font-size: 1.5rem; margin: 0;">{song_name}</h1>
-                {f'<div class="text-muted" style="font-size: 0.9rem; margin-top: 0.25rem;">{artist}{" • " + str(bpm) + " BPM" if bpm else ""}</div>' if artist else ''}
-            </div>
-            <button class="band-btn" onclick="history.back()" style="padding: 0.5rem 1rem;">
-                ↩️ Exit
-            </button>
-        </div>
-    </div>
+        duration = song_info.get('duration', 0)
+        if not duration or duration <= 0:
+            duration = 240
 
-    <div class="lyrics-content fade-in-up">
-        {formatted_lyrics}
-    </div>
-
-    <script>
-        let isExiting = false;
-
-        // Escape key to exit
-        document.addEventListener('keydown', function(e) {{
-            if (e.key === 'Escape' && !isExiting) {{
-                isExiting = true;
-                history.back();
-            }}
-        }});
-
-        // Double-tap to exit (optional)
-        let lastTap = 0;
-        document.addEventListener('touchend', function(e) {{
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - lastTap;
-
-            if (tapLength < 500 && tapLength > 0 && !isExiting) {{
-                const result = confirm('Exit full screen?');
-                if (result) {{
-                    isExiting = true;
-                    history.back();
-                }}
-            }}
-            lastTap = currentTime;
-        }});
-
-        // Prevent zoom on double-tap
-        document.addEventListener('touchend', function(e) {{
-            e.preventDefault();
-        }}, {{ passive: false }});
-    </script>
-</body>
-</html>""")
+        return templates.TemplateResponse(request=request, name="lyrics/fullscreen.html", context={
+            "request": request,
+            "song_name": song_name,
+            "lyrics_content": formatted_lyrics,
+            "artist": song_info.get('artist', ''),
+            "bpm": song_info.get('bpm', ''),
+            "duration": duration,
+            "active_page": "lyrics",
+        })
     except HTTPException:
         raise
     except Exception as e:
