@@ -136,6 +136,13 @@ def test_builder_edit_and_delete_setlist():
     assert "Delete" in res_det.text
     print("✅ Setlist details builder edit and delete options verified")
 
+def test_date_normalization():
+    """Verify full 4-digit year dates like 10/17/2024 parse and format correctly"""
+    assert setlist_manager.human_readable_date("10/17/2024") == "October 17, 2024"
+    assert setlist_manager.human_readable_date("10/17/24") == "October 17, 2024"
+    assert setlist_manager.human_readable_date("10172024") == "October 17, 2024"
+    print("✅ Date normalization and human readable date formatting verified")
+
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")
     test_new_songs_in_song_list()
@@ -146,5 +153,6 @@ if __name__ == "__main__":
     test_regular_lyrics_with_autoscroll()
     test_song_key_metadata()
     test_builder_edit_and_delete_setlist()
+    test_date_normalization()
     print("\n🎉 ALL TESTS PASSED!")
 

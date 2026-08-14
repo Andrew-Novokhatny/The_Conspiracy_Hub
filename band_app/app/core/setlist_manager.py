@@ -80,9 +80,11 @@ def parse_setlist_file(file_path: str, venue_dir: str) -> Dict:
         if venue_match:
             venue = venue_match.group(1)
             date_str = venue_match.group(2)
-            # Convert date format (e.g., 030725 -> 03/07/25)
+            # Convert date format (e.g., 030725 -> 03/07/25, 10172024 -> 10/17/24)
             if len(date_str) == 6:
                 date = f"{date_str[:2]}/{date_str[2:4]}/{date_str[4:]}"
+            elif len(date_str) == 8:
+                date = f"{date_str[:2]}/{date_str[2:4]}/{date_str[6:]}"
             else:
                 date = date_str
         else:
@@ -213,12 +215,22 @@ def calculate_set_timing(songs: List[str], song_data: Dict, break_duration: int 
 
 
 def human_readable_date(date_str: str) -> str:
-    """Convert MM/DD/YY input into a verbose date whenever possible."""
-    try:
-        parsed = datetime.strptime(date_str, "%m/%d/%y")
-        return parsed.strftime("%B %d, %Y")
-    except ValueError:
+    """Convert MM/DD/YY, MM/DD/YYYY or raw date input into a verbose date whenever possible."""
+    if not date_str:
         return date_str
+
+    formats = [
+        "%m/%d/%y", "%m/%d/%Y",
+        "%m-%d-%y", "%m-%d-%Y",
+        "%Y-%m-%d", "%m%d%y", "%m%d%Y"
+    ]
+    for fmt in formats:
+        try:
+            parsed = datetime.strptime(date_str.strip(), fmt)
+            return parsed.strftime("%B %d, %Y")
+        except ValueError:
+            pass
+    return date_str
 
 
 def build_setlist_markdown(venue: str, date: str, setlist: Dict[str, List[str]], songs_data: Dict[str, Dict], set_durations: Dict[str, str], total_show: str) -> str:

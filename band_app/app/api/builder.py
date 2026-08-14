@@ -83,15 +83,22 @@ async def export_built_setlist(request: Request):
         if not venue:
             venue = "Unknown Venue"
             
-        date = data.get('date', datetime.now().strftime('%m/%d/%y')).strip()
-        if not date:
-            date = datetime.now().strftime('%m/%d/%y')
-            
+        date_raw = data.get('date', '').strip()
+        date = datetime.now().strftime('%m/%d/%y')
+        if date_raw:
+            formats = ["%m/%d/%Y", "%m/%d/%y", "%m-%d-%Y", "%m-%d-%y", "%Y-%m-%d", "%m%d%y", "%m%d%Y"]
+            for fmt in formats:
+                try:
+                    dt = datetime.strptime(date_raw, fmt)
+                    date = dt.strftime('%m/%d/%y')
+                    break
+                except ValueError:
+                    pass
+
         sets = data.get('sets', {})
         # sets should look like: {'set1': [{'name': 'Song', 'bpm': 120}], 'set2': ...}
         
         # Construct the directory name format "Venue Setlist (MMDDYY)"
-        # Note: if date is MM/DD/YY, strip the slashes for the directory name
         dir_date = date.replace('/', '')
         venue_dir_name = f"{venue} Setlist ({dir_date})"
         
