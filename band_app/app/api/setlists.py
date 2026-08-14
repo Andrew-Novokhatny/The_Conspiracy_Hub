@@ -478,12 +478,22 @@ async def get_setlist_show_mode(
         setlist = setlists[setlist_id]
         songs_data = load_song_list()
 
-        # Build ordered flattened song list across sets
+        # Build ordered flattened song list and structured grouped sets
         flattened_songs = []
+        grouped_sets = []
         set_labels = {1: "Set 1", 2: "Set 2", 3: "Encore"}
         for set_num in [1, 2, 3]:
             set_key = f"set{set_num}"
             set_songs = setlist['sets'].get(set_key, [])
+            if not set_songs:
+                continue
+
+            current_set_group = {
+                'set_num': set_num,
+                'set_label': set_labels.get(set_num, f"Set {set_num}"),
+                'songs': []
+            }
+
             for s_idx, s in enumerate(set_songs):
                 s_name = s['name']
                 s_info = songs_data.get(s_name, {})
@@ -491,7 +501,7 @@ async def get_setlist_show_mode(
                 if not duration or duration <= 0:
                     duration = 240 # Default 4 mins if unmeasured
 
-                flattened_songs.append({
+                song_obj = {
                     'global_index': len(flattened_songs),
                     'set_num': set_num,
                     'set_label': set_labels.get(set_num, f"Set {set_num}"),
@@ -505,7 +515,11 @@ async def get_setlist_show_mode(
                     'energy_level': s_info.get('energy_level', 'standard'),
                     'has_horn': s_info.get('has_horn', False),
                     'is_jam_vehicle': s_info.get('is_jam_vehicle', False)
-                })
+                }
+                flattened_songs.append(song_obj)
+                current_set_group['songs'].append(song_obj)
+
+            grouped_sets.append(current_set_group)
 
         total_songs = len(flattened_songs)
         if total_songs == 0:
@@ -532,6 +546,7 @@ async def get_setlist_show_mode(
             "setlist_id": setlist_id,
             "friendly_date": human_readable_date(setlist['date']),
             "flattened_songs": flattened_songs,
+            "grouped_sets": grouped_sets,
             "total_songs": total_songs,
             "current_idx": current_idx,
             "current_song": current_song,
