@@ -58,7 +58,7 @@ def test_show_mode_endpoint():
     assert "Show Mode" in res.text
     assert "autoscroll.js" in res.text
     assert "show-bottom-bar" in res.text
-    assert "show-drawer" in res.text
+    assert "show-sidebar" in res.text
     print("✅ Show Mode full page endpoint rendered successfully")
 
     # Test HTMX partial

@@ -26,18 +26,58 @@
         </div>
 
         <div class="flex items-center gap-sm">
-            <button class="band-btn-secondary band-btn-sm" id="drawer-toggle-btn" onclick="toggleDrawer()">
+            <button class="band-btn-secondary band-btn-sm" id="sidebar-header-toggle-btn" onclick="toggleSidebar()" title="Toggle in-view sidebar">
                 📑 <span id="header-song-counter">{{ current_song.set_label if current_song else 'Set 1' }} · {{ current_idx + 1 }}/{{ total_songs }}</span>
             </button>
         </div>
     </header>
 
-    <!-- Main Stage Viewport -->
-    <main class="show-stage-viewport" id="show-main-viewport">
-        <div id="show-song-content">
-            {% include "setlists/show_song_partial.html" %}
-        </div>
-    </main>
+    <!-- Floating Re-open Tab (Visible when sidebar is collapsed) -->
+    <button class="show-sidebar-open-tab" id="sidebar-open-tab" onclick="openSidebar()" title="Open Setlist Tracker">
+        📋 <span style="font-size: 0.75rem;">Setlist ❯</span>
+    </button>
+
+    <!-- Show Mode Layout (Sidebar + Stage Viewport) -->
+    <div class="show-layout-wrapper">
+        <!-- Collapsible Minimal Sidebar -->
+        <aside class="show-sidebar" id="show-sidebar">
+            <div class="show-sidebar-toggle-header">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary);">📋 Setlist Track</span>
+                <button class="show-sidebar-toggle-btn" style="width: auto;" onclick="closeSidebar()" title="Collapse sidebar">
+                    <span>◀ Hide</span>
+                </button>
+            </div>
+            <div class="show-sidebar-scroll" id="sidebar-scroll-container">
+                {% set current_set_num = 0 %}
+                {% for song in flattened_songs %}
+                    {% if song.set_num != current_set_num %}
+                        {% set current_set_num = song.set_num %}
+                        <div class="show-sidebar-set-header">{{ song.set_label }}</div>
+                    {% endif %}
+                    <a class="show-sidebar-item {% if song.global_index == current_idx %}is-active{% endif %}"
+                       id="sidebar-song-{{ song.global_index }}"
+                       hx-get="/api/setlists/{{ setlist_id }}/show?song={{ song.global_index }}&partial=1"
+                       hx-target="#show-song-content"
+                       hx-swap="innerHTML"
+                       title="{{ song.name }} ({{ song.bpm }} BPM)"
+                       onclick="onSidebarSongClick()">
+                        <span class="show-sidebar-num">{{ song.song_in_set }}.</span>
+                        <span class="show-sidebar-name">{{ song.name }}</span>
+                        {% if song.bpm %}
+                        <span class="show-sidebar-bpm">{{ song.bpm }}</span>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        </aside>
+
+        <!-- Main Stage Viewport -->
+        <main class="show-stage-viewport" id="show-main-viewport">
+            <div id="show-song-content">
+                {% include "setlists/show_song_partial.html" %}
+            </div>
+        </main>
+    </div>
 
     <!-- Stage Fixed Bottom Navigation Bar -->
     <footer class="show-bottom-bar">
@@ -92,56 +132,67 @@
         </button>
     </footer>
 
-    <!-- Slide-in Setlist Drawer Backdrop -->
-    <div class="show-drawer-backdrop" id="drawer-backdrop" onclick="closeDrawer()"></div>
-
-    <!-- Slide-in Setlist Drawer -->
-    <aside class="show-drawer" id="show-drawer">
-        <div class="show-drawer-header">
-            <div class="show-drawer-title">📋 Setlist Overview</div>
-            <button class="band-btn-secondary band-btn-sm" onclick="closeDrawer()">✕ Close</button>
-        </div>
-        <div class="show-drawer-content">
-            {% set current_set_num = 0 %}
-            {% for song in flattened_songs %}
-                {% if song.set_num != current_set_num %}
-                    {% set current_set_num = song.set_num %}
-                    <div class="show-drawer-set-title mt-sm">{{ song.set_label }}</div>
-                {% endif %}
-                <a class="show-drawer-song-item {% if song.global_index == current_idx %}is-active{% endif %}"
-                   id="drawer-song-{{ song.global_index }}"
-                   hx-get="/api/setlists/{{ setlist_id }}/show?song={{ song.global_index }}&partial=1"
-                   hx-target="#show-song-content"
-                   hx-swap="innerHTML"
-                   onclick="closeDrawer()">
-                    <span style="font-weight: 600;">{{ song.song_in_set }}. {{ song.name }}</span>
-                    {% if song.bpm %}
-                    <span style="font-size: 0.8rem; color: var(--accent);">{{ song.bpm }} BPM</span>
-                    {% endif %}
-                </a>
-            {% endfor %}
-        </div>
-    </aside>
-
     <!-- Autoscroll Engine Script -->
     <script src="/static/js/autoscroll.js"></script>
 
-    <!-- Stage Navigation & Hotkey Controller Script -->
+    <!-- Stage Navigation & Sidebar Controller Script -->
     <script>
         const setlistId = {{ setlist_id }};
         const totalSongs = {{ total_songs }};
 
-        function toggleDrawer() {
-            const drawer = document.getElementById('show-drawer');
-            const backdrop = document.getElementById('drawer-backdrop');
-            drawer.classList.toggle('is-open');
-            backdrop.classList.toggle('is-open');
+        // Sidebar Collapse / Expand State Logic
+        function isSmallScreen() {
+            return window.innerWidth <= 900;
         }
 
-        function closeDrawer() {
-            document.getElementById('show-drawer').classList.remove('is-open');
-            document.getElementById('drawer-backdrop').classList.remove('is-open');
+        function openSidebar() {
+            const sidebar = document.getElementById('show-sidebar');
+            const openTab = document.getElementById('sidebar-open-tab');
+            sidebar.classList.remove('is-collapsed');
+            openTab.classList.remove('is-visible');
+            localStorage.setItem('show_sidebar_state', 'open');
+            scrollActiveSidebarSongIntoView();
         }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('show-sidebar');
+            const openTab = document.getElementById('sidebar-open-tab');
+            sidebar.classList.add('is-collapsed');
+            openTab.classList.add('is-visible');
+            localStorage.setItem('show_sidebar_state', 'closed');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('show-sidebar');
+            if (sidebar.classList.contains('is-collapsed')) {
+                openSidebar();
+            } else {
+                closeSidebar();
+            }
+        }
+
+        function onSidebarSongClick() {
+            if (isSmallScreen()) {
+                closeSidebar();
+            }
+        }
+
+        function scrollActiveSidebarSongIntoView() {
+            const activeItem = document.querySelector('.show-sidebar-item.is-active');
+            if (activeItem) {
+                activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Initialize sidebar preference on load
+        (function initSidebar() {
+            const saved = localStorage.getItem('show_sidebar_state');
+            if (saved === 'closed' || (saved === null && isSmallScreen())) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        })();
 
         // Initialize autoscroller for stage window
         let scroller = window.initLyricsAutoscroll({
@@ -153,7 +204,7 @@
 
         // Callback invoked on HTMX swap when a new song loads
         window.onSongLoadedInShowMode = function(data) {
-            // Scroll back to top smoothly
+            // Scroll stage back to top smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             // Reset autoscroller for new song
@@ -165,7 +216,7 @@
                 window.activeAutoScroller.updateUI();
             }
 
-            // Sync navigation buttons & meta data
+            // Sync navigation buttons & metadata
             const metaUpdate = document.getElementById('nav-meta-update');
             if (metaUpdate) {
                 const prevIdx = metaUpdate.getAttribute('data-prev-idx');
@@ -205,13 +256,14 @@
                     }
                 }
 
-                // Update Drawer Active Item
-                document.querySelectorAll('.show-drawer-song-item').forEach(item => {
+                // Update Sidebar Active Item & Auto-scroll into view
+                document.querySelectorAll('.show-sidebar-item').forEach(item => {
                     item.classList.remove('is-active');
                 });
-                const activeDrawerItem = document.getElementById(`drawer-song-${currentIdx}`);
-                if (activeDrawerItem) {
-                    activeDrawerItem.classList.add('is-active');
+                const activeSidebarItem = document.getElementById(`sidebar-song-${currentIdx}`);
+                if (activeSidebarItem) {
+                    activeSidebarItem.classList.add('is-active');
+                    scrollActiveSidebarSongIntoView();
                 }
             }
         };
@@ -231,12 +283,7 @@
                     btnPrev.click();
                 }
             } else if (e.key === 'Escape') {
-                const drawer = document.getElementById('show-drawer');
-                if (drawer.classList.contains('is-open')) {
-                    closeDrawer();
-                } else {
-                    window.location.href = `/api/setlists/${setlistId}`;
-                }
+                window.location.href = `/api/setlists/${setlistId}`;
             }
         });
     </script>
