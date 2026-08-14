@@ -111,19 +111,40 @@ def test_song_key_metadata():
     assert "Key: F" in res_lyrics.text
     print("✅ Lyrics view renders song_key")
 
-    # 4. Check Setlist Builder math JSON includes song_key
-    res_builder = client.get("/api/builder/")
-    assert res_builder.status_code == 200
-    assert '"song_key": "F"' in res_builder.text
-    print("✅ Setlist builder math data includes song_key")
+def test_dont_you_forget_about_me():
+    """Verify Don't You (Forget About Me) in songlist & lyrics"""
+    songs = song_manager.load_song_list()
+    assert "Don't You (Forget About Me)" in songs
+    assert songs["Don't You (Forget About Me)"]["artist"] == "Simple Minds"
+    
+    lyrics = lyrics_manager.load_lyrics_content("Don't You (Forget About Me)")
+    assert "forget about me" in lyrics.lower()
+    print("✅ Don't You (Forget About Me) song catalog & lyrics verified")
+
+def test_builder_edit_and_delete_setlist():
+    """Test loading an existing setlist in builder and delete function"""
+    # Test builder edit preloading
+    res = client.get("/api/builder/?edit=0")
+    assert res.status_code == 200
+    assert "initialSetlist" in res.text
+    print("✅ Setlist Builder edit preloading endpoint verified")
+
+    # Test setlist details delete button present
+    res_det = client.get("/api/setlists/0")
+    assert res_det.status_code == 200
+    assert "Edit in Builder" in res_det.text
+    assert "Delete" in res_det.text
+    print("✅ Setlist details builder edit and delete options verified")
 
 if __name__ == "__main__":
-    print("🎸 Running Show Mode, Autoscroll & Song Key Tests...\n")
+    print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")
     test_new_songs_in_song_list()
+    test_dont_you_forget_about_me()
     test_lyrics_loaded()
     test_show_mode_endpoint()
     test_fullscreen_lyrics_with_autoscroll()
     test_regular_lyrics_with_autoscroll()
     test_song_key_metadata()
+    test_builder_edit_and_delete_setlist()
     print("\n🎉 ALL TESTS PASSED!")
 

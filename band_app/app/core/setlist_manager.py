@@ -41,6 +41,34 @@ def load_previous_setlists() -> List[Dict]:
     return sorted(setlists, key=sort_key, reverse=True)
 
 
+def delete_setlist(setlist_id: int) -> bool:
+    """Delete a setlist file and its parent folder if empty."""
+    try:
+        setlists = load_previous_setlists()
+        if setlist_id < 0 or setlist_id >= len(setlists):
+            return False
+
+        setlist = setlists[setlist_id]
+        file_path = Path(setlist['file_path'])
+
+        if file_path.exists():
+            file_path.unlink()
+
+        # Remove parent folder if empty or only contains .DS_Store
+        parent_dir = file_path.parent
+        if parent_dir.exists() and parent_dir.resolve() != SETLISTS_DIR.resolve():
+            remaining_files = [f for f in parent_dir.iterdir() if f.name != '.DS_Store']
+            if not remaining_files:
+                for f in parent_dir.iterdir():
+                    f.unlink()
+                parent_dir.rmdir()
+
+        return True
+    except Exception as e:
+        raise Exception(f"Error deleting setlist: {e}")
+
+
+
 def parse_setlist_file(file_path: str, venue_dir: str) -> Dict:
     """Parse a setlist markdown file"""
     try:

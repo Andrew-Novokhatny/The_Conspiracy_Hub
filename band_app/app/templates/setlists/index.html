@@ -32,13 +32,22 @@
                     <div class="setlist-card-date">{{ setlist.date }}</div>
                 </a>
             </div>
-            <div class="flex items-center gap-sm">
+            <div class="flex items-center gap-sm flex-wrap">
+                <a href="/api/builder/?edit={{ loop.index0 }}" class="band-btn-secondary band-btn-sm" style="padding: 0.35rem 0.65rem;" title="Edit in Setlist Builder">
+                    🏗️ Builder
+                </a>
                 <a href="/api/setlists/{{ loop.index0 }}/show" class="band-btn-sm band-btn" style="padding: 0.35rem 0.75rem; font-size: 0.85rem;">
                     🎪 Show Mode
                 </a>
                 <a href="/api/setlists/{{ loop.index0 }}" class="band-btn-secondary band-btn-sm" style="padding: 0.35rem 0.65rem;">
                     Details →
                 </a>
+                <button class="band-btn-secondary band-btn-sm" style="padding: 0.35rem 0.5rem; color: #ff6b6b; border-color: rgba(255, 107, 107, 0.4);"
+                        hx-post="/api/setlists/{{ loop.index0 }}/delete"
+                        hx-confirm="Are you sure you want to delete this setlist?"
+                        title="Delete setlist">
+                    🗑️
+                </button>
             </div>
         </div>
         <div class="setlist-card-body">

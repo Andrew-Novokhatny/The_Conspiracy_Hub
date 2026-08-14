@@ -190,6 +190,29 @@
 <script>
     // Load song math data injected from server
     const songMathData = {{ song_math_data| safe }};
+    const initialSetlist = {{ initial_setlist | safe }};
+
+    function createSetItemElement(songId) {
+        const math = songMathData[songId] || { bpm: 120, duration: 240, has_horn: false, is_jam_vehicle: false, song_key: '' };
+        const div = document.createElement('div');
+        div.className = 'sortable-item';
+        div.setAttribute('data-id', songId);
+        div.innerHTML = `
+            <div class="flex items-center gap-sm">
+                <button class="segue-btn" onclick="toggleSegue(this)" title="Segue into next song">-></button>
+                <strong>${songId}</strong>
+                ${math.has_horn ? '🎺' : ''}
+                ${math.is_jam_vehicle ? '🛸' : ''}
+            </div>
+            <div class="flex items-center gap-sm">
+                ${math.song_key ? `<span class="badge" style="font-size: 0.72rem; padding: 0.1rem 0.35rem; background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: bold;">🔑 ${math.song_key}</span>` : ''}
+                <span class="text-xs text-muted w-16 text-right">${math.bpm} BPM</span>
+                <span class="text-xs text-muted w-16 text-right">${formatTime(math.duration)}</span>
+                <button onclick="this.closest('.sortable-item').remove(); calculateTiming();" class="text-muted hover:text-white" style="background:none; border:none; cursor:pointer;">✕</button>
+            </div>
+        `;
+        return div;
+    }
 
     // Set up Sortable for Library (clone mode)
     new Sortable(document.getElementById('library-list'), {
@@ -211,23 +234,8 @@
                 // When an item is dropped from library, transform it into a set item
                 const item = evt.item;
                 const songId = item.getAttribute('data-id');
-                const math = songMathData[songId];
-
-                // Rewrite inner HTML to include segue button and remove button
-                item.innerHTML = `
-                    <div class="flex items-center gap-sm">
-                        <button class="segue-btn" onclick="toggleSegue(this)" title="Segue into next song">-></button>
-                        <strong>${songId}</strong>
-                        ${math.has_horn ? '🎺' : ''}
-                        ${math.is_jam_vehicle ? '🛸' : ''}
-                    </div>
-                    <div class="flex items-center gap-sm">
-                        ${math.song_key ? `<span class="badge" style="font-size: 0.72rem; padding: 0.1rem 0.35rem; background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: bold;">🔑 ${math.song_key}</span>` : ''}
-                        <span class="text-xs text-muted w-16 text-right">${math.bpm} BPM</span>
-                        <span class="text-xs text-muted w-16 text-right">${formatTime(math.duration)}</span>
-                        <button onclick="this.closest('.sortable-item').remove(); calculateTiming();" class="text-muted hover:text-white" style="background:none; border:none; cursor:pointer;">✕</button>
-                    </div>
-                `;
+                const newItem = createSetItemElement(songId);
+                item.replaceWith(newItem);
                 calculateTiming();
             },
             onUpdate: function () {
@@ -370,9 +378,32 @@
             } else {
                 alert('Error saving setlist: ' + result.message);
             }
-        } catch (e) {
-            alert('Network error while saving setlist.');
+        } catch (err) {
+            alert('Failed to communicate with server: ' + err);
         }
     }
+
+    // Auto-load existing setlist if pre-loaded for editing
+    (function loadExistingSetlist() {
+        if (!initialSetlist) return;
+
+        if (initialSetlist.venue) document.getElementById('venue-input').value = initialSetlist.venue;
+        if (initialSetlist.date) document.getElementById('date-input').value = initialSetlist.date;
+
+        const numSets = (initialSetlist.set3 && initialSetlist.set3.length > 0) ? 3 :
+                        (initialSetlist.set2 && initialSetlist.set2.length > 0) ? 2 : 2;
+        document.getElementById('num-sets').value = numSets;
+        updateSetVisibility();
+
+        ['set1', 'set2', 'set3'].forEach((setKey) => {
+            const list = document.getElementById(`${setKey}-list`);
+            if (list && initialSetlist[setKey]) {
+                initialSetlist[setKey].forEach(songName => {
+                    list.appendChild(createSetItemElement(songName));
+                });
+            }
+        });
+        calculateTiming();
+    })();
 </script>
 {% endblock %}

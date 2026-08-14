@@ -3,7 +3,7 @@ Setlist Builder API endpoints
 Drag and drop interactive builder with live math
 """
 
-from fastapi import APIRouter, Request, HTTPException, Form, Depends
+from fastapi import APIRouter, Request, HTTPException, Form, Depends, Query
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from typing import List, Optional, Dict, Any
@@ -16,14 +16,18 @@ import os
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from core.song_manager import load_song_list
-from core.setlist_manager import save_setlist_to_file, SETLISTS_DIR
+from core.setlist_manager import save_setlist_to_file, load_previous_setlists, SETLISTS_DIR
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(Path(__file__).parent.parent / "templates"))
 
 @router.get("/", response_class=HTMLResponse)
-async def get_builder(request: Request):
-    """Render the Setlist Builder UI"""
+async def get_builder(
+    request: Request,
+    edit: Optional[int] = Query(None),
+    setlist_id: Optional[int] = Query(None)
+):
+    """Render the Setlist Builder UI, optionally pre-loaded with an existing setlist for editing."""
     try:
         songs_data = load_song_list()
         
@@ -42,11 +46,27 @@ async def get_builder(request: Request):
                 'energy': info.get('energy_level', 'standard')
             }
             
+        target_id = edit if edit is not None else setlist_id
+        initial_setlist = None
+        if target_id is not None:
+            setlists = load_previous_setlists()
+            if 0 <= target_id < len(setlists):
+                s = setlists[target_id]
+                initial_setlist = {
+                    "setlist_id": target_id,
+                    "venue": s.get("venue", ""),
+                    "date": s.get("date", ""),
+                    "set1": [item["name"] for item in s["sets"].get("set1", [])],
+                    "set2": [item["name"] for item in s["sets"].get("set2", [])],
+                    "set3": [item["name"] for item in s["sets"].get("set3", [])],
+                }
+
         return templates.TemplateResponse(request=request, name="builder/index.html", context={
             "request": request,
             "songs_data": songs_data,
             "sorted_songs": sorted_songs,
             "song_math_data": json.dumps(song_math_data),
+            "initial_setlist": json.dumps(initial_setlist) if initial_setlist else "null",
             "active_page": "builder",
         })
     except Exception as e:

@@ -17,6 +17,7 @@ from core.setlist_manager import (
     load_previous_setlists,
     parse_setlist_file,
     save_setlist_to_file,
+    delete_setlist,
     calculate_set_timing,
     build_setlist_markdown,
     create_setlist_export_data,
@@ -575,3 +576,27 @@ async def get_setlist_show_mode(
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading show mode: {str(e)}")
+
+
+@router.post("/{setlist_id}/delete")
+@router.delete("/{setlist_id}")
+async def remove_setlist(request: Request, setlist_id: int):
+    """Delete a setlist markdown file and remove empty directories."""
+    try:
+        success = delete_setlist(setlist_id)
+        if not success:
+            raise HTTPException(status_code=404, detail="Setlist not found")
+
+        # If request came from HTMX or browser form, redirect to setlists home
+        is_htmx = request.headers.get("HX-Request") == "true"
+        if is_htmx:
+            from fastapi.responses import HTMLResponse
+            headers = {"HX-Redirect": "/api/setlists/"}
+            return HTMLResponse(content="", headers=headers)
+        
+        from fastapi.responses import RedirectResponse
+        return RedirectResponse(url="/api/setlists/", status_code=303)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error deleting setlist: {str(e)}")
