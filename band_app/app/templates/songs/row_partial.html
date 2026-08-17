@@ -1,0 +1,46 @@
+<!-- Song Row Partial (HTMX Compatible) -->
+<div class="song-row"
+     id="song-row-{{ song_name|lower|replace(' ', '-') }}"
+     data-song="{{ song_name|lower }}"
+     data-artist="{{ song_info.get('artist', '')|lower }}"
+     data-horn="{{ song_info.get('has_horn', False)|string|lower }}"
+     data-jam="{{ song_info.get('is_jam_vehicle', False)|string|lower }}"
+     data-energy="{{ song_info.get('energy_level', 'standard') }}">
+    <div class="song-row-info" onclick="window.location.href='/api/lyrics/{{ song_name }}'" style="cursor: pointer; flex: 1;">
+        <div class="song-row-title">
+            {{ song_name }}
+            {% if has_lyrics %}
+            <span class="text-xs text-accent">📜</span>
+            {% endif %}
+        </div>
+        <div class="song-row-meta">
+            {{ song_info.get('artist', '') or '—' }}
+        </div>
+    </div>
+    
+    <div class="song-row-badges">
+        {% if song_info.get('song_key') %}<span class="badge" style="background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: 700; font-size: 0.75rem;">🔑 {{ song_info.song_key }}</span>{% endif %}
+        {% if song_info.get('has_horn') %}<span class="badge badge-horn">🎺</span>{% endif %}
+        {% if song_info.get('is_jam_vehicle') %}<span class="badge badge-jam">JAM</span>{% endif %}
+        {% if song_info.get('energy_level') == 'high' %}<span class="badge badge-energy-high">🔥</span>{% endif %}
+        {% if song_info.get('energy_level') == 'low' %}<span class="badge badge-energy-low">💤</span>{% endif %}
+        {% if duration_formatted %}<span class="text-xs text-muted" style="margin-left: 0.25rem;">⏱️ {{ duration_formatted }}</span>{% endif %}
+    </div>
+    
+    <div class="song-row-bpm" style="margin-right: 0.5rem;">{{ song_info.get('bpm', '—') }} BPM</div>
+    
+    <div class="flex items-center gap-xs ml-sm">
+        <a href="/api/lyrics/{{ song_name }}" class="band-btn-secondary band-btn-sm" style="padding: 0.25rem 0.55rem; font-size: 0.8rem;" onclick="event.stopPropagation();">
+            📜 Lyrics
+        </a>
+        <button class="band-btn-secondary band-btn-sm" 
+                style="padding: 0.25rem 0.55rem; font-size: 0.8rem;" 
+                onclick="event.stopPropagation();"
+                hx-get="/api/songs/{{ song_name }}/edit?context=row" 
+                hx-target="#song-row-{{ song_name|lower|replace(' ', '-') }}" 
+                hx-swap="outerHTML"
+                title="Edit song length, key, vibe tags, artist & BPM">
+            ✏️ Edit
+        </button>
+    </div>
+</div>

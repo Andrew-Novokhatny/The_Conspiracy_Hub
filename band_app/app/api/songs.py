@@ -209,8 +209,40 @@ async def get_song_card(request: Request, song_name: str):
         raise HTTPException(status_code=500, detail=f"Error loading song: {str(e)}")
 
 
+@router.get("/{song_name}/row", response_class=HTMLResponse)
+async def get_song_row(request: Request, song_name: str):
+    """Get HTML row for a specific song - HTMX compatible"""
+    try:
+        songs_data = load_song_list()
+        if song_name not in songs_data:
+            raise HTTPException(status_code=404, detail=f"Song '{song_name}' not found")
+
+        song_info = songs_data[song_name]
+        available_lyrics = load_available_lyrics()
+        has_lyrics = song_name in available_lyrics
+
+        duration_minutes, duration_seconds = split_minutes_seconds(song_info.get('duration', 0))
+
+        return templates.TemplateResponse(request=request, name="songs/row_partial.html", context={
+            "request": request,
+            "song_name": song_name,
+            "song_info": song_info,
+            "duration_formatted": f"{duration_minutes:02d}:{duration_seconds:02d}",
+            "has_lyrics": has_lyrics,
+            "active_page": "songs",
+        })
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading song row: {str(e)}")
+
+
 @router.get("/{song_name}/edit", response_class=HTMLResponse)
-async def get_edit_song_form(request: Request, song_name: str):
+async def get_edit_song_form(
+    request: Request,
+    song_name: str,
+    context: Optional[str] = Query("card")
+):
     """Return the edit form for a specific song."""
     try:
         songs_data = load_song_list()
@@ -220,10 +252,18 @@ async def get_edit_song_form(request: Request, song_name: str):
             
         song_info = songs_data[song_name]
         
+        avg_len_seconds = song_info.get('avg_length') or song_info.get('duration')
+        avg_len_formatted = ""
+        if avg_len_seconds:
+            m, s = split_minutes_seconds(avg_len_seconds)
+            avg_len_formatted = f"{m}:{s:02d}"
+
         return templates.TemplateResponse(request=request, name="songs/edit.html", context={
             "request": request,
             "song_name": song_name,
             "song_info": song_info,
+            "avg_len_formatted": avg_len_formatted,
+            "context_type": context,
         })
     except HTTPException:
         raise
@@ -241,7 +281,8 @@ async def save_edited_song(
     has_horn: bool = Form(False),
     is_jam_vehicle: bool = Form(False),
     energy_level: str = Form("standard"),
-    avg_length: str = Form(None)
+    avg_length: Optional[str] = Form(""),
+    context_type: Optional[str] = Form("card")
 ):
     """Save edited song metadata."""
     try:
@@ -254,16 +295,16 @@ async def save_edited_song(
         avg_length_seconds = None
         if avg_length:
             try:
-                # If they enter '4:30', parse it. Or if they enter '270', parse it.
-                if ':' in avg_length:
-                    m, s = avg_length.split(':', 1)
+                raw_str = str(avg_length).strip()
+                if ':' in raw_str:
+                    m, s = raw_str.split(':', 1)
                     avg_length_seconds = int(m) * 60 + int(s)
-                else:
-                    avg_length_seconds = int(avg_length)
+                elif raw_str:
+                    avg_length_seconds = int(float(raw_str))
             except ValueError:
-                pass # fall back to None or whatever is derived
+                avg_length_seconds = None
                 
-        # Update metadata
+        # Update metadata dictionary
         songs_data[song_name].update({
             "artist": artist.strip(),
             "bpm": bpm,
@@ -274,33 +315,54 @@ async def save_edited_song(
             "avg_length": avg_length_seconds
         })
         
-        # Save to disk
+        # Save to persistent storage (CSV + Markdown on mounted disk)
         save_success = save_song_list(songs_data)
         if not save_success:
             raise Exception("Failed to save to CSV/Markdown")
             
-        # Return the read-only card to replace the form via HTMX
-        # Redirect to the card route or just render it here.
-        # Since we use HTMX, we can just return the updated card HTML.
-        
         song_info = songs_data[song_name]
         from core.song_manager import derive_song_duration
         song_info['duration'] = derive_song_duration(bpm, avg_length_seconds)
-        
         duration_minutes, duration_seconds = split_minutes_seconds(song_info['duration'])
-        
+        duration_formatted = f"{duration_minutes:02d}:{duration_seconds:02d}"
+
         has_lyrics = song_name in load_available_lyrics()
         has_tabs = any(tab for tab in load_available_tabs() if song_name.lower() in tab.lower())
-        
-        return templates.TemplateResponse(request=request, name="songs/card.html", context={
-            "request": request,
-            "song_name": song_name,
-            "song_info": song_info,
-            "duration_formatted": f"{duration_minutes:02d}:{duration_seconds:02d}",
-            "has_lyrics": has_lyrics,
-            "has_tabs": has_tabs,
-            "active_page": "songs",
-        })
+
+        if context_type == "row":
+            return templates.TemplateResponse(request=request, name="songs/row_partial.html", context={
+                "request": request,
+                "song_name": song_name,
+                "song_info": song_info,
+                "duration_formatted": duration_formatted,
+                "has_lyrics": has_lyrics,
+                "active_page": "songs",
+            })
+        elif context_type == "lyrics":
+            from core.lyrics_manager import load_lyrics_content, format_lyrics_for_display
+            raw_lyrics = load_lyrics_content(song_name)
+            lyrics_html = format_lyrics_for_display(raw_lyrics) if "not found" not in raw_lyrics.lower() else ""
+
+            return templates.TemplateResponse(request=request, name="lyrics/display_partial.html", context={
+                "request": request,
+                "song_name": song_name,
+                "artist": song_info.get('artist', ''),
+                "bpm": song_info.get('bpm', 120),
+                "song_key": song_info.get('song_key', ''),
+                "duration": song_info.get('duration', 0),
+                "lyrics_content": lyrics_html,
+                "active_page": "lyrics",
+            })
+        else:
+            return templates.TemplateResponse(request=request, name="songs/card.html", context={
+                "request": request,
+                "song_name": song_name,
+                "song_info": song_info,
+                "duration_formatted": duration_formatted,
+                "has_lyrics": has_lyrics,
+                "has_tabs": has_tabs,
+                "active_page": "songs",
+            })
     except HTTPException:
         raise
     except Exception as e:

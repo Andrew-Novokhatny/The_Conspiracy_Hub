@@ -143,6 +143,59 @@ def test_date_normalization():
     assert setlist_manager.human_readable_date("10172024") == "October 17, 2024"
     print("✅ Date normalization and human readable date formatting verified")
 
+def test_song_library_metadata_editing():
+    """Verify get_edit_song_form and save_edited_song for row and lyrics contexts"""
+    # GET edit form for row
+    res_form_row = client.get("/api/songs/1999/edit?context=row")
+    assert res_form_row.status_code == 200
+    assert "Edit Metadata" in res_form_row.text
+    assert 'name="context_type" value="row"' in res_form_row.text
+
+    # GET edit form for lyrics
+    res_form_lyrics = client.get("/api/songs/1999/edit?context=lyrics")
+    assert res_form_lyrics.status_code == 200
+    assert 'name="context_type" value="lyrics"' in res_form_lyrics.text
+
+    # GET row partial
+    res_row = client.get("/api/songs/1999/row")
+    assert res_row.status_code == 200
+    assert "1999" in res_row.text
+    assert "✏️ Edit" in res_row.text
+
+    # POST metadata update with row context
+    res_post_row = client.post("/api/songs/1999/edit", data={
+        "artist": "Prince & The Revolution",
+        "bpm": "119",
+        "song_key": "F",
+        "has_horn": "false",
+        "is_jam_vehicle": "true",
+        "energy_level": "high",
+        "avg_length": "4:30",
+        "context_type": "row"
+    })
+    assert res_post_row.status_code == 200
+    assert "Prince" in res_post_row.text
+    assert "JAM" in res_post_row.text
+
+    # Re-check updated song list in core song_manager
+    songs = song_manager.load_song_list()
+    assert songs["1999"]["artist"] == "Prince & The Revolution"
+    assert songs["1999"]["is_jam_vehicle"] is True
+    assert songs["1999"]["avg_length"] == 270
+
+    # Reset back to original values
+    client.post("/api/songs/1999/edit", data={
+        "artist": "Prince",
+        "bpm": "119",
+        "song_key": "F",
+        "has_horn": "false",
+        "is_jam_vehicle": "false",
+        "energy_level": "high",
+        "avg_length": "",
+        "context_type": "row"
+    })
+    print("✅ Song library metadata editing and persistence verified")
+
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")
     test_new_songs_in_song_list()
@@ -154,5 +207,6 @@ if __name__ == "__main__":
     test_song_key_metadata()
     test_builder_edit_and_delete_setlist()
     test_date_normalization()
+    test_song_library_metadata_editing()
     print("\n🎉 ALL TESTS PASSED!")
 

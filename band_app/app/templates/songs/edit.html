@@ -1,24 +1,32 @@
-<!-- Song Edit Form Partial (Replaces card.html via HTMX) -->
-<div class="panel fade-in-up" id="song-card-{{ song_name|lower|replace(' ', '-') }}">
+<!-- Song Edit Form Partial (HTMX Compatible) -->
+{% set is_row = (context_type == 'row') %}
+{% set is_lyrics = (context_type == 'lyrics') %}
+{% set element_id = "lyrics-container" if is_lyrics else ("song-row-" ~ song_name|lower|replace(' ', '-')) if is_row else ("song-card-" ~ song_name|lower|replace(' ', '-')) %}
+{% set target_selector = "#lyrics-container" if is_lyrics else ("#song-row-" ~ song_name|lower|replace(' ', '-')) if is_row else ("#song-card-" ~ song_name|lower|replace(' ', '-')) %}
+{% set swap_mode = "innerHTML" if is_lyrics else "outerHTML" %}
+{% set cancel_url = ("/api/lyrics/" ~ song_name ~ "?partial=1") if is_lyrics else ("/api/songs/" ~ song_name ~ "/row") if is_row else ("/api/songs/" ~ song_name ~ "/card") %}
+
+<div class="panel fade-in-up" id="{{ element_id }}" style="{% if is_row %}margin-bottom: 0.5rem; background: var(--bg-card); border: 1px solid var(--primary);{% endif %}">
     <form hx-post="/api/songs/{{ song_name }}/edit" 
-          hx-target="#song-card-{{ song_name|lower|replace(' ', '-') }}"
-          hx-swap="outerHTML">
+          hx-target="{{ target_selector }}"
+          hx-swap="{{ swap_mode }}">
+        <input type="hidden" name="context_type" value="{{ context_type or 'card' }}">
         
         <div class="flex items-center justify-between mb-md">
             <div>
-                <div style="font-size: 1.2rem; font-weight: 700;">{{ song_name }}</div>
-                <div class="text-muted text-sm mt-sm">Edit Metadata</div>
+                <div style="font-size: 1.2rem; font-weight: 700; color: var(--text-primary);">🎵 {{ song_name }}</div>
+                <div class="text-muted text-sm mt-xs">Edit Metadata (BPM, Key, Duration, Tags)</div>
             </div>
             <button type="button" class="band-btn-secondary band-btn-sm" 
-                    hx-get="/api/songs/{{ song_name }}" 
-                    hx-target="#song-card-{{ song_name|lower|replace(' ', '-') }}"
-                    hx-swap="outerHTML">Cancel</button>
+                    hx-get="{{ cancel_url }}" 
+                    hx-target="{{ target_selector }}"
+                    hx-swap="{{ swap_mode }}">Cancel</button>
         </div>
 
         <div class="grid grid-3 gap-sm mb-md" style="grid-template-columns: 2fr 1fr 1fr;">
             <div>
                 <label class="text-sm text-muted">Artist</label>
-                <input type="text" name="artist" class="form-input" value="{{ song_info.get('artist', '') }}">
+                <input type="text" name="artist" class="form-input" value="{{ song_info.get('artist', '') }}" placeholder="Artist / Band">
             </div>
             <div>
                 <label class="text-sm text-muted">BPM</label>
@@ -26,39 +34,40 @@
             </div>
             <div>
                 <label class="text-sm text-muted">Song Key</label>
-                <input type="text" name="song_key" class="form-input" placeholder="e.g. Am, G" value="{{ song_info.get('song_key', '') }}">
+                <input type="text" name="song_key" class="form-input" placeholder="e.g. Am, G, C#m" value="{{ song_info.get('song_key', '') }}">
             </div>
         </div>
         
         <div class="grid grid-2 gap-sm mb-md">
             <div>
-                <label class="text-sm text-muted">Average Length (e.g. 4:30 or 270)</label>
+                <label class="text-sm text-muted">Average Length / Duration (e.g. 4:30 or 270)</label>
                 <input type="text" name="avg_length" class="form-input" 
-                       value="{% if song_info.get('avg_length') %}{{ song_info.get('avg_length') }}{% endif %}">
+                       placeholder="e.g. 4:30"
+                       value="{{ avg_len_formatted }}">
             </div>
             <div>
                 <label class="text-sm text-muted">Energy Level</label>
                 <select name="energy_level" class="form-input" style="background: var(--bg-hover);">
-                    <option value="high" {% if song_info.get('energy_level') == 'high' %}selected{% endif %}>🔥 High</option>
-                    <option value="standard" {% if song_info.get('energy_level') == 'standard' or not song_info.get('energy_level') %}selected{% endif %}>⭐ Standard</option>
-                    <option value="low" {% if song_info.get('energy_level') == 'low' %}selected{% endif %}>💤 Low</option>
+                    <option value="high" {% if song_info.get('energy_level') == 'high' %}selected{% endif %}>🔥 High Energy</option>
+                    <option value="standard" {% if song_info.get('energy_level') == 'standard' or not song_info.get('energy_level') %}selected{% endif %}>⭐ Standard Energy</option>
+                    <option value="low" {% if song_info.get('energy_level') == 'low' %}selected{% endif %}>💤 Low Energy</option>
                 </select>
             </div>
         </div>
         
-        <div class="flex gap-md mb-md">
-            <label class="flex items-center gap-sm cursor-pointer">
+        <div class="flex gap-md mb-md flex-wrap">
+            <label class="flex items-center gap-sm cursor-pointer" style="user-select: none;">
                 <input type="checkbox" name="has_horn" value="true" {% if song_info.get('has_horn') %}checked{% endif %}>
-                🎺 Has Horn
+                🎺 Has Horn Section
             </label>
-            <label class="flex items-center gap-sm cursor-pointer">
+            <label class="flex items-center gap-sm cursor-pointer" style="user-select: none;">
                 <input type="checkbox" name="is_jam_vehicle" value="true" {% if song_info.get('is_jam_vehicle') %}checked{% endif %}>
                 🛸 Jam Vehicle
             </label>
         </div>
 
         <div class="flex flex-wrap gap-sm">
-            <button type="submit" class="band-btn band-btn-sm">💾 Save Changes</button>
+            <button type="submit" class="band-btn band-btn-sm">💾 Save Metadata</button>
         </div>
     </form>
 </div>

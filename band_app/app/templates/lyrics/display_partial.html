@@ -8,9 +8,15 @@
         </div>
         <div class="flex gap-sm items-center flex-wrap">
             <button class="band-btn-secondary band-btn-sm" 
+                    hx-get="/api/songs/{{ song_name }}/edit?context=lyrics" 
+                    hx-target="#lyrics-container" 
+                    hx-swap="innerHTML"
+                    title="Edit song length, key, vibe tags, artist & BPM">🏷️ Edit Metadata</button>
+            <button class="band-btn-secondary band-btn-sm" 
                     hx-get="/api/lyrics/{{ song_name }}/edit" 
                     hx-target="#lyrics-container" 
-                    hx-swap="innerHTML">✏️ Edit</button>
+                    hx-swap="innerHTML"
+                    title="Edit lyrics text">✏️ Edit Lyrics</button>
             <a href="/api/lyrics/{{ song_name }}/fullscreen" class="band-btn-secondary band-btn-sm">🔍 Full Screen</a>
         </div>
     </div>
