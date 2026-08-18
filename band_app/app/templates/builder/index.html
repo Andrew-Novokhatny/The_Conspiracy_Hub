@@ -107,7 +107,7 @@
                     <strong>{{ song }}</strong>
                     {% if s_info.get('has_horn') %}🎺{% endif %}
                     {% if s_info.get('is_jam_vehicle') %}🛸{% endif %}
-                    {% if s_info.get('energy_level') == 'high' %}🔥{% elif s_info.get('energy_level') == 'low' %}💤{% else %}⭐{% endif %}
+                    {% if s_info.get('energy_level') == 'high' %}🔥{% elif s_info.get('energy_level') == 'low' %}💤{% endif %}
                 </div>
                 <div class="flex items-center gap-sm">
                     {% if s_info.get('song_key') %}
@@ -198,7 +198,7 @@
 
     function createSetItemElement(songId, isSegue = false) {
         const math = songMathData[songId] || { bpm: 120, duration: 240, has_horn: false, is_jam_vehicle: false, song_key: '', energy: 'standard' };
-        const energyEmoji = math.energy === 'high' ? '🔥' : math.energy === 'low' ? '💤' : '⭐';
+        const energyEmoji = math.energy === 'high' ? '🔥' : math.energy === 'low' ? '💤' : '';
         const div = document.createElement('div');
         div.className = 'sortable-item';
         div.setAttribute('data-id', songId);
@@ -208,7 +208,7 @@
                 <strong class="song-title-text">${isSegue ? '<span style="color: var(--accent); font-weight: bold; margin-right: 0.25rem;">→</span>' : ''}${songId}</strong>
                 ${math.has_horn ? '🎺' : ''}
                 ${math.is_jam_vehicle ? '🛸' : ''}
-                <span>${energyEmoji}</span>
+                ${energyEmoji ? `<span>${energyEmoji}</span>` : ''}
             </div>
             <div class="flex items-center gap-sm">
                 ${math.song_key ? `<span class="badge" style="font-size: 0.72rem; padding: 0.1rem 0.35rem; background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: bold;">🔑 ${math.song_key}</span>` : ''}

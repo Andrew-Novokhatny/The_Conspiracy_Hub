@@ -32,7 +32,11 @@
         <span class="show-meta-tag">🛸 Jam</span>
         {% endif %}
 
-        <span class="show-meta-tag" style="text-transform: capitalize;">🔥 {{ current_song.energy_level }}</span>
+        {% if current_song.energy_level == 'high' %}
+        <span class="show-meta-tag">🔥 High</span>
+        {% elif current_song.energy_level == 'low' %}
+        <span class="show-meta-tag">💤 Low</span>
+        {% endif %}
     </div>
 </div>
 

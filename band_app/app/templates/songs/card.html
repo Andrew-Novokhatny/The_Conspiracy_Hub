@@ -14,7 +14,6 @@
         {% if song_info.get('has_horn') %}<span class="badge badge-horn">🎺 Horn</span>{% endif %}
         {% if song_info.get('is_jam_vehicle') %}<span class="badge badge-jam">🛸 Jam Vehicle</span>{% endif %}
         {% if song_info.get('energy_level') == 'high' %}<span class="badge badge-energy-high">🔥 High Energy</span>{% endif %}
-        {% if song_info.get('energy_level') == 'standard' %}<span class="badge" style="background: var(--bg-hover); color: var(--text-secondary); border: 1px solid var(--border-subtle);">⭐ Standard</span>{% endif %}
         {% if song_info.get('energy_level') == 'low' %}<span class="badge badge-energy-low">💤 Low Energy</span>{% endif %}
     </div>
 

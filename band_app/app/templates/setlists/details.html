@@ -56,7 +56,7 @@
                 {% if song.is_segue %}<span style="color: var(--accent); font-weight: 800; font-size: 1.1rem; margin-right: 0.35rem;" title="Segue into this song">→</span>{% endif %}{{ song.name }}
                 {% if s_info.get('has_horn') %}🎺{% endif %}
                 {% if s_info.get('is_jam_vehicle') %}🛸{% endif %}
-                {% if s_info.get('energy_level') == 'high' %}🔥{% elif s_info.get('energy_level') == 'low' %}💤{% else %}⭐{% endif %}
+                {% if s_info.get('energy_level') == 'high' %}🔥{% elif s_info.get('energy_level') == 'low' %}💤{% endif %}
             </a>
             {% else %}
             <span class="set-song-name">
