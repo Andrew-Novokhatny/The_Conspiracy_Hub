@@ -196,6 +196,45 @@ def test_song_library_metadata_editing():
     })
     print("✅ Song library metadata editing and persistence verified")
 
+def test_segue_marker_persistence():
+    """Verify builder export, setlist file saving, markdown export, and show mode for segue markers"""
+    # 1. Export setlist with segue markers from builder
+    res = client.post("/api/builder/export", json={
+        "venue": "Test Segue Venue",
+        "date": "08/18/26",
+        "sets": {
+            "set1": [
+                {"name": "1999", "bpm": 119, "is_segue": True},
+                {"name": "Dreams", "bpm": 120, "is_segue": False}
+            ]
+        }
+    })
+    assert res.status_code == 200
+    assert res.json().get("success") is True
+
+    # 2. Verify file on disk contains '->' for segue song
+    setlists = setlist_manager.load_previous_setlists()
+    target = next((s for s in setlists if s["venue"] == "Test Segue Venue"), None)
+    assert target is not None, "Exported test setlist not found"
+    
+    set1_songs = target["sets"]["set1"]
+    assert set1_songs[0]["name"] == "1999"
+    assert set1_songs[0]["is_segue"] is True
+    
+    with open(target["file_path"], "r", encoding="utf-8") as f:
+        content = f.read()
+    assert "1999 (119) ->" in content
+
+    # 3. Verify markdown export table contains segue marker '➔'
+    target_idx = setlists.index(target)
+    res_md = client.get(f"/api/setlists/{target_idx}/export?format=markdown")
+    assert res_md.status_code == 200
+    assert "1999 ➔" in res_md.text
+
+    # 4. Clean up test setlist
+    client.post(f"/api/setlists/{target_idx}/delete")
+    print("✅ Segue marker persistence, export, and rendering verified")
+
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")
     test_new_songs_in_song_list()
@@ -208,5 +247,6 @@ if __name__ == "__main__":
     test_builder_edit_and_delete_setlist()
     test_date_normalization()
     test_song_library_metadata_editing()
+    test_segue_marker_persistence()
     print("\n🎉 ALL TESTS PASSED!")
 

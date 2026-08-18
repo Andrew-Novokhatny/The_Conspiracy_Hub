@@ -105,8 +105,14 @@ def parse_setlist_file(file_path: str, venue_dir: str) -> Dict:
             elif 'SET 3' in line_upper or 'ENCORE' in line_upper:
                 current_set = 'set3'
             elif current_set and line and not line.startswith('#'):
+                # Detect if the line contains a segue marker (-> or →)
+                is_segue = '->' in line or '→' in line
+
+                # Clean line of segue arrows before extracting song name & BPM
+                clean_line = re.sub(r'->|→', '', line).strip()
+
                 # Extract song name and BPM - Fixed regex to capture full song name
-                song_match = re.search(r'^(.+?)\s*(?:\((\d+)\))?$', line)
+                song_match = re.search(r'^(.+?)\s*(?:\((\d+)\))?$', clean_line)
                 if song_match:
                     song_name = song_match.group(1).strip()
                     bpm = song_match.group(2) if song_match.group(2) else None
@@ -119,11 +125,12 @@ def parse_setlist_file(file_path: str, venue_dir: str) -> Dict:
 
                     if song_name and song_name.lower() != 'empty':
                         # Check for duplicates - only add if not already in the set
-                        existing_songs = [s['name'] for s in sets[current_set]]
+                        existing_songs = [s['name'] if isinstance(s, dict) else str(s) for s in sets[current_set]]
                         if song_name not in existing_songs:
                             sets[current_set].append({
                                 'name': song_name,
                                 'bpm': int(bpm) if bpm else None,
+                                'is_segue': is_segue,
                                 'raw_line': line
                             })
 
@@ -162,10 +169,21 @@ def save_setlist_to_file(setlist_data: Dict) -> bool:
                 content += "#   \n# ****—-SET 3****  \n"
 
             for song in set_songs:
-                if song['bpm']:
-                    content += f"{song['name']} ({song['bpm']})  \n"
+                if isinstance(song, dict):
+                    s_name = song.get('name', '')
+                    s_bpm = song.get('bpm')
+                    is_segue = song.get('is_segue', False) or song.get('segue', False)
                 else:
-                    content += f"{song['name']}  \n"
+                    s_name = str(song)
+                    s_bpm = None
+                    is_segue = False
+
+                segue_str = " ->" if is_segue else ""
+
+                if s_bpm:
+                    content += f"{s_name} ({s_bpm}){segue_str}  \n"
+                else:
+                    content += f"{s_name}{segue_str}  \n"
 
             if set_num < 3:
                 content += "#   \n"
@@ -247,11 +265,20 @@ def build_setlist_markdown(venue: str, date: str, setlist: Dict[str, List[str]],
         lines.append("|---|------|-----|----------|")
 
         for idx, song in enumerate(songs, 1):
-            song_info = songs_data.get(song, {})
-            bpm = song_info.get('bpm', '---')
+            if isinstance(song, dict):
+                song_name = song.get('name', '')
+                is_segue = song.get('is_segue', False) or song.get('segue', False)
+                bpm = song.get('bpm') or songs_data.get(song_name, {}).get('bpm', '---')
+            else:
+                song_name = str(song)
+                is_segue = False
+                bpm = songs_data.get(song_name, {}).get('bpm', '---')
+
+            song_info = songs_data.get(song_name, {})
             duration = song_info.get('duration', 0)
             duration_str = format_duration(duration) if duration else '---'
-            lines.append(f"| {idx} | {song} | {bpm} | {duration_str} |")
+            song_display = f"{song_name} ➔" if is_segue else song_name
+            lines.append(f"| {idx} | {song_display} | {bpm} | {duration_str} |")
 
         # Add set timing
         set_duration_key = f"set{set_num}_duration"

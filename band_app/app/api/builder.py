@@ -56,9 +56,9 @@ async def get_builder(
                     "setlist_id": target_id,
                     "venue": s.get("venue", ""),
                     "date": s.get("date", ""),
-                    "set1": [item["name"] for item in s["sets"].get("set1", [])],
-                    "set2": [item["name"] for item in s["sets"].get("set2", [])],
-                    "set3": [item["name"] for item in s["sets"].get("set3", [])],
+                    "set1": [{"name": item["name"], "bpm": item.get("bpm"), "is_segue": item.get("is_segue", False)} if isinstance(item, dict) else {"name": str(item), "bpm": None, "is_segue": False} for item in s["sets"].get("set1", [])],
+                    "set2": [{"name": item["name"], "bpm": item.get("bpm"), "is_segue": item.get("is_segue", False)} if isinstance(item, dict) else {"name": str(item), "bpm": None, "is_segue": False} for item in s["sets"].get("set2", [])],
+                    "set3": [{"name": item["name"], "bpm": item.get("bpm"), "is_segue": item.get("is_segue", False)} if isinstance(item, dict) else {"name": str(item), "bpm": None, "is_segue": False} for item in s["sets"].get("set3", [])],
                 }
 
         return templates.TemplateResponse(request=request, name="builder/index.html", context={

@@ -4,7 +4,12 @@
      data-bpm="{{ current_song.bpm or '' }}"
      data-song-idx="{{ current_idx }}">
     
-    <h1 class="show-song-title">{{ current_song.name }}</h1>
+    <h1 class="show-song-title">
+        {{ current_song.name }}
+        {% if current_song.is_segue %}
+        <span class="show-meta-tag" style="background: rgba(255, 107, 107, 0.25); color: #ff6b6b; font-size: 1.1rem; border-color: rgba(255, 107, 107, 0.5); vertical-align: middle; margin-left: 0.5rem;" title="Segues directly into next song">➔ Segue</span>
+        {% endif %}
+    </h1>
     
     <div class="show-song-meta">
         {% if current_song.artist %}

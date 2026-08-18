@@ -283,11 +283,11 @@ async def export_setlist(setlist_id: int, format: str = Query("json")):
         setlist = setlists[setlist_id]
 
         if format == "json":
-            # Build flat song list for export
+            # Build song list for export
             export_setlist = {
-                "set1": [song['name'] for song in setlist['sets'].get('set1', [])],
-                "set2": [song['name'] for song in setlist['sets'].get('set2', [])],
-                "set3": [song['name'] for song in setlist['sets'].get('set3', [])]
+                "set1": setlist['sets'].get('set1', []),
+                "set2": setlist['sets'].get('set2', []),
+                "set3": setlist['sets'].get('set3', [])
             }
 
             export_data = create_setlist_export_data(
@@ -306,18 +306,18 @@ async def export_setlist(setlist_id: int, format: str = Query("json")):
             total_show_seconds = 0
 
             for set_key, songs in setlist['sets'].items():
-                song_names = [song['name'] for song in songs]
+                song_names = [song['name'] if isinstance(song, dict) else str(song) for song in songs]
                 set_seconds, formatted_duration = calculate_set_timing(song_names, songs_data)
                 set_durations[f"{set_key}_duration"] = formatted_duration
                 total_show_seconds += set_seconds
 
             set_durations['total_show'] = format_duration(total_show_seconds)
 
-            # Build flat song list for markdown
+            # Build song list for markdown
             export_setlist = {
-                "set1": [song['name'] for song in setlist['sets'].get('set1', [])],
-                "set2": [song['name'] for song in setlist['sets'].get('set2', [])],
-                "set3": [song['name'] for song in setlist['sets'].get('set3', [])]
+                "set1": setlist['sets'].get('set1', []),
+                "set2": setlist['sets'].get('set2', []),
+                "set3": setlist['sets'].get('set3', [])
             }
 
             markdown_content = build_setlist_markdown(
@@ -516,7 +516,8 @@ async def get_setlist_show_mode(
                     'artist': s_info.get('artist', ''),
                     'energy_level': s_info.get('energy_level', 'standard'),
                     'has_horn': s_info.get('has_horn', False),
-                    'is_jam_vehicle': s_info.get('is_jam_vehicle', False)
+                    'is_jam_vehicle': s_info.get('is_jam_vehicle', False),
+                    'is_segue': s.get('is_segue', False) or s.get('segue', False)
                 }
                 flattened_songs.append(song_obj)
                 current_set_group['songs'].append(song_obj)
