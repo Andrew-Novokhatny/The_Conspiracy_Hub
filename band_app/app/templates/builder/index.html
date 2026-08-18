@@ -199,8 +199,8 @@
         div.setAttribute('data-id', songId);
         div.innerHTML = `
             <div class="flex items-center gap-sm">
-                <button class="segue-btn ${isSegue ? 'active' : ''}" onclick="toggleSegue(this)" title="Segue into next song">-></button>
-                <strong>${songId}</strong>
+                <button class="segue-btn ${isSegue ? 'active' : ''}" onclick="toggleSegue(this)" title="Toggle segue into this song">-></button>
+                <strong class="song-title-text">${isSegue ? '<span style="color: var(--accent); font-weight: bold; margin-right: 0.25rem;">→</span>' : ''}${songId}</strong>
                 ${math.has_horn ? '🎺' : ''}
                 ${math.is_jam_vehicle ? '🛸' : ''}
             </div>

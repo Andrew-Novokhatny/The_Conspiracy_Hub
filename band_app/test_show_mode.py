@@ -225,11 +225,11 @@ def test_segue_marker_persistence():
         content = f.read()
     assert "1999 (119) ->" in content
 
-    # 3. Verify markdown export table contains segue marker '➔'
+    # 3. Verify markdown export table contains segue marker '→'
     target_idx = setlists.index(target)
     res_md = client.get(f"/api/setlists/{target_idx}/export?format=markdown")
     assert res_md.status_code == 200
-    assert "1999 ➔" in res_md.text
+    assert "→ 1999" in res_md.text
 
     # 4. Clean up test setlist
     client.post(f"/api/setlists/{target_idx}/delete")

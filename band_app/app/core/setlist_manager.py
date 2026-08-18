@@ -277,7 +277,7 @@ def build_setlist_markdown(venue: str, date: str, setlist: Dict[str, List[str]],
             song_info = songs_data.get(song_name, {})
             duration = song_info.get('duration', 0)
             duration_str = format_duration(duration) if duration else '---'
-            song_display = f"{song_name} ➔" if is_segue else song_name
+            song_display = f"→ {song_name}" if is_segue else song_name
             lines.append(f"| {idx} | {song_display} | {bpm} | {duration_str} |")
 
         # Add set timing

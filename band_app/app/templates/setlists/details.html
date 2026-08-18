@@ -52,15 +52,14 @@
             <span class="set-song-number">{{ loop.index }}</span>
             {% if song.name in songs_data and song.name in (songs_data.keys()|list) %}
             <a href="/api/lyrics/{{ song.name }}" class="set-song-name" style="color: var(--text-primary); text-decoration: none;">
-                {{ song.name }}
+                {% if song.is_segue %}<span style="color: var(--accent); font-weight: 800; font-size: 1.1rem; margin-right: 0.35rem;" title="Segue into this song">→</span>{% endif %}{{ song.name }}
                 {% if songs_data.get(song.name, {}).get('has_horn') %}🎺{% endif %}
                 {% if songs_data.get(song.name, {}).get('is_jam_vehicle') %}🛸{% endif %}
             </a>
             {% else %}
-            <span class="set-song-name">{{ song.name }}</span>
-            {% endif %}
-            {% if song.is_segue %}
-            <span class="badge" style="background: rgba(255, 107, 107, 0.2); color: #ff6b6b; font-weight: 700; margin-left: 0.25rem;" title="Segues directly into next song">➔ Segue</span>
+            <span class="set-song-name">
+                {% if song.is_segue %}<span style="color: var(--accent); font-weight: 800; font-size: 1.1rem; margin-right: 0.35rem;" title="Segue into this song">→</span>{% endif %}{{ song.name }}
+            </span>
             {% endif %}
             {% if song.bpm %}
             <span class="set-song-bpm">{{ song.bpm }}</span>
