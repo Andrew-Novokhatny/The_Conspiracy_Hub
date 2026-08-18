@@ -127,7 +127,8 @@ def test_builder_edit_and_delete_setlist():
     res = client.get("/api/builder/?edit=0")
     assert res.status_code == 200
     assert "initialSetlist" in res.text
-    print("✅ Setlist Builder edit preloading endpoint verified")
+    assert any(e in res.text for e in ["🔥", "⭐", "💤"])
+    print("✅ Setlist Builder edit preloading endpoint & energy emojis verified")
 
     # Test setlist details delete button present
     res_det = client.get("/api/setlists/0")

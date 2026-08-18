@@ -101,15 +101,19 @@
 
         <div id="library-list" class="sortable-list" style="min-height: 500px;">
             {% for song in sorted_songs %}
+            {% set s_info = songs_data[song] %}
             <div class="sortable-item library-item" data-id="{{ song }}" data-search="{{ song|lower }}">
                 <div>
                     <strong>{{ song }}</strong>
+                    {% if s_info.get('has_horn') %}🎺{% endif %}
+                    {% if s_info.get('is_jam_vehicle') %}🛸{% endif %}
+                    {% if s_info.get('energy_level') == 'high' %}🔥{% elif s_info.get('energy_level') == 'low' %}💤{% else %}⭐{% endif %}
                 </div>
                 <div class="flex items-center gap-sm">
-                    {% if songs_data[song].get('song_key') %}
-                    <span class="badge" style="font-size: 0.72rem; padding: 0.1rem 0.35rem; background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: bold;">🔑 {{ songs_data[song].song_key }}</span>
+                    {% if s_info.get('song_key') %}
+                    <span class="badge" style="font-size: 0.72rem; padding: 0.1rem 0.35rem; background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: bold;">🔑 {{ s_info.song_key }}</span>
                     {% endif %}
-                    <span class="text-xs text-muted">{{ songs_data[song].bpm }} BPM</span>
+                    <span class="text-xs text-muted">{{ s_info.bpm }} BPM</span>
                 </div>
             </div>
             {% endfor %}
@@ -193,7 +197,8 @@
     const initialSetlist = {{ initial_setlist | safe }};
 
     function createSetItemElement(songId, isSegue = false) {
-        const math = songMathData[songId] || { bpm: 120, duration: 240, has_horn: false, is_jam_vehicle: false, song_key: '' };
+        const math = songMathData[songId] || { bpm: 120, duration: 240, has_horn: false, is_jam_vehicle: false, song_key: '', energy: 'standard' };
+        const energyEmoji = math.energy === 'high' ? '🔥' : math.energy === 'low' ? '💤' : '⭐';
         const div = document.createElement('div');
         div.className = 'sortable-item';
         div.setAttribute('data-id', songId);
@@ -203,6 +208,7 @@
                 <strong class="song-title-text">${isSegue ? '<span style="color: var(--accent); font-weight: bold; margin-right: 0.25rem;">→</span>' : ''}${songId}</strong>
                 ${math.has_horn ? '🎺' : ''}
                 ${math.is_jam_vehicle ? '🛸' : ''}
+                <span>${energyEmoji}</span>
             </div>
             <div class="flex items-center gap-sm">
                 ${math.song_key ? `<span class="badge" style="font-size: 0.72rem; padding: 0.1rem 0.35rem; background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: bold;">🔑 ${math.song_key}</span>` : ''}
