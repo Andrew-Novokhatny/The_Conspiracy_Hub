@@ -1666,6 +1666,9 @@ a {
     flex-direction: column;
     position: relative;
     overflow-x: hidden;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
 }
 
 .show-stage-header {

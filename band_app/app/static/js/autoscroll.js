@@ -160,18 +160,36 @@ class LyricsAutoScroller {
     pause() {
         this.isPlaying = false;
         this.lastTimestamp = null;
-        cancelAnimationFrame(this.animationFrameId);
+        this.subPixelAccumulator = 0;
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+        }
+        this.updateUI();
+    }
+
+    reset(durationSeconds, bpm) {
+        this.pause();
+        if (durationSeconds) this.durationSeconds = parseFloat(durationSeconds);
+        this.bpm = bpm ? parseInt(bpm) : null;
+        this.subPixelAccumulator = 0;
+        this.lastTimestamp = null;
+        this.scrollToTop(false);
         this.updateUI();
     }
 
     scrollToTop(smooth = true) {
+        this.subPixelAccumulator = 0;
+        this.lastTimestamp = null;
         const { isWindow, container } = this.getScrollStats();
         if (isWindow) {
-            window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+            window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'instant' });
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
         } else {
-            container.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+            container.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'instant' });
+            container.scrollTop = 0;
         }
-        this.subPixelAccumulator = 0;
         this.updateProgress();
     }
 

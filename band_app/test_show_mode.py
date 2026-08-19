@@ -55,7 +55,7 @@ def test_show_mode_endpoint():
     # Test setlist 0
     res = client.get("/api/setlists/0/show")
     assert res.status_code == 200
-    assert "Show Mode" in res.text
+    assert "show-mode-page" in res.text
     assert "autoscroll.js" in res.text
     assert "show-bottom-bar" in res.text
     assert "show-sidebar" in res.text
