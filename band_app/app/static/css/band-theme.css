@@ -1723,18 +1723,42 @@ a {
     flex-shrink: 0;
 }
 
-.show-sidebar-toggle-btn-header,
-.show-exit-btn {
-    padding: 0.35rem 0.65rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    white-space: nowrap;
-    flex-shrink: 0;
+.show-back-btn,
+.show-exit-btn,
+.show-header-btn,
+.sidebar-header-toggle-btn,
+.show-sidebar-toggle-btn-header {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
     user-select: none;
     -webkit-user-select: none;
+}
+
+.show-back-btn:hover,
+.show-exit-btn:hover,
+.show-header-btn:hover,
+.sidebar-header-toggle-btn:hover,
+.show-sidebar-toggle-btn-header:hover {
+    background: rgba(0, 212, 216, 0.15);
+    border-color: rgba(0, 212, 216, 0.4);
+    color: var(--primary);
+}
+
+.show-back-btn:active,
+.sidebar-header-toggle-btn:active {
+    transform: scale(0.96);
 }
 
 .show-stage-viewport {
