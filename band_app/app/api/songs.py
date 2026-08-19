@@ -17,9 +17,11 @@ from core.song_manager import (
     get_song_stats,
     save_song_list,
     split_minutes_seconds,
-    combine_avg_length
+    combine_avg_length,
+    derive_song_duration
 )
-from core.lyrics_manager import load_available_lyrics
+from core.lyrics_manager import load_available_lyrics, save_lyrics_content
+from core.lyrics_fetcher import fetch_lyrics_online
 from core.utils import load_available_tabs
 
 router = APIRouter()
@@ -27,6 +29,21 @@ router = APIRouter()
 # Setup templates
 TEMPLATES_DIR = Path(__file__).parent.parent / "templates"
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
+
+def parse_time_string(val: str) -> Optional[int]:
+    if not val:
+        return None
+    val = val.strip()
+    if ":" in val:
+        parts = val.split(":")
+        try:
+            return int(parts[0]) * 60 + int(parts[1])
+        except (ValueError, IndexError):
+            return None
+    try:
+        return int(float(val))
+    except (ValueError, TypeError):
+        return None
 
 @router.get("/", response_class=HTMLResponse)
 async def songs_home(request: Request):
@@ -47,6 +64,68 @@ async def songs_home(request: Request):
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading songs library: {str(e)}")
+
+
+@router.get("/add-modal", response_class=HTMLResponse)
+async def get_add_song_modal(request: Request):
+    """Render Add Song Modal"""
+    return templates.TemplateResponse(request=request, name="songs/add_modal.html", context={"request": request})
+
+
+@router.post("/add")
+async def add_new_song(
+    request: Request,
+    title: str = Form(...),
+    artist: str = Form(""),
+    bpm: int = Form(120),
+    song_key: str = Form(""),
+    avg_length: str = Form(""),
+    energy_level: str = Form("standard"),
+    has_horn: Optional[bool] = Form(False),
+    is_jam_vehicle: Optional[bool] = Form(False),
+    auto_fetch_lyrics: Optional[bool] = Form(False),
+    lyrics_content: Optional[str] = Form(None)
+):
+    """Add new song to the catalog and optionally fetch/save its lyrics"""
+    clean_title = title.strip()
+    if not clean_title:
+        raise HTTPException(status_code=400, detail="Song title is required")
+
+    songs_data = load_song_list()
+    
+    parsed_length = parse_time_string(avg_length)
+    duration_sec = derive_song_duration(bpm, parsed_length)
+
+    songs_data[clean_title] = {
+        "bpm": bpm,
+        "song_key": song_key.strip(),
+        "duration": duration_sec,
+        "has_horn": bool(has_horn),
+        "energy_level": energy_level.strip().lower() if energy_level.strip().lower() in {"high", "standard", "low"} else "standard",
+        "is_jam_vehicle": bool(is_jam_vehicle),
+        "artist": artist.strip(),
+        "avg_length": parsed_length,
+        "raw_line": f"{clean_title} ({bpm})",
+    }
+
+    # 1. Save metadata to CSV and Markdown
+    save_song_list(songs_data)
+
+    # 2. Save or fetch lyrics
+    if lyrics_content and lyrics_content.strip():
+        save_lyrics_content(clean_title, lyrics_content.strip())
+    elif auto_fetch_lyrics:
+        try:
+            fetched = fetch_lyrics_online(clean_title, artist.strip())
+            if fetched.get("success") and fetched.get("lyrics"):
+                save_lyrics_content(clean_title, fetched["lyrics"])
+        except Exception as e:
+            print(f"Auto-fetch lyrics exception for '{clean_title}': {e}")
+
+    return HTMLResponse(
+        content="<script>window.location.href='/api/songs/';</script>",
+        headers={"HX-Redirect": "/api/songs/"}
+    )
 
 @router.get("/list")
 async def get_songs_list(

@@ -1,0 +1,137 @@
+<!-- Add Song Modal Partial -->
+<div class="modal-backdrop" id="add-song-modal" onclick="if(event.target === this) closeModal()">
+    <div class="modal-dialog modal-md" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="flex items-center gap-sm">
+                <div class="modal-icon" style="background: rgba(0, 212, 216, 0.15); color: var(--primary); width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                </div>
+                <div>
+                    <h3 class="modal-title" style="font-size: 1.15rem; font-weight: 700; margin: 0;">Add Song to Catalog</h3>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">Adds song to persistent catalog & fetches lyrics</div>
+                </div>
+            </div>
+            <button class="modal-close-btn" onclick="closeModal()" title="Close">&times;</button>
+        </div>
+
+        <form id="add-song-form" class="modal-body" style="padding: 1.25rem;" hx-post="/api/songs/add" hx-target="#modal-container" hx-swap="innerHTML">
+            <div class="form-group mb-sm">
+                <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; display: block;">Song Title <span style="color: var(--primary);">*</span></label>
+                <input type="text" 
+                       name="title" 
+                       id="add-song-title" 
+                       class="form-input" 
+                       placeholder="e.g. 24K Magic, Superstition..." 
+                       required 
+                       autocomplete="off">
+            </div>
+
+            <div class="form-group mb-sm">
+                <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; display: block;">Artist</label>
+                <input type="text" 
+                       name="artist" 
+                       id="add-song-artist" 
+                       class="form-input" 
+                       placeholder="e.g. Bruno Mars, Stevie Wonder...">
+            </div>
+
+            <div class="grid grid-cols-3 gap-sm mb-sm">
+                <div class="form-group">
+                    <label class="form-label" style="font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem; display: block;">BPM</label>
+                    <input type="number" 
+                           name="bpm" 
+                           class="form-input" 
+                           value="120" 
+                           min="40" 
+                           max="260">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" style="font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem; display: block;">Key</label>
+                    <input type="text" 
+                           name="song_key" 
+                           class="form-input" 
+                           placeholder="e.g. F, Em, C" 
+                           maxlength="8">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" style="font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem; display: block;">Length (M:SS)</label>
+                    <input type="text" 
+                           name="avg_length" 
+                           class="form-input" 
+                           placeholder="e.g. 3:45">
+                </div>
+            </div>
+
+            <div class="form-group mb-sm">
+                <label class="form-label" style="font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem; display: block;">Energy Level</label>
+                <div class="flex gap-sm items-center">
+                    <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; cursor: pointer;">
+                        <input type="radio" name="energy_level" value="standard" checked> Standard
+                    </label>
+                    <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; cursor: pointer;">
+                        <input type="radio" name="energy_level" value="high"> 🔥 High
+                    </label>
+                    <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; cursor: pointer;">
+                        <input type="radio" name="energy_level" value="low"> 💤 Low
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex gap-lg items-center mb-md">
+                <label style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; cursor: pointer;">
+                    <input type="checkbox" name="has_horn" value="true">
+                    <span>🎺 Horn Section</span>
+                </label>
+                <label style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; cursor: pointer;">
+                    <input type="checkbox" name="is_jam_vehicle" value="true">
+                    <span>🛸 Jam Vehicle</span>
+                </label>
+            </div>
+
+            <!-- Fetch Lyrics Section -->
+            <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem;">
+                <div class="flex items-center justify-between flex-wrap gap-xs mb-xs">
+                    <label style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 700; color: var(--primary); cursor: pointer;">
+                        <input type="checkbox" name="auto_fetch_lyrics" value="true" checked id="toggle-auto-fetch">
+                        <span>🔍 Auto-fetch lyrics from Genius</span>
+                    </label>
+                    <button type="button" 
+                            class="band-btn-secondary band-btn-sm" 
+                            hx-post="/api/lyrics/fetch-preview" 
+                            hx-target="#add-song-lyrics-preview" 
+                            hx-include="#add-song-form" 
+                            hx-indicator="#add-fetch-spinner"
+                            style="font-size: 0.75rem; padding: 0.2rem 0.5rem;">
+                        Preview Fetch
+                    </button>
+                </div>
+                <div id="add-fetch-spinner" class="htmx-indicator" style="font-size: 0.78rem; color: var(--primary); margin-bottom: 0.4rem; display: none;">
+                    ⚡ Searching Genius for lyrics...
+                </div>
+                <div id="add-song-lyrics-preview">
+                    <textarea name="lyrics_content" 
+                              class="form-textarea" 
+                              rows="4" 
+                              placeholder="(Optional) If unchecked, you can paste lyrics here, or let auto-fetch populate them automatically upon saving..."></textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer flex justify-end gap-sm" style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+                <button type="button" class="band-btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="submit" 
+                        class="band-btn-primary" 
+                        style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    <span>Add Song & Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function closeModal() {
+    const el = document.getElementById('add-song-modal') || document.getElementById('fetch-lyrics-modal');
+    if (el) el.remove();
+}
+</script>

@@ -20,6 +20,7 @@ from core.lyrics_manager import (
     save_lyrics_content
 )
 from core.song_manager import load_song_list
+from core.lyrics_fetcher import fetch_lyrics_online
 
 router = APIRouter()
 
@@ -65,6 +66,90 @@ async def get_lyrics_list(search: Optional[str] = Query(None)):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading lyrics list: {str(e)}")
+
+
+@router.get("/fetch-modal", response_class=HTMLResponse)
+async def get_fetch_lyrics_modal(request: Request):
+    """Render fetch lyrics modal with missing songs from catalog"""
+    try:
+        available_lyrics = set(load_available_lyrics())
+        songs_data = load_song_list()
+        
+        # Prioritize songs in catalog that don't yet have lyrics
+        missing_catalog_songs = {
+            name: info for name, info in songs_data.items()
+            if name not in available_lyrics
+        }
+        if not missing_catalog_songs:
+            missing_catalog_songs = songs_data
+
+        return templates.TemplateResponse(request=request, name="lyrics/fetch_modal.html", context={
+            "request": request,
+            "catalog_songs": missing_catalog_songs,
+        })
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading fetch modal: {str(e)}")
+
+
+@router.post("/fetch-preview", response_class=HTMLResponse)
+async def fetch_lyrics_preview(
+    request: Request,
+    title: str = Form(""),
+    artist: str = Form("")
+):
+    """Fetch lyrics from Genius and return preview partial"""
+    try:
+        title = title.strip()
+        artist = artist.strip()
+        if not title:
+            return templates.TemplateResponse(request=request, name="lyrics/fetch_preview_partial.html", context={
+                "request": request,
+                "success": False,
+                "lyrics": "",
+                "error": "Please enter a song title to search.",
+            })
+
+        res = fetch_lyrics_online(title, artist)
+        return templates.TemplateResponse(request=request, name="lyrics/fetch_preview_partial.html", context={
+            "request": request,
+            "success": res.get("success", False),
+            "lyrics": res.get("lyrics", ""),
+            "matched_title": res.get("matched_title", title),
+            "matched_artist": res.get("matched_artist", artist),
+            "source_url": res.get("source_url", ""),
+            "error": res.get("error"),
+        })
+    except Exception as e:
+        return templates.TemplateResponse(request=request, name="lyrics/fetch_preview_partial.html", context={
+            "request": request,
+            "success": False,
+            "lyrics": "",
+            "error": f"Error fetching lyrics: {str(e)}",
+        })
+
+
+@router.post("/save-new")
+async def save_new_lyrics(
+    request: Request,
+    title: str = Form(""),
+    song_name: Optional[str] = Form(None),
+    lyrics_content: str = Form("")
+):
+    """Save newly fetched or edited lyrics to disk"""
+    target_song = (title or song_name or "").strip()
+    if not target_song:
+        raise HTTPException(status_code=400, detail="Song title is required")
+    
+    if not lyrics_content.strip():
+        raise HTTPException(status_code=400, detail="Lyrics content cannot be empty")
+
+    save_lyrics_content(target_song, lyrics_content.strip())
+    
+    return HTMLResponse(
+        content=f"<script>window.location.href='/api/lyrics/{target_song}';</script>",
+        headers={"HX-Redirect": f"/api/lyrics/{target_song}"}
+    )
+
 
 @router.get("/{song_name}", response_class=HTMLResponse)
 async def get_lyrics(request: Request, song_name: str):

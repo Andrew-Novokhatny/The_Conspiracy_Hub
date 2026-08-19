@@ -5,7 +5,17 @@
 {% block content %}
 <div class="fade-in-up mb-md">
     <h1 class="page-title">Song Library</h1>
-    <p class="page-subtitle" style="margin-bottom: 1rem;">{{ stats.total_songs }} songs in the catalog</p>
+    <div class="flex items-center gap-sm flex-wrap" style="margin-top: 0.2rem; margin-bottom: 0.5rem;">
+        <p class="page-subtitle" style="margin-bottom: 0;">{{ stats.total_songs }} songs in the catalog</p>
+        <button class="band-btn-primary band-btn-sm" 
+                hx-get="/api/songs/add-modal" 
+                hx-target="#modal-container" 
+                hx-swap="innerHTML"
+                style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; padding: 0.25rem 0.75rem;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Add Song</span>
+        </button>
+    </div>
 </div>
 
 <!-- Search & Filters -->

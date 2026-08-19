@@ -1,0 +1,27 @@
+<!-- Lyrics Fetch Preview Partial -->
+{% if success %}
+<div class="alert-banner mb-sm" style="background: rgba(0, 212, 216, 0.15); border: 1px solid var(--primary); color: #ffffff; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between;">
+    <div>
+        <strong>✓ Lyrics found on Genius:</strong> <em>{{ matched_title }}</em>{% if matched_artist %} by <em>{{ matched_artist }}</em>{% endif %}
+    </div>
+    {% if source_url %}
+    <a href="{{ source_url }}" target="_blank" style="color: var(--primary); font-size: 0.78rem; text-decoration: underline;">View on Genius ↗</a>
+    {% endif %}
+</div>
+{% else %}
+<div class="alert-banner mb-sm" style="background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #ffffff; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.85rem;">
+    <strong>⚠️ Notice:</strong> {{ error or 'Could not find lyrics on Genius. You can paste them manually below.' }}
+</div>
+{% endif %}
+
+<div class="form-group">
+    <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem; display: flex; justify-content: space-between; align-items: center;">
+        <span>Lyrics Text / Preview</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">Edit section tags & text before saving</span>
+    </label>
+    <textarea name="lyrics_content" 
+              id="fetch-lyrics-textarea" 
+              class="form-textarea" 
+              rows="9" 
+              placeholder="Lyrics will appear here...">{{ lyrics }}</textarea>
+</div>

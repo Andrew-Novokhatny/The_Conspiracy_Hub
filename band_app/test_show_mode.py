@@ -305,12 +305,82 @@ def test_ui_ux_enhancements():
     assert "211s" not in res_song_det.text
     print("✅ Song Details tags (Jam, Horn, Energy, Key) and MM:SS duration verified")
 
-    # 8. Song Library Table Action Buttons Removed
+    # 8. Song Library Table Action Buttons Removed & Add Song Button Present
     res_songs_lib = client.get("/api/songs/")
     assert res_songs_lib.status_code == 200
     assert "song-action-btn" not in res_songs_lib.text
     assert "song-col-actions" not in res_songs_lib.text
-    print("✅ Song Library redundant actions column & buttons removal verified")
+    assert "Add Song" in res_songs_lib.text
+    assert "/api/songs/add-modal" in res_songs_lib.text
+    print("✅ Song Library redundant actions removal & Add Song button verified")
+
+    # 9. Lyrics Index Fetch Lyrics Button Present
+    assert "Fetch Lyrics" in res_lyrics.text
+    assert "/api/lyrics/fetch-modal" in res_lyrics.text
+    print("✅ Lyrics page + Fetch Lyrics button verified")
+
+
+def test_fetch_lyrics_and_add_song_flow():
+    """Test Fetch Lyrics modal, Preview, and Add Song flow"""
+    # 1. Fetch Lyrics modal
+    res_modal = client.get("/api/lyrics/fetch-modal")
+    assert res_modal.status_code == 200
+    assert "Fetch Lyrics" in res_modal.text
+    assert "fetch-song-title" in res_modal.text
+    print("✅ Fetch Lyrics modal endpoint verified")
+
+    # 2. Fetch Preview
+    res_prev = client.post("/api/lyrics/fetch-preview", data={
+        "title": "Superstition",
+        "artist": "Stevie Wonder"
+    })
+    assert res_prev.status_code == 200
+    assert "superstitious" in res_prev.text.lower() or "lyrics" in res_prev.text.lower()
+    print("✅ Fetch Lyrics Genius preview endpoint verified")
+
+    # 3. Add Song modal
+    res_add_modal = client.get("/api/songs/add-modal")
+    assert res_add_modal.status_code == 200
+    assert "Add Song to Catalog" in res_add_modal.text
+    assert "auto_fetch_lyrics" in res_add_modal.text
+    print("✅ Add Song modal endpoint verified")
+
+    # 4. Add Song POST with custom lyrics
+    test_title = "Test Automation Groove"
+    res_add = client.post("/api/songs/add", data={
+        "title": test_title,
+        "artist": "The Conspiracy Band",
+        "bpm": "125",
+        "song_key": "Am",
+        "avg_length": "4:15",
+        "energy_level": "high",
+        "has_horn": "true",
+        "is_jam_vehicle": "true",
+        "lyrics_content": "[Intro]\nFunky beat\n\n[Verse 1]\nTesting the groove\nMaking it move."
+    })
+    assert res_add.status_code == 200
+
+    # Verify song exists in catalog
+    songs = song_manager.load_song_list()
+    assert test_title in songs
+    assert songs[test_title]["artist"] == "The Conspiracy Band"
+    assert songs[test_title]["bpm"] == 125
+    assert songs[test_title]["song_key"] == "Am"
+    assert songs[test_title]["duration"] == 255
+    assert songs[test_title]["has_horn"] is True
+    assert songs[test_title]["is_jam_vehicle"] is True
+
+    # Verify lyrics exist and loaded
+    lyrics = lyrics_manager.load_lyrics_content(test_title)
+    assert "[Intro]" in lyrics
+    assert "Testing the groove" in lyrics
+    print("✅ Add Song & lyrics persistence verified")
+
+    # Clean up test automation song
+    del songs[test_title]
+    song_manager.save_song_list(songs)
+    lyrics_manager.delete_lyrics_file(test_title)
+
 
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")
@@ -326,5 +396,6 @@ if __name__ == "__main__":
     test_song_library_metadata_editing()
     test_segue_marker_persistence()
     test_ui_ux_enhancements()
+    test_fetch_lyrics_and_add_song_flow()
     print("\n🎉 ALL TESTS PASSED!")
 

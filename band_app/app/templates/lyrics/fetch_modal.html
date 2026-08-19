@@ -1,0 +1,110 @@
+<!-- Fetch Lyrics Modal Partial -->
+<div class="modal-backdrop" id="fetch-lyrics-modal" onclick="if(event.target === this) closeModal()">
+    <div class="modal-dialog modal-md" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="flex items-center gap-sm">
+                <div class="modal-icon" style="background: rgba(0, 212, 216, 0.15); color: var(--primary); width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                </div>
+                <div>
+                    <h3 class="modal-title" style="font-size: 1.15rem; font-weight: 700; margin: 0;">Fetch Lyrics</h3>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">Search Genius or paste lyrics for any catalog song</div>
+                </div>
+            </div>
+            <button class="modal-close-btn" onclick="closeModal()" title="Close">&times;</button>
+        </div>
+
+        <form id="fetch-lyrics-form" class="modal-body" style="padding: 1.25rem;">
+            <div class="form-group mb-md">
+                <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem; display: block;">Song Title <span style="color: var(--primary);">*</span></label>
+                <input type="text" 
+                       name="title" 
+                       id="fetch-song-title" 
+                       list="catalog-songs-list" 
+                       class="form-input" 
+                       placeholder="e.g. Superstition, 1612..." 
+                       required 
+                       oninput="updateArtistFromCatalog(this.value)"
+                       autocomplete="off">
+                <datalist id="catalog-songs-list">
+                    {% for name, info in catalog_songs.items() %}
+                    <option value="{{ name }}" data-artist="{{ info.get('artist', '') }}">{{ name }} ({{ info.get('artist', 'Unknown') }})</option>
+                    {% endfor %}
+                </datalist>
+            </div>
+
+            <div class="form-group mb-md">
+                <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem; display: block;">Artist <span style="color: var(--text-muted); font-size: 0.75rem;">(optional, improves accuracy)</span></label>
+                <input type="text" 
+                       name="artist" 
+                       id="fetch-song-artist" 
+                       class="form-input" 
+                       placeholder="e.g. Stevie Wonder, Vulfpeck...">
+            </div>
+
+            <div class="flex gap-sm items-center mb-md">
+                <button type="button" 
+                        class="band-btn-primary" 
+                        hx-post="/api/lyrics/fetch-preview" 
+                        hx-target="#fetch-preview-area" 
+                        hx-include="#fetch-lyrics-form" 
+                        hx-indicator="#fetch-spinner"
+                        style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span>Search & Fetch Genius Lyrics</span>
+                </button>
+                <span id="fetch-spinner" class="htmx-indicator" style="font-size: 0.82rem; color: var(--primary); display: none;">
+                    ⚡ Fetching online...
+                </span>
+            </div>
+
+            <!-- Preview & Save Container -->
+            <div id="fetch-preview-area">
+                <div class="form-group">
+                    <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem; display: flex; justify-content: space-between; align-items: center;">
+                        <span>Lyrics Text / Preview</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Will save to /song_data/lyrics/</span>
+                    </label>
+                    <textarea name="lyrics_content" 
+                              id="fetch-lyrics-textarea" 
+                              class="form-textarea" 
+                              rows="9" 
+                              placeholder="Lyrics will appear here after fetching, or you can paste them directly..."></textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer mt-md flex justify-end gap-sm" style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+                <button type="button" class="band-btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="submit" 
+                        class="band-btn-primary" 
+                        hx-post="/api/lyrics/save-new" 
+                        hx-include="#fetch-lyrics-form" 
+                        hx-target="#modal-container" 
+                        hx-swap="innerHTML"
+                        style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    <span>Save Lyrics</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function closeModal() {
+    const el = document.getElementById('fetch-lyrics-modal');
+    if (el) el.remove();
+}
+
+function updateArtistFromCatalog(title) {
+    const datalist = document.getElementById('catalog-songs-list');
+    if (!datalist) return;
+    const option = Array.from(datalist.options).find(o => o.value.toLowerCase() === title.trim().toLowerCase());
+    if (option && option.dataset.artist) {
+        const artistInput = document.getElementById('fetch-song-artist');
+        if (artistInput && !artistInput.value) {
+            artistInput.value = option.dataset.artist;
+        }
+    }
+}
+</script>
