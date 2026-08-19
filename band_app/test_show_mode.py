@@ -268,13 +268,13 @@ def test_ui_ux_enhancements():
     assert "autoscroll-top-btn" not in res_show.text
     print("✅ Show Mode Prev/Next navigation, header Setlist toggle, and Top button removal verified")
 
-    # 4. Builder Collapsible Drawer
+    # 4. Builder In-Set Add Buttons & Modal Picker
     res_builder = client.get("/api/builder/")
     assert res_builder.status_code == 200
-    assert "builder-drawer-backdrop" in res_builder.text
-    assert "song-pool-container" in res_builder.text
-    assert "song-pool-close-btn" in res_builder.text
-    print("✅ Setlist Builder iPad/mobile drawer verified")
+    assert "song-picker-modal" in res_builder.text
+    assert "btn-add-songs-to-set" in res_builder.text
+    assert "picker-search-input" in res_builder.text
+    print("✅ Setlist Builder inline Add Songs buttons and Spotify-style picker verified")
 
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")

@@ -5,163 +5,11 @@
 {% block head_extra %}
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <style>
+    /* Clean, Full-Width Builder Canvas */
     .builder-layout {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        position: relative;
-    }
-
-    @media (min-width: 1025px) {
-        .builder-layout {
-            grid-template-columns: 340px 1fr;
-            gap: 2rem;
-        }
-    }
-
-    .song-pool-container {
-        background: var(--bg-card);
-        border: 1px solid var(--border-subtle);
-        border-radius: var(--radius-lg);
-        padding: 1.25rem;
-        display: flex;
-        flex-direction: column;
-        height: calc(100vh - 160px);
-        position: sticky;
-        top: 1.5rem;
-        user-select: none;
-    }
-
-    .song-pool-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 0.75rem;
-    }
-
-    .song-pool-close-btn {
-        display: none;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid var(--border-subtle);
-        color: var(--text-muted);
-        border-radius: 6px;
-        width: 28px;
-        height: 28px;
-        cursor: pointer;
-        transition: all 0.15s ease;
-    }
-
-    .song-pool-close-btn:hover {
-        background: rgba(255, 107, 107, 0.2);
-        border-color: #ff6b6b;
-        color: #ffffff;
-    }
-
-    /* iPad Vertical & Mobile Collapsible Drawer */
-    @media (max-width: 1024px) {
-        .song-pool-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 340px;
-            max-width: 86vw;
-            height: 100vh;
-            z-index: 55;
-            transform: translateX(-100%);
-            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 10px 0 35px rgba(0, 0, 0, 0.65);
-            border-radius: 0;
-            border-left: none;
-            border-top: none;
-            border-bottom: none;
-            padding: 1.25rem 1rem;
-        }
-
-        .song-pool-container.is-open {
-            transform: translateX(0);
-        }
-
-        .song-pool-close-btn {
-            display: flex;
-        }
-
-        .builder-drawer-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: 54;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-        }
-
-        .builder-drawer-backdrop.is-visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .builder-library-toggle-wrapper {
-            display: flex !important;
-        }
-    }
-
-    .builder-library-toggle-wrapper {
-        display: none;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .sortable-list {
-        min-height: 50px;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: var(--radius-md);
-        padding: 0.5rem;
-        flex: 1;
-        overflow-y: auto;
-    }
-
-    .sortable-item {
-        background: var(--bg-hover);
-        border: 1px solid var(--border-subtle);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem 0.75rem;
-        margin-bottom: 0.5rem;
-        cursor: grab;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.9rem;
-        gap: 0.5rem;
-    }
-
-    .sortable-item:active {
-        cursor: grabbing;
-    }
-
-    .sortable-ghost {
-        opacity: 0.4;
-    }
-
-    .segue-btn {
-        background: none;
-        border: 1px solid var(--border-subtle);
-        color: var(--text-muted);
-        border-radius: 4px;
-        padding: 0.2rem 0.5rem;
-        cursor: pointer;
-        font-size: 0.8rem;
-    }
-
-    .segue-btn.active {
-        background: var(--accent);
-        color: var(--bg-base);
-        border-color: var(--accent);
-        font-weight: bold;
+        display: block;
+        max-width: 900px;
+        margin: 0 auto;
     }
 
     .set-container {
@@ -169,141 +17,567 @@
         border: 1px solid var(--border-subtle);
         border-radius: var(--radius-lg);
         padding: 1.25rem;
-        margin-bottom: 1.25rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-soft);
     }
 
-    .library-item {
-        transition: background 0.15s ease, border-color 0.15s ease;
+    .set-header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.85rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .library-item:hover {
+    .set-title {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+    }
+
+    .set-timing-badge {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--accent);
         background: rgba(0, 212, 216, 0.1);
+        border: 1px solid rgba(0, 212, 216, 0.25);
+        padding: 0.2rem 0.6rem;
+        border-radius: 6px;
+    }
+
+    .sortable-list {
+        min-height: 60px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: var(--radius-md);
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+    }
+
+    .sortable-item {
+        background: var(--bg-hover);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-sm);
+        padding: 0.55rem 0.85rem;
+        cursor: grab;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.92rem;
+        gap: 0.6rem;
+        transition: transform 0.15s ease, background 0.15s ease;
+        touch-action: manipulation;
+    }
+
+    .sortable-item:active {
+        cursor: grabbing;
+        transform: scale(0.99);
+        background: var(--bg-highlight);
+    }
+
+    .sortable-ghost {
+        opacity: 0.35;
+        border: 2px dashed var(--accent);
+    }
+
+    .drag-handle {
+        color: var(--text-muted);
+        cursor: grab;
+        padding: 0.2rem 0.35rem;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        opacity: 0.6;
+    }
+
+    .drag-handle:hover {
+        opacity: 1;
+        color: var(--text-primary);
+    }
+
+    .segue-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-muted);
+        border-radius: 4px;
+        padding: 0.2rem 0.5rem;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 700;
+        transition: all 0.15s ease;
+    }
+
+    .segue-btn.active {
+        background: var(--accent);
+        color: var(--bg-base);
+        border-color: var(--accent);
+        font-weight: 800;
+    }
+
+    /* In-Set Prominent Add Button */
+    .btn-add-songs-to-set {
+        width: 100%;
+        margin-top: 0.75rem;
+        padding: 0.8rem;
+        border: 2px dashed rgba(0, 212, 216, 0.35);
+        background: rgba(0, 212, 216, 0.05);
+        color: var(--primary);
+        border-radius: var(--radius-md);
+        font-weight: 700;
+        font-size: 0.92rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+        user-select: none;
+    }
+
+    .btn-add-songs-to-set:hover {
+        background: rgba(0, 212, 216, 0.12);
+        border-color: var(--primary);
+        transform: translateY(-1px);
+    }
+
+    .btn-add-songs-to-set:active {
+        transform: translateY(0);
+    }
+
+    /* Modal / Bottom Sheet Song Picker */
+    .song-picker-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    @media (min-width: 768px) {
+        .song-picker-modal {
+            align-items: center;
+            padding: 1.5rem;
+        }
+    }
+
+    .song-picker-modal.is-open {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .song-picker-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.78);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .song-picker-content {
+        position: relative;
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 18px 18px 0 0;
+        width: 100%;
+        max-width: 760px;
+        height: 88vh;
+        max-height: 88vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 -10px 45px rgba(0, 0, 0, 0.85);
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 101;
+        overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+        .song-picker-content {
+            border-radius: var(--radius-lg);
+            height: 82vh;
+            max-height: 780px;
+            transform: translateY(20px) scale(0.98);
+        }
+        .song-picker-modal.is-open .song-picker-content {
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .song-picker-modal.is-open .song-picker-content {
+        transform: translateY(0);
+    }
+
+    .song-picker-header {
+        padding: 1rem 1.25rem 0.85rem 1.25rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        background: rgba(14, 18, 26, 0.96);
+    }
+
+    .song-picker-top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    .song-picker-title {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin: 0;
+    }
+
+    .song-picker-set-tabs {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: rgba(0, 0, 0, 0.35);
+        padding: 0.25rem;
+        border-radius: 8px;
+    }
+
+    .picker-set-tab {
+        padding: 0.3rem 0.75rem;
+        font-size: 0.82rem;
+        font-weight: 700;
+        border: none;
+        background: transparent;
+        color: var(--text-muted);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    .picker-set-tab.active {
+        background: var(--accent);
+        color: var(--bg-base);
+    }
+
+    .song-picker-close-btn {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-primary);
+        border-radius: 8px;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        transition: all 0.15s ease;
+    }
+
+    .song-picker-close-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .picker-filter-group {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        overflow-x: auto;
+        padding-bottom: 0.2rem;
+        scrollbar-width: none;
+    }
+
+    .picker-filter-group::-webkit-scrollbar {
+        display: none;
+    }
+
+    .picker-filter-pill {
+        padding: 0.25rem 0.65rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-muted);
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.15s ease;
+    }
+
+    .picker-filter-pill.active {
+        background: rgba(0, 212, 216, 0.18);
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    .song-picker-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0.75rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+    }
+
+    .picker-song-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.65rem 0.95rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: var(--radius-sm);
+        transition: all 0.15s ease;
+        gap: 0.75rem;
+    }
+
+    .picker-song-row:hover {
+        background: rgba(0, 212, 216, 0.08);
         border-color: rgba(0, 212, 216, 0.3);
+    }
+
+    .picker-song-info {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .picker-song-title {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .picker-song-meta {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        margin-top: 0.15rem;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        flex-wrap: wrap;
+    }
+
+    .picker-actions-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        flex-shrink: 0;
+    }
+
+    .picker-set-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        border-radius: 6px;
+        border: 1px solid rgba(0, 212, 216, 0.35);
+        background: rgba(0, 212, 216, 0.12);
+        color: var(--primary);
+        cursor: pointer;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+    }
+
+    .picker-set-btn:hover {
+        background: var(--primary);
+        color: var(--bg-base);
+    }
+
+    .picker-set-btn.target-active {
+        background: var(--accent);
+        color: var(--bg-base);
+        border-color: var(--accent);
+    }
+
+    .picker-set-btn.btn-added {
+        background: #10b981 !important;
+        border-color: #10b981 !important;
+        color: #ffffff !important;
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="flex items-center justify-between mb-lg fade-in-up flex-wrap gap-sm">
-    <div>
-        <h1 class="page-title">Setlist Builder</h1>
-        <p class="page-subtitle">Drag and drop or tap songs to build your next show</p>
-    </div>
-    <div class="flex items-center gap-sm flex-wrap">
-        <div class="builder-library-toggle-wrapper">
-            <button type="button" class="band-btn-secondary" onclick="openBuilderLibrary()" title="Open song library">
+<div class="builder-layout">
+    <!-- Top Header -->
+    <div class="flex items-center justify-between mb-lg fade-in-up flex-wrap gap-sm">
+        <div>
+            <h1 class="page-title">Setlist Builder</h1>
+            <p class="page-subtitle">Build, order, and time your band's show with instant catalog insertion</p>
+        </div>
+        <div class="flex items-center gap-sm flex-wrap">
+            <button type="button" class="band-btn-secondary" onclick="openSongPicker(1)" title="Browse song catalog">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M9 10v5a2 2 0 1 0 2-2V7l4-1v4a2 2 0 1 0 2-2V4"/></svg>
-                <span>Song Library ({{ sorted_songs|length }})</span>
+                <span>Browse Songs ({{ sorted_songs|length }})</span>
+            </button>
+            <button onclick="exportSetlist()" class="band-btn">💾 Save & Export</button>
+        </div>
+    </div>
+
+    <!-- Show Settings & Timing Panel -->
+    <div class="panel mb-lg fade-in-up-delay-1">
+        <div class="grid grid-2 gap-md">
+            <div>
+                <label class="text-sm text-muted">Venue</label>
+                <input type="text" id="venue-input" class="form-input" placeholder="e.g. The Bluebird">
+            </div>
+            <div>
+                <label class="text-sm text-muted">Date</label>
+                <input type="text" id="date-input" class="form-input" placeholder="MM/DD/YY">
+            </div>
+            <div>
+                <label class="text-sm text-muted">Number of Sets</label>
+                <select id="num-sets" class="form-input" onchange="updateSetVisibility()">
+                    <option value="1">1 Set</option>
+                    <option value="2" selected>2 Sets</option>
+                    <option value="3">3 Sets (with Encore)</option>
+                </select>
+            </div>
+            <div>
+                <label class="text-sm text-muted">Default Gap Between Songs (sec)</label>
+                <input type="number" id="default-gap" class="form-input" value="15" onchange="calculateTiming()">
+            </div>
+        </div>
+
+        <div class="mt-md p-sm"
+            style="background: rgba(0,212,216,0.1); border-radius: var(--radius-sm); border: 1px solid var(--accent);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <strong style="font-size: 1.05rem;">Total Show Time:</strong>
+                <span id="total-time-display"
+                    style="font-size: 1.6rem; font-weight: 800; color: var(--accent);">00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sets Containers -->
+    <div id="sets-container" class="fade-in-up-delay-2">
+        <!-- Set 1 -->
+        <div class="set-container" id="set1-container">
+            <div class="set-header-row">
+                <div class="set-title">
+                    <span>Set 1</span>
+                    <span id="set1-count" class="text-xs text-muted" style="font-weight: 600;">(0 songs)</span>
+                </div>
+                <span id="set1-time" class="set-timing-badge">00:00</span>
+            </div>
+            <div id="set1-list" class="sortable-list set-list" data-set="1"></div>
+            <button type="button" class="btn-add-songs-to-set" onclick="openSongPicker(1)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                <span>Add Songs to Set 1</span>
             </button>
         </div>
-        <button onclick="exportSetlist()" class="band-btn">💾 Save & Export</button>
+
+        <!-- Set 2 -->
+        <div class="set-container" id="set2-container">
+            <div class="set-header-row">
+                <div class="set-title">
+                    <span>Set 2</span>
+                    <span id="set2-count" class="text-xs text-muted" style="font-weight: 600;">(0 songs)</span>
+                </div>
+                <span id="set2-time" class="set-timing-badge">00:00</span>
+            </div>
+            <div id="set2-list" class="sortable-list set-list" data-set="2"></div>
+            <button type="button" class="btn-add-songs-to-set" onclick="openSongPicker(2)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                <span>Add Songs to Set 2</span>
+            </button>
+        </div>
+
+        <!-- Set 3 / Encore -->
+        <div class="set-container" id="set3-container" style="display: none;">
+            <div class="set-header-row">
+                <div class="set-title">
+                    <span>Set 3 (Encore)</span>
+                    <span id="set3-count" class="text-xs text-muted" style="font-weight: 600;">(0 songs)</span>
+                </div>
+                <span id="set3-time" class="set-timing-badge">00:00</span>
+            </div>
+            <div id="set3-list" class="sortable-list set-list" data-set="3"></div>
+            <button type="button" class="btn-add-songs-to-set" onclick="openSongPicker(3)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                <span>Add Songs to Set 3</span>
+            </button>
+        </div>
     </div>
 </div>
 
-<!-- Backdrop for iPad & Mobile Drawer -->
-<div class="builder-drawer-backdrop" id="builder-drawer-backdrop" onclick="closeBuilderLibrary()"></div>
-
-<div class="builder-layout fade-in-up-delay-1">
-    <!-- Left: Song Library (Collapsible Drawer on Tablets/Mobile) -->
-    <div class="song-pool-container" id="song-pool-container">
-        <div class="song-pool-header">
-            <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: var(--text-primary);">Song Library</h3>
-            <button class="song-pool-close-btn" onclick="closeBuilderLibrary()" title="Close song library">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-        </div>
-        <input type="text" id="builder-search" class="form-input mb-md" placeholder="Search songs..."
-            oninput="filterLibrary(this.value)">
-
-        <div id="library-list" class="sortable-list">
-            {% for song in sorted_songs %}
-            {% set s_info = songs_data[song] %}
-            <div class="sortable-item library-item" data-id="{{ song }}" data-search="{{ song|lower }}" onclick="onLibraryItemClick(event, '{{ song }}')">
-                <div style="min-width: 0; flex: 1;">
-                    <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">{{ song }}</strong>
-                    <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
-                        {% if s_info.get('has_horn') %}🎺 {% endif %}
-                        {% if s_info.get('is_jam_vehicle') %}🛸 {% endif %}
-                        {% if s_info.get('energy_level') == 'high' %}🔥 {% elif s_info.get('energy_level') == 'low' %}💤 {% endif %}
+<!-- ========================================================================= -->
+<!-- SPOTIFY-STYLE BOTTOM SHEET / MODAL SONG PICKER -->
+<!-- ========================================================================= -->
+<div class="song-picker-modal" id="song-picker-modal">
+    <div class="song-picker-backdrop" onclick="closeSongPicker()"></div>
+    <div class="song-picker-content">
+        <!-- Header & Target Set Switcher -->
+        <div class="song-picker-header">
+            <div class="song-picker-top-row">
+                <div class="flex items-center gap-sm">
+                    <h3 class="song-picker-title">Add Songs</h3>
+                    <div class="song-picker-set-tabs">
+                        <button type="button" class="picker-set-tab active" id="tab-target-set1" onclick="setPickerTarget(1)">Set 1</button>
+                        <button type="button" class="picker-set-tab" id="tab-target-set2" onclick="setPickerTarget(2)">Set 2</button>
+                        <button type="button" class="picker-set-tab" id="tab-target-set3" style="display: none;" onclick="setPickerTarget(3)">Set 3</button>
                     </div>
                 </div>
-                <div class="flex items-center gap-sm" style="flex-shrink: 0;">
-                    {% if s_info.get('song_key') %}
-                    <span class="key-badge">{{ s_info.song_key }}</span>
-                    {% endif %}
-                    <span class="text-xs text-muted">({{ s_info.bpm }})</span>
-                    <button type="button" class="band-btn-secondary band-btn-sm" style="padding: 0.15rem 0.4rem; font-size: 0.75rem;" title="Add to Set" onclick="addSongToActiveSet(event, '{{ song }}')">+</button>
+                <button type="button" class="song-picker-close-btn" onclick="closeSongPicker()">
+                    <span>Done</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Search Input -->
+            <input type="text" id="picker-search-input" class="form-input" placeholder="Search by song name, artist, key..." oninput="filterPickerSongs(this.value)">
+
+            <!-- Filter Tags Strip -->
+            <div class="picker-filter-group">
+                <button type="button" class="picker-filter-pill active" onclick="setPickerTagFilter('all', this)">All ({{ sorted_songs|length }})</button>
+                <button type="button" class="picker-filter-pill" onclick="setPickerTagFilter('horn', this)">🎺 Horn</button>
+                <button type="button" class="picker-filter-pill" onclick="setPickerTagFilter('jam', this)">🛸 Jam Vehicle</button>
+                <button type="button" class="picker-filter-pill" onclick="setPickerTagFilter('high', this)">🔥 High Energy</button>
+                <button type="button" class="picker-filter-pill" onclick="setPickerTagFilter('low', this)">💤 Low Energy</button>
+            </div>
+        </div>
+
+        <!-- Song List -->
+        <div class="song-picker-list" id="picker-song-list">
+            {% for song in sorted_songs %}
+            {% set s_info = songs_data[song] %}
+            <div class="picker-song-row"
+                 id="picker-item-{{ loop.index0 }}"
+                 data-song="{{ song|lower }}"
+                 data-artist="{{ s_info.get('artist', '')|lower }}"
+                 data-horn="{{ s_info.get('has_horn', False)|string|lower }}"
+                 data-jam="{{ s_info.get('is_jam_vehicle', False)|string|lower }}"
+                 data-energy="{{ s_info.get('energy_level', 'standard') }}">
+                
+                <div class="picker-song-info">
+                    <div class="picker-song-title">{{ song }}</div>
+                    <div class="picker-song-meta">
+                        {% if s_info.get('artist') %}<span>{{ s_info.artist }}</span> •{% endif %}
+                        {% if s_info.get('song_key') %}<span class="key-badge" style="font-size: 0.72rem; padding: 0 0.3rem;">{{ s_info.song_key }}</span>{% endif %}
+                        {% if s_info.get('bpm') %}<span style="color: var(--accent); font-weight: 700;">({{ s_info.bpm }})</span>{% endif %}
+                        <span>{{ "%02d:%02d"|format((s_info.get('duration', 0) // 60), (s_info.get('duration', 0) % 60)) }}</span>
+                        {% if s_info.get('has_horn') %}<span>🎺</span>{% endif %}
+                        {% if s_info.get('is_jam_vehicle') %}<span>🛸</span>{% endif %}
+                        {% if s_info.get('energy_level') == 'high' %}<span>🔥</span>{% elif s_info.get('energy_level') == 'low' %}<span>💤</span>{% endif %}
+                    </div>
+                </div>
+
+                <div class="picker-actions-wrap">
+                    <button type="button" class="picker-set-btn target-active btn-set-1" onclick="insertSongFromPicker(event, '{{ song }}', 1, this)">+ Set 1</button>
+                    <button type="button" class="picker-set-btn btn-set-2" onclick="insertSongFromPicker(event, '{{ song }}', 2, this)">+ Set 2</button>
+                    <button type="button" class="picker-set-btn btn-set-3" style="display: none;" onclick="insertSongFromPicker(event, '{{ song }}', 3, this)">+ Set 3</button>
                 </div>
             </div>
             {% endfor %}
-        </div>
-    </div>
-
-    <!-- Right: Builder Sets and Timing -->
-    <div style="min-width: 0;">
-        <!-- Settings -->
-        <div class="panel mb-lg">
-            <div class="grid grid-2 gap-md">
-                <div>
-                    <label class="text-sm text-muted">Venue</label>
-                    <input type="text" id="venue-input" class="form-input" placeholder="e.g. The Bluebird">
-                </div>
-                <div>
-                    <label class="text-sm text-muted">Date</label>
-                    <input type="text" id="date-input" class="form-input" placeholder="MM/DD/YY">
-                </div>
-                <div>
-                    <label class="text-sm text-muted">Number of Sets</label>
-                    <select id="num-sets" class="form-input" onchange="updateSetVisibility()">
-                        <option value="1">1 Set</option>
-                        <option value="2" selected>2 Sets</option>
-                        <option value="3">3 Sets</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-sm text-muted">Default Gap Between Songs (sec)</label>
-                    <input type="number" id="default-gap" class="form-input" value="15" onchange="calculateTiming()">
-                </div>
-            </div>
-
-            <div class="mt-md p-sm"
-                style="background: rgba(0,212,216,0.1); border-radius: var(--radius-sm); border: 1px solid var(--accent);">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <strong>Total Show Time:</strong>
-                    <span id="total-time-display"
-                        style="font-size: 1.5rem; font-weight: bold; color: var(--accent);">00:00</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sets -->
-        <div id="sets-container">
-            <!-- Set 1 -->
-            <div class="set-container" id="set1-container">
-                <div class="flex items-center justify-between mb-sm">
-                    <h3>Set 1</h3>
-                    <span id="set1-time" class="text-muted font-bold">00:00</span>
-                </div>
-                <div id="set1-list" class="sortable-list set-list" data-set="1"></div>
-            </div>
-
-            <!-- Set 2 -->
-            <div class="set-container" id="set2-container">
-                <div class="flex items-center justify-between mb-sm">
-                    <h3>Set 2</h3>
-                    <span id="set2-time" class="text-muted font-bold">00:00</span>
-                </div>
-                <div id="set2-list" class="sortable-list set-list" data-set="2"></div>
-            </div>
-
-            <!-- Set 3 -->
-            <div class="set-container" id="set3-container" style="display: none;">
-                <div class="flex items-center justify-between mb-sm">
-                    <h3>Set 3</h3>
-                    <span id="set3-time" class="text-muted font-bold">00:00</span>
-                </div>
-                <div id="set3-list" class="sortable-list set-list" data-set="3"></div>
-            </div>
         </div>
     </div>
 </div>
@@ -311,64 +585,107 @@
 
 {% block scripts_extra %}
 <script>
-    // Load song math data injected from server
+    // Song metadata from server
     const songMathData = {{ song_math_data| safe }};
     const initialSetlist = {{ initial_setlist | safe }};
+    let currentPickerTargetSet = 1;
+    let currentPickerTagFilter = 'all';
 
-    function openBuilderLibrary() {
-        const pool = document.getElementById('song-pool-container');
-        const backdrop = document.getElementById('builder-drawer-backdrop');
-        if (pool) pool.classList.add('is-open');
-        if (backdrop) backdrop.classList.add('is-visible');
-    }
-
-    function closeBuilderLibrary() {
-        const pool = document.getElementById('song-pool-container');
-        const backdrop = document.getElementById('builder-drawer-backdrop');
-        if (pool) pool.classList.remove('is-open');
-        if (backdrop) backdrop.classList.remove('is-visible');
-    }
-
-    function toggleBuilderLibrary() {
-        const pool = document.getElementById('song-pool-container');
-        if (pool && pool.classList.contains('is-open')) {
-            closeBuilderLibrary();
-        } else {
-            openBuilderLibrary();
-        }
-    }
-
-    function addSongToActiveSet(e, songId) {
-        if (e) e.stopPropagation();
-        // Add to the first visible set with space, or currently target set
-        const numSets = parseInt(document.getElementById('num-sets').value) || 2;
-        let targetList = document.getElementById('set1-list');
+    // -------------------------------------------------------------------------
+    // Song Picker Modal Logic
+    // -------------------------------------------------------------------------
+    function openSongPicker(targetSet = 1) {
+        setPickerTarget(targetSet);
+        const modal = document.getElementById('song-picker-modal');
+        if (modal) modal.classList.add('is-open');
         
-        // Find best set to add to
-        for (let s = 1; s <= numSets; s++) {
-            const list = document.getElementById(`set${s}-list`);
-            if (list) {
-                targetList = list;
-                // If this set has fewer songs than 12, pick it
-                if (list.querySelectorAll('.sortable-item').length < 12) {
-                    break;
-                }
+        // Auto-focus search input
+        setTimeout(() => {
+            const searchInput = document.getElementById('picker-search-input');
+            if (searchInput) searchInput.focus();
+        }, 150);
+    }
+
+    function closeSongPicker() {
+        const modal = document.getElementById('song-picker-modal');
+        if (modal) modal.classList.remove('is-open');
+    }
+
+    function setPickerTarget(setNum) {
+        currentPickerTargetSet = setNum;
+        
+        // Update tab styles
+        document.querySelectorAll('.picker-set-tab').forEach(tab => tab.classList.remove('active'));
+        const activeTab = document.getElementById(`tab-target-set${setNum}`);
+        if (activeTab) activeTab.classList.add('active');
+
+        // Highlight corresponding buttons
+        document.querySelectorAll('.picker-set-btn').forEach(btn => {
+            btn.classList.remove('target-active');
+            if (btn.classList.contains(`btn-set-${setNum}`)) {
+                btn.classList.add('target-active');
             }
+        });
+    }
+
+    function insertSongFromPicker(e, songId, setNum, btnElement) {
+        if (e) {
+            e.stopPropagation();
+            e.preventDefault();
         }
 
-        if (targetList) {
-            targetList.appendChild(createSetItemElement(songId));
-            calculateTiming();
+        const targetList = document.getElementById(`set${setNum}-list`);
+        if (!targetList) return;
+
+        targetList.appendChild(createSetItemElement(songId));
+        calculateTiming();
+
+        // Visual flash feedback on the button
+        if (btnElement) {
+            const origText = btnElement.innerText;
+            btnElement.innerText = "✓ Added";
+            btnElement.classList.add('btn-added');
+            setTimeout(() => {
+                btnElement.innerText = origText;
+                btnElement.classList.remove('btn-added');
+            }, 850);
         }
     }
 
-    function onLibraryItemClick(e, songId) {
-        // If on small screen / iPad, clicking item adds to set
-        if (window.innerWidth <= 1024 && !e.target.closest('button')) {
-            addSongToActiveSet(e, songId);
-        }
+    function filterPickerSongs(query) {
+        const q = (query || '').toLowerCase().trim();
+        document.querySelectorAll('.picker-song-row').forEach(row => {
+            const title = row.getAttribute('data-song') || '';
+            const artist = row.getAttribute('data-artist') || '';
+            const matchesSearch = !q || title.includes(q) || artist.includes(q);
+
+            let matchesTag = true;
+            if (currentPickerTagFilter === 'horn') {
+                matchesTag = row.getAttribute('data-horn') === 'true';
+            } else if (currentPickerTagFilter === 'jam') {
+                matchesTag = row.getAttribute('data-jam') === 'true';
+            } else if (currentPickerTagFilter === 'high') {
+                matchesTag = row.getAttribute('data-energy') === 'high';
+            } else if (currentPickerTagFilter === 'low') {
+                matchesTag = row.getAttribute('data-energy') === 'low';
+            }
+
+            row.style.display = (matchesSearch && matchesTag) ? 'flex' : 'none';
+        });
     }
 
+    function setPickerTagFilter(tag, pillBtn) {
+        currentPickerTagFilter = tag;
+        document.querySelectorAll('.picker-filter-pill').forEach(pill => pill.classList.remove('active'));
+        if (pillBtn) pillBtn.classList.add('active');
+
+        const searchVal = document.getElementById('picker-search-input')?.value || '';
+        filterPickerSongs(searchVal);
+    }
+
+    // -------------------------------------------------------------------------
+    // Set Item Element Creator & Drag Reordering
+    // -------------------------------------------------------------------------
     function createSetItemElement(songId, isSegue = false) {
         const math = songMathData[songId] || { bpm: 120, duration: 240, has_horn: false, is_jam_vehicle: false, song_key: '', energy: 'standard' };
         const energyEmoji = math.energy === 'high' ? '🔥' : math.energy === 'low' ? '💤' : '';
@@ -377,6 +694,7 @@
         div.setAttribute('data-id', songId);
         div.innerHTML = `
             <div class="flex items-center gap-sm" style="min-width: 0; flex: 1;">
+                <span class="drag-handle" title="Drag to reorder">☰</span>
                 <button class="segue-btn ${isSegue ? 'active' : ''}" onclick="toggleSegue(this)" title="Toggle segue into this song">-></button>
                 <strong class="song-title-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${isSegue ? '<span style="color: var(--accent); font-weight: bold; margin-right: 0.25rem;">→</span>' : ''}${songId}</strong>
                 ${math.has_horn ? '🎺' : ''}
@@ -385,38 +703,25 @@
             </div>
             <div class="flex items-center gap-sm" style="flex-shrink: 0;">
                 ${math.song_key ? `<span class="key-badge">${math.song_key}</span>` : ''}
-                <span class="text-xs text-muted w-16 text-right">(${math.bpm})</span>
-                <span class="text-xs text-muted w-16 text-right">${formatTime(math.duration)}</span>
-                <button onclick="this.closest('.sortable-item').remove(); calculateTiming();" class="text-muted hover:text-white" style="background:none; border:none; cursor:pointer; font-weight: bold; padding: 0.2rem 0.4rem;">✕</button>
+                <span class="text-xs text-muted">(${math.bpm})</span>
+                <span class="text-xs text-muted">${formatTime(math.duration)}</span>
+                <button onclick="this.closest('.sortable-item').remove(); calculateTiming();" class="text-muted hover:text-white" style="background:none; border:none; cursor:pointer; font-weight: bold; padding: 0.25rem 0.5rem; font-size: 1rem;" title="Remove song">✕</button>
             </div>
         `;
         return div;
     }
 
-    // Set up Sortable for Library (clone mode)
-    new Sortable(document.getElementById('library-list'), {
-        group: {
-            name: 'shared',
-            pull: 'clone',
-            put: false
-        },
-        sort: false,
-        animation: 150
-    });
-
-    // Set up Sortable for Sets
+    // Set up Sortable for each Set
     document.querySelectorAll('.set-list').forEach(el => {
         new Sortable(el, {
-            group: 'shared',
-            animation: 150,
-            onAdd: function (evt) {
-                const item = evt.item;
-                const songId = item.getAttribute('data-id');
-                const newItem = createSetItemElement(songId);
-                item.replaceWith(newItem);
+            group: 'sets-group',
+            handle: '.drag-handle',
+            animation: 180,
+            ghostClass: 'sortable-ghost',
+            onUpdate: function () {
                 calculateTiming();
             },
-            onUpdate: function () {
+            onAdd: function () {
                 calculateTiming();
             },
             onRemove: function () {
@@ -425,31 +730,31 @@
         });
     });
 
-    // Filter library search
-    function filterLibrary(query) {
-        const q = query.toLowerCase();
-        document.querySelectorAll('.library-item').forEach(item => {
-            const name = item.getAttribute('data-search');
-            item.style.display = name.includes(q) ? '' : 'none';
-        });
-    }
-
-    // Update Set visibility
+    // -------------------------------------------------------------------------
+    // Set Visibility & Timing Calculation
+    // -------------------------------------------------------------------------
     function updateSetVisibility() {
-        const numSets = parseInt(document.getElementById('num-sets').value);
+        const numSets = parseInt(document.getElementById('num-sets').value) || 2;
         document.getElementById('set1-container').style.display = numSets >= 1 ? 'block' : 'none';
         document.getElementById('set2-container').style.display = numSets >= 2 ? 'block' : 'none';
         document.getElementById('set3-container').style.display = numSets >= 3 ? 'block' : 'none';
+        
+        // Update picker tabs and buttons for Set 3
+        const tabSet3 = document.getElementById('tab-target-set3');
+        if (tabSet3) tabSet3.style.display = numSets >= 3 ? 'inline-block' : 'none';
+        
+        document.querySelectorAll('.btn-set-3').forEach(btn => {
+            btn.style.display = numSets >= 3 ? 'inline-block' : 'none';
+        });
+
         calculateTiming();
     }
 
-    // Toggle Segue state
     function toggleSegue(btn) {
         btn.classList.toggle('active');
         calculateTiming();
     }
 
-    // Format seconds to MM:SS
     function formatTime(seconds) {
         if (!seconds) return "00:00";
         const m = Math.floor(seconds / 60);
@@ -457,7 +762,6 @@
         return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     }
 
-    // Calculate total durations
     function calculateTiming() {
         const defaultGap = parseInt(document.getElementById('default-gap').value) || 0;
         let totalShowSeconds = 0;
@@ -470,6 +774,7 @@
             const items = list.querySelectorAll('.sortable-item');
 
             let setSeconds = 0;
+            const songCount = items.length;
 
             items.forEach((item, index) => {
                 const songId = item.getAttribute('data-id');
@@ -478,7 +783,7 @@
 
                 setSeconds += (math.duration || 0);
 
-                // Add gap if this is not the last song and it's not a segue
+                // Add gap if not last song and no segue
                 if (index < items.length - 1) {
                     const segueBtn = item.querySelector('.segue-btn');
                     if (!segueBtn || !segueBtn.classList.contains('active')) {
@@ -487,7 +792,12 @@
                 }
             });
 
-            document.getElementById(`set${s}-time`).innerText = formatTime(setSeconds);
+            const countEl = document.getElementById(`set${s}-count`);
+            if (countEl) countEl.innerText = `(${songCount} ${songCount === 1 ? 'song' : 'songs'})`;
+
+            const timeEl = document.getElementById(`set${s}-time`);
+            if (timeEl) timeEl.innerText = formatTime(setSeconds);
+
             totalShowSeconds += setSeconds;
         }
 
@@ -503,7 +813,9 @@
         document.getElementById('date-input').value = `${mm}/${dd}/${yy}`;
     });
 
-    // Export functionality
+    // -------------------------------------------------------------------------
+    // Export Setlist
+    // -------------------------------------------------------------------------
     async function exportSetlist() {
         const venue = document.getElementById('venue-input').value || 'Unknown Venue';
         const date = document.getElementById('date-input').value;
@@ -561,7 +873,7 @@
         }
     }
 
-    // Auto-load existing setlist if pre-loaded for editing
+    // Auto-load existing setlist if opened in edit mode
     (function loadExistingSetlist() {
         if (!initialSetlist) return;
 
