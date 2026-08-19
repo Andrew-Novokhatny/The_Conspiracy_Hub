@@ -9,7 +9,7 @@ class LyricsAutoScroller {
         this.durationSeconds = parseFloat(options.durationSeconds) || 210;
         this.bpm = parseInt(options.bpm) || null;
         this.speed = parseFloat(options.speed) || 1.0;
-        this.speedSteps = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0];
+        this.speedSteps = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0, 4.0];
         
         this.isPlaying = false;
         this.lastTimestamp = null;
@@ -123,6 +123,15 @@ class LyricsAutoScroller {
         return maxScroll / baseDuration;
     }
 
+    calculateEffectiveSpeed() {
+        if (this.speed >= 2.0) {
+            // Dynamic exponential boost when selected via '+' at speed >= 2.0
+            // 2.0x -> ~2.55x, 3.0x -> ~4.41x, 4.0x -> ~6.5x effective scroll speed
+            return Math.pow(this.speed, 1.35);
+        }
+        return this.speed;
+    }
+
     togglePlay() {
         if (this.isPlaying) {
             this.pause();
@@ -173,7 +182,7 @@ class LyricsAutoScroller {
 
     increaseSpeed() {
         const next = this.speedSteps.find(s => s > this.speed + 0.05);
-        this.setSpeed(next !== undefined ? next : this.speed + 0.25);
+        this.setSpeed(next !== undefined ? next : Math.min(4.0, this.speed + 0.5));
     }
 
     decreaseSpeed() {
@@ -195,7 +204,8 @@ class LyricsAutoScroller {
 
         if (!this.userInteracting) {
             const pixelsPerSecond = this.calculatePixelsPerSecond();
-            const scrollDistance = pixelsPerSecond * this.speed * deltaSeconds;
+            const effectiveSpeed = this.calculateEffectiveSpeed();
+            const scrollDistance = pixelsPerSecond * effectiveSpeed * deltaSeconds;
             
             this.subPixelAccumulator += scrollDistance;
             const fullPixels = Math.floor(this.subPixelAccumulator);
@@ -232,16 +242,23 @@ class LyricsAutoScroller {
     }
 
     updateUI() {
-        // Update Play/Pause Buttons
+        // Update Play/Pause Buttons with minimalist SVG icons
         document.querySelectorAll(this.playBtnSelector).forEach(btn => {
             if (this.isPlaying) {
-                btn.innerHTML = '<span class="autoscroll-icon">⏸️</span><span class="autoscroll-text">Pause</span>';
+                btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg><span class="autoscroll-text">Pause</span>';
                 btn.classList.add('is-playing');
                 btn.setAttribute('aria-label', 'Pause Autoscroll (Space)');
             } else {
-                btn.innerHTML = '<span class="autoscroll-icon">▶️</span><span class="autoscroll-text">Play</span>';
+                btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><span class="autoscroll-text">Play</span>';
                 btn.classList.remove('is-playing');
                 btn.setAttribute('aria-label', 'Play Autoscroll (Space)');
+            }
+        });
+
+        // Update Top / Rewind buttons with minimalist SVG icon
+        document.querySelectorAll(this.topBtnSelector).forEach(btn => {
+            if (!btn.querySelector('svg')) {
+                btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg><span class="autoscroll-btn-label">Top</span>';
             }
         });
 

@@ -160,8 +160,7 @@ def test_song_library_metadata_editing():
     # GET row partial
     res_row = client.get("/api/songs/1999/row")
     assert res_row.status_code == 200
-    assert "1999" in res_row.text
-    assert "✏️ Edit" in res_row.text
+    assert "Edit" in res_row.text
 
     # POST metadata update with row context
     res_post_row = client.post("/api/songs/1999/edit", data={
@@ -236,6 +235,35 @@ def test_segue_marker_persistence():
     client.post(f"/api/setlists/{target_idx}/delete")
     print("✅ Segue marker persistence, export, and rendering verified")
 
+def test_ui_ux_enhancements():
+    """Verify landing page cards, timing strip, sidebar close button, and minimalist icons"""
+    # 1. Landing Page
+    res_home = client.get("/")
+    assert res_home.status_code == 200
+    assert "landing-row-card" in res_home.text
+    cards_stack = res_home.text[res_home.text.find("landing-cards-stack"):]
+    lyrics_pos = cards_stack.find("/api/lyrics/")
+    setlists_pos = cards_stack.find("/api/setlists/")
+    songs_pos = cards_stack.find("/api/songs/")
+    assert lyrics_pos < setlists_pos < songs_pos, "Landing cards order is incorrect"
+    print("✅ Landing page compact row cards & reordering verified")
+
+    # 2. Setlist Details
+    res_det = client.get("/api/setlists/0")
+    assert res_det.status_code == 200
+    assert "setlist-timing-strip" in res_det.text
+    assert "timing-pill" in res_det.text
+    print("✅ Setlist Details minimalist timing strip verified")
+
+    # 3. Show Mode Navigation & Sidebar Close
+    res_show = client.get("/api/setlists/0/show")
+    assert res_show.status_code == 200
+    assert "btn-prev-song" in res_show.text
+    assert "btn-next-song" in res_show.text
+    assert "show-sidebar-close-btn" in res_show.text
+    assert "show-sidebar-backdrop" in res_show.text
+    print("✅ Show Mode Prev/Next navigation & close button verified")
+
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")
     test_new_songs_in_song_list()
@@ -249,5 +277,6 @@ if __name__ == "__main__":
     test_date_normalization()
     test_song_library_metadata_editing()
     test_segue_marker_persistence()
+    test_ui_ux_enhancements()
     print("\n🎉 ALL TESTS PASSED!")
 

@@ -3,35 +3,13 @@
 {% block title %}Song Library - The Conspiracy Hub{% endblock %}
 
 {% block content %}
-<div class="fade-in-up">
-    <h1 class="page-title">🎵 Song Library</h1>
-    <p class="page-subtitle">{{ stats.total_songs }} songs in the library</p>
+<div class="fade-in-up mb-md">
+    <h1 class="page-title">Song Library</h1>
+    <p class="page-subtitle" style="margin-bottom: 1rem;">{{ stats.total_songs }} songs in the catalog</p>
 </div>
-
-<!-- Stats Cards — these belong here, not on the homepage -->
-{% if stats %}
-<div class="stats-grid fade-in-up-delay-1">
-    <div class="stat-card">
-        <div class="stat-value">{{ stats.total_songs }}</div>
-        <div class="stat-label">Songs</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value">{{ stats.jam_vehicles }}</div>
-        <div class="stat-label">Jam Vehicles</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value">{{ stats.avg_bpm }}</div>
-        <div class="stat-label">Avg BPM</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value">{{ stats.horn_songs }}</div>
-        <div class="stat-label">Horn Songs</div>
-    </div>
-</div>
-{% endif %}
 
 <!-- Search & Filters -->
-<div class="mb-md fade-in-up-delay-2">
+<div class="mb-md fade-in-up-delay-1">
     <div class="search-box mb-sm">
         <input type="text"
                class="form-input"
@@ -50,7 +28,7 @@
 </div>
 
 <!-- Song List -->
-<div id="song-list" class="fade-in-up-delay-3">
+<div id="song-list" class="fade-in-up-delay-2">
     {% for song_name, song_info in songs|dictsort %}
     {% set has_lyrics = song_name in available_lyrics %}
     {% set duration_minutes = (song_info.get('duration', 0) // 60) %}
@@ -62,8 +40,10 @@
 
 {% if not songs %}
 <div class="empty-state">
-    <div class="empty-state-icon">🎵</div>
-    <div class="empty-state-text">No songs found in the library. Check the song list CSV file.</div>
+    <div class="empty-state-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <div class="empty-state-text">No songs loaded. Add song metadata to the catalog CSV.</div>
 </div>
 {% endif %}
 {% endblock %}
@@ -73,33 +53,34 @@
 let currentFilter = 'all';
 
 function filterSongs(query) {
-    const q = query.toLowerCase();
+    const q = query.toLowerCase().trim();
     document.querySelectorAll('.song-row').forEach(function(row) {
-        const name = row.getAttribute('data-song') || '';
+        const title = row.getAttribute('data-song') || '';
         const artist = row.getAttribute('data-artist') || '';
-        const textMatch = name.includes(q) || artist.includes(q);
-        const filterMatch = checkFilter(row);
-        row.style.display = (textMatch && filterMatch) ? '' : 'none';
+        const matchesQuery = !q || title.includes(q) || artist.includes(q);
+
+        let matchesFilter = true;
+        if (currentFilter === 'horn') {
+            matchesFilter = row.getAttribute('data-horn') === 'true';
+        } else if (currentFilter === 'jam') {
+            matchesFilter = row.getAttribute('data-jam') === 'true';
+        } else if (currentFilter === 'high') {
+            matchesFilter = row.getAttribute('data-energy') === 'high';
+        } else if (currentFilter === 'low') {
+            matchesFilter = row.getAttribute('data-energy') === 'low';
+        }
+
+        row.style.display = (matchesQuery && matchesFilter) ? '' : 'none';
     });
 }
 
-function setFilter(filter, btn) {
-    currentFilter = filter;
-    // Update active pill
-    document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
+function setFilter(filterType, btn) {
+    currentFilter = filterType;
+    document.querySelectorAll('.filter-pill').forEach(function(p) {
+        p.classList.remove('active');
+    });
     btn.classList.add('active');
-    // Re-apply search + filter
-    const searchVal = document.getElementById('song-search').value;
-    filterSongs(searchVal);
-}
-
-function checkFilter(row) {
-    if (currentFilter === 'all') return true;
-    if (currentFilter === 'horn') return row.getAttribute('data-horn') === 'true';
-    if (currentFilter === 'jam') return row.getAttribute('data-jam') === 'true';
-    if (currentFilter === 'high') return row.getAttribute('data-energy') === 'high';
-    if (currentFilter === 'low') return row.getAttribute('data-energy') === 'low';
-    return true;
+    filterSongs(document.getElementById('song-search').value);
 }
 </script>
 {% endblock %}

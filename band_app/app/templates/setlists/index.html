@@ -32,21 +32,24 @@
                     <div class="setlist-card-date">{{ setlist.date }}</div>
                 </a>
             </div>
-            <div class="flex items-center gap-sm flex-wrap">
-                <a href="/api/builder/?edit={{ loop.index0 }}" class="band-btn-secondary band-btn-sm" style="padding: 0.35rem 0.65rem;" title="Edit in Setlist Builder">
-                    🏗️ Builder
+            <div class="setlist-actions-group flex items-center gap-sm flex-wrap">
+                <a href="/api/builder/?edit={{ loop.index0 }}" class="band-btn-secondary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.65rem;" title="Edit in Setlist Builder">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 15V6a2 2 0 0 1 4 0v9"/><path d="M4 15v-3a8 8 0 0 1 16 0v3"/></svg>
+                    <span>Builder</span>
                 </a>
-                <a href="/api/setlists/{{ loop.index0 }}/show" class="band-btn-sm band-btn" style="padding: 0.35rem 0.75rem; font-size: 0.85rem;">
-                    🎪 Show Mode
+                <a href="/api/setlists/{{ loop.index0 }}/show" class="band-btn-sm band-btn" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; font-size: 0.85rem;" title="Launch stage Show Mode">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+                    <span>Show Mode</span>
                 </a>
-                <a href="/api/setlists/{{ loop.index0 }}" class="band-btn-secondary band-btn-sm" style="padding: 0.35rem 0.65rem;">
-                    Details →
+                <a href="/api/setlists/{{ loop.index0 }}" class="band-btn-secondary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.65rem;">
+                    <span>Details</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                 </a>
-                <button class="band-btn-secondary band-btn-sm" style="padding: 0.35rem 0.5rem; color: #ff6b6b; border-color: rgba(255, 107, 107, 0.4);"
+                <button class="band-btn-secondary band-btn-sm" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.4rem 0.55rem; color: #ff6b6b; border-color: rgba(255, 107, 107, 0.35);"
                         hx-post="/api/setlists/{{ loop.index0 }}/delete"
                         hx-confirm="Are you sure you want to delete this setlist?"
                         title="Delete setlist">
-                    🗑️
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
                 </button>
             </div>
         </div>

@@ -3,36 +3,40 @@
 {% block title %}{{ setlist.venue }} ({{ setlist.date }}) - Setlist{% endblock %}
 
 {% block content %}
-<a href="/api/setlists/" class="back-link">← Back to Setlists</a>
+<a href="/api/setlists/" class="back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 0.25rem;"><path d="m15 18-6-6 6-6"/></svg>Back to Setlists
+</a>
 
 <div class="flex items-center justify-between flex-wrap gap-md mb-md fade-in-up">
     <div>
-        <h1 class="page-title" style="margin-bottom: 0.2rem;">🎸 {{ setlist.venue }}</h1>
+        <h1 class="page-title" style="margin-bottom: 0.2rem;">{{ setlist.venue }}</h1>
         <p class="page-subtitle" style="margin-bottom: 0;">{{ friendly_date }}</p>
     </div>
     <div class="flex gap-sm items-center flex-wrap">
-        <a href="/api/builder/?edit={{ setlist_id }}" class="band-btn-secondary" style="padding: 0.75rem 1.25rem; font-weight: 700;">
-            🏗️ Edit in Builder
+        <a href="/api/builder/?edit={{ setlist_id }}" class="band-btn-secondary" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.1rem; font-weight: 700;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 15V6a2 2 0 0 1 4 0v9"/><path d="M4 15v-3a8 8 0 0 1 16 0v3"/></svg>
+            <span>Edit in Builder</span>
         </a>
-        <a href="/api/setlists/{{ setlist_id }}/show" class="band-btn" style="padding: 0.75rem 1.5rem; font-size: 1.05rem; font-weight: 700;">
-            🎪 Launch Show Mode
+        <a href="/api/setlists/{{ setlist_id }}/show" class="band-btn" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.3rem; font-size: 1rem; font-weight: 700;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+            <span>Launch Show Mode</span>
         </a>
     </div>
 </div>
 
-<!-- Timing Stats -->
-<div class="stats-grid fade-in-up-delay-1">
+<!-- Minimalist Timing Strip (Replaced oversized stat cards) -->
+<div class="setlist-timing-strip fade-in-up-delay-1 mb-md">
     {% for set_key, timing in set_timings.items() %}
     {% if timing.song_count > 0 %}
-    <div class="stat-card">
-        <div class="stat-value">{{ timing.formatted }}</div>
-        <div class="stat-label">Set {{ loop.index }}</div>
+    <div class="timing-pill">
+        <span class="timing-label">Set {{ loop.index }}:</span>
+        <span class="timing-value">{{ timing.formatted }}</span>
     </div>
     {% endif %}
     {% endfor %}
-    <div class="stat-card">
-        <div class="stat-value">{{ total_show_formatted }}</div>
-        <div class="stat-label">Total</div>
+    <div class="timing-pill total">
+        <span class="timing-label">Total:</span>
+        <span class="timing-value">{{ total_show_formatted }}</span>
     </div>
 </div>
 
@@ -51,24 +55,24 @@
         {% set s_info = songs_data.get(song.name, {}) %}
         <div class="set-song-item">
             <span class="set-song-number">{{ loop.index }}</span>
-            {% if song.name in songs_data and song.name in (songs_data.keys()|list) %}
-            <a href="/api/lyrics/{{ song.name }}" class="set-song-name" style="color: var(--text-primary); text-decoration: none;">
-                {% if song.is_segue %}<span style="color: var(--accent); font-weight: 800; font-size: 1.1rem; margin-right: 0.35rem;" title="Segue into this song">→</span>{% endif %}{{ song.name }}
-                {% if s_info.get('has_horn') %}🎺{% endif %}
-                {% if s_info.get('is_jam_vehicle') %}🛸{% endif %}
-                {% if s_info.get('energy_level') == 'high' %}🔥{% elif s_info.get('energy_level') == 'low' %}💤{% endif %}
-            </a>
-            {% else %}
-            <span class="set-song-name">
-                {% if song.is_segue %}<span style="color: var(--accent); font-weight: 800; font-size: 1.1rem; margin-right: 0.35rem;" title="Segue into this song">→</span>{% endif %}{{ song.name }}
-            </span>
-            {% endif %}
-            {% if song.bpm %}
-            <span class="set-song-bpm">{{ song.bpm }}</span>
-            {% endif %}
-            {% if songs_data.get(song.name, {}).get('song_key') %}
-            <span class="badge" style="background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: 700; font-size: 0.75rem;">🔑 {{ songs_data[song.name].song_key }}</span>
-            {% endif %}
+            <div class="set-song-main">
+                {% if song.name in songs_data and song.name in (songs_data.keys()|list) %}
+                <a href="/api/lyrics/{{ song.name }}" class="set-song-name" style="color: var(--text-primary); text-decoration: none;">
+                    {% if song.is_segue %}<span style="color: var(--accent); font-weight: 800; font-size: 1.1rem; margin-right: 0.35rem;" title="Segue into this song">→</span>{% endif %}{{ song.name }}
+                    {% if s_info.get('has_horn') %} 🎺{% endif %}
+                    {% if s_info.get('is_jam_vehicle') %} 🛸{% endif %}
+                    {% if s_info.get('energy_level') == 'high' %} 🔥{% elif s_info.get('energy_level') == 'low' %} 💤{% endif %}
+                </a>
+                {% else %}
+                <span class="set-song-name">
+                    {% if song.is_segue %}<span style="color: var(--accent); font-weight: 800; font-size: 1.1rem; margin-right: 0.35rem;" title="Segue into this song">→</span>{% endif %}{{ song.name }}
+                </span>
+                {% endif %}
+            </div>
+            <div class="set-song-details-meta">
+                <span class="set-song-bpm-col">{% if song.bpm %}({{ song.bpm }} BPM){% endif %}</span>
+                <span class="set-song-key-col">{% if s_info.get('song_key') %}<span class="key-badge">{{ s_info.song_key }}</span>{% endif %}</span>
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -83,27 +87,34 @@
     <div class="flex flex-wrap gap-sm">
         <a href="/api/setlists/{{ setlist_id }}/export?format=json"
            class="band-btn-secondary band-btn-sm"
+           style="display: inline-flex; align-items: center; gap: 0.35rem;"
            target="_blank">
-            💾 Export JSON
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>JSON</span>
         </a>
         <a href="/api/setlists/{{ setlist_id }}/export?format=markdown"
            class="band-btn-secondary band-btn-sm"
+           style="display: inline-flex; align-items: center; gap: 0.35rem;"
            target="_blank">
-            📝 Export Markdown
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>Markdown</span>
         </a>
     </div>
     
     <div class="flex flex-wrap gap-sm">
-        <a href="/api/builder/?edit={{ setlist_id }}" class="band-btn-secondary band-btn-sm">
-            🏗️ Edit in Builder
+        <a href="/api/builder/?edit={{ setlist_id }}" class="band-btn-secondary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 15V6a2 2 0 0 1 4 0v9"/><path d="M4 15v-3a8 8 0 0 1 16 0v3"/></svg>
+            <span>Builder</span>
         </a>
-        <a href="/api/setlists/{{ setlist_id }}/edit" class="band-btn-secondary band-btn-sm">
-            ✏️ Edit Raw
+        <a href="/api/setlists/{{ setlist_id }}/edit" class="band-btn-secondary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+            <span>Edit Raw</span>
         </a>
-        <button class="band-btn-secondary band-btn-sm" style="color: #ff6b6b; border-color: rgba(255, 107, 107, 0.4);"
+        <button class="band-btn-secondary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem; color: #ff6b6b; border-color: rgba(255, 107, 107, 0.35);"
                 hx-post="/api/setlists/{{ setlist_id }}/delete"
                 hx-confirm="Are you sure you want to delete this setlist? This cannot be undone.">
-            🗑️ Delete
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+            <span>Delete</span>
         </button>
     </div>
 </div>

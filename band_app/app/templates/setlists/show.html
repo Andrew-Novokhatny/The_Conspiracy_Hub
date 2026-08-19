@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Show Mode - {{ setlist.venue }} ({{ setlist.date }})</title>
     
     <!-- Theme CSS -->
@@ -16,35 +16,45 @@
     <!-- Stage Header -->
     <header class="show-stage-header">
         <div class="show-header-left">
-            <a href="/api/setlists/{{ setlist_id }}" class="band-btn-secondary band-btn-sm" style="padding: 0.4rem 0.8rem;">
-                ↩️ Exit
+            <a href="/api/setlists/{{ setlist_id }}" class="band-btn-secondary band-btn-sm show-exit-btn" title="Exit Show Mode">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <span>Exit</span>
             </a>
-            <div>
-                <div class="show-venue-title">🎸 {{ setlist.venue }}</div>
-                <div class="text-muted" style="font-size: 0.8rem;">{{ friendly_date }}</div>
+            <div class="show-header-venue-wrap">
+                <div class="show-venue-title">{{ setlist.venue }}</div>
+                <div class="text-muted show-venue-date">{{ friendly_date }}</div>
             </div>
         </div>
 
-        <div class="flex items-center gap-sm">
-            <button class="band-btn-secondary band-btn-sm" id="sidebar-header-toggle-btn" onclick="toggleSidebar()" title="Toggle in-view sidebar">
-                📑 <span id="header-song-counter">{{ current_song.set_label if current_song else 'Set 1' }} · {{ current_idx + 1 }}/{{ total_songs }}</span>
+        <div class="show-header-right">
+            <button class="band-btn-secondary band-btn-sm show-counter-btn" id="sidebar-header-toggle-btn" onclick="toggleSidebar()" title="Toggle setlist sidebar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                <span id="header-song-counter">{{ current_song.set_label if current_song else 'Set 1' }} · {{ current_idx + 1 }}/{{ total_songs }}</span>
             </button>
         </div>
     </header>
 
     <!-- Floating Re-open Tab (Visible when sidebar is collapsed) -->
     <button class="show-sidebar-open-tab" id="sidebar-open-tab" onclick="openSidebar()" title="Open Setlist Tracker">
-        📋 <span style="font-size: 0.75rem;">Setlist ❯</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+        <span>Setlist</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
     </button>
+
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div class="show-sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebar()"></div>
 
     <!-- Show Mode Layout (Sidebar + Stage Viewport) -->
     <div class="show-layout-wrapper">
         <!-- Collapsible Minimal Sidebar -->
         <aside class="show-sidebar" id="show-sidebar">
             <div class="show-sidebar-toggle-header">
-                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary);">📋 Setlist Track</span>
-                <button class="show-sidebar-toggle-btn" style="width: auto;" onclick="closeSidebar()" title="Collapse sidebar">
-                    <span>◀ Hide</span>
+                <span class="show-sidebar-heading">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+                    Setlist Tracker
+                </span>
+                <button class="show-sidebar-close-btn" onclick="closeSidebar()" title="Close sidebar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
             <div class="show-sidebar-scroll" id="sidebar-scroll-container">
@@ -56,15 +66,15 @@
                            hx-get="/api/setlists/{{ setlist_id }}/show?song={{ song.global_index }}&partial=1"
                            hx-target="#show-song-content"
                            hx-swap="innerHTML"
-                           title="{{ song.name }} ({{ song.bpm }} BPM)"
                            onclick="onSidebarSongClick()">
                             <span class="show-sidebar-num">{{ song.song_in_set }}.</span>
-                            <span class="show-sidebar-name">{% if song.is_segue %}<span style="color: var(--accent); font-weight: bold; margin-right: 0.2rem;">→</span>{% endif %}{{ song.name }}{% if song.has_horn %} 🎺{% endif %}{% if song.is_jam_vehicle %} 🛸{% endif %}{% if song.energy_level == 'high' %} 🔥{% elif song.energy_level == 'low' %} 💤{% endif %}</span>
-                            {% if song.song_key %}
-                            <span class="show-sidebar-bpm" style="color: var(--primary); font-weight: 700;">🔑 {{ song.song_key }}</span>
-                            {% elif song.bpm %}
-                            <span class="show-sidebar-bpm">{{ song.bpm }}</span>
-                            {% endif %}
+                            <span class="show-sidebar-name">
+                                {% if song.is_segue %}<span style="color: var(--accent); font-weight: bold; margin-right: 0.2rem;">→</span>{% endif %}{{ song.name }}{% if song.has_horn %} 🎺{% endif %}{% if song.is_jam_vehicle %} 🛸{% endif %}{% if song.energy_level == 'high' %} 🔥{% elif song.energy_level == 'low' %} 💤{% endif %}
+                            </span>
+                            <span class="show-sidebar-meta-col">
+                                <span class="show-sidebar-bpm-val">{% if song.bpm %}({{ song.bpm }}){% endif %}</span>
+                                <span class="show-sidebar-key-val">{% if song.song_key %}<span class="key-badge">{{ song.song_key }}</span>{% endif %}</span>
+                            </span>
                         </a>
                     {% endfor %}
                 {% endfor %}
@@ -82,15 +92,17 @@
     <!-- Stage Fixed Bottom Navigation Bar -->
     <footer class="show-bottom-bar">
         <!-- Prev Button -->
-        <button class="show-nav-btn" 
+        <button class="show-nav-btn prev" 
                 id="btn-prev-song"
+                title="Previous Song"
                 {% if prev_idx is none %}disabled{% endif %}
                 {% if prev_idx is not none %}
                 hx-get="/api/setlists/{{ setlist_id }}/show?song={{ prev_idx }}&partial=1"
                 hx-target="#show-song-content"
                 hx-swap="innerHTML"
                 {% endif %}>
-            ⏮️ Prev
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+            <span class="show-nav-text">Prev</span>
         </button>
 
         <!-- Autoscroll Toolbar -->
@@ -102,12 +114,14 @@
 
             <!-- Rewind / Top Button -->
             <button class="autoscroll-btn autoscroll-top-btn" title="Scroll to Top (R / Home)">
-                ⏮️ Top
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
+                <span class="autoscroll-btn-label">Top</span>
             </button>
 
             <!-- Play / Pause Button -->
             <button class="autoscroll-btn autoscroll-play-btn" title="Play/Pause Autoscroll (Space)">
-                <span class="autoscroll-icon">▶️</span>
+                <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
                 <span class="autoscroll-text">Play</span>
             </button>
 
@@ -122,13 +136,15 @@
         <!-- Next Button -->
         <button class="show-nav-btn next" 
                 id="btn-next-song"
+                title="Next Song"
                 {% if next_idx is none %}disabled{% endif %}
                 {% if next_idx is not none %}
                 hx-get="/api/setlists/{{ setlist_id }}/show?song={{ next_idx }}&partial=1"
                 hx-target="#show-song-content"
                 hx-swap="innerHTML"
                 {% endif %}>
-            Next ⏭️
+            <span class="show-nav-text">Next</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
         </button>
     </footer>
 
@@ -148,8 +164,10 @@
         function openSidebar() {
             const sidebar = document.getElementById('show-sidebar');
             const openTab = document.getElementById('sidebar-open-tab');
-            sidebar.classList.remove('is-collapsed');
-            openTab.classList.remove('is-visible');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            if (sidebar) sidebar.classList.remove('is-collapsed');
+            if (openTab) openTab.classList.remove('is-visible');
+            if (backdrop && isSmallScreen()) backdrop.classList.add('is-visible');
             localStorage.setItem('show_sidebar_state', 'open');
             scrollActiveSidebarSongIntoView();
         }
@@ -157,14 +175,16 @@
         function closeSidebar() {
             const sidebar = document.getElementById('show-sidebar');
             const openTab = document.getElementById('sidebar-open-tab');
-            sidebar.classList.add('is-collapsed');
-            openTab.classList.add('is-visible');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            if (sidebar) sidebar.classList.add('is-collapsed');
+            if (openTab) openTab.classList.add('is-visible');
+            if (backdrop) backdrop.classList.remove('is-visible');
             localStorage.setItem('show_sidebar_state', 'closed');
         }
 
         function toggleSidebar() {
             const sidebar = document.getElementById('show-sidebar');
-            if (sidebar.classList.contains('is-collapsed')) {
+            if (sidebar && sidebar.classList.contains('is-collapsed')) {
                 openSidebar();
             } else {
                 closeSidebar();
@@ -196,77 +216,125 @@
 
         // Initialize autoscroller for stage window
         let scroller = window.initLyricsAutoscroll({
-            containerSelector: null, // window scroll
+            containerSelector: null,
             durationSeconds: {{ current_song.duration if current_song else 240 }},
             bpm: {{ current_song.bpm if current_song and current_song.bpm else 'null' }},
             speed: 1.0
         });
 
-        // Callback invoked on HTMX swap when a new song loads
-        window.onSongLoadedInShowMode = function(data) {
+        // Robust HTMX after-swap synchronization for Next/Prev, counter, and autoscroller
+        document.body.addEventListener('htmx:afterSwap', function(evt) {
+            if (evt.detail.target && evt.detail.target.id === 'show-song-content') {
+                syncShowModeState();
+            }
+        });
+
+        function syncShowModeState() {
             // Scroll stage back to top smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const metaUpdate = document.getElementById('nav-meta-update');
+            if (!metaUpdate) return;
+
+            const prevIdx = metaUpdate.getAttribute('data-prev-idx');
+            const nextIdx = metaUpdate.getAttribute('data-next-idx');
+            const currentIdx = metaUpdate.getAttribute('data-current-idx');
+            const setLabel = metaUpdate.getAttribute('data-set-label');
+            const duration = parseFloat(metaUpdate.getAttribute('data-duration')) || 240;
+            const bpm = metaUpdate.getAttribute('data-bpm');
 
             // Reset autoscroller for new song
             if (window.activeAutoScroller) {
                 window.activeAutoScroller.pause();
-                window.activeAutoScroller.durationSeconds = data.duration || 240;
-                window.activeAutoScroller.bpm = data.bpm || null;
+                window.activeAutoScroller.durationSeconds = duration;
+                window.activeAutoScroller.bpm = bpm ? parseInt(bpm) : null;
                 window.activeAutoScroller.scrollToTop(false);
                 window.activeAutoScroller.updateUI();
             }
 
-            // Sync navigation buttons & metadata
-            const metaUpdate = document.getElementById('nav-meta-update');
-            if (metaUpdate) {
-                const prevIdx = metaUpdate.getAttribute('data-prev-idx');
-                const nextIdx = metaUpdate.getAttribute('data-next-idx');
-                const currentIdx = metaUpdate.getAttribute('data-current-idx');
-                const setLabel = metaUpdate.getAttribute('data-set-label');
+            // Update Header Counter
+            const headerCounter = document.getElementById('header-song-counter');
+            if (headerCounter && setLabel) {
+                headerCounter.textContent = setLabel;
+            }
 
-                // Update Header Counter
-                const headerCounter = document.getElementById('header-song-counter');
-                if (headerCounter && setLabel) {
-                    headerCounter.textContent = setLabel;
-                }
-
-                // Update Prev Button
-                const btnPrev = document.getElementById('btn-prev-song');
-                if (btnPrev) {
-                    if (prevIdx !== "") {
-                        btnPrev.disabled = false;
-                        btnPrev.setAttribute('hx-get', `/api/setlists/${setlistId}/show?song=${prevIdx}&partial=1`);
-                        htmx.process(btnPrev);
-                    } else {
-                        btnPrev.disabled = true;
-                        btnPrev.removeAttribute('hx-get');
-                    }
-                }
-
-                // Update Next Button
-                const btnNext = document.getElementById('btn-next-song');
-                if (btnNext) {
-                    if (nextIdx !== "") {
-                        btnNext.disabled = false;
-                        btnNext.setAttribute('hx-get', `/api/setlists/${setlistId}/show?song=${nextIdx}&partial=1`);
-                        htmx.process(btnNext);
-                    } else {
-                        btnNext.disabled = true;
-                        btnNext.removeAttribute('hx-get');
-                    }
-                }
-
-                // Update Sidebar Active Item & Auto-scroll into view
-                document.querySelectorAll('.show-sidebar-item').forEach(item => {
-                    item.classList.remove('is-active');
-                });
-                const activeSidebarItem = document.getElementById(`sidebar-song-${currentIdx}`);
-                if (activeSidebarItem) {
-                    activeSidebarItem.classList.add('is-active');
-                    scrollActiveSidebarSongIntoView();
+            // Update Prev Button
+            const btnPrev = document.getElementById('btn-prev-song');
+            if (btnPrev) {
+                if (prevIdx !== "" && prevIdx !== null && prevIdx !== undefined) {
+                    btnPrev.disabled = false;
+                    btnPrev.setAttribute('hx-get', `/api/setlists/${setlistId}/show?song=${prevIdx}&partial=1`);
+                    htmx.process(btnPrev);
+                } else {
+                    btnPrev.disabled = true;
+                    btnPrev.removeAttribute('hx-get');
                 }
             }
+
+            // Update Next Button
+            const btnNext = document.getElementById('btn-next-song');
+            if (btnNext) {
+                if (nextIdx !== "" && nextIdx !== null && nextIdx !== undefined) {
+                    btnNext.disabled = false;
+                    btnNext.setAttribute('hx-get', `/api/setlists/${setlistId}/show?song=${nextIdx}&partial=1`);
+                    htmx.process(btnNext);
+                } else {
+                    btnNext.disabled = true;
+                    btnNext.removeAttribute('hx-get');
+                }
+            }
+
+            // Update Sidebar Active Item & Auto-scroll into view
+            document.querySelectorAll('.show-sidebar-item').forEach(item => {
+                item.classList.remove('is-active');
+            });
+            const activeSidebarItem = document.getElementById(`sidebar-song-${currentIdx}`);
+            if (activeSidebarItem) {
+                activeSidebarItem.classList.add('is-active');
+                scrollActiveSidebarSongIntoView();
+            }
+        }
+
+        // Global fallback callback for partial inline call
+        window.onSongLoadedInShowMode = function() {
+            syncShowModeState();
         };
+
+        // Touch Swipe Navigation for mobile devices
+        let touchStartX = 0;
+        let touchStartY = 0;
+        const stageViewport = document.getElementById('show-main-viewport');
+
+        if (stageViewport) {
+            stageViewport.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+
+            stageViewport.addEventListener('touchend', function(e) {
+                const touchEndX = e.changedTouches[0].screenX;
+                const touchEndY = e.changedTouches[0].screenY;
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+
+                // Detect horizontal swipe (at least 60px horizontal and less than 40px vertical)
+                if (Math.abs(deltaX) > 60 && Math.abs(deltaY) < 40) {
+                    if (deltaX < 0) {
+                        // Swipe Left -> Next Song
+                        const btnNext = document.getElementById('btn-next-song');
+                        if (btnNext && !btnNext.disabled) {
+                            btnNext.click();
+                        }
+                    } else {
+                        // Swipe Right -> Prev Song
+                        const btnPrev = document.getElementById('btn-prev-song');
+                        if (btnPrev && !btnPrev.disabled) {
+                            btnPrev.click();
+                        }
+                    }
+                }
+            }, { passive: true });
+        }
 
         // Keyboard navigation for live stage performance (pedal / remote / arrow keys)
         document.addEventListener('keydown', function(e) {

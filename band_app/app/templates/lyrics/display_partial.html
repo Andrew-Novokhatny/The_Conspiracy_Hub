@@ -3,37 +3,53 @@
         <div>
             <div class="lyrics-song-title">{{ song_name }}</div>
             {% if artist or bpm or song_key %}
-            <div class="lyrics-song-artist">{{ artist }}{% if bpm %} · {{ bpm }} BPM{% endif %}{% if song_key %} · <span style="color: var(--primary); font-weight: 700;">🔑 Key: {{ song_key }}</span>{% endif %}{% if duration %} · {{ duration }}s{% endif %}</div>
+            <div class="lyrics-song-artist">{{ artist }}{% if bpm %} · ({{ bpm }} BPM){% endif %}{% if song_key %} · <span style="color: var(--primary); font-weight: 700;">Key: {{ song_key }}</span>{% endif %}{% if duration %} · {{ duration }}s{% endif %}</div>
             {% endif %}
         </div>
         <div class="flex gap-sm items-center flex-wrap">
             <button class="band-btn-secondary band-btn-sm" 
+                    style="display: inline-flex; align-items: center; gap: 0.35rem;"
                     hx-get="/api/songs/{{ song_name }}/edit?context=lyrics" 
                     hx-target="#lyrics-container" 
                     hx-swap="innerHTML"
-                    title="Edit song length, key, vibe tags, artist & BPM">🏷️ Edit Metadata</button>
+                    title="Edit song length, key, vibe tags, artist & BPM">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                <span>Edit Metadata</span>
+            </button>
             <button class="band-btn-secondary band-btn-sm" 
+                    style="display: inline-flex; align-items: center; gap: 0.35rem;"
                     hx-get="/api/lyrics/{{ song_name }}/edit" 
                     hx-target="#lyrics-container" 
                     hx-swap="innerHTML"
-                    title="Edit lyrics text">✏️ Edit Lyrics</button>
-            <a href="/api/lyrics/{{ song_name }}/fullscreen" class="band-btn-secondary band-btn-sm">🔍 Full Screen</a>
+                    title="Edit lyrics text">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                <span>Edit Lyrics</span>
+            </button>
+            <a href="/api/lyrics/{{ song_name }}/fullscreen" class="band-btn-secondary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                <span>Full Screen</span>
+            </a>
         </div>
     </div>
 </div>
 
 {% if lyrics_content %}
 <div class="lyrics-inline-autoscroll">
-    <div class="text-muted" style="font-size: 0.85rem; font-weight: 600;">
-        📜 Autoscroll
+    <div class="text-muted" style="font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        Autoscroll
     </div>
     <div class="autoscroll-bar">
         <div class="autoscroll-progress-track">
             <div class="autoscroll-progress-fill"></div>
         </div>
-        <button class="autoscroll-btn autoscroll-top-btn" title="Scroll to Top (R)">⏮️ Top</button>
+        <button class="autoscroll-btn autoscroll-top-btn" title="Scroll to Top (R)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
+            <span class="autoscroll-btn-label">Top</span>
+        </button>
         <button class="autoscroll-btn autoscroll-play-btn" title="Play/Pause (Space)">
-            <span class="autoscroll-icon">▶️</span>
+            <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
             <span class="autoscroll-text">Play</span>
         </button>
         <div class="autoscroll-speed-group">

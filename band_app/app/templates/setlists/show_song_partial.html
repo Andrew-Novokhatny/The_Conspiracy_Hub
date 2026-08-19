@@ -17,11 +17,11 @@
         {% endif %}
         
         {% if current_song.bpm %}
-        <span class="show-meta-tag bpm">⏱️ {{ current_song.bpm }} BPM</span>
+        <span class="show-meta-tag bpm">({{ current_song.bpm }} BPM)</span>
         {% endif %}
 
         {% if current_song.song_key %}
-        <span class="show-meta-tag" style="color: var(--primary); border-color: rgba(0, 212, 216, 0.4); font-weight: 700;">🔑 {{ current_song.song_key }}</span>
+        <span class="show-meta-tag key" style="color: var(--primary); border-color: rgba(0, 212, 216, 0.4); font-weight: 700;">{{ current_song.song_key }}</span>
         {% endif %}
 
         {% if current_song.has_horn %}
@@ -54,11 +54,12 @@
      data-next-idx="{{ next_idx if next_idx is not none else '' }}"
      data-current-idx="{{ current_idx }}"
      data-song-name="{{ current_song.name }}"
+     data-duration="{{ current_song.duration }}"
+     data-bpm="{{ current_song.bpm or '' }}"
      data-set-label="{{ current_song.set_label }} · {{ current_idx + 1 }}/{{ total_songs }}">
 </div>
 
 <script>
-    // Re-initialize autoscroll when song changes
     if (typeof window.onSongLoadedInShowMode === 'function') {
         window.onSongLoadedInShowMode({
             duration: {{ current_song.duration }},
@@ -69,7 +70,9 @@
 </script>
 {% else %}
 <div class="empty-state">
-    <div class="empty-state-icon">🎸</div>
+    <div class="empty-state-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
     <div class="empty-state-text">No songs in this setlist.</div>
 </div>
 {% endif %}
