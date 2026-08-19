@@ -55,7 +55,15 @@ Restored original teal aesthetic, mobile-first for tablet/phone musicians
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
+}
+
+html.autoscroll-active,
+html.autoscroll-active body,
+body.autoscroll-active,
+.lyrics-fullscreen-container,
+.show-mode-page {
+    scroll-behavior: auto !important;
 }
 
 body {

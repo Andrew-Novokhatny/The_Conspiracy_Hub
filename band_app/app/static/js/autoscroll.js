@@ -51,7 +51,6 @@ class LyricsAutoScroller {
     bindEvents() {
         // Keyboard Shortcuts
         document.addEventListener('keydown', (e) => {
-            // Ignore if typing in an input, textarea, or contenteditable
             const tag = e.target.tagName.toLowerCase();
             if (tag === 'input' || tag === 'textarea' || e.target.isContentEditable) return;
 
@@ -70,40 +69,49 @@ class LyricsAutoScroller {
             }
         });
 
-        // User manual scroll detection
-        const container = this.getContainer();
-        const scrollTarget = (container === document.documentElement || container === document.body || container === document.scrollingElement) ? window : container;
+        // User manual scroll detection - Ignore events on control bars
+        const isControlElement = (target) => {
+            if (!target) return false;
+            return !!target.closest(
+                '.lyrics-floating-autoscroll, .autoscroll-bar, .lyrics-inline-autoscroll, .show-stage-header, .show-bottom-bar, .autoscroll-btn, .autoscroll-speed-btn, .autoscroll-speed-group'
+            );
+        };
 
-        const onUserTouch = () => {
+        const onUserManualTouch = (e) => {
+            if (e && isControlElement(e.target)) return;
             this.userInteracting = true;
             clearTimeout(this.userInteractionTimeout);
             this.userInteractionTimeout = setTimeout(() => {
                 this.userInteracting = false;
-                this.lastTimestamp = null; // reset timestamp delta
+                this.lastTimestamp = null;
             }, 300);
             this.updateProgress();
         };
 
-        scrollTarget.addEventListener('wheel', onUserTouch, { passive: true });
-        scrollTarget.addEventListener('touchstart', onUserTouch, { passive: true });
-        scrollTarget.addEventListener('touchmove', onUserTouch, { passive: true });
-        scrollTarget.addEventListener('scroll', () => this.updateProgress(), { passive: true });
+        window.addEventListener('wheel', onUserManualTouch, { passive: true });
+        window.addEventListener('touchstart', onUserManualTouch, { passive: true });
+        window.addEventListener('touchmove', onUserManualTouch, { passive: true });
+        window.addEventListener('scroll', () => this.updateProgress(), { passive: true });
 
-        // Delegate Click events on document for controls
+        // Bind control buttons with both click & touch handling
+        const handleBtnAction = (e, actionFn) => {
+            e.preventDefault();
+            e.stopPropagation();
+            actionFn.call(this);
+        };
+
         document.addEventListener('click', (e) => {
-            if (e.target.closest(this.playBtnSelector)) {
-                e.preventDefault();
-                this.togglePlay();
-            } else if (e.target.closest(this.topBtnSelector)) {
-                e.preventDefault();
-                this.scrollToTop();
-            } else if (e.target.closest(this.speedUpBtnSelector)) {
-                e.preventDefault();
-                this.increaseSpeed();
-            } else if (e.target.closest(this.speedDownBtnSelector)) {
-                e.preventDefault();
-                this.decreaseSpeed();
-            }
+            const playBtn = e.target.closest(this.playBtnSelector);
+            if (playBtn) return handleBtnAction(e, this.togglePlay);
+
+            const topBtn = e.target.closest(this.topBtnSelector);
+            if (topBtn) return handleBtnAction(e, this.scrollToTop);
+
+            const fasterBtn = e.target.closest(this.speedUpBtnSelector);
+            if (fasterBtn) return handleBtnAction(e, this.increaseSpeed);
+
+            const slowerBtn = e.target.closest(this.speedDownBtnSelector);
+            if (slowerBtn) return handleBtnAction(e, this.decreaseSpeed);
         });
     }
 
@@ -116,17 +124,22 @@ class LyricsAutoScroller {
             container === window
         );
         
-        const scrollTop = isWindow 
-            ? (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0) 
-            : container.scrollTop;
-            
-        const scrollHeight = isWindow 
-            ? Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) 
-            : container.scrollHeight;
-            
-        const clientHeight = isWindow 
-            ? (window.innerHeight || document.documentElement.clientHeight) 
-            : container.clientHeight;
+        let scrollTop, scrollHeight, clientHeight;
+
+        if (isWindow) {
+            scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            scrollHeight = Math.max(
+                document.documentElement.scrollHeight || 0,
+                document.body.scrollHeight || 0,
+                document.documentElement.offsetHeight || 0,
+                document.body.offsetHeight || 0
+            );
+            clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || 0;
+        } else {
+            scrollTop = container.scrollTop;
+            scrollHeight = container.scrollHeight;
+            clientHeight = container.clientHeight;
+        }
             
         const maxScroll = Math.max(0, scrollHeight - clientHeight);
 
@@ -137,16 +150,13 @@ class LyricsAutoScroller {
         const { maxScroll } = this.getScrollStats();
         if (maxScroll <= 0) return 0;
         
-        // Base duration in seconds
         const baseDuration = Math.max(30, this.durationSeconds);
-        // Base pixels per second
-        return maxScroll / baseDuration;
+        const pps = maxScroll / baseDuration;
+        return Math.max(10, pps);
     }
 
     calculateEffectiveSpeed() {
         if (this.speed >= 2.0) {
-            // Dynamic exponential boost when selected via '+' at speed >= 2.0
-            // 2.0x -> ~2.55x, 3.0x -> ~4.41x, 4.0x -> ~6.5x effective scroll speed
             return Math.pow(this.speed, 1.35);
         }
         return this.speed;
@@ -164,13 +174,22 @@ class LyricsAutoScroller {
         const { maxScroll, scrollTop } = this.getScrollStats();
         if (maxScroll <= 0) return;
 
-        // If we are at the very bottom, rewind to top first
+        // If at the very bottom, rewind to top first
         if (scrollTop >= maxScroll - 5) {
             this.scrollToTop(false);
         }
 
         this.isPlaying = true;
         this.lastTimestamp = null;
+        this.userInteracting = false;
+        this.subPixelAccumulator = 0;
+
+        // Force scroll-behavior: auto to prevent browser smooth scroll throttling
+        document.documentElement.classList.add('autoscroll-active');
+        document.body.classList.add('autoscroll-active');
+        document.documentElement.style.scrollBehavior = 'auto';
+        document.body.style.scrollBehavior = 'auto';
+
         this.updateUI();
 
         cancelAnimationFrame(this.animationFrameId);
@@ -181,6 +200,12 @@ class LyricsAutoScroller {
         this.isPlaying = false;
         this.lastTimestamp = null;
         this.subPixelAccumulator = 0;
+
+        document.documentElement.classList.remove('autoscroll-active');
+        document.body.classList.remove('autoscroll-active');
+        document.documentElement.style.scrollBehavior = '';
+        document.body.style.scrollBehavior = '';
+
         if (this.animationFrameId) {
             cancelAnimationFrame(this.animationFrameId);
             this.animationFrameId = null;
@@ -203,11 +228,11 @@ class LyricsAutoScroller {
         this.lastTimestamp = null;
         const { isWindow, container } = this.getScrollStats();
         if (isWindow) {
-            window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'instant' });
+            window.scrollTo({ top: 0, left: 0, behavior: smooth ? 'smooth' : 'instant' });
             document.documentElement.scrollTop = 0;
             document.body.scrollTop = 0;
         } else {
-            container.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'instant' });
+            container.scrollTo({ top: 0, left: 0, behavior: smooth ? 'smooth' : 'instant' });
             container.scrollTop = 0;
         }
         this.updateProgress();
@@ -253,13 +278,15 @@ class LyricsAutoScroller {
                 const { isWindow, container, scrollTop, maxScroll } = this.getScrollStats();
 
                 if (scrollTop >= maxScroll - 1) {
-                    // Reached the end
                     this.pause();
                     return;
                 }
 
                 if (isWindow) {
-                    window.scrollBy(0, fullPixels);
+                    const nextY = scrollTop + fullPixels;
+                    window.scrollTo({ top: nextY, left: 0, behavior: 'instant' });
+                    document.documentElement.scrollTop = nextY;
+                    document.body.scrollTop = nextY;
                 } else {
                     container.scrollTop += fullPixels;
                 }
