@@ -725,6 +725,22 @@ a {
 
 /* === SONG LIST / TABLE === */
 
+/* Song Table Desktop Header */
+.song-table-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+    user-select: none;
+}
+
 /* Song Key Badge (Minimalist & Single-Color/Teal) */
 .key-badge {
     display: inline-flex;
@@ -738,28 +754,20 @@ a {
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: -0.01em;
-    min-width: 24px;
+    min-width: 26px;
     text-align: center;
-}
-
-.song-duration-text {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    margin-left: 0.25rem;
 }
 
 .song-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0.65rem 0.9rem;
+    padding: 0.65rem 1rem;
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.45rem;
     transition: all 0.2s ease;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
 .song-row:hover {
@@ -767,17 +775,9 @@ a {
     border-color: var(--border-accent);
 }
 
-.song-row-main-wrap {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex: 1;
-    min-width: 0;
-}
-
-.song-row-info {
-    min-width: 0;
-    flex: 1;
+.song-col-info {
+    flex: 3;
+    min-width: 180px;
 }
 
 .song-row-title {
@@ -790,66 +790,116 @@ a {
     text-overflow: ellipsis;
 }
 
-.song-row-meta {
-    font-size: 0.8rem;
+.song-row-artist {
+    font-size: 0.82rem;
     color: var(--text-muted);
-    margin-top: 0.1rem;
+    margin-top: 0.15rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.song-row-badges {
+.song-col-key {
+    width: 48px;
+    min-width: 48px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.song-col-badges {
+    width: 130px;
+    min-width: 130px;
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-shrink: 0;
 }
 
-.song-row-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
+.song-col-duration {
+    width: 60px;
+    min-width: 60px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: center;
     flex-shrink: 0;
 }
 
-.song-row-bpm {
+.song-col-bpm {
+    width: 65px;
+    min-width: 65px;
     color: var(--accent);
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
+    text-align: right;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
-.song-row-btn-group {
+.song-col-actions {
+    width: 135px;
+    min-width: 135px;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 0.35rem;
+    flex-shrink: 0;
 }
 
 .song-action-btn {
-    padding: 0.25rem 0.55rem;
+    padding: 0.3rem 0.65rem;
     font-size: 0.8rem;
     font-weight: 600;
-    min-height: 30px;
+    min-height: 32px;
 }
 
-@media (max-width: 600px) {
+/* Responsive view for Tablet & Mobile */
+@media (max-width: 800px) {
+    .song-table-header {
+        display: none;
+    }
+
     .song-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.45rem 0.65rem;
         padding: 0.75rem 0.85rem;
     }
-    .song-row-main-wrap {
-        justify-content: space-between;
-        width: 100%;
+
+    .song-col-info {
+        flex: 1 1 55%;
+        min-width: 0;
     }
-    .song-row-controls {
-        justify-content: space-between;
-        width: 100%;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        padding-top: 0.4rem;
+
+    .song-col-actions {
+        flex: 0 0 auto;
+        width: auto;
+        min-width: 0;
+    }
+
+    .song-col-key {
+        width: auto;
+        min-width: 0;
+    }
+
+    .song-col-badges {
+        width: auto;
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .song-col-duration {
+        width: auto;
+        min-width: 0;
+    }
+
+    .song-col-bpm {
+        width: auto;
+        min-width: 0;
     }
 }
 
@@ -1748,6 +1798,9 @@ a {
     white-space: pre-wrap;
     word-wrap: break-word;
     letter-spacing: 0.01em;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }
 
 .show-lyrics-container strong {

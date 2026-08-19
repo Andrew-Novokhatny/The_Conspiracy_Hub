@@ -184,8 +184,11 @@
 
         function scrollActiveSidebarSongIntoView() {
             const activeItem = document.querySelector('.show-sidebar-item.is-active');
-            if (activeItem) {
-                activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            const container = document.getElementById('sidebar-scroll-container');
+            if (container && activeItem) {
+                // Scroll ONLY the inner sidebar container without altering the window scroll position!
+                const targetTop = activeItem.offsetTop - container.offsetTop - 30;
+                container.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
             }
         }
 
@@ -207,6 +210,21 @@
             speed: 1.0
         });
 
+        // Pause autoscroller and clear selection before request starts
+        document.body.addEventListener('htmx:beforeRequest', function(evt) {
+            if (window.activeAutoScroller) {
+                window.activeAutoScroller.pause();
+                window.activeAutoScroller.subPixelAccumulator = 0;
+            }
+            try {
+                if (window.getSelection) {
+                    const sel = window.getSelection();
+                    if (sel.removeAllRanges) sel.removeAllRanges();
+                    if (sel.empty) sel.empty();
+                }
+            } catch(e) {}
+        });
+
         // Robust HTMX after-swap synchronization for Next/Prev, counter, and autoscroller
         document.body.addEventListener('htmx:afterSwap', function(evt) {
             if (evt.detail.target && evt.detail.target.id === 'show-song-content') {
@@ -215,15 +233,33 @@
         });
 
         function syncShowModeState() {
-            // Clear any accidental text selection on mobile tap
+            // 1. Force stop and pause any active autoscrolling
+            if (window.activeAutoScroller) {
+                window.activeAutoScroller.pause();
+                window.activeAutoScroller.subPixelAccumulator = 0;
+                window.activeAutoScroller.lastTimestamp = null;
+            }
+
+            // 2. Clear all document text selections
             try {
                 if (window.getSelection) {
-                    window.getSelection().removeAllRanges();
+                    const sel = window.getSelection();
+                    if (sel.removeAllRanges) sel.removeAllRanges();
+                    if (sel.empty) sel.empty();
                 }
             } catch(e) {}
 
-            // Scroll stage back to top immediately
+            // 3. Remove focus from any active element (like previous button)
+            if (document.activeElement && document.activeElement.blur) {
+                document.activeElement.blur();
+            }
+
+            // 4. Force reset window and stage container scroll to the absolute top
             window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            const stageVp = document.getElementById('show-main-viewport');
+            if (stageVp) stageVp.scrollTop = 0;
 
             const metaUpdate = document.getElementById('nav-meta-update');
             if (!metaUpdate) return;
@@ -234,16 +270,15 @@
             const duration = parseFloat(metaUpdate.getAttribute('data-duration')) || 240;
             const bpm = metaUpdate.getAttribute('data-bpm');
 
-            // Reset autoscroller for new song
+            // 5. Re-configure autoscroller for the newly loaded song
             if (window.activeAutoScroller) {
-                window.activeAutoScroller.pause();
                 window.activeAutoScroller.durationSeconds = duration;
                 window.activeAutoScroller.bpm = bpm ? parseInt(bpm) : null;
                 window.activeAutoScroller.scrollToTop(false);
                 window.activeAutoScroller.updateUI();
             }
 
-            // Update Prev Button
+            // 6. Update Prev Button
             const btnPrev = document.getElementById('btn-prev-song');
             if (btnPrev) {
                 if (prevIdx !== "" && prevIdx !== null && prevIdx !== undefined) {
@@ -256,7 +291,7 @@
                 }
             }
 
-            // Update Next Button
+            // 7. Update Next Button
             const btnNext = document.getElementById('btn-next-song');
             if (btnNext) {
                 if (nextIdx !== "" && nextIdx !== null && nextIdx !== undefined) {
@@ -269,7 +304,7 @@
                 }
             }
 
-            // Update Sidebar Active Item & Auto-scroll into view
+            // 8. Update Sidebar Active Item & Auto-scroll within the sidebar container only
             document.querySelectorAll('.show-sidebar-item').forEach(item => {
                 item.classList.remove('is-active');
             });

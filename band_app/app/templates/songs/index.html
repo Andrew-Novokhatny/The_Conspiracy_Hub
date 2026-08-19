@@ -27,6 +27,16 @@
     </div>
 </div>
 
+<!-- Song List Column Headers (Desktop) -->
+<div class="song-table-header">
+    <div class="song-col-info">SONG / ARTIST</div>
+    <div class="song-col-key">KEY</div>
+    <div class="song-col-badges">TAGS</div>
+    <div class="song-col-duration">LENGTH</div>
+    <div class="song-col-bpm">BPM</div>
+    <div class="song-col-actions">ACTIONS</div>
+</div>
+
 <!-- Song List -->
 <div id="song-list" class="fade-in-up-delay-2">
     {% for song_name, song_info in songs|dictsort %}
