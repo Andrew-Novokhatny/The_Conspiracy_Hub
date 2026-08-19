@@ -14,7 +14,7 @@
 </div>
 {% endif %}
 
-<div class="form-group">
+<div class="form-group" style="width: 100%;">
     <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem; display: flex; justify-content: space-between; align-items: center;">
         <span>Lyrics Text / Preview</span>
         <span style="font-size: 0.75rem; color: var(--text-muted);">Edit section tags & text before saving</span>
@@ -22,6 +22,7 @@
     <textarea name="lyrics_content" 
               id="fetch-lyrics-textarea" 
               class="form-textarea" 
-              rows="9" 
+              rows="12" 
+              style="width: 100%; box-sizing: border-box;"
               placeholder="Lyrics will appear here...">{{ lyrics }}</textarea>
 </div>

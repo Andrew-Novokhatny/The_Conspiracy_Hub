@@ -1,6 +1,6 @@
 <!-- Add Song Modal Partial -->
 <div class="modal-backdrop" id="add-song-modal" onclick="if(event.target === this) closeModal()">
-    <div class="modal-dialog modal-md" onclick="event.stopPropagation()">
+    <div class="modal-dialog modal-lg" onclick="event.stopPropagation()">
         <div class="modal-header">
             <div class="flex items-center gap-sm">
                 <div class="modal-icon" style="background: rgba(0, 212, 216, 0.15); color: var(--primary); width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
@@ -15,24 +15,26 @@
         </div>
 
         <form id="add-song-form" class="modal-body" style="padding: 1.25rem;" hx-post="/api/songs/add" hx-target="#modal-container" hx-swap="innerHTML">
-            <div class="form-group mb-sm">
-                <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; display: block;">Song Title <span style="color: var(--primary);">*</span></label>
-                <input type="text" 
-                       name="title" 
-                       id="add-song-title" 
-                       class="form-input" 
-                       placeholder="e.g. 24K Magic, Superstition..." 
-                       required 
-                       autocomplete="off">
-            </div>
+            <div class="grid grid-cols-2 gap-md mb-sm">
+                <div class="form-group">
+                    <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; display: block;">Song Title <span style="color: var(--primary);">*</span></label>
+                    <input type="text" 
+                           name="title" 
+                           id="add-song-title" 
+                           class="form-input" 
+                           placeholder="e.g. 24K Magic, Superstition..." 
+                           required 
+                           autocomplete="off">
+                </div>
 
-            <div class="form-group mb-sm">
-                <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; display: block;">Artist</label>
-                <input type="text" 
-                       name="artist" 
-                       id="add-song-artist" 
-                       class="form-input" 
-                       placeholder="e.g. Bruno Mars, Stevie Wonder...">
+                <div class="form-group">
+                    <label class="form-label" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; display: block;">Artist</label>
+                    <input type="text" 
+                           name="artist" 
+                           id="add-song-artist" 
+                           class="form-input" 
+                           placeholder="e.g. Bruno Mars, Stevie Wonder...">
+                </div>
             </div>
 
             <div class="grid grid-cols-3 gap-sm mb-sm">
@@ -101,29 +103,30 @@
                             hx-target="#add-song-lyrics-preview" 
                             hx-include="#add-song-form" 
                             hx-indicator="#add-fetch-spinner"
-                            style="font-size: 0.75rem; padding: 0.2rem 0.5rem;">
+                            style="font-size: 0.75rem; padding: 0.2rem 0.5rem; white-space: nowrap;">
                         Preview Fetch
                     </button>
                 </div>
                 <div id="add-fetch-spinner" class="htmx-indicator" style="font-size: 0.78rem; color: var(--primary); margin-bottom: 0.4rem; display: none;">
                     ⚡ Searching Genius for lyrics...
                 </div>
-                <div id="add-song-lyrics-preview">
+                <div id="add-song-lyrics-preview" style="width: 100%;">
                     <textarea name="lyrics_content" 
                               class="form-textarea" 
-                              rows="4" 
+                              rows="6" 
+                              style="width: 100%; box-sizing: border-box;"
                               placeholder="(Optional) If unchecked, you can paste lyrics here, or let auto-fetch populate them automatically upon saving..."></textarea>
                 </div>
             </div>
 
             <div class="modal-footer flex justify-end gap-sm" style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
-                <button type="button" class="band-btn-secondary" onclick="closeModal()">Cancel</button>
                 <button type="submit" 
-                        class="band-btn-primary" 
-                        style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                        class="band-btn-secondary" 
+                        style="display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.5rem 1.15rem; font-size: 0.9rem; font-weight: 600; white-space: nowrap; border-color: var(--primary); color: var(--primary);">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     <span>Add Song & Save</span>
                 </button>
+                <button type="button" class="band-btn-secondary" onclick="closeModal()" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 1.15rem; font-size: 0.9rem; white-space: nowrap;">Cancel</button>
             </div>
         </form>
     </div>
