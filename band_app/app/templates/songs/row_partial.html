@@ -1,13 +1,13 @@
 <!-- Song Row Partial (HTMX Compatible) -->
-<div class="song-row"
-     id="song-row-{{ song_name|lower|replace(' ', '-') }}"
-     data-song="{{ song_name|lower }}"
-     data-artist="{{ song_info.get('artist', '')|lower }}"
-     data-horn="{{ song_info.get('has_horn', False)|string|lower }}"
-     data-jam="{{ song_info.get('is_jam_vehicle', False)|string|lower }}"
-     data-energy="{{ song_info.get('energy_level', 'standard') }}"
-     onclick="window.location.href='/api/lyrics/{{ song_name }}'"
-     style="cursor: pointer;">
+<a href="/api/lyrics/{{ song_name }}"
+   class="song-row"
+   id="song-row-{{ song_name|lower|replace(' ', '-')|replace("'", "") }}"
+   data-song="{{ song_name|lower }}"
+   data-artist="{{ song_info.get('artist', '')|lower }}"
+   data-horn="{{ song_info.get('has_horn', False)|string|lower }}"
+   data-jam="{{ song_info.get('is_jam_vehicle', False)|string|lower }}"
+   data-energy="{{ song_info.get('energy_level', 'standard') }}"
+   style="display: flex; text-decoration: none; color: inherit; cursor: pointer;">
     
     <!-- Title & Artist Column -->
     <div class="song-row-col song-col-info">
@@ -40,4 +40,4 @@
     <div class="song-row-col song-col-bpm">
         {% if song_info.get('bpm') %}({{ song_info.bpm }}){% else %}<span class="text-muted" style="opacity: 0.4;">—</span>{% endif %}
     </div>
-</div>
+</a>

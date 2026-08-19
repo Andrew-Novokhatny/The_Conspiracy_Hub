@@ -443,10 +443,15 @@ async def save_edited_song(
             return templates.TemplateResponse(request=request, name="lyrics/display_partial.html", context={
                 "request": request,
                 "song_name": song_name,
+                "song_info": song_info,
                 "artist": song_info.get('artist', ''),
                 "bpm": song_info.get('bpm', 120),
                 "song_key": song_info.get('song_key', ''),
                 "duration": song_info.get('duration', 0),
+                "duration_formatted": duration_formatted,
+                "has_horn": song_info.get('has_horn', False),
+                "is_jam_vehicle": song_info.get('is_jam_vehicle', False),
+                "energy_level": song_info.get('energy_level', 'standard'),
                 "lyrics_content": lyrics_html,
                 "active_page": "lyrics",
             })

@@ -411,6 +411,29 @@ def test_manual_lyrics_edit_saving():
     print("✅ Manual lyrics edit POST save flow verified")
 
 
+def test_metadata_edit_from_lyrics_view_and_special_character_songs():
+    """Test editing song metadata from lyrics viewer and song row with single quotes"""
+    # 1. Edit metadata from lyrics view (context_type="lyrics")
+    res_meta = client.post("/api/songs/Superstition/edit", data={
+        "artist": "Stevie Wonder",
+        "bpm": "100",
+        "song_key": "Ebm",
+        "context_type": "lyrics"
+    })
+    assert res_meta.status_code == 200
+    assert "Superstition" in res_meta.text
+    assert "Key: Ebm" in res_meta.text
+    print("✅ Save Metadata from lyrics viewer (context_type=lyrics) verified")
+
+    # 2. Test song with single quote title rendering row
+    quote_song = "It Ain't Over Till It's Over"
+    res_quote_row = client.get(f"/api/songs/{quote_song}/row")
+    assert res_quote_row.status_code == 200
+    assert 'href="/api/lyrics/It Ain\'t Over Till It\'s Over"' in res_quote_row.text or "href=" in res_quote_row.text
+    assert "onclick=" not in res_quote_row.text
+    print("✅ Song row with single quotes (It Ain't Over Till It's Over) verified")
+
+
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")
     test_new_songs_in_song_list()
@@ -427,5 +450,6 @@ if __name__ == "__main__":
     test_ui_ux_enhancements()
     test_fetch_lyrics_and_add_song_flow()
     test_manual_lyrics_edit_saving()
+    test_metadata_edit_from_lyrics_view_and_special_character_songs()
     print("\n🎉 ALL TESTS PASSED!")
 

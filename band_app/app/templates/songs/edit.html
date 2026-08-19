@@ -4,7 +4,7 @@
 {% set element_id = "lyrics-container" if is_lyrics else ("song-row-" ~ song_name|lower|replace(' ', '-')) if is_row else ("song-card-" ~ song_name|lower|replace(' ', '-')) %}
 {% set target_selector = "#lyrics-container" if is_lyrics else ("#song-row-" ~ song_name|lower|replace(' ', '-')) if is_row else ("#song-card-" ~ song_name|lower|replace(' ', '-')) %}
 {% set swap_mode = "innerHTML" if is_lyrics else "outerHTML" %}
-{% set cancel_url = ("/api/lyrics/" ~ song_name ~ "?partial=1") if is_lyrics else ("/api/songs/" ~ song_name ~ "/row") if is_row else ("/api/songs/" ~ song_name ~ "/card") %}
+{% set cancel_url = ("/api/lyrics/" ~ song_name ~ "/view_partial") if is_lyrics else ("/api/songs/" ~ song_name ~ "/row") if is_row else ("/api/songs/" ~ song_name ~ "/card") %}
 
 <div class="panel fade-in-up" id="{{ element_id }}" style="{% if is_row %}margin-bottom: 0.5rem; background: var(--bg-card); border: 1px solid var(--primary);{% endif %}">
     <form hx-post="/api/songs/{{ song_name }}/edit" 
@@ -67,7 +67,10 @@
         </div>
 
         <div class="flex flex-wrap gap-sm">
-            <button type="submit" class="band-btn band-btn-sm">💾 Save Metadata</button>
+            <button type="submit" class="band-btn-primary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                <span>Save Metadata</span>
+            </button>
         </div>
     </form>
 </div>
