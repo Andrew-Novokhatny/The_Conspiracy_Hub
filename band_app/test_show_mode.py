@@ -253,16 +253,28 @@ def test_ui_ux_enhancements():
     assert res_det.status_code == 200
     assert "setlist-timing-strip" in res_det.text
     assert "timing-pill" in res_det.text
-    print("✅ Setlist Details minimalist timing strip verified")
+    # Verify BPM string is removed and only numbers in parentheses are shown
+    assert " BPM)" not in res_det.text
+    print("✅ Setlist Details minimalist timing strip and BPM formatting verified")
 
-    # 3. Show Mode Navigation & Sidebar Close
+    # 3. Show Mode Navigation, Header Setlist button, and removal of Top button
     res_show = client.get("/api/setlists/0/show")
     assert res_show.status_code == 200
     assert "btn-prev-song" in res_show.text
     assert "btn-next-song" in res_show.text
+    assert "sidebar-header-toggle-btn" in res_show.text
     assert "show-sidebar-close-btn" in res_show.text
     assert "show-sidebar-backdrop" in res_show.text
-    print("✅ Show Mode Prev/Next navigation & close button verified")
+    assert "autoscroll-top-btn" not in res_show.text
+    print("✅ Show Mode Prev/Next navigation, header Setlist toggle, and Top button removal verified")
+
+    # 4. Builder Collapsible Drawer
+    res_builder = client.get("/api/builder/")
+    assert res_builder.status_code == 200
+    assert "builder-drawer-backdrop" in res_builder.text
+    assert "song-pool-container" in res_builder.text
+    assert "song-pool-close-btn" in res_builder.text
+    print("✅ Setlist Builder iPad/mobile drawer verified")
 
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")

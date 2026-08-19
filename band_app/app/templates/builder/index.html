@@ -8,24 +8,112 @@
     .builder-layout {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
+        position: relative;
     }
 
-    @media (min-width: 900px) {
+    @media (min-width: 1025px) {
         .builder-layout {
-            grid-template-columns: 350px 1fr;
+            grid-template-columns: 340px 1fr;
+            gap: 2rem;
         }
     }
 
     .song-pool-container {
-        height: calc(100vh - 200px);
-        overflow-y: auto;
-        position: sticky;
-        top: 2rem;
         background: var(--bg-card);
         border: 1px solid var(--border-subtle);
         border-radius: var(--radius-lg);
-        padding: 1rem;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 160px);
+        position: sticky;
+        top: 1.5rem;
+        user-select: none;
+    }
+
+    .song-pool-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+    }
+
+    .song-pool-close-btn {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-muted);
+        border-radius: 6px;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    .song-pool-close-btn:hover {
+        background: rgba(255, 107, 107, 0.2);
+        border-color: #ff6b6b;
+        color: #ffffff;
+    }
+
+    /* iPad Vertical & Mobile Collapsible Drawer */
+    @media (max-width: 1024px) {
+        .song-pool-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 340px;
+            max-width: 86vw;
+            height: 100vh;
+            z-index: 55;
+            transform: translateX(-100%);
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 10px 0 35px rgba(0, 0, 0, 0.65);
+            border-radius: 0;
+            border-left: none;
+            border-top: none;
+            border-bottom: none;
+            padding: 1.25rem 1rem;
+        }
+
+        .song-pool-container.is-open {
+            transform: translateX(0);
+        }
+
+        .song-pool-close-btn {
+            display: flex;
+        }
+
+        .builder-drawer-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 54;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .builder-drawer-backdrop.is-visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .builder-library-toggle-wrapper {
+            display: flex !important;
+        }
+    }
+
+    .builder-library-toggle-wrapper {
+        display: none;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     .sortable-list {
@@ -33,6 +121,8 @@
         background: rgba(0, 0, 0, 0.2);
         border-radius: var(--radius-md);
         padding: 0.5rem;
+        flex: 1;
+        overflow-y: auto;
     }
 
     .sortable-item {
@@ -46,6 +136,7 @@
         justify-content: space-between;
         align-items: center;
         font-size: 0.9rem;
+        gap: 0.5rem;
     }
 
     .sortable-item:active {
@@ -77,51 +168,79 @@
         background: var(--bg-card);
         border: 1px solid var(--border-subtle);
         border-radius: var(--radius-lg);
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
+        padding: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .library-item {
+        transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .library-item:hover {
+        background: rgba(0, 212, 216, 0.1);
+        border-color: rgba(0, 212, 216, 0.3);
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="flex items-center justify-between mb-lg fade-in-up">
+<div class="flex items-center justify-between mb-lg fade-in-up flex-wrap gap-sm">
     <div>
-        <h1 class="page-title"> Setlist Builder</h1>
-        <p class="page-subtitle">Drag and drop to build your next show</p>
+        <h1 class="page-title">Setlist Builder</h1>
+        <p class="page-subtitle">Drag and drop or tap songs to build your next show</p>
     </div>
-    <button onclick="exportSetlist()" class="band-btn">💾 Save & Export</button>
+    <div class="flex items-center gap-sm flex-wrap">
+        <div class="builder-library-toggle-wrapper">
+            <button type="button" class="band-btn-secondary" onclick="openBuilderLibrary()" title="Open song library">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M9 10v5a2 2 0 1 0 2-2V7l4-1v4a2 2 0 1 0 2-2V4"/></svg>
+                <span>Song Library ({{ sorted_songs|length }})</span>
+            </button>
+        </div>
+        <button onclick="exportSetlist()" class="band-btn">💾 Save & Export</button>
+    </div>
 </div>
 
+<!-- Backdrop for iPad & Mobile Drawer -->
+<div class="builder-drawer-backdrop" id="builder-drawer-backdrop" onclick="closeBuilderLibrary()"></div>
+
 <div class="builder-layout fade-in-up-delay-1">
-    <!-- Left: Song Library -->
-    <div class="song-pool-container">
-        <h3 class="mb-sm">Song Library</h3>
+    <!-- Left: Song Library (Collapsible Drawer on Tablets/Mobile) -->
+    <div class="song-pool-container" id="song-pool-container">
+        <div class="song-pool-header">
+            <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: var(--text-primary);">Song Library</h3>
+            <button class="song-pool-close-btn" onclick="closeBuilderLibrary()" title="Close song library">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
         <input type="text" id="builder-search" class="form-input mb-md" placeholder="Search songs..."
             oninput="filterLibrary(this.value)">
 
-        <div id="library-list" class="sortable-list" style="min-height: 500px;">
+        <div id="library-list" class="sortable-list">
             {% for song in sorted_songs %}
             {% set s_info = songs_data[song] %}
-            <div class="sortable-item library-item" data-id="{{ song }}" data-search="{{ song|lower }}">
-                <div>
-                    <strong>{{ song }}</strong>
-                    {% if s_info.get('has_horn') %}🎺{% endif %}
-                    {% if s_info.get('is_jam_vehicle') %}🛸{% endif %}
-                    {% if s_info.get('energy_level') == 'high' %}🔥{% elif s_info.get('energy_level') == 'low' %}💤{% endif %}
+            <div class="sortable-item library-item" data-id="{{ song }}" data-search="{{ song|lower }}" onclick="onLibraryItemClick(event, '{{ song }}')">
+                <div style="min-width: 0; flex: 1;">
+                    <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">{{ song }}</strong>
+                    <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
+                        {% if s_info.get('has_horn') %}🎺 {% endif %}
+                        {% if s_info.get('is_jam_vehicle') %}🛸 {% endif %}
+                        {% if s_info.get('energy_level') == 'high' %}🔥 {% elif s_info.get('energy_level') == 'low' %}💤 {% endif %}
+                    </div>
                 </div>
-                <div class="flex items-center gap-sm">
+                <div class="flex items-center gap-sm" style="flex-shrink: 0;">
                     {% if s_info.get('song_key') %}
-                    <span class="badge" style="font-size: 0.72rem; padding: 0.1rem 0.35rem; background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: bold;">🔑 {{ s_info.song_key }}</span>
+                    <span class="key-badge">{{ s_info.song_key }}</span>
                     {% endif %}
-                    <span class="text-xs text-muted">{{ s_info.bpm }} BPM</span>
+                    <span class="text-xs text-muted">({{ s_info.bpm }})</span>
+                    <button type="button" class="band-btn-secondary band-btn-sm" style="padding: 0.15rem 0.4rem; font-size: 0.75rem;" title="Add to Set" onclick="addSongToActiveSet(event, '{{ song }}')">+</button>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
 
-    <!-- Right: Builder -->
-    <div>
+    <!-- Right: Builder Sets and Timing -->
+    <div style="min-width: 0;">
         <!-- Settings -->
         <div class="panel mb-lg">
             <div class="grid grid-2 gap-md">
@@ -196,6 +315,60 @@
     const songMathData = {{ song_math_data| safe }};
     const initialSetlist = {{ initial_setlist | safe }};
 
+    function openBuilderLibrary() {
+        const pool = document.getElementById('song-pool-container');
+        const backdrop = document.getElementById('builder-drawer-backdrop');
+        if (pool) pool.classList.add('is-open');
+        if (backdrop) backdrop.classList.add('is-visible');
+    }
+
+    function closeBuilderLibrary() {
+        const pool = document.getElementById('song-pool-container');
+        const backdrop = document.getElementById('builder-drawer-backdrop');
+        if (pool) pool.classList.remove('is-open');
+        if (backdrop) backdrop.classList.remove('is-visible');
+    }
+
+    function toggleBuilderLibrary() {
+        const pool = document.getElementById('song-pool-container');
+        if (pool && pool.classList.contains('is-open')) {
+            closeBuilderLibrary();
+        } else {
+            openBuilderLibrary();
+        }
+    }
+
+    function addSongToActiveSet(e, songId) {
+        if (e) e.stopPropagation();
+        // Add to the first visible set with space, or currently target set
+        const numSets = parseInt(document.getElementById('num-sets').value) || 2;
+        let targetList = document.getElementById('set1-list');
+        
+        // Find best set to add to
+        for (let s = 1; s <= numSets; s++) {
+            const list = document.getElementById(`set${s}-list`);
+            if (list) {
+                targetList = list;
+                // If this set has fewer songs than 12, pick it
+                if (list.querySelectorAll('.sortable-item').length < 12) {
+                    break;
+                }
+            }
+        }
+
+        if (targetList) {
+            targetList.appendChild(createSetItemElement(songId));
+            calculateTiming();
+        }
+    }
+
+    function onLibraryItemClick(e, songId) {
+        // If on small screen / iPad, clicking item adds to set
+        if (window.innerWidth <= 1024 && !e.target.closest('button')) {
+            addSongToActiveSet(e, songId);
+        }
+    }
+
     function createSetItemElement(songId, isSegue = false) {
         const math = songMathData[songId] || { bpm: 120, duration: 240, has_horn: false, is_jam_vehicle: false, song_key: '', energy: 'standard' };
         const energyEmoji = math.energy === 'high' ? '🔥' : math.energy === 'low' ? '💤' : '';
@@ -203,18 +376,18 @@
         div.className = 'sortable-item';
         div.setAttribute('data-id', songId);
         div.innerHTML = `
-            <div class="flex items-center gap-sm">
+            <div class="flex items-center gap-sm" style="min-width: 0; flex: 1;">
                 <button class="segue-btn ${isSegue ? 'active' : ''}" onclick="toggleSegue(this)" title="Toggle segue into this song">-></button>
-                <strong class="song-title-text">${isSegue ? '<span style="color: var(--accent); font-weight: bold; margin-right: 0.25rem;">→</span>' : ''}${songId}</strong>
+                <strong class="song-title-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${isSegue ? '<span style="color: var(--accent); font-weight: bold; margin-right: 0.25rem;">→</span>' : ''}${songId}</strong>
                 ${math.has_horn ? '🎺' : ''}
                 ${math.is_jam_vehicle ? '🛸' : ''}
                 ${energyEmoji ? `<span>${energyEmoji}</span>` : ''}
             </div>
-            <div class="flex items-center gap-sm">
-                ${math.song_key ? `<span class="badge" style="font-size: 0.72rem; padding: 0.1rem 0.35rem; background: rgba(0, 212, 216, 0.15); color: var(--primary); font-weight: bold;">🔑 ${math.song_key}</span>` : ''}
-                <span class="text-xs text-muted w-16 text-right">${math.bpm} BPM</span>
+            <div class="flex items-center gap-sm" style="flex-shrink: 0;">
+                ${math.song_key ? `<span class="key-badge">${math.song_key}</span>` : ''}
+                <span class="text-xs text-muted w-16 text-right">(${math.bpm})</span>
                 <span class="text-xs text-muted w-16 text-right">${formatTime(math.duration)}</span>
-                <button onclick="this.closest('.sortable-item').remove(); calculateTiming();" class="text-muted hover:text-white" style="background:none; border:none; cursor:pointer;">✕</button>
+                <button onclick="this.closest('.sortable-item').remove(); calculateTiming();" class="text-muted hover:text-white" style="background:none; border:none; cursor:pointer; font-weight: bold; padding: 0.2rem 0.4rem;">✕</button>
             </div>
         `;
         return div;
@@ -225,9 +398,9 @@
         group: {
             name: 'shared',
             pull: 'clone',
-            put: false // Don't allow items to be dropped back into the library (they are just deleted)
+            put: false
         },
-        sort: false, // Prevent sorting inside library
+        sort: false,
         animation: 150
     });
 
@@ -237,7 +410,6 @@
             group: 'shared',
             animation: 150,
             onAdd: function (evt) {
-                // When an item is dropped from library, transform it into a set item
                 const item = evt.item;
                 const songId = item.getAttribute('data-id');
                 const newItem = createSetItemElement(songId);
@@ -343,7 +515,6 @@
             sets: {}
         };
 
-        // Gather data
         let totalSongs = 0;
         for (let s = 1; s <= numSets; s++) {
             const list = document.getElementById(`set${s}-list`);
@@ -353,14 +524,13 @@
 
             items.forEach(item => {
                 const songId = item.getAttribute('data-id');
-                const bpmSpan = item.querySelector('.text-xs.w-16');
-                const bpmText = bpmSpan ? bpmSpan.innerText.replace(' BPM', '') : '120';
+                const math = songMathData[songId] || {};
                 const segueBtn = item.querySelector('.segue-btn');
                 const isSegue = segueBtn && segueBtn.classList.contains('active');
 
                 payload.sets[setKey].push({
                     name: songId,
-                    bpm: parseInt(bpmText) || 120,
+                    bpm: math.bpm || 120,
                     is_segue: !!isSegue
                 });
                 totalSongs++;
@@ -372,7 +542,6 @@
             return;
         }
 
-        // Post to server
         try {
             const response = await fetch('/api/builder/export', {
                 method: 'POST',

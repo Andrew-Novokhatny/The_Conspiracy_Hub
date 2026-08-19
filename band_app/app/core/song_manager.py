@@ -21,9 +21,31 @@ def resolve_data_root(base_dir: Path) -> Path:
 # Base directory and data paths
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 DATA_ROOT = resolve_data_root(BASE_DIR)
-SONGLIST_DIR = DATA_ROOT / "buckingham_conspiracy" / "songlist" / "Buckingham_Conspiracy_Song_List"
-SONGLIST_MARKDOWN = SONGLIST_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
-SONGLIST_CSV = SONGLIST_DIR / "songlist_master.csv"
+
+SONGLIST_ROOT_DIR = DATA_ROOT / "buckingham_conspiracy" / "songlist"
+SONGLIST_SUB_DIR = SONGLIST_ROOT_DIR / "Buckingham_Conspiracy_Song_List"
+
+def get_songlist_load_paths() -> Tuple[Path, Path]:
+    """Find the existing CSV and Markdown paths for loading."""
+    # Check direct songlist folder first
+    csv_direct = SONGLIST_ROOT_DIR / "songlist_master.csv"
+    md_direct = SONGLIST_ROOT_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
+    if csv_direct.exists():
+        return csv_direct, md_direct
+    
+    # Check subfolder
+    csv_sub = SONGLIST_SUB_DIR / "songlist_master.csv"
+    md_sub = SONGLIST_SUB_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
+    if csv_sub.exists():
+        return csv_sub, md_sub
+    
+    if md_direct.exists():
+        return csv_direct, md_direct
+    return csv_direct, md_direct
+
+SONGLIST_DIR = SONGLIST_ROOT_DIR
+SONGLIST_MARKDOWN = SONGLIST_ROOT_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"
+SONGLIST_CSV = SONGLIST_ROOT_DIR / "songlist_master.csv"
 
 # CSV headers for song data
 SONGLIST_CSV_HEADERS = [
@@ -179,59 +201,78 @@ def load_song_list_from_markdown(song_file: Path) -> Dict[str, Dict]:
 
 def load_song_list() -> Dict[str, Dict]:
     """Load the complete song list, preferring CSV when available."""
+    csv_path, md_path = get_songlist_load_paths()
+    if csv_path.exists():
+        return load_song_list_from_csv(csv_path)
+    if md_path.exists():
+        return load_song_list_from_markdown(md_path)
     if SONGLIST_CSV.exists():
         return load_song_list_from_csv(SONGLIST_CSV)
     return load_song_list_from_markdown(SONGLIST_MARKDOWN)
 
 
 def save_song_list_csv(songs_data: Dict[str, Dict]) -> bool:
-    """Save song metadata to CSV for editing outside the app."""
-    try:
-        SONGLIST_DIR.mkdir(parents=True, exist_ok=True)
-        with open(SONGLIST_CSV, 'w', encoding='utf-8', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=SONGLIST_CSV_HEADERS)
-            writer.writeheader()
-            for song_name in sorted(songs_data.keys()):
-                song_info = songs_data[song_name]
-                avg_length_value = song_info.get('avg_length')
-                writer.writerow({
-                    "title": song_name,
-                    "artist": song_info.get('artist', ''),
-                    "bpm": song_info.get('bpm', ''),
-                    "song_key": song_info.get('song_key') or song_info.get('key', ''),
-                    "has_horn": song_info.get('has_horn', False),
-                    "energy_level": song_info.get('energy_level', 'standard'),
-                    "is_jam_vehicle": song_info.get('is_jam_vehicle', False),
-                    "avg_length": avg_length_value if avg_length_value is not None else '',
-                })
-        return True
-    except Exception as e:
-        raise Exception(f"Error saving song list CSV: {e}")
+    """Save song metadata to CSV for editing outside the app (writing to all active targets)."""
+    targets = [SONGLIST_ROOT_DIR / "songlist_master.csv"]
+    if SONGLIST_SUB_DIR.exists():
+        targets.append(SONGLIST_SUB_DIR / "songlist_master.csv")
+
+    success = True
+    for target in targets:
+        try:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with open(target, 'w', encoding='utf-8', newline='') as f:
+                writer = csv.DictWriter(f, fieldnames=SONGLIST_CSV_HEADERS)
+                writer.writeheader()
+                for song_name in sorted(songs_data.keys()):
+                    song_info = songs_data[song_name]
+                    avg_length_value = song_info.get('avg_length')
+                    writer.writerow({
+                        "title": song_name,
+                        "artist": song_info.get('artist', ''),
+                        "bpm": song_info.get('bpm', ''),
+                        "song_key": song_info.get('song_key') or song_info.get('key', ''),
+                        "has_horn": song_info.get('has_horn', False),
+                        "energy_level": song_info.get('energy_level', 'standard'),
+                        "is_jam_vehicle": song_info.get('is_jam_vehicle', False),
+                        "avg_length": avg_length_value if avg_length_value is not None else '',
+                    })
+        except Exception as e:
+            print(f"Error saving song list CSV to {target}: {e}")
+            success = False
+    return success
 
 
 def save_song_list_markdown(songs_data: Dict[str, Dict]) -> bool:
     """Save the updated song list back to the markdown file."""
-    try:
-        SONGLIST_DIR.mkdir(parents=True, exist_ok=True)
-        content = "# ****Buckingham Conspiracy 3.0 : SONG LIST ****  \n  \n#   \n"
+    targets = [SONGLIST_ROOT_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md"]
+    if SONGLIST_SUB_DIR.exists():
+        targets.append(SONGLIST_SUB_DIR / "Buckingham Conspiracy 3.0  SONG LIST.md")
 
-        for song_name in sorted(songs_data.keys()):
-            song_info = songs_data[song_name]
-            markers = ""
-            if song_info.get('has_horn'):
-                markers += "^🎺 ^"
+    content = "# ****Buckingham Conspiracy 3.0 : SONG LIST ****  \n  \n#   \n"
 
-            display_name = song_name if not song_info.get('artist') else f"{song_name} - {song_info['artist']}"
-            line = f"{display_name}{markers} ({song_info['bpm']})"
-            content += line + "  \n"
+    for song_name in sorted(songs_data.keys()):
+        song_info = songs_data[song_name]
+        markers = ""
+        if song_info.get('has_horn'):
+            markers += "^🎺 ^"
 
-        content += "  \n  \n#   \n  \n"
+        display_name = song_name if not song_info.get('artist') else f"{song_name} - {song_info['artist']}"
+        line = f"{display_name}{markers} ({song_info['bpm']})"
+        content += line + "  \n"
 
-        with open(SONGLIST_MARKDOWN, 'w', encoding='utf-8') as f:
-            f.write(content)
-        return True
-    except Exception as e:
-        raise Exception(f"Error saving song list: {e}")
+    content += "  \n  \n#   \n  \n"
+
+    success = True
+    for target in targets:
+        try:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with open(target, 'w', encoding='utf-8') as f:
+                f.write(content)
+        except Exception as e:
+            print(f"Error saving song list markdown to {target}: {e}")
+            success = False
+    return success
 
 
 def save_song_list(songs_data: Dict[str, Dict]) -> bool:
@@ -239,7 +280,7 @@ def save_song_list(songs_data: Dict[str, Dict]) -> bool:
     try:
         csv_ok = save_song_list_csv(songs_data)
         md_ok = save_song_list_markdown(songs_data)
-        return csv_ok and md_ok
+        return csv_ok or md_ok
     except Exception:
         return False
 
