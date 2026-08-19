@@ -282,17 +282,18 @@ a {
 
 .nav-link {
     color: var(--text-secondary);
-    padding: 0.6rem 1rem;
+    padding: 0.55rem 0.85rem;
     border-radius: var(--radius-sm);
     transition: all 0.2s ease;
-    font-weight: 500;
-    font-size: 0.95rem;
+    font-weight: 600;
+    font-size: 0.92rem;
     position: relative;
     background: transparent;
     border: 1px solid transparent;
-    min-height: 44px;
-    display: flex;
+    min-height: 40px;
+    display: inline-flex;
     align-items: center;
+    gap: 0.45rem;
 }
 
 .nav-link:hover {
