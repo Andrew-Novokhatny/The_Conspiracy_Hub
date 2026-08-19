@@ -1384,11 +1384,43 @@ a {
 
 .page-footer {
     text-align: center;
-    padding: 2rem 1rem;
-    margin-top: 2rem;
+    padding: 2.25rem 1rem;
+    margin-top: 2.5rem;
     border-top: 1px solid var(--border-subtle);
     color: var(--text-muted);
     font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.footer-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-band-logo {
+    height: 38px;
+    width: auto;
+    max-width: 170px;
+    filter: brightness(0) invert(1);
+    opacity: 0.88;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.footer-band-logo:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.footer-text {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-size: 0.82rem;
+    color: var(--text-muted);
 }
 
 /* === BACK LINK === */
