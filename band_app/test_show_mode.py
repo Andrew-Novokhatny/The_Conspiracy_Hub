@@ -390,6 +390,27 @@ def test_fetch_lyrics_and_add_song_flow():
     print("✅ Delete Song flow & catalog/lyrics synchronization verified")
 
 
+def test_manual_lyrics_edit_saving():
+    """Test editing and saving lyrics via POST /{song_name}/edit"""
+    res_edit_get = client.get("/api/lyrics/Superstition/edit")
+    assert res_edit_get.status_code == 200
+    assert "Edit Lyrics: Superstition" in res_edit_get.text
+
+    # Read current lyrics
+    orig_lyrics = lyrics_manager.load_lyrics_content("Superstition")
+
+    # Post edit
+    new_test_content = orig_lyrics + "\n\n[Bridge]\nAdded test line for verification"
+    res_edit_post = client.post("/api/lyrics/Superstition/edit", data={"lyrics": new_test_content})
+    assert res_edit_post.status_code == 200
+    assert "Superstition" in res_edit_post.text
+    assert "Added test line for verification" in res_edit_post.text
+
+    # Restore original lyrics
+    lyrics_manager.save_lyrics_content("Superstition", orig_lyrics)
+    print("✅ Manual lyrics edit POST save flow verified")
+
+
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")
     test_new_songs_in_song_list()
@@ -405,5 +426,6 @@ if __name__ == "__main__":
     test_segue_marker_persistence()
     test_ui_ux_enhancements()
     test_fetch_lyrics_and_add_song_flow()
+    test_manual_lyrics_edit_saving()
     print("\n🎉 ALL TESTS PASSED!")
 

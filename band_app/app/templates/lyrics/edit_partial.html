@@ -2,16 +2,19 @@
       hx-target="#lyrics-container" 
       hx-swap="innerHTML" 
       class="w-full">
-    <div class="lyrics-song-header">
-        <div class="flex items-center justify-between">
+    <div class="lyrics-song-header mb-md">
+        <div class="flex items-center justify-between flex-wrap gap-sm">
             <div>
-                <div class="lyrics-song-title">Edit Lyrics: {{ song_name }}</div>
+                <div class="lyrics-song-title" style="color: var(--primary);">Edit Lyrics: {{ song_name }}</div>
                 {% if artist %}
-                <div class="lyrics-song-artist">{{ artist }}</div>
+                <div class="lyrics-song-artist mt-xs" style="color: var(--text-muted);">{{ artist }}</div>
                 {% endif %}
             </div>
-            <div class="flex gap-sm">
-                <button type="submit" class="band-btn band-btn-sm">💾 Save</button>
+            <div class="flex gap-sm items-center">
+                <button type="submit" class="band-btn-primary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    <span>Save Lyrics</span>
+                </button>
                 <button type="button" class="band-btn-secondary band-btn-sm" 
                         hx-get="/api/lyrics/{{ song_name }}/view_partial" 
                         hx-target="#lyrics-container" 
@@ -19,7 +22,7 @@
             </div>
         </div>
     </div>
-    <div class="lyrics-panel-body">
-        <textarea name="lyrics" class="form-input" style="font-family: monospace; min-height: 450px; width: 100%; font-size: 1rem; line-height: 1.5; background: var(--bg-hover); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; resize: vertical;">{{ raw_lyrics }}</textarea>
+    <div class="lyrics-panel-body" style="width: 100%;">
+        <textarea name="lyrics" class="form-textarea" style="font-family: 'Space Grotesk', monospace, sans-serif; min-height: 480px; width: 100%; box-sizing: border-box; font-size: 0.95rem; line-height: 1.6;">{{ raw_lyrics }}</textarea>
     </div>
 </form>
