@@ -160,7 +160,7 @@ def test_song_library_metadata_editing():
     # GET row partial
     res_row = client.get("/api/songs/1999/row")
     assert res_row.status_code == 200
-    assert "Edit" in res_row.text
+    assert "song-row" in res_row.text
 
     # POST metadata update with row context
     res_post_row = client.post("/api/songs/1999/edit", data={
@@ -295,6 +295,22 @@ def test_ui_ux_enhancements():
     details_idx = card_html.find("Details")
     assert show_idx < builder_idx < details_idx, "Setlist buttons order is incorrect"
     print("✅ Setlist cards button order (Show Mode -> Builder -> Details) & icon verified")
+
+    # 7. Song Details Metadata Tags, Key, & Duration Formatting
+    res_song_det = client.get("/api/lyrics/1999")
+    assert res_song_det.status_code == 200
+    assert "Key: F" in res_song_det.text
+    assert "High Energy" in res_song_det.text or "badge-energy-high" in res_song_det.text
+    assert "3:31" in res_song_det.text
+    assert "211s" not in res_song_det.text
+    print("✅ Song Details tags (Jam, Horn, Energy, Key) and MM:SS duration verified")
+
+    # 8. Song Library Table Action Buttons Removed
+    res_songs_lib = client.get("/api/songs/")
+    assert res_songs_lib.status_code == 200
+    assert "song-action-btn" not in res_songs_lib.text
+    assert "song-col-actions" not in res_songs_lib.text
+    print("✅ Song Library redundant actions column & buttons removal verified")
 
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")

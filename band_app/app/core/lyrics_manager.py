@@ -33,8 +33,10 @@ def load_lyrics_content(song_name: str) -> str:
     try:
         lyrics_file = LYRICS_DIR / f"{song_name}.txt"
         if lyrics_file.exists():
-            with open(lyrics_file, 'r', encoding='utf-8') as f:
-                return f.read()
+            with open(lyrics_file, 'r', encoding='utf-8', errors='replace') as f:
+                content = f.read()
+                content = content.replace('\r\n', '\n').replace('\r', '\n').replace('\xa0', ' ')
+                return content.strip()
         else:
             return f"Lyrics file for '{song_name}' not found."
     except Exception as e:
@@ -42,16 +44,35 @@ def load_lyrics_content(song_name: str) -> str:
 
 
 def format_lyrics_for_display(content: str) -> str:
-    """Ensure section headers have padding and render bold in HTML."""
+    """Ensure section headers have clean padding and render bold in HTML without any leading empty space."""
+    if not content:
+        return ""
+
+    raw_lines = content.replace('\r\n', '\n').replace('\r', '\n').replace('\xa0', ' ').split('\n')
+    
+    # Strip leading empty lines before first content line
+    start_idx = 0
+    while start_idx < len(raw_lines) and not raw_lines[start_idx].strip():
+        start_idx += 1
+    raw_lines = raw_lines[start_idx:]
+
     formatted_lines: List[str] = []
-    for line in content.splitlines():
+    for line in raw_lines:
         stripped = line.strip()
         if SECTION_LABEL_PATTERN.match(stripped):
+            # Only add a blank spacer line if there are already preceding non-empty lines
             if formatted_lines and formatted_lines[-1] != "":
                 formatted_lines.append("")
             formatted_lines.append(f"<strong>{html.escape(stripped)}</strong>")
         else:
             formatted_lines.append(html.escape(line))
+
+    # Clean leading and trailing empty lines
+    while formatted_lines and formatted_lines[0] == "":
+        formatted_lines.pop(0)
+    while formatted_lines and formatted_lines[-1] == "":
+        formatted_lines.pop()
+
     return "<br/>".join(formatted_lines)
 
 

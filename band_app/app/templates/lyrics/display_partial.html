@@ -1,10 +1,30 @@
 <div class="lyrics-song-header">
     <div class="flex items-center justify-between flex-wrap gap-sm">
         <div>
-            <div class="lyrics-song-title">{{ song_name }}</div>
-            {% if artist or bpm or song_key %}
-            <div class="lyrics-song-artist">{{ artist }}{% if bpm %} · ({{ bpm }}){% endif %}{% if song_key %} · <span style="color: var(--primary); font-weight: 700;">Key: {{ song_key }}</span>{% endif %}{% if duration %} · {{ duration }}s{% endif %}</div>
+            <div class="lyrics-song-title" style="color: var(--primary);">{{ song_name }}</div>
+            {% if artist or bpm or duration_formatted %}
+            <div class="lyrics-song-artist mt-xs" style="font-size: 0.92rem; color: var(--text-muted);">
+                {% if artist %}<span style="color: var(--text-primary); font-weight: 600;">{{ artist }}</span>{% endif %}
+                {% if bpm %} · ({{ bpm }} BPM){% endif %}
+                {% if duration_formatted %} · {{ duration_formatted }}{% endif %}
+            </div>
             {% endif %}
+            <div class="flex flex-wrap gap-xs items-center mt-xs">
+                {% if song_key %}
+                <span class="badge" style="background: rgba(0, 212, 216, 0.15); color: var(--primary); border: 1px solid rgba(0, 212, 216, 0.4); font-weight: 700;">Key: {{ song_key }}</span>
+                {% endif %}
+                {% if song_info.get('has_horn') or has_horn %}
+                <span class="badge badge-horn" title="Horn Section">🎺 Horn</span>
+                {% endif %}
+                {% if song_info.get('is_jam_vehicle') or is_jam_vehicle %}
+                <span class="badge badge-jam" title="Jam Vehicle">🛸 Jam Vehicle</span>
+                {% endif %}
+                {% if (song_info.get('energy_level') == 'high') or (energy_level == 'high') %}
+                <span class="badge badge-energy-high" title="High Energy">🔥 High Energy</span>
+                {% elif (song_info.get('energy_level') == 'low') or (energy_level == 'low') %}
+                <span class="badge badge-energy-low" title="Low Energy">💤 Low Energy</span>
+                {% endif %}
+            </div>
         </div>
         <div class="flex gap-sm items-center flex-wrap">
             <button class="band-btn-secondary band-btn-sm" 

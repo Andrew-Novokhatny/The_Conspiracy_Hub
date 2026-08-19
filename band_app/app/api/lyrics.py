@@ -82,15 +82,22 @@ async def get_lyrics(request: Request, song_name: str):
         # Get song info if available
         songs_data = load_song_list()
         song_info = songs_data.get(song_name, {})
+        duration_sec = song_info.get('duration', 0)
+        duration_formatted = f"{duration_sec // 60}:{(duration_sec % 60):02d}" if duration_sec else ""
 
         return templates.TemplateResponse(request=request, name="lyrics/display.html", context={
             "request": request,
             "song_name": song_name,
             "lyrics_content": formatted_lyrics,
+            "song_info": song_info,
             "artist": song_info.get('artist', ''),
             "bpm": song_info.get('bpm', ''),
             "song_key": song_info.get('song_key', ''),
-            "duration": song_info.get('duration', ''),
+            "duration": duration_sec,
+            "duration_formatted": duration_formatted,
+            "has_horn": song_info.get('has_horn', False),
+            "is_jam_vehicle": song_info.get('is_jam_vehicle', False),
+            "energy_level": song_info.get('energy_level', 'standard'),
             "fullscreen": False,
             "active_page": "lyrics",
         })
@@ -110,15 +117,22 @@ async def get_lyrics_view_partial(request: Request, song_name: str):
 
         songs_data = load_song_list()
         song_info = songs_data.get(song_name, {})
+        duration_sec = song_info.get('duration', 0)
+        duration_formatted = f"{duration_sec // 60}:{(duration_sec % 60):02d}" if duration_sec else ""
 
         return templates.TemplateResponse(request=request, name="lyrics/display_partial.html", context={
             "request": request,
             "song_name": song_name,
             "lyrics_content": formatted_lyrics,
+            "song_info": song_info,
             "artist": song_info.get('artist', ''),
             "bpm": song_info.get('bpm', ''),
             "song_key": song_info.get('song_key', ''),
-            "duration": song_info.get('duration', ''),
+            "duration": duration_sec,
+            "duration_formatted": duration_formatted,
+            "has_horn": song_info.get('has_horn', False),
+            "is_jam_vehicle": song_info.get('is_jam_vehicle', False),
+            "energy_level": song_info.get('energy_level', 'standard'),
             "active_page": "lyrics",
         })
     except Exception as e:
@@ -195,6 +209,7 @@ async def get_lyrics_fullscreen(request: Request, song_name: str):
         bpm = song_info.get('bpm', '')
 
         duration = song_info.get('duration', 0)
+        duration_formatted = f"{duration // 60}:{(duration % 60):02d}" if duration else ""
         if not duration or duration <= 0:
             duration = 240
 
@@ -202,10 +217,15 @@ async def get_lyrics_fullscreen(request: Request, song_name: str):
             "request": request,
             "song_name": song_name,
             "lyrics_content": formatted_lyrics,
+            "song_info": song_info,
             "artist": song_info.get('artist', ''),
             "bpm": song_info.get('bpm', ''),
             "song_key": song_info.get('song_key', ''),
             "duration": duration,
+            "duration_formatted": duration_formatted,
+            "has_horn": song_info.get('has_horn', False),
+            "is_jam_vehicle": song_info.get('is_jam_vehicle', False),
+            "energy_level": song_info.get('energy_level', 'standard'),
             "active_page": "lyrics",
         })
     except HTTPException:

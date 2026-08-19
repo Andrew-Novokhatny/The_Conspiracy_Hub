@@ -5,10 +5,12 @@
      data-artist="{{ song_info.get('artist', '')|lower }}"
      data-horn="{{ song_info.get('has_horn', False)|string|lower }}"
      data-jam="{{ song_info.get('is_jam_vehicle', False)|string|lower }}"
-     data-energy="{{ song_info.get('energy_level', 'standard') }}">
+     data-energy="{{ song_info.get('energy_level', 'standard') }}"
+     onclick="window.location.href='/api/lyrics/{{ song_name }}'"
+     style="cursor: pointer;">
     
     <!-- Title & Artist Column -->
-    <div class="song-row-col song-col-info" onclick="window.location.href='/api/lyrics/{{ song_name }}'" style="cursor: pointer;">
+    <div class="song-row-col song-col-info">
         <div class="song-row-title">{{ song_name }}</div>
         <div class="song-row-artist">{{ song_info.get('artist', '') or '—' }}</div>
     </div>
@@ -37,20 +39,5 @@
     <!-- BPM Column -->
     <div class="song-row-col song-col-bpm">
         {% if song_info.get('bpm') %}({{ song_info.bpm }}){% else %}<span class="text-muted" style="opacity: 0.4;">—</span>{% endif %}
-    </div>
-    
-    <!-- Action Buttons Column -->
-    <div class="song-row-col song-col-actions">
-        <a href="/api/lyrics/{{ song_name }}" class="band-btn-secondary band-btn-sm song-action-btn" onclick="event.stopPropagation();">
-            Lyrics
-        </a>
-        <button class="band-btn-secondary band-btn-sm song-action-btn" 
-                onclick="event.stopPropagation();"
-                hx-get="/api/songs/{{ song_name }}/edit?context=row" 
-                hx-target="#song-row-{{ song_name|lower|replace(' ', '-') }}" 
-                hx-swap="outerHTML"
-                title="Edit song metadata">
-            Edit
-        </button>
     </div>
 </div>
