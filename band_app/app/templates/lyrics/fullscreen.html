@@ -63,7 +63,7 @@
     <script src="/static/js/autoscroll.js"></script>
     <script>
         window.initLyricsAutoscroll({
-            containerSelector: '#fullscreen-lyrics-body',
+            containerSelector: null,
             durationSeconds: {{ duration if duration else 240 }},
             bpm: {{ bpm if bpm else 'null' }},
             speed: 1.0

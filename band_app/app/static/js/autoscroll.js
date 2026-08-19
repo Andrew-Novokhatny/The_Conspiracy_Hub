@@ -32,7 +32,13 @@ class LyricsAutoScroller {
     getContainer() {
         if (this.containerSelector) {
             const el = document.querySelector(this.containerSelector);
-            if (el) return el;
+            if (el) {
+                const style = window.getComputedStyle(el);
+                const hasScrollOverflow = (style.overflowY === 'auto' || style.overflowY === 'scroll');
+                if (hasScrollOverflow && el.scrollHeight > el.clientHeight + 10) {
+                    return el;
+                }
+            }
         }
         return document.scrollingElement || document.documentElement || document.body;
     }
@@ -66,7 +72,7 @@ class LyricsAutoScroller {
 
         // User manual scroll detection
         const container = this.getContainer();
-        const scrollTarget = (container === document.documentElement || container === document.body) ? window : container;
+        const scrollTarget = (container === document.documentElement || container === document.body || container === document.scrollingElement) ? window : container;
 
         const onUserTouch = () => {
             this.userInteracting = true;
@@ -103,11 +109,25 @@ class LyricsAutoScroller {
 
     getScrollStats() {
         const container = this.getContainer();
-        const isWindow = (container === document.documentElement || container === document.body);
+        const isWindow = (
+            container === document.documentElement || 
+            container === document.body || 
+            container === document.scrollingElement ||
+            container === window
+        );
         
-        const scrollTop = isWindow ? (window.pageYOffset || document.documentElement.scrollTop) : container.scrollTop;
-        const scrollHeight = isWindow ? document.documentElement.scrollHeight : container.scrollHeight;
-        const clientHeight = isWindow ? window.innerHeight : container.clientHeight;
+        const scrollTop = isWindow 
+            ? (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0) 
+            : container.scrollTop;
+            
+        const scrollHeight = isWindow 
+            ? Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) 
+            : container.scrollHeight;
+            
+        const clientHeight = isWindow 
+            ? (window.innerHeight || document.documentElement.clientHeight) 
+            : container.clientHeight;
+            
         const maxScroll = Math.max(0, scrollHeight - clientHeight);
 
         return { scrollTop, scrollHeight, clientHeight, maxScroll, isWindow, container };
