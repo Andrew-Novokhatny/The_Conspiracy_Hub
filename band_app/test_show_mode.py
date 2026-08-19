@@ -248,14 +248,14 @@ def test_ui_ux_enhancements():
     assert lyrics_pos < setlists_pos < songs_pos, "Landing cards order is incorrect"
     print("✅ Landing page compact row cards & reordering verified")
 
-    # 2. Setlist Details
+    # 2. Setlist Details & Human-Readable Timing
     res_det = client.get("/api/setlists/0")
     assert res_det.status_code == 200
     assert "setlist-timing-strip" in res_det.text
     assert "timing-pill" in res_det.text
-    # Verify BPM string is removed and only numbers in parentheses are shown
     assert " BPM)" not in res_det.text
-    print("✅ Setlist Details minimalist timing strip and BPM formatting verified")
+    assert any(w in res_det.text for w in ["min", "hour", "hours"])
+    print("✅ Setlist Details minimalist timing strip, human duration format & BPM formatting verified")
 
     # 3. Show Mode Navigation, Header Setlist button, and removal of Top button
     res_show = client.get("/api/setlists/0/show")
@@ -268,13 +268,33 @@ def test_ui_ux_enhancements():
     assert "autoscroll-top-btn" not in res_show.text
     print("✅ Show Mode Prev/Next navigation, header Setlist toggle, and Top button removal verified")
 
-    # 4. Builder In-Set Add Buttons & Modal Picker
+    # 4. Builder In-Set Add Buttons & Modal Picker & Duration Formatting
     res_builder = client.get("/api/builder/")
     assert res_builder.status_code == 200
     assert "song-picker-modal" in res_builder.text
     assert "btn-add-songs-to-set" in res_builder.text
     assert "picker-search-input" in res_builder.text
-    print("✅ Setlist Builder inline Add Songs buttons and Spotify-style picker verified")
+    assert "formatHoursAndMinutes" in res_builder.text
+    print("✅ Setlist Builder inline Add Songs buttons, picker & duration formatting verified")
+
+    # 5. Lyrics Index Enhancements
+    res_lyrics = client.get("/api/lyrics/")
+    assert res_lyrics.status_code == 200
+    assert "song-row-number" not in res_lyrics.text
+    assert "📜" not in res_lyrics.text
+    print("✅ Lyrics page minimalist icon, color & number/arrow removal verified")
+
+    # 6. Setlists Index Enhancements
+    res_setlists = client.get("/api/setlists/")
+    assert res_setlists.status_code == 200
+    assert "📋" not in res_setlists.text
+    # Verify Show Mode comes before Builder inside setlist-card
+    card_html = res_setlists.text[res_setlists.text.find("setlist-card"):]
+    show_idx = card_html.find("Show Mode")
+    builder_idx = card_html.find("Builder")
+    details_idx = card_html.find("Details")
+    assert show_idx < builder_idx < details_idx, "Setlist buttons order is incorrect"
+    print("✅ Setlist cards button order (Show Mode -> Builder -> Details) & icon verified")
 
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")

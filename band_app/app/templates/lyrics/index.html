@@ -4,7 +4,10 @@
 
 {% block content %}
 <div class="fade-in-up">
-    <h1 class="page-title">📜 Lyrics</h1>
+    <h1 class="page-title flex items-center gap-sm">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+        <span>Lyrics</span>
+    </h1>
     <p class="page-subtitle">{{ total_lyrics }} songs available</p>
 </div>
 
@@ -25,8 +28,7 @@
     <a href="/api/lyrics/{{ song_name }}"
        class="lyrics-song-item"
        data-song="{{ song_name|lower }}">
-        <span class="song-row-number">{{ loop.index }}</span>
-        <div class="song-row-info">
+        <div class="song-row-info" style="flex: 1; min-width: 0;">
             <div class="song-row-title">{{ song_name }}</div>
             {% if songs_data and song_name in songs_data %}
             <div class="song-row-meta">
@@ -35,14 +37,15 @@
             </div>
             {% endif %}
         </div>
-        <span class="text-muted text-sm">→</span>
     </a>
     {% endfor %}
 </div>
 
 {% if not available_lyrics %}
 <div class="empty-state">
-    <div class="empty-state-icon">📜</div>
+    <div class="empty-state-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+    </div>
     <div class="empty-state-text">No lyrics files found yet. Add <code>.txt</code> files to the lyrics directory to get started.</div>
 </div>
 {% endif %}

@@ -1126,6 +1126,17 @@ a {
     border-color: var(--accent);
 }
 
+.lyrics-song-item .song-row-title {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1rem;
+    transition: color 0.15s ease;
+}
+
+.lyrics-song-item:hover .song-row-title {
+    color: #ffffff;
+}
+
 /* === SETLIST COMPONENTS === */
 
 .setlist-card {

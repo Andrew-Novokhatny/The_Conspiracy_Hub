@@ -4,7 +4,10 @@
 
 {% block content %}
 <div class="fade-in-up">
-    <h1 class="page-title">📋 Setlists</h1>
+    <h1 class="page-title flex items-center gap-sm">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+        <span>Setlists</span>
+    </h1>
     <p class="page-subtitle">{{ total_setlists }} previous shows</p>
 </div>
 
@@ -28,18 +31,18 @@
         <div class="setlist-card-header">
             <div>
                 <a href="/api/setlists/{{ loop.index0 }}" style="text-decoration: none; color: inherit;">
-                    <div class="setlist-card-venue">🎸 {{ setlist.venue }}</div>
+                    <div class="setlist-card-venue">{{ setlist.venue }}</div>
                     <div class="setlist-card-date">{{ setlist.date }}</div>
                 </a>
             </div>
             <div class="setlist-actions-group flex items-center gap-sm flex-wrap">
-                <a href="/api/builder/?edit={{ loop.index0 }}" class="band-btn-secondary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.65rem;" title="Edit in Setlist Builder">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 15V6a2 2 0 0 1 4 0v9"/><path d="M4 15v-3a8 8 0 0 1 16 0v3"/></svg>
-                    <span>Builder</span>
-                </a>
                 <a href="/api/setlists/{{ loop.index0 }}/show" class="band-btn-sm band-btn" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; font-size: 0.85rem;" title="Launch stage Show Mode">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
                     <span>Show Mode</span>
+                </a>
+                <a href="/api/builder/?edit={{ loop.index0 }}" class="band-btn-secondary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.65rem;" title="Edit in Setlist Builder">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 15V6a2 2 0 0 1 4 0v9"/><path d="M4 15v-3a8 8 0 0 1 16 0v3"/></svg>
+                    <span>Builder</span>
                 </a>
                 <a href="/api/setlists/{{ loop.index0 }}" class="band-btn-secondary band-btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.65rem;">
                     <span>Details</span>
@@ -70,7 +73,9 @@
 
 {% if not setlists %}
 <div class="empty-state">
-    <div class="empty-state-icon">📋</div>
+    <div class="empty-state-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+    </div>
     <div class="empty-state-text">No setlists found yet. Add setlist markdown files to the setlists directory.</div>
 </div>
 {% endif %}

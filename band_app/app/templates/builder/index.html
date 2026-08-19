@@ -485,7 +485,7 @@
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <strong style="font-size: 1.05rem;">Total Show Time:</strong>
                 <span id="total-time-display"
-                    style="font-size: 1.6rem; font-weight: 800; color: var(--accent);">00:00</span>
+                    style="font-size: 1.5rem; font-weight: 800; color: var(--accent);">0 min</span>
             </div>
         </div>
     </div>
@@ -826,6 +826,21 @@
         return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     }
 
+    function formatHoursAndMinutes(seconds) {
+        if (!seconds || seconds <= 0) return "0 min";
+        const totalMinutes = Math.round(seconds / 60);
+        const hours = Math.floor(totalMinutes / 60);
+        const mins = totalMinutes % 60;
+        if (hours === 0) {
+            return `${mins} min`;
+        }
+        const hrText = hours === 1 ? '1 hour' : `${hours} hours`;
+        if (mins === 0) {
+            return hrText;
+        }
+        return `${hrText} ${mins} min`;
+    }
+
     function calculateTiming() {
         const defaultGap = parseInt(document.getElementById('default-gap').value) || 0;
         let totalShowSeconds = 0;
@@ -860,12 +875,12 @@
             if (countEl) countEl.innerText = `(${songCount} ${songCount === 1 ? 'song' : 'songs'})`;
 
             const timeEl = document.getElementById(`set${s}-time`);
-            if (timeEl) timeEl.innerText = formatTime(setSeconds);
+            if (timeEl) timeEl.innerText = formatHoursAndMinutes(setSeconds);
 
             totalShowSeconds += setSeconds;
         }
 
-        document.getElementById('total-time-display').innerText = formatTime(totalShowSeconds);
+        document.getElementById('total-time-display').innerText = formatHoursAndMinutes(totalShowSeconds);
     }
 
     // Initialize date to today

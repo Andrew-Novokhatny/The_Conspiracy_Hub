@@ -204,6 +204,21 @@ def format_duration(seconds: int) -> str:
     return f"{minutes:02d}:{secs:02d}"
 
 
+def format_human_duration(seconds: int) -> str:
+    """Format duration in human-friendly hours and minutes format (e.g. '1 hour 20 min', '45 min')."""
+    if not seconds or seconds <= 0:
+        return "0 min"
+    total_minutes = round(seconds / 60)
+    hours = total_minutes // 60
+    mins = total_minutes % 60
+    if hours == 0:
+        return f"{mins} min"
+    hr_text = "1 hour" if hours == 1 else f"{hours} hours"
+    if mins == 0:
+        return hr_text
+    return f"{hr_text} {mins} min"
+
+
 def get_energy_emoji(energy_level: str) -> str:
     """Get emoji for energy level"""
     energy_emojis = {

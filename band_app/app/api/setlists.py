@@ -24,6 +24,7 @@ from core.setlist_manager import (
     load_setlist_from_json,
     search_setlists_by_song,
     format_duration,
+    format_human_duration,
     human_readable_date
 )
 from core.song_manager import load_song_list
@@ -108,15 +109,15 @@ async def get_setlist_details(request: Request, setlist_id: int):
 
         for set_key, songs in setlist['sets'].items():
             song_names = [song['name'] for song in songs]
-            set_seconds, formatted_duration = calculate_set_timing(song_names, songs_data)
+            set_seconds, _ = calculate_set_timing(song_names, songs_data)
             set_timings[set_key] = {
                 'seconds': set_seconds,
-                'formatted': formatted_duration,
+                'formatted': format_human_duration(set_seconds),
                 'song_count': len(songs)
             }
             total_show_seconds += set_seconds
 
-        total_show_formatted = format_duration(total_show_seconds)
+        total_show_formatted = format_human_duration(total_show_seconds)
 
         return templates.TemplateResponse(request=request, name="setlists/details.html", context={
             "request": request,
