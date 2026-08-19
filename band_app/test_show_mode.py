@@ -370,16 +370,24 @@ def test_fetch_lyrics_and_add_song_flow():
     assert songs[test_title]["has_horn"] is True
     assert songs[test_title]["is_jam_vehicle"] is True
 
-    # Verify lyrics exist and loaded
-    lyrics = lyrics_manager.load_lyrics_content(test_title)
-    assert "[Intro]" in lyrics
-    assert "Testing the groove" in lyrics
-    print("✅ Add Song & lyrics persistence verified")
+    # Verify Delete Song button present on lyrics details view
+    res_lyrics_view = client.get(f"/api/lyrics/{test_title}")
+    assert res_lyrics_view.status_code == 200
+    assert "Delete Song" in res_lyrics_view.text
+    assert f"/api/lyrics/{test_title}/delete" in res_lyrics_view.text
+    print("✅ Lyrics details Delete Song button verified")
 
-    # Clean up test automation song
-    del songs[test_title]
-    song_manager.save_song_list(songs)
-    lyrics_manager.delete_lyrics_file(test_title)
+    # 5. Delete Song via POST endpoint
+    res_del_song = client.post(f"/api/lyrics/{test_title}/delete")
+    assert res_del_song.status_code == 200
+
+    # Verify song and lyrics are removed completely from catalog & storage
+    songs_after = song_manager.load_song_list()
+    assert test_title not in songs_after
+    
+    available_lyrics_after = lyrics_manager.load_available_lyrics()
+    assert test_title not in available_lyrics_after
+    print("✅ Delete Song flow & catalog/lyrics synchronization verified")
 
 
 if __name__ == "__main__":

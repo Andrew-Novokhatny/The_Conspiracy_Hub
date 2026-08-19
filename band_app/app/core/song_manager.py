@@ -285,6 +285,21 @@ def save_song_list(songs_data: Dict[str, Dict]) -> bool:
         return False
 
 
+def delete_song_from_catalog(song_name: str) -> bool:
+    """Remove a song from the catalog and update CSV and markdown files."""
+    songs_data = load_song_list()
+    matched_key = None
+    for name in songs_data.keys():
+        if name.lower() == song_name.lower():
+            matched_key = name
+            break
+    if not matched_key:
+        return False
+    
+    del songs_data[matched_key]
+    return save_song_list(songs_data)
+
+
 def get_song_stats(songs_data: Dict[str, Dict]) -> Dict[str, Union[int, float]]:
     """Calculate song statistics."""
     if not songs_data:

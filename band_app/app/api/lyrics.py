@@ -17,9 +17,10 @@ from core.lyrics_manager import (
     load_lyrics_content,
     format_lyrics_for_display,
     search_lyrics,
-    save_lyrics_content
+    save_lyrics_content,
+    delete_lyrics_file
 )
-from core.song_manager import load_song_list
+from core.song_manager import load_song_list, delete_song_from_catalog
 from core.lyrics_fetcher import fetch_lyrics_online
 
 router = APIRouter()
@@ -149,6 +150,22 @@ async def save_new_lyrics(
         content=f"<script>window.location.href='/api/lyrics/{target_song}';</script>",
         headers={"HX-Redirect": f"/api/lyrics/{target_song}"}
     )
+
+
+@router.post("/{song_name}/delete")
+@router.delete("/{song_name}")
+async def delete_lyrics_and_song_endpoint(request: Request, song_name: str):
+    """Permanently delete a song from lyrics and catalog"""
+    try:
+        delete_song_from_catalog(song_name)
+        delete_lyrics_file(song_name)
+        
+        return HTMLResponse(
+            content="<script>window.location.href='/api/lyrics/';</script>",
+            headers={"HX-Redirect": "/api/lyrics/"}
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error deleting song: {str(e)}")
 
 
 @router.get("/{song_name}", response_class=HTMLResponse)
