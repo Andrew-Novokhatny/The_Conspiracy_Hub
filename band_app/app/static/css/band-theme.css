@@ -250,6 +250,26 @@ a {
 .nav-brand {
     font-size: 1.2rem;
     font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.nav-brand-logo {
+    height: 28px;
+    width: auto;
+    max-width: 50px;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: transform 0.2s ease;
+}
+
+.nav-brand:hover .nav-brand-logo {
+    transform: scale(1.06);
+}
+
+.nav-brand-text {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
