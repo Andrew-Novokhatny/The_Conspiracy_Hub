@@ -248,32 +248,39 @@ a {
 }
 
 .nav-brand {
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1.25rem;
+    font-weight: 800;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     text-decoration: none;
+    color: var(--primary);
+    transition: color 0.15s ease, opacity 0.15s ease;
 }
 
-.nav-brand-logo {
-    height: 28px;
-    width: auto;
-    max-width: 50px;
-    display: block;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    transition: transform 0.2s ease;
+.nav-brand-icon {
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, color 0.15s ease;
 }
 
-.nav-brand:hover .nav-brand-logo {
-    transform: scale(1.06);
+.nav-brand:hover .nav-brand-icon {
+    transform: rotate(-10deg) scale(1.08);
+    color: #38bdf8;
 }
 
 .nav-brand-text {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    transition: color 0.15s ease;
+}
+
+.nav-brand:hover .nav-brand-text {
+    color: #38bdf8;
 }
 
 .nav-toggle {
