@@ -585,6 +585,7 @@
             <div class="picker-song-row"
                  id="picker-item-{{ loop.index0 }}"
                  data-song="{{ song|lower }}"
+                 data-song-name="{{ song|e }}"
                  data-artist="{{ s_info.get('artist', '')|lower }}"
                  data-horn="{{ s_info.get('has_horn', False)|string|lower }}"
                  data-jam="{{ s_info.get('is_jam_vehicle', False)|string|lower }}"
@@ -604,9 +605,9 @@
                 </div>
 
                 <div class="picker-actions-wrap">
-                    <button type="button" class="picker-set-btn target-active btn-set-1" onclick="insertSongFromPicker(event, '{{ song }}', 1, this)">+ Set 1</button>
-                    <button type="button" class="picker-set-btn btn-set-2" onclick="insertSongFromPicker(event, '{{ song }}', 2, this)">+ Set 2</button>
-                    <button type="button" class="picker-set-btn btn-set-3" style="display: none;" onclick="insertSongFromPicker(event, '{{ song }}', 3, this)">+ Set 3</button>
+                    <button type="button" class="picker-set-btn target-active btn-set-1" onclick="handlePickerAdd(event, 1, this)">+ Set 1</button>
+                    <button type="button" class="picker-set-btn btn-set-2" onclick="handlePickerAdd(event, 2, this)">+ Set 2</button>
+                    <button type="button" class="picker-set-btn btn-set-3" style="display: none;" onclick="handlePickerAdd(event, 3, this)">+ Set 3</button>
                 </div>
             </div>
             {% endfor %}
@@ -658,6 +659,27 @@
                 btn.classList.add('target-active');
             }
         });
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function handlePickerAdd(e, setNum, btnElement) {
+        if (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+        const row = btnElement.closest('.picker-song-row');
+        const songName = row ? row.getAttribute('data-song-name') : null;
+        if (songName) {
+            insertSongFromPicker(e, songName, setNum, btnElement);
+        }
     }
 
     function insertSongFromPicker(e, songId, setNum, btnElement) {
@@ -736,7 +758,7 @@
                     </button>
                 </div>
                 <button class="segue-btn ${isSegue ? 'active' : ''}" onclick="toggleSegue(this)" title="Toggle segue into this song">-></button>
-                <strong class="song-title-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${isSegue ? '<span style="color: var(--accent); font-weight: bold; margin-right: 0.25rem;">→</span>' : ''}${songId}</strong>
+                <strong class="song-title-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${isSegue ? '<span style="color: var(--accent); font-weight: bold; margin-right: 0.25rem;">→</span>' : ''}${escapeHtml(songId)}</strong>
                 ${math.has_horn ? '🎺' : ''}
                 ${math.is_jam_vehicle ? '🛸' : ''}
                 ${energyEmoji ? `<span>${energyEmoji}</span>` : ''}

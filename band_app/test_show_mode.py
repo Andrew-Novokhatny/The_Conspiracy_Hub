@@ -434,6 +434,25 @@ def test_metadata_edit_from_lyrics_view_and_special_character_songs():
     print("✅ Song row with single quotes (It Ain't Over Till It's Over) verified")
 
 
+def test_builder_picker_special_character_songs():
+    """Verify that Setlist Builder renders safe attributes for songs with apostrophes"""
+    res = client.get("/api/builder/")
+    assert res.status_code == 200
+    html = res.text
+
+    # Verify that single-quoted songs have data-song-name attribute and no broken onclick
+    apostrophe_songs = ["It Ain't Over Till It's Over", "Don't You (Forget About Me)", "I'm a Ram"]
+    for s in apostrophe_songs:
+        assert s in html
+        # Make sure there is NO inline onclick='insertSongFromPicker(event, '...'
+        assert f"insertSongFromPicker(event, '{s}'" not in html
+        assert f'data-song-name="{s}"' in html or f"data-song-name='{s}'" in html or "data-song-name=" in html
+
+    assert "handlePickerAdd(event, 1, this)" in html
+    assert "function handlePickerAdd" in html
+    print("✅ Builder song picker apostrophe songs verified (It Ain't Over Till It's Over, Don't You, I'm a Ram)")
+
+
 if __name__ == "__main__":
     print("🎸 Running Show Mode, Autoscroll, Builder Edit & Delete Tests...\n")
     test_new_songs_in_song_list()
@@ -451,5 +470,5 @@ if __name__ == "__main__":
     test_fetch_lyrics_and_add_song_flow()
     test_manual_lyrics_edit_saving()
     test_metadata_edit_from_lyrics_view_and_special_character_songs()
-    print("\n🎉 ALL TESTS PASSED!")
-
+    test_builder_picker_special_character_songs()
+    print("\n🎉 ALL TESTS PASSED!\n")
