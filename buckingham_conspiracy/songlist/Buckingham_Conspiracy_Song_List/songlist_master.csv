@@ -4,8 +4,10 @@ title,artist,bpm,song_key,has_horn,energy_level,is_jam_vehicle,avg_length
 2nd Red Barn on the Right,From Good Homes,96,,False,standard,False,262
 Abracadabra,Steve Miller Band,127,Am,False,standard,False,308
 After Midnight,JJ Cale,100,,False,standard,False,252
+Alive,Pearl Jam,75,A,False,high,True,340
 Another Brick in the Wall,Pink Floyd,104,Dm,False,high,True,360
 Bertha,Grateful Dead,100,,False,standard,False,252
+Call Me,Blondie,142,Dm,False,high,False,210
 Can’t U See,Marshall Tucker Band,87,G,False,standard,True,324
 Chameleon,Herbie Hancock,107,,False,standard,True,235
 Cissy Strut,The Meters,88,,True,standard,False,286
@@ -17,6 +19,7 @@ Crosseyed and Painless,Talking Heads,120,Bm,False,high,True,330
 DWBWID,Delvin Lamar Organ Trio,85,,False,high,False,296
 Dancing in the Moonlight,King Harvest,123,,True,low,False,204
 Deal,Grateful Dead,140,,False,standard,False,285
+Disco Yes,Tom Misch,120,Fm,False,standard,False,280
 Don't You (Forget About Me),Simple Minds,111,E,False,high,False,260
 Down Under,Men at Work,107,,False,high,False,295
 Dreams,Fleetwood Mac,120,C,False,standard,False,257
@@ -38,6 +41,7 @@ Inside Out,Eve 6,115,E,False,high,False,219
 It Ain't Over Till It's Over,Lenny Kravitz,80,Db,True,low,False,242
 It’s a Bunch,Spafford,88,,False,standard,False,286
 Jumping Jack Flash,The Rolling Stones,136,,False,high,False,185
+Jungle Boogie,Kool & The Gang,106,Em,True,high,True,185
 Leave the Light On,Spafford,80,,False,standard,False,315
 Little L,Jamiroquai,118,,False,standard,False,213
 Mary Janes Last Dance,Tom Petty,86,G,False,low,False,372
@@ -62,7 +66,9 @@ Take Me to the River,Al Green,108,E,False,standard,False,409
 Thank U,Sly and the Family Stone,110,,True,high,True,409
 Time,Pink Floyd,71,,False,low,False,354
 Use Me,Bill Withers,78,Em,True,standard,False,323
+Vehicle,The Ides of March,115,Ebm,True,high,False,175
 WS Walcott,The Band,90,,False,high,True,480
 When My Train Pulls In,Gary Clark Jr.,85,,False,standard,False,330
 White Wedding,Billy Idol,140,,False,high,True,420
+Whitehouse Road,Tyler Childers,140,A,False,high,False,280
 Wish I Knew You,The Revivalists,101,,False,standard,False,249

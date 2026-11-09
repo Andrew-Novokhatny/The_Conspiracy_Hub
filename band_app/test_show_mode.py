@@ -15,14 +15,21 @@ from core import song_manager, lyrics_manager, setlist_manager
 client = TestClient(main.app)
 
 def test_new_songs_in_song_list():
-    """Verify that 1999, Abracadabra, Rock With You, and It Ain't Over Till It's Over are in songlist"""
+    """Verify that expected songs including recent additions are in songlist"""
     songs = song_manager.load_song_list()
+    assert len(songs) >= 73, f"Expected at least 73 songs, got {len(songs)}"
     
     expected_new_songs = [
         ("1999", "Prince", 119),
         ("Abracadabra", "Steve Miller Band", 127),
         ("Rock With You", "Michael Jackson", 114),
         ("It Ain't Over Till It's Over", "Lenny Kravitz", 80),
+        ("Vehicle", "The Ides of March", 115),
+        ("Whitehouse Road", "Tyler Childers", 140),
+        ("Call Me", "Blondie", 142),
+        ("Jungle Boogie", "Kool & The Gang", 106),
+        ("Disco Yes", "Tom Misch", 120),
+        ("Alive", "Pearl Jam", 75),
     ]
 
     for title, artist, bpm in expected_new_songs:
@@ -30,7 +37,7 @@ def test_new_songs_in_song_list():
         assert songs[title]["artist"] == artist, f"Artist for '{title}' mismatch: got {songs[title]['artist']}, expected {artist}"
         assert songs[title]["bpm"] == bpm, f"BPM for '{title}' mismatch: got {songs[title]['bpm']}, expected {bpm}"
     
-    print(f"✅ All 4 new songs verified in song catalog ({len(songs)} total songs)")
+    print(f"✅ All expected songs verified in song catalog ({len(songs)} total songs)")
 
 def test_lyrics_loaded():
     """Verify lyrics exist for all new songs"""
@@ -41,7 +48,13 @@ def test_lyrics_loaded():
         "It Ain't Over Till It's Over",
         "Dreams",
         "Crosseyed and Painless",
-        "Everybody Wants to Rule the World"
+        "Everybody Wants to Rule the World",
+        "Vehicle",
+        "Whitehouse Road",
+        "Call Me",
+        "Jungle Boogie",
+        "Disco Yes",
+        "Alive"
     ]
 
     for song in new_songs:
